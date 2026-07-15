@@ -386,12 +386,10 @@
 </div>
 
 <script src="../app.js"></script>
-<script src="../assets/octopus.js"></script>
-<script>
-  (function () {
-    var canvas = document.getElementById('hero-mascot');
-    if (window.LivingOctopus) window.LivingOctopus.createOctopus(canvas, { zoom: 1.0 });
-  })();
+<script type="module">
+  import { createOctopus3D } from '../assets/octopus3d.js';
+  var canvas = document.getElementById('hero-mascot');
+  if (canvas) createOctopus3D(canvas);
 </script>
 </body>
 </html>
