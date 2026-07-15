@@ -3,7 +3,7 @@
 // product. Real WebGL 3D (three.js), spring-physics drag (critically-damped spring, not a
 // full rigid-body engine - the standard technique for "physical" toy-on-a-string feel),
 // segment-chain tentacles (classic cheap tentacle-wave technique, no IK/bones needed).
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js';
+import * as THREE from './vendor/three.module.min.js';
 
 export function createOctopus3D(canvas, opts) {
   opts = opts || {};
