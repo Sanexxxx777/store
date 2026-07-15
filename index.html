@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Продуктовая лаборатория — Александр Шульгин</title>
+<meta name="description" content="Готовый код и короткие продуктовые спринты: интерактивные маскоты, лендинги, автоматизация процессов и безопасность VPS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&amp;family=Oswald:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0c'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='34' font-weight='900' fill='%23ee4e4e' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Продуктовая лаборатория — Александр Шульгин">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Готовый код и короткие спринты под конкретный результат.">
+</head>
+<body>
+
+<div class="glow" aria-hidden="true"></div>
+<div class="gridlines" aria-hidden="true"></div>
+<div class="dotgrid" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="logo" href="index.html">ЛАБОРАТОРИЯ<i>.</i></a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#offers">Спринты</a>
+      <a href="#products">Продукт</a>
+      <a href="#open-lab">Open Lab</a>
+      <a href="https://shulgin.is-a.dev" class="back">Портфолио</a>
+    </nav>
+    <a class="lang-switch" href="en/index.html" aria-label="English version">EN</a>
+    <a class="cta-mini" href="#" data-modal-open>Обсудить</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <span class="hero-kicker"><span class="star">★</span> product lab · code + delivery</span>
+        <h1>Готовый код.<br><span class="accent">Короткие спринты.</span><br>Конкретный результат.</h1>
+        <p class="hero-sub">Можно забрать готовый Living Mascot и встроить самостоятельно. Или прийти с задачей: оживить интерфейс, запустить страницу, автоматизировать ручной процесс или закрыть риски на VPS.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#offers">Выбрать задачу</a>
+          <a class="btn btn-ghost" href="#products">Посмотреть продукт</a>
+        </div>
+        <div class="hero-proof" aria-label="Направления работы">
+          <span>Web</span>
+          <span>Automation</span>
+          <span>Linux</span>
+          <span>AI pipelines</span>
+        </div>
+      </div>
+      <div class="hero-stage">
+        <canvas id="hero-mascot" width="960" height="640" aria-hidden="true"></canvas>
+        <a class="hero-stage-cap" href="#products">Живые canvas-персонажи — наш конёк. Один уже продаётся ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="routes" id="offers">
+    <div class="wrap">
+      <div class="routes-intro">
+        <div>
+          <span class="kicker"><span class="star">★</span> вход по задаче</span>
+          <h2>Что нужно <span class="accent">сделать?</span></h2>
+        </div>
+        <p>Не каталог обещаний, а четыре ограниченных результата. Сначала фиксируем вход, выход и критерий приёмки — затем называю срок и цену.</p>
+      </div>
+      <div class="route-grid">
+        <a class="route rise" href="#mascot-sprint">
+          <span class="route-no">01</span>
+          <div>
+            <h3>Оживить интерфейс</h3>
+            <p>Интерактивный персонаж для hero, onboarding, login или состояния ожидания. Реагирует на действия, а не просто двигается.</p>
+            <span class="route-go">Interactive Mascot Sprint →</span>
+          </div>
+        </a>
+        <a class="route rise" href="#landing-sprint">
+          <span class="route-no">02</span>
+          <div>
+            <h3>Запустить страницу</h3>
+            <p>Текст, структура, визуальный язык, адаптив и деплой — одна законченная страница, которую можно отправлять клиентам.</p>
+            <span class="route-go">Landing Page Sprint →</span>
+          </div>
+        </a>
+        <a class="route rise" href="#automation-sprint">
+          <span class="route-no">03</span>
+          <div>
+            <h3>Убрать ручную рутину</h3>
+            <p>Один повторяемый процесс превращается в проверяемый pipeline: данные, фильтрация, LLM и понятный результат.</p>
+            <span class="route-go">Workflow Automation Sprint →</span>
+          </div>
+        </a>
+        <a class="route rise" href="#vps-sprint">
+          <span class="route-no">04</span>
+          <div>
+            <h3>Закрыть риски VPS</h3>
+            <p>Внешняя поверхность, SSH, firewall, сервисы, секреты и бэкапы — с командами проверки, а не обещанием «всё безопасно».</p>
+            <span class="route-go">VPS Safety Sprint →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" id="products">
+    <div class="wrap">
+      <div class="blk-head">
+        <span class="watermark" aria-hidden="true">01</span>
+        <div class="blk-title">
+          <span class="kicker"><span class="star">★</span> готовый код</span>
+          <h2>Забрать и <span class="accent">встроить</span></h2>
+        </div>
+        <p class="blk-sub">Единственный self-service продукт витрины. Покупаете исходники и сборку, подключаете к своему сайту без обязательного участия с моей стороны.</p>
+      </div>
+
+      <article class="product-feature rise">
+        <div class="product-main">
+          <span class="product-status">flagship · self-service</span>
+          <h3>Living Mascot</h3>
+          <p>Живой canvas-движок с гибкой темой: перекрашивается под любой бренд через один конфиг цветов, следит за курсором, реагирует на клики, выражает эмоции и засыпает без движения.</p>
+          <ul class="card-facts">
+            <li>Canvas 2D, без runtime-зависимостей</li>
+            <li>ESM и обычный script</li>
+            <li>10 эмоций, любой цвет через theme API</li>
+          </ul>
+          <div class="card-actions">
+            <a class="btn btn-sm" href="mascot/" target="_blank" rel="noopener">Открыть живое демо</a>
+            <a class="btn btn-sm btn-ghost" href="#" data-modal-open data-item="Living Mascot — покупка">Приобрести</a>
+          </div>
+          <div class="card-price"><strong>$19</strong> · стартовая цена · личная лицензия · 6.9 КБ gzip</div>
+        </div>
+        <aside class="product-proof" aria-label="Ограничения и возможности Living Mascot">
+          <div class="proof-block">
+            <span>Подходит</span>
+            <strong>Нужен готовый характерный персонаж без тяжёлого 3D-стека.</strong>
+            <p>Цвета, реакции и события можно связать с вашим интерфейсом.</p>
+          </div>
+          <div class="proof-block">
+            <span>Не подменяет</span>
+            <strong>Rive, Lottie или анимацию произвольной готовой иллюстрации.</strong>
+            <p>Для собственного персонажа и конкретного flow есть отдельный спринт ниже.</p>
+          </div>
+          <div class="proof-block">
+            <span>Проверено</span>
+            <strong>Desktop, mobile, light/dark и reduced motion.</strong>
+            <p>ESM и обычный script реально прогнаны в браузере.</p>
+          </div>
+        </aside>
+      </article>
+    </div>
+  </section>
+
+  <section class="blk" id="services">
+    <div class="wrap">
+      <div class="blk-head">
+        <span class="watermark" aria-hidden="true">02</span>
+        <div class="blk-title">
+          <span class="kicker"><span class="star">★</span> работа под задачу</span>
+          <h2>Продуктовые <span class="accent">спринты</span></h2>
+        </div>
+        <p class="blk-sub">У каждого спринта есть границы. Я не продаю «любую разработку» — собираю один конкретный результат, проверяю его и передаю вместе с понятным следующим шагом.</p>
+      </div>
+
+      <div class="srv-list">
+        <article class="srv-row rise" id="mascot-sprint">
+          <div class="no">01</div>
+          <div class="srv-body">
+            <span class="service-label">web interaction · приоритет</span>
+            <h3>Interactive Mascot Sprint</h3>
+            <p>Оживляю существующего персонажа или создаю простой code-native образ для одного hero, onboarding, login или status flow. Добавляю 4–6 состояний, реакцию на интерфейс, mobile layout и reduced-motion fallback.</p>
+            <div class="srv-scope">Не входит по умолчанию: сложная покадровая иллюстрация, lip-sync, Rive/Lottie, iOS/Android.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $89</strong> · фиксированный scope · 2–4 дня</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Interactive Mascot Sprint">Обсудить спринт →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="landing-sprint">
+          <div class="no">02</div>
+          <div class="srv-body">
+            <span class="service-label">copy + design + build</span>
+            <h3>Landing Page Sprint</h3>
+            <p>Превращаю идею в законченную страницу: формулировка оффера, структура, выбранный визуальный язык, responsive-вёрстка и деплой. Без CMS и лишней архитектуры, если задача этого не требует.</p>
+            <div class="srv-demos">
+              <a href="https://shulgin.is-a.dev/kratno" target="_blank" rel="noopener">Kratno ↗</a>
+              <a href="https://shulgin.is-a.dev/signal-studio" target="_blank" rel="noopener">Signal Studio ↗</a>
+            </div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $129</strong> · обычно 2–4 дня</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Landing Page Sprint">Обсудить страницу →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="automation-sprint">
+          <div class="no">03</div>
+          <div class="srv-body">
+            <span class="service-label">data + LLM + delivery</span>
+            <h3>Workflow Automation Sprint</h3>
+            <p>Берём один ручной повторяемый процесс и строим вокруг него pipeline: получаем данные, очищаем и оцениваем, при необходимости подключаем LLM, отдаём результат в Telegram, отчёт или таблицу.</p>
+            <div class="srv-scope">Вход и выход фиксируются до кода. Никаких обещаний «автоматизировать весь бизнес».</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $149</strong> · один проверяемый workflow</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Workflow Automation Sprint">Разобрать процесс →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="vps-sprint">
+          <div class="no">04</div>
+          <div class="srv-body">
+            <span class="service-label">audit + fix + verify</span>
+            <h3>VPS Safety Sprint</h3>
+            <p>Проверяю доступные снаружи сервисы, SSH, firewall, binding, секреты, базы и бэкапы. Исправления идут вместе с командами, которые доказывают, что активная конфигурация действительно изменилась.</p>
+            <div class="srv-scope">Debian/Ubuntu · один VPS · без формального pentest или compliance-сертификации.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $59</strong> · один VPS · разовый аудит</span>
+            <button class="srv-action" type="button" data-modal-open data-item="VPS Safety Sprint">Обсудить VPS →</button>
+          </div>
+        </article>
+      </div>
+
+      <aside class="addon-strip rise">
+        <div>
+          <span class="service-label">signature motion · под заказ</span>
+          <h3>Phosphor Engine</h3>
+          <p>ASCII+CRT/WebGL-обработка для технического, игрового или экспериментального сайта. Это не готовый zip: сцену, тему и производительность собираю под конкретный проект.</p>
+          <span class="addon-price"><strong>от $99</strong> · одна сцена</span>
+        </div>
+        <div class="addon-action">
+          <a class="btn btn-ghost btn-sm" href="#" data-modal-open data-item="Phosphor Engine — интеграция">Обсудить интеграцию</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="blk" id="open-lab">
+    <div class="wrap">
+      <div class="blk-head">
+        <span class="watermark" aria-hidden="true">03</span>
+        <div class="blk-title">
+          <span class="kicker"><span class="star">★</span> open lab</span>
+          <h2>Код, который можно <span class="accent">проверить</span></h2>
+        </div>
+        <p class="blk-sub">Бесплатные open-source проекты здесь не «товары для количества». Каждый показывает подход, на котором строится связанная платная работа.</p>
+      </div>
+
+      <div class="lab-list">
+        <article class="lab-row rise">
+          <span class="lab-kind">UI systems · MIT</span>
+          <div>
+            <h3>NFA Design System</h3>
+            <p>Три визуальные системы, токены, SVG, шрифты и компоненты. Доказательство того, что лендинг собирается из правил, а не случайных цветов.</p>
+          </div>
+          <a href="https://github.com/Sanexxxx777/nfa-design-system" target="_blank" rel="noopener">Репозиторий ↗</a>
+        </article>
+        <article class="lab-row rise">
+          <span class="lab-kind">Linux security · MIT</span>
+          <div>
+            <h3>Server Hardening Playbook</h3>
+            <p>Практический формат failure → fix → verify для SSH, firewall, service binding, секретов и баз данных.</p>
+          </div>
+          <a href="https://github.com/Sanexxxx777/server-hardening-playbook" target="_blank" rel="noopener">Репозиторий ↗</a>
+        </article>
+        <article class="lab-row rise">
+          <span class="lab-kind">Ops automation · MIT</span>
+          <div>
+            <h3>PM2 Cockpit</h3>
+            <p>Telegram-пульт для PM2-процессов: подтверждения, allowlist и проверка реального состояния после команды.</p>
+          </div>
+          <a href="https://github.com/Sanexxxx777/pm2-cockpit" target="_blank" rel="noopener">Репозиторий ↗</a>
+        </article>
+        <article class="lab-row rise lab-row--pending">
+          <span class="lab-kind">PHP · free · release review</span>
+          <div>
+            <h3>MEXC Bypass PHP</h3>
+            <p>Нулезависимый cURL-клиент вырос внутри торговой панели. Перед открытием кода отделяю безопасный публичный SDK от внутренних торговых методов и проверяю происхождение перенесённых фрагментов.</p>
+          </div>
+          <span class="lab-state">Репозиторий после аудита</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" id="work">
+    <div class="wrap">
+      <div class="blk-head">
+        <span class="watermark" aria-hidden="true">04</span>
+        <div class="blk-title">
+          <span class="kicker"><span class="star">★</span> selected work</span>
+          <h2>Почему это не <span class="accent">теория</span></h2>
+        </div>
+        <p class="blk-sub">В магазине остаются только покупаемые результаты. Полный диапазон — production-системы, графика, инфраструктура и формальные исследования — живёт в портфолио.</p>
+      </div>
+
+      <div class="work-list">
+        <article class="work-row work-row--feature rise">
+          <span class="work-kind">prediction markets · automation</span>
+          <h3>Elon Tweets Market Bot</h3>
+          <p>Поиск недельных рынков по числу постов Илона Маска, отдельный чистый слой стратегии, dry/live-режимы, maker-ордера, сверка исполнений и Telegram-статус.</p>
+        </article>
+        <article class="work-row work-row--feature rise">
+          <span class="work-kind">prediction markets · archived experiment</span>
+          <h3>Trump Insult Market Bot</h3>
+          <p>Динамический поиск дневных рынков, WebSocket-мониторинг цены, лестница входов, TP/time-stop и учёт состояния. Эксперимент завершён и архивирован в июле 2026.</p>
+        </article>
+        <article class="work-row rise">
+          <span class="work-kind">production LLM systems</span>
+          <h3>Content Factory · Job Radar</h3>
+          <p>Многоступенчатые пайплайны, очереди, LLM-оценка, автоматическая доставка результата и работа 24/7.</p>
+        </article>
+        <article class="work-row rise">
+          <span class="work-kind">interactive web</span>
+          <h3>Living Canvas · Phosphor</h3>
+          <p>Собственные Canvas/WebGL-движки, интерактивные состояния и выразительный motion без готового шаблона.</p>
+        </article>
+        <article class="work-row rise">
+          <span class="work-kind">realtime + infrastructure</span>
+          <h3>Monitoring · Telegram control · Linux</h3>
+          <p>Наблюдаемость, аварийное управление, серверная эксплуатация и дисциплина изменений с реальной проверкой.</p>
+        </article>
+        <article class="work-row rise">
+          <span class="work-kind">verified research</span>
+          <h3>ProofForge · Erdos bounds</h3>
+          <p>LLM-пайплайны для Lean 4, машинно проверяемые доказательства и воспроизводимые вычислительные результаты.</p>
+        </article>
+      </div>
+
+      <div class="work-cta">
+        <p>Нужны детали, исходные ссылки и технический стек конкретного кейса — они собраны в основном портфолио.</p>
+        <a class="btn btn-ghost" href="https://shulgin.is-a.dev">Открыть портфолио</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap cols">
+    <div class="about-col">
+      <a class="logo" href="index.html">ЛАБОРАТОРИЯ<i>.</i></a>
+      <p>Готовый код и короткие спринты под конкретный результат. Александр Шульгин.</p>
+    </div>
+    <div>
+      <h4>Меню</h4>
+      <a href="#offers">Спринты</a>
+      <a href="#products">Living Mascot</a>
+      <a href="#open-lab">Open Lab</a>
+      <a href="https://shulgin.is-a.dev">Портфолио</a>
+    </div>
+    <div>
+      <h4>Связь</h4>
+      <a href="mailto:sanexxx777@gmail.com">sanexxx777@gmail.com</a>
+      <a href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Telegram @Aleksandr_NFA</a>
+    </div>
+  </div>
+  <div class="wrap base">
+    <div>© 2026 Александр Шульгин</div>
+    <div>Работаю удалённо</div>
+  </div>
+</footer>
+
+<div class="modal" id="lead-modal" role="dialog" aria-modal="true" aria-labelledby="lm-title">
+  <div class="modal__back" data-modal-close></div>
+  <div class="modal__box">
+    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">×</button>
+    <h3 id="lm-title">Обсудить задачу</h3>
+    <p class="sub" id="lm-sub">Расскажите, что нужно получить — отвечу в Telegram или почте.</p>
+    <form data-lead-form novalidate>
+      <label for="lm-item">Что интересует</label>
+      <input id="lm-item" type="text" name="item" placeholder="Living Mascot / спринт / другое">
+      <label for="lm-contact">Telegram или email — куда ответить</label>
+      <input id="lm-contact" type="text" name="contact" required aria-describedby="lm-error" placeholder="@ник или почта">
+      <p class="form-error" id="lm-error" role="alert"></p>
+      <label for="lm-message">Сообщение</label>
+      <textarea id="lm-message" name="msg" placeholder="Коротко: задача, текущий контекст, сроки"></textarea>
+      <a class="send" id="lm-send" href="mailto:sanexxx777@gmail.com">Открыть письмо</a>
+      <p class="fine">Открывает почтовый клиент с заполненным письмом. Данные нигде не сохраняются.</p>
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script src="assets/octopus.js"></script>
+<script>
+  (function () {
+    var canvas = document.getElementById('hero-mascot');
+    if (window.LivingOctopus) window.LivingOctopus.createOctopus(canvas, { zoom: 1.15 });
+  })();
+</script>
+</body>
+</html>

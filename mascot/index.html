@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living Mascot — живое демо · Магазин</title>
+<meta name="description" content="Живое демо Living Mascot: canvas-персонаж, который перекрашивается под цвета вашего сайта. Товар для покупки на shulgin.is-a.dev/store.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23ee4e4e'/%3E%3C/svg%3E">
+<style>
+  :root[data-theme="light"] {
+    --bg: #ede4d3; --ink: #17140f; --line: #d8cdb6; --panel: #e3d8c2;
+    --a: #ee4e4e; --b: #c23f3f; --eye: rgba(22, 9, 11, 0.88); --heart: #d94b7a; --anger: #d43a2a;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0a0c; --ink: #ede4d3; --line: #25252b; --panel: #15151a;
+    --a: #7fb3ff; --b: #5a86d6; --eye: rgba(22, 9, 11, 0.88); --heart: #ff8fb3; --anger: #ff453a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    display: flex; flex-direction: column; align-items: center; gap: 28px;
+    padding: 40px 20px 80px; transition: background .2s, color .2s;
+  }
+  a.back { align-self: flex-start; margin: 0 auto; font-size: .82rem; opacity: .6; }
+  a.back:hover { opacity: 1; }
+  h1 { font-size: 1.1rem; letter-spacing: .04em; text-transform: uppercase; margin: 0; opacity: .7; }
+  .stage {
+    width: 480px; max-width: 92vw; aspect-ratio: 3/2; border: 1px solid var(--line);
+    border-radius: 4px; background: var(--panel); display: flex; align-items: center; justify-content: center;
+  }
+  canvas { width: 100%; height: 100%; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 640px; }
+  button {
+    font: inherit; font-size: .82rem; padding: 8px 14px; border-radius: 3px;
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer;
+  }
+  button:hover { border-color: var(--a); }
+  button.primary { background: var(--a); color: #fff; border-color: var(--a); }
+  .panel {
+    display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center;
+    border: 1px solid var(--line); border-radius: 4px; padding: 14px 18px; max-width: 640px;
+  }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: .72rem; opacity: .8; }
+  input[type="color"] { width: 40px; height: 28px; padding: 0; border: 1px solid var(--line); background: none; cursor: pointer; }
+  .note { font-size: .78rem; opacity: .55; max-width: 480px; text-align: center; line-height: 1.5; }
+  a.buy { font-size: .85rem; padding: 10px 18px; background: var(--a); color: #fff; border-radius: 3px; }
+</style>
+</head>
+<body data-theme="light">
+
+<a class="back" href="../index.html">← Магазин</a>
+<h1>Living Mascot — живое демо</h1>
+
+<div class="stage"><canvas id="mascot" width="960" height="640"></canvas></div>
+
+<div class="row">
+  <button data-emote="wink">wink</button>
+  <button data-emote="bounce">bounce</button>
+  <button data-emote="blush">blush</button>
+  <button data-emote="turn">turn</button>
+  <button data-emote="flip">flip</button>
+  <button data-emote="melt">melt</button>
+  <button data-emote="surprise">surprise</button>
+  <button data-emote="angry">angry</button>
+  <button data-emote="yawn">yawn</button>
+  <button data-emote="flower">flower</button>
+</div>
+
+<div class="row">
+  <button id="theme-toggle" class="primary">Переключить тему</button>
+</div>
+
+<div class="panel">
+  <label>Body A <input type="color" id="c-a"></label>
+  <label>Body B <input type="color" id="c-b"></label>
+  <label>Eye <input type="color" id="c-eye"></label>
+  <label>Blush/heart <input type="color" id="c-heart"></label>
+  <label>Anger <input type="color" id="c-anger"></label>
+  <label>Flower accent <input type="color" id="c-flower"></label>
+</div>
+
+<p class="note">Цвета выше перекрашивают персонажа вживую — это тот же контракт <code>opts.colors()</code>, который использует ваш сайт. Переключите тему, чтобы увидеть автоматическую перекраску; кликните по персонажу для реакций.</p>
+
+<a class="buy" href="../index.html#products">Приобрести →</a>
+
+<script type="module">
+  import { createLivingMascot } from './mascot.esm.js';
+
+  const root = document.documentElement;
+  const canvas = document.getElementById('mascot');
+  const override = {};
+  const pickers = { a: 'c-a', b: 'c-b', eye: 'c-eye', heart: 'c-heart', anger: 'c-anger', flowerLight: 'c-flower' };
+
+  function themeColors() {
+    const s = getComputedStyle(root);
+    return {
+      a: s.getPropertyValue('--a').trim(), b: s.getPropertyValue('--b').trim(),
+      ink: s.getPropertyValue('--ink').trim(), eye: s.getPropertyValue('--eye').trim(),
+      heart: s.getPropertyValue('--heart').trim(), anger: s.getPropertyValue('--anger').trim(),
+    };
+  }
+
+  function currentColors() { return Object.assign(themeColors(), override); }
+
+  function syncPickers() {
+    const c = currentColors();
+    for (const [key, id] of Object.entries(pickers)) {
+      document.getElementById(id).value = toHex(c[key] || (key === 'flowerLight' ? '#ff9eb8' : '#888888'));
+    }
+  }
+  function toHex(css) {
+    const m = /^#([0-9a-f]{6})$/i.exec(css.trim());
+    if (m) return '#' + m[1];
+    const p = document.createElement('canvas').getContext('2d');
+    p.fillStyle = css; return p.fillStyle.length === 7 ? p.fillStyle : '#888888';
+  }
+
+  const mascot = createLivingMascot(canvas, { colors: currentColors, zoom: 1.15 });
+  syncPickers();
+
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    mascot.setColors();
+    syncPickers();
+  });
+
+  for (const [key, id] of Object.entries(pickers)) {
+    document.getElementById(id).addEventListener('input', (e) => {
+      override[key] = e.target.value;
+      mascot.setColors();
+    });
+  }
+
+  document.querySelectorAll('[data-emote]').forEach((btn) => {
+    btn.addEventListener('click', () => mascot.emote(btn.dataset.emote));
+  });
+</script>
+</body>
+</html>
