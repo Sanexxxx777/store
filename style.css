@@ -216,6 +216,7 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 }
 .hero-proof span::before { content: "// "; color: var(--red); }
 .hero-stage {
+  position: relative;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -225,6 +226,23 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   border-left: 1px solid var(--line);
 }
 .hero-stage canvas { width: 100%; max-width: 440px; aspect-ratio: 3 / 2; }
+.hero-stage-beta {
+  position: absolute;
+  top: 6px;
+  right: calc(50% - 220px + 6px);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: rgba(10, 10, 12, .65);
+  pointer-events: none;
+  z-index: 1;
+}
+@media (max-width: 880px) { .hero-stage-beta { right: calc(50% - 150px + 6px); } }
 .hero-stage-cap {
   max-width: 300px;
   color: var(--cream-mute);
