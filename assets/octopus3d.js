@@ -215,7 +215,7 @@ export function createOctopus3D(canvas, opts) {
     ['flip', 1], ['melt', 0.7], ['bubble', 0.9], ['yawn', 1.3]];
   var IDLE_TOTAL = IDLE_POOL.reduce(function (s, e) { return s + e[1]; }, 0);
   var JUMP = HEAD_R * 0.55, HOP = HEAD_R * 0.22;
-  var SLEEP_AFTER = 50000, SLEEP_IN = 1200;
+  var SLEEP_AFTER = 30000, SLEEP_IN = 1200;
 
   var emote = null, nextIdle = 4000 + Math.random() * 6000;
   var lastPointer = performance.now();
