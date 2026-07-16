@@ -1,0 +1,38 @@
+# Product Lab — Aleksandr Shulgin
+
+> A product storefront offering the Living Mascot canvas engine as a self-service download, plus twelve fixed-scope sprints (interactive mascots, landing pages, motion polish, site speed, AI-assisted project rescue, Telegram bots, AI chat widgets, workflow automation, AI search visibility, data scraping, dashboards and VPS security). Every sprint has a defined input, output and acceptance check before the price is quoted.
+
+## Products
+
+- [Living Mascot](https://shulgin.is-a.dev/store/mascot/): A living canvas engine with a flexible theme, recolorable for any brand through a single color config. Reacts to the pointer and clicks, expresses 10 emotions, falls asleep when idle. Canvas 2D, zero runtime dependencies, ESM and plain script builds. $19, personal license, 6.9 KB gzip. Live demo at the link above.
+
+## Services
+
+- Interactive Mascot Sprint: from $89. Animate an existing character or build a simple code-native one for a hero, onboarding, login or status flow.
+- Landing Page Sprint: from $129. A complete page: offer, structure, visual language, responsive build and deploy.
+- Motion Polish Sprint: from $99. Audit and sharpen 5-8 key micro-interactions on an existing site.
+- Site Speed Sprint: from $89. Core Web Vitals diagnosis and top fixes, with a Lighthouse report before and after.
+- Vibe Code Rescue: from $199. Take a project built in Cursor, Lovable, Bolt or ChatGPT to production: security audit, error handling, real server deploy.
+- Telegram Bot Sprint: from $199. A turnkey bot with conversation logic, notifications, deploy and full code handover.
+- AI Chat Widget Sprint: from $149. A chat widget on Claude or GPT trained on your own materials, with a token cost estimate included.
+- Workflow Automation Sprint: from $149. Turn one repeated manual process into a testable pipeline, with optional payment and CRM integrations.
+- AI Visibility Sprint: from $119. Technical readiness for AI search: llms.txt, JSON-LD, metadata, a machine-readable layer.
+- Data Scraping Sprint: from $129. Scheduled data collection from legal, public sources, with code handed over.
+- Dashboard Sprint: from $199. A live metrics panel with 1-2 data connections and 4-6 widgets, no monthly BI license.
+- VPS Safety Sprint: from $79. Audit of public surface, SSH, firewall, secrets and backups, with verification commands for every fix.
+
+## Open Source
+
+- [NFA Design System](https://github.com/Sanexxxx777/nfa-design-system): Three visual systems, tokens, SVG assets, fonts and components. MIT.
+- [Server Hardening Playbook](https://github.com/Sanexxxx777/server-hardening-playbook): A practical failure to fix to verify format for SSH, firewall, service binding, secrets and databases. MIT.
+- [PM2 Cockpit](https://github.com/Sanexxxx777/pm2-cockpit): A Telegram control panel for PM2 processes with confirmations, an allowlist and real state verification. MIT.
+- [Erdos OpenEvolve](https://github.com/Sanexxxx777/erdos-openevolve): An evolutionary LLM pipeline that reproduced a SOTA result on an Erdos problem, with an independent verify.py.
+- [Transaction Guardian](https://github.com/Sanexxxx777/transaction-guardian): A security bot for crypto wallets: transaction monitoring and alerts. MIT.
+- [Curated Claude Code](https://github.com/Sanexxxx777/curated-claude-code): A methodology for AI-augmented development: conventions, verification discipline, working patterns.
+- MEXC PHP Client: A zero-dependency cURL client, pending a release review before the repository is opened.
+
+## Contact
+
+- Email: sanexxx777@gmail.com
+- Telegram: [t.me/Aleksandr_NFA](https://t.me/Aleksandr_NFA)
+- Portfolio: [shulgin.is-a.dev](https://shulgin.is-a.dev)

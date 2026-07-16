@@ -7,15 +7,31 @@
 <meta name="description" content="Готовый код и короткие продуктовые спринты: интерактивные маскоты, лендинги, автоматизация процессов и безопасность VPS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&amp;family=Oswald:wght@600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&amp;family=Oswald:wght@200..700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0c'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='34' font-weight='900' fill='%23ee4e4e' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0c'/%3E%3Ctext x='32' y='46' font-family='Arial,sans-serif' font-size='38' fill='%23ee4e4e' text-anchor='middle'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+<link rel="alternate" type="text/plain" href="llms.txt" title="LLM-friendly summary">
 <meta property="og:title" content="Продуктовая лаборатория — Александр Шульгин">
 <meta property="og:type" content="website">
 <meta property="og:description" content="Готовый код и короткие спринты под конкретный результат.">
+<meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Продуктовая лаборатория — Александр Шульгин",
+  "url": "https://shulgin.is-a.dev/store/",
+  "description": "Готовый код (Living Mascot) и 12 продуктовых спринтов с фиксированным scope: интерактивные маскоты, лендинги, доводка AI-проектов, Telegram-боты, AI-виджеты, автоматизация, сбор данных, дашборды, безопасность VPS.",
+  "email": "sanexxx777@gmail.com",
+  "sameAs": ["https://shulgin.is-a.dev", "https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"],
+  "priceRange": "$19-$199+",
+  "founder": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev" }
+}
+</script>
 </head>
 <body>
 
+<div class="scroll-progress" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
 <div class="gridlines" aria-hidden="true"></div>
 <div class="dotgrid" aria-hidden="true"></div>
@@ -25,7 +41,8 @@
   <div class="wrap">
     <a class="logo" href="index.html">ЛАБОРАТОРИЯ<i>.</i></a>
     <nav class="nav" aria-label="Основная навигация">
-      <a href="#offers">Спринты</a>
+      <a href="#offers">Задачи</a>
+      <a href="#services">Спринты</a>
       <a href="#products">Продукт</a>
       <a href="#open-lab">Open Lab</a>
       <a href="https://shulgin.is-a.dev" class="back">Портфолио</a>
@@ -40,8 +57,8 @@
     <div class="wrap hero-grid">
       <div class="hero-text">
         <span class="hero-kicker"><span class="star">★</span> product lab · code + delivery</span>
-        <h1>Готовый код.<br><span class="accent">Короткие спринты.</span><br>Конкретный результат.</h1>
-        <p class="hero-sub">Можно забрать готовый Living Mascot и встроить самостоятельно. Или прийти с задачей: оживить интерфейс, запустить страницу, автоматизировать ручной процесс или закрыть риски на VPS.</p>
+        <h1><span class="glitch" data-text="Готовый код." style="--gd:0s;--gpA:9.7s;--gpB:7.9s">Готовый код.</span><br><span class="glitch accent" data-text="Короткие спринты." style="--gd:-3.47s;--gpA:11.23s;--gpB:9.11s">Короткие спринты.</span><br><span class="glitch" data-text="Конкретный результат." style="--gd:-6.94s;--gpA:12.76s;--gpB:10.32s">Конкретный результат.</span></h1>
+        <p class="hero-sub">Можно забрать готовый Living Mascot и встроить самостоятельно. Или прийти с задачей: оживить интерфейс, доделать проект за ИИ-конструктором, подключить Claude или GPT, автоматизировать рутину, закрыть риски на VPS.</p>
         <div class="hero-cta">
           <a class="btn" href="#offers">Выбрать задачу</a>
           <a class="btn btn-ghost" href="#products">Посмотреть продукт</a>
@@ -51,26 +68,34 @@
           <span>Automation</span>
           <span>Linux</span>
           <span>AI pipelines</span>
+          <a href="#open-lab">Открытый код на GitHub ↓</a>
         </div>
       </div>
       <div class="hero-stage">
         <canvas id="hero-mascot" width="960" height="640" aria-hidden="true"></canvas>
-        <a class="hero-stage-cap" href="#products">Живые canvas-персонажи — наш конёк. Один уже продаётся ↓</a>
+        <a class="hero-stage-cap" href="#products">3D-осьминог — пример работы «под заказ». Готовый 2D-движок продаётся ниже ↓</a>
       </div>
     </div>
   </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>12 спринтов</span><span>фиксированный scope</span><span>код остаётся у вас</span><span>живое демо до покупки</span><span>без ежемесячных подписок</span><span>RU / EN</span><span>передача кода и инструкций</span><span>критерий приёмки до старта</span>
+      <span>12 спринтов</span><span>фиксированный scope</span><span>код остаётся у вас</span><span>живое демо до покупки</span><span>без ежемесячных подписок</span><span>RU / EN</span><span>передача кода и инструкций</span><span>критерий приёмки до старта</span>
+    </div>
+  </div>
 
   <section class="routes" id="offers">
     <div class="wrap">
       <div class="routes-intro">
         <div>
           <span class="kicker"><span class="star">★</span> вход по задаче</span>
-          <h2>Что нужно <span class="accent">сделать?</span></h2>
+          <h2 data-scramble data-kinetic>Что нужно <span class="accent">сделать?</span></h2>
         </div>
-        <p>Не каталог обещаний, а четыре ограниченных результата. Сначала фиксируем вход, выход и критерий приёмки — затем называю срок и цену.</p>
+        <p>Шесть частых задач-входов, за ними — двенадцать спринтов с фиксированными рамками. Сначала фиксируем вход, выход и критерий приёмки — затем называю срок и цену.</p>
       </div>
       <div class="route-grid">
-        <a class="route rise" href="#mascot-sprint">
+        <a class="route rise" href="#mascot-sprint" data-spot>
           <span class="route-no">01</span>
           <div>
             <h3>Оживить интерфейс</h3>
@@ -78,7 +103,7 @@
             <span class="route-go">Interactive Mascot Sprint →</span>
           </div>
         </a>
-        <a class="route rise" href="#landing-sprint">
+        <a class="route rise" href="#landing-sprint" data-spot>
           <span class="route-no">02</span>
           <div>
             <h3>Запустить страницу</h3>
@@ -86,16 +111,32 @@
             <span class="route-go">Landing Page Sprint →</span>
           </div>
         </a>
-        <a class="route rise" href="#automation-sprint">
+        <a class="route rise" href="#rescue-sprint" data-spot>
           <span class="route-no">03</span>
+          <div>
+            <h3>Доделать за ИИ</h3>
+            <p>Проект, начатый в Cursor, Lovable или Bolt, доводится до продакшна: аудит, безопасность, деплой на нормальную инфраструктуру.</p>
+            <span class="route-go">Vibe Code Rescue →</span>
+          </div>
+        </a>
+        <a class="route rise" href="#ai-widget-sprint" data-spot>
+          <span class="route-no">04</span>
+          <div>
+            <h3>Подключить ИИ</h3>
+            <p>Чат-виджет на Claude или GPT, обученный на ваших материалах, или техническая видимость сайта для ИИ-поиска.</p>
+            <span class="route-go">AI Chat Widget · AI Visibility →</span>
+          </div>
+        </a>
+        <a class="route rise" href="#automation-sprint" data-spot>
+          <span class="route-no">05</span>
           <div>
             <h3>Убрать ручную рутину</h3>
             <p>Один повторяемый процесс превращается в проверяемый pipeline: данные, фильтрация, LLM и понятный результат.</p>
             <span class="route-go">Workflow Automation Sprint →</span>
           </div>
         </a>
-        <a class="route rise" href="#vps-sprint">
-          <span class="route-no">04</span>
+        <a class="route rise" href="#vps-sprint" data-spot>
+          <span class="route-no">06</span>
           <div>
             <h3>Закрыть риски VPS</h3>
             <p>Внешняя поверхность, SSH, firewall, сервисы, секреты и бэкапы — с командами проверки, а не обещанием «всё безопасно».</p>
@@ -103,6 +144,7 @@
           </div>
         </a>
       </div>
+      <p class="routes-all">Это шесть частых входов — всего спринтов двенадцать. <a href="#services">Показать все 12 →</a></p>
     </div>
   </section>
 
@@ -112,7 +154,7 @@
         <span class="watermark" aria-hidden="true">01</span>
         <div class="blk-title">
           <span class="kicker"><span class="star">★</span> готовый код</span>
-          <h2>Забрать и <span class="accent">встроить</span></h2>
+          <h2 data-kinetic>Забрать и <span class="accent">встроить</span></h2>
         </div>
         <p class="blk-sub">Единственный self-service продукт витрины. Покупаете исходники и сборку, подключаете к своему сайту без обязательного участия с моей стороны.</p>
       </div>
@@ -160,13 +202,15 @@
         <span class="watermark" aria-hidden="true">02</span>
         <div class="blk-title">
           <span class="kicker"><span class="star">★</span> работа под задачу</span>
-          <h2>Продуктовые <span class="accent">спринты</span></h2>
+          <h2 data-scramble data-kinetic>Продуктовые <span class="accent">спринты</span></h2>
         </div>
         <p class="blk-sub">У каждого спринта есть границы. Я не продаю «любую разработку» — собираю один конкретный результат, проверяю его и передаю вместе с понятным следующим шагом.</p>
       </div>
 
       <div class="srv-list">
-        <article class="srv-row rise" id="mascot-sprint">
+        <div class="srv-group"><span class="kicker"><span class="star">★</span> живой веб</span></div>
+
+        <article class="srv-row rise srv-row--hot" id="mascot-sprint" data-spot>
           <div class="no">01</div>
           <div class="srv-body">
             <span class="service-label">web interaction · приоритет</span>
@@ -180,7 +224,7 @@
           </div>
         </article>
 
-        <article class="srv-row rise" id="landing-sprint">
+        <article class="srv-row rise" id="landing-sprint" data-spot>
           <div class="no">02</div>
           <div class="srv-body">
             <span class="service-label">copy + design + build</span>
@@ -197,12 +241,84 @@
           </div>
         </article>
 
-        <article class="srv-row rise" id="automation-sprint">
+        <article class="srv-row rise" id="motion-sprint" data-spot>
           <div class="no">03</div>
+          <div class="srv-body">
+            <span class="service-label">micro-interactions · polish</span>
+            <h3>Motion Polish Sprint</h3>
+            <p>Аудит движения на существующем сайте и доводка 5–8 ключевых микровзаимодействий: hover-состояния, scroll-reveal, переходы, загрузка. Те два процента, из-за которых интерфейс читается как дорогой.</p>
+            <div class="srv-scope">Ваш сайт остаётся на своём стеке — правки точечные, до/после фиксируется видео.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $99</strong> · 5–8 взаимодействий</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Motion Polish Sprint">Обсудить полировку →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="speed-sprint" data-spot>
+          <div class="no">04</div>
+          <div class="srv-body">
+            <span class="service-label">core web vitals · perf</span>
+            <h3>Site Speed Sprint</h3>
+            <p>Диагностика Core Web Vitals, приоритизированный список проблем и реализация топ-фиксов: изображения, шрифты, блокирующий JS, сдвиги вёрстки. Отчёт Lighthouse до и после — цифрами, не ощущениями.</p>
+            <div class="srv-scope">Разовый аудит + фиксы. Не входит: переезд на другой стек, серверная архитектура.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $89</strong> · отчёт до/после</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Site Speed Sprint">Проверить скорость →</button>
+          </div>
+        </article>
+
+        <div class="srv-group"><span class="kicker"><span class="star">★</span> ИИ и автоматизация</span></div>
+
+        <article class="srv-row rise srv-row--hot" id="rescue-sprint" data-spot>
+          <div class="no">05</div>
+          <div class="srv-body">
+            <span class="service-label">ai code · спрос растёт</span>
+            <h3>Vibe Code Rescue</h3>
+            <p>Проект, собранный в Cursor, Lovable, Bolt или ChatGPT, доводится до продакшна: аудит на секреты в коде и дыры в авторизации, обработка ошибок, деплой на нормальный сервер вместо dev-превью. Отчёт с приоритетами рисков.</p>
+            <div class="srv-scope">Фиксированный scope: аудит + исправление критичных находок. Полный рефакторинг — отдельным этапом.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $199</strong> · аудит + топ-фиксы</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Vibe Code Rescue">Спасти проект →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="tgbot-sprint" data-spot>
+          <div class="no">06</div>
+          <div class="srv-body">
+            <span class="service-label">telegram · turnkey</span>
+            <h3>Telegram Bot Sprint</h3>
+            <p>Бот под ключ: логика диалога, уведомления, панель управления при необходимости, деплой и передача кода. Без ежемесячной платы за конструктор — бот принадлежит вам целиком.</p>
+            <div class="srv-scope">Демо подхода: PM2 Cockpit в Open Lab ниже — реальный бот с подтверждениями и allowlist.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $199</strong> · деплой включён</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Telegram Bot Sprint">Обсудить бота →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="ai-widget-sprint" data-spot>
+          <div class="no">07</div>
+          <div class="srv-body">
+            <span class="service-label">claude / gpt · integration</span>
+            <h3>AI Chat Widget Sprint</h3>
+            <p>Чат-виджет на Claude или GPT, обученный на ваших материалах: документы, страницы сайта, база вопросов. Встраивается на сайт, отвечает по делу, честно передаёт сложные вопросы человеку.</p>
+            <div class="srv-scope">Включена оценка стоимости токенов — вы заранее знаете, во сколько обходится месяц работы виджета.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $149</strong> · база знаний включена</span>
+            <button class="srv-action" type="button" data-modal-open data-item="AI Chat Widget Sprint">Обсудить виджет →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="automation-sprint" data-spot>
+          <div class="no">08</div>
           <div class="srv-body">
             <span class="service-label">data + LLM + delivery</span>
             <h3>Workflow Automation Sprint</h3>
-            <p>Берём один ручной повторяемый процесс и строим вокруг него pipeline: получаем данные, очищаем и оцениваем, при необходимости подключаем LLM, отдаём результат в Telegram, отчёт или таблицу.</p>
+            <p>Берём один ручной повторяемый процесс и строим вокруг него pipeline: получаем данные, очищаем и оцениваем, при необходимости подключаем LLM, отдаём результат в Telegram, отчёт или таблицу. Интеграции с платежами и CRM — как опция внутри спринта.</p>
             <div class="srv-scope">Вход и выход фиксируются до кода. Никаких обещаний «автоматизировать весь бизнес».</div>
           </div>
           <div class="srv-aside">
@@ -211,8 +327,52 @@
           </div>
         </article>
 
-        <article class="srv-row rise" id="vps-sprint">
-          <div class="no">04</div>
+        <article class="srv-row rise" id="ai-visibility-sprint" data-spot>
+          <div class="no">09</div>
+          <div class="srv-body">
+            <span class="service-label">geo / aeo · machine layer</span>
+            <h3>AI Visibility Sprint</h3>
+            <p>Техническая подготовка сайта к ИИ-поиску: llms.txt, структурированные данные JSON-LD, метаданные, машиночитаемый слой. До и после — проверка, как сайт видят ChatGPT и Perplexity.</p>
+            <div class="srv-scope">Честно: это техническая готовность, а не гарантия цитирования. Контент-стратегия — не входит.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $119</strong> · разовая настройка</span>
+            <button class="srv-action" type="button" data-modal-open data-item="AI Visibility Sprint">Обсудить видимость →</button>
+          </div>
+        </article>
+
+        <div class="srv-group"><span class="kicker"><span class="star">★</span> данные и инфраструктура</span></div>
+
+        <article class="srv-row rise" id="scraping-sprint" data-spot>
+          <div class="no">10</div>
+          <div class="srv-body">
+            <span class="service-label">scraping · pipelines</span>
+            <h3>Data Scraping Sprint</h3>
+            <p>Сбор данных с нужных сайтов по расписанию: скрипт, выгрузка в CSV, таблицу или базу, алерты в Telegram при изменениях. Код передаётся — дальше данные собираются без меня.</p>
+            <div class="srv-scope">Только легальные источники и публичные данные. Обход платного доступа — нет.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $129</strong> · код + выгрузка</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Data Scraping Sprint">Обсудить сбор →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="dashboard-sprint" data-spot>
+          <div class="no">11</div>
+          <div class="srv-body">
+            <span class="service-label">analytics · live panel</span>
+            <h3>Dashboard Sprint</h3>
+            <p>Живая панель ключевых метрик из ваших источников: 1–2 подключения данных, 4–6 виджетов, автообновление, доступ по ссылке. Своя панель без ежемесячной лицензии за BI-сервис.</p>
+            <div class="srv-scope">Не полноценный BI-проект: фиксированный набор виджетов, расширение — следующим спринтом.</div>
+          </div>
+          <div class="srv-aside">
+            <span class="srv-price"><strong>от $199</strong> · 1–2 источника данных</span>
+            <button class="srv-action" type="button" data-modal-open data-item="Dashboard Sprint">Обсудить панель →</button>
+          </div>
+        </article>
+
+        <article class="srv-row rise" id="vps-sprint" data-spot>
+          <div class="no">12</div>
           <div class="srv-body">
             <span class="service-label">audit + fix + verify</span>
             <h3>VPS Safety Sprint</h3>
@@ -220,7 +380,7 @@
             <div class="srv-scope">Debian/Ubuntu · один VPS · без формального pentest или compliance-сертификации.</div>
           </div>
           <div class="srv-aside">
-            <span class="srv-price"><strong>от $59</strong> · один VPS · разовый аудит</span>
+            <span class="srv-price"><strong>от $79</strong> · один VPS · отчёт с командами проверки</span>
             <button class="srv-action" type="button" data-modal-open data-item="VPS Safety Sprint">Обсудить VPS →</button>
           </div>
         </article>
@@ -246,13 +406,13 @@
         <span class="watermark" aria-hidden="true">03</span>
         <div class="blk-title">
           <span class="kicker"><span class="star">★</span> open lab</span>
-          <h2>Код, который можно <span class="accent">проверить</span></h2>
+          <h2 data-kinetic>Код, который можно <span class="accent">проверить</span></h2>
         </div>
         <p class="blk-sub">Бесплатные open-source проекты здесь не «товары для количества». Каждый показывает подход, на котором строится связанная платная работа.</p>
       </div>
 
       <div class="lab-list">
-        <article class="lab-row rise">
+        <article class="lab-row rise" data-spot>
           <span class="lab-kind">UI systems · MIT</span>
           <div>
             <h3>NFA Design System</h3>
@@ -260,7 +420,7 @@
           </div>
           <a href="https://github.com/Sanexxxx777/nfa-design-system" target="_blank" rel="noopener">Репозиторий ↗</a>
         </article>
-        <article class="lab-row rise">
+        <article class="lab-row rise" data-spot>
           <span class="lab-kind">Linux security · MIT</span>
           <div>
             <h3>Server Hardening Playbook</h3>
@@ -268,7 +428,7 @@
           </div>
           <a href="https://github.com/Sanexxxx777/server-hardening-playbook" target="_blank" rel="noopener">Репозиторий ↗</a>
         </article>
-        <article class="lab-row rise">
+        <article class="lab-row rise" data-spot>
           <span class="lab-kind">Ops automation · MIT</span>
           <div>
             <h3>PM2 Cockpit</h3>
@@ -276,10 +436,34 @@
           </div>
           <a href="https://github.com/Sanexxxx777/pm2-cockpit" target="_blank" rel="noopener">Репозиторий ↗</a>
         </article>
-        <article class="lab-row rise lab-row--pending">
+        <article class="lab-row rise" data-spot>
+          <span class="lab-kind">LLM research · verified</span>
+          <div>
+            <h3>Erdos OpenEvolve</h3>
+            <p>Эволюционный LLM-пайплайн, воспроизвёл SOTA-результат на задаче Эрдёша. Независимый verify.py — результат проверяется, а не берётся на веру.</p>
+          </div>
+          <a href="https://github.com/Sanexxxx777/erdos-openevolve" target="_blank" rel="noopener">Репозиторий ↗</a>
+        </article>
+        <article class="lab-row rise" data-spot>
+          <span class="lab-kind">Crypto security · MIT</span>
+          <div>
+            <h3>Transaction Guardian</h3>
+            <p>Security-бот для крипто-кошельков: мониторинг транзакций и алерты. Код рабочий, публичный — тот же подход, что в VPS Safety Sprint.</p>
+          </div>
+          <a href="https://github.com/Sanexxxx777/transaction-guardian" target="_blank" rel="noopener">Репозиторий ↗</a>
+        </article>
+        <article class="lab-row rise" data-spot>
+          <span class="lab-kind">AI development · method</span>
+          <div>
+            <h3>Curated Claude Code</h3>
+            <p>Методология AI-augmented разработки: конвенции, дисциплина проверок, рабочие паттерны. То, как собираются спринты выше.</p>
+          </div>
+          <a href="https://github.com/Sanexxxx777/curated-claude-code" target="_blank" rel="noopener">Репозиторий ↗</a>
+        </article>
+        <article class="lab-row rise lab-row--pending" data-spot>
           <span class="lab-kind">PHP · free · release review</span>
           <div>
-            <h3>MEXC Bypass PHP</h3>
+            <h3>MEXC PHP Client</h3>
             <p>Нулезависимый cURL-клиент вырос внутри торговой панели. Перед открытием кода отделяю безопасный публичный SDK от внутренних торговых методов и проверяю происхождение перенесённых фрагментов.</p>
           </div>
           <span class="lab-state">Репозиторий после аудита</span>
@@ -294,7 +478,7 @@
         <span class="watermark" aria-hidden="true">04</span>
         <div class="blk-title">
           <span class="kicker"><span class="star">★</span> selected work</span>
-          <h2>Почему это не <span class="accent">теория</span></h2>
+          <h2 data-kinetic>Почему это не <span class="accent">теория</span></h2>
         </div>
         <p class="blk-sub">В магазине остаются только покупаемые результаты. Полный диапазон — production-системы, графика, инфраструктура и формальные исследования — живёт в портфолио.</p>
       </div>
@@ -335,6 +519,43 @@
       <div class="work-cta">
         <p>Нужны детали, исходные ссылки и технический стек конкретного кейса — они собраны в основном портфолио.</p>
         <a class="btn btn-ghost" href="https://shulgin.is-a.dev">Открыть портфолио</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" id="faq">
+    <div class="wrap">
+      <div class="blk-head">
+        <span class="watermark" aria-hidden="true">05</span>
+        <div class="blk-title">
+          <span class="kicker"><span class="star">★</span> процесс и условия</span>
+          <h2 data-kinetic>Как проходит <span class="accent">работа</span></h2>
+        </div>
+        <p class="blk-sub">Четыре шага без сюрпризов. Здесь же — ответы на то, о чём обычно спрашивают до заявки.</p>
+      </div>
+      <ol class="steps">
+        <li><strong>Обсуждаем задачу.</strong> Telegram или почта — коротко описываете, что нужно получить.</li>
+        <li><strong>Фиксируем рамки.</strong> Вход, выход и критерий приёмки письменно — до кода. Тогда же называю срок и точную цену.</li>
+        <li><strong>Спринт.</strong> Обычно 2–4 дня. Промежуточный показ — если работа дольше двух дней.</li>
+        <li><strong>Приёмка и передача.</strong> Проверяем результат по зафиксированному критерию, передаю код и инструкцию по запуску.</li>
+      </ol>
+      <div class="faq-list">
+        <details class="faq-item" data-spot>
+          <summary>Что значит «от $X» — какая будет точная цена?</summary>
+          <p>«От» — это цена минимального scope спринта. Точная цифра называется после фиксации рамок на шаге 2 и дальше не меняется. Растёт задача — сначала пересматриваем рамки, не счёт.</p>
+        </details>
+        <details class="faq-item" data-spot>
+          <summary>Как устроена оплата?</summary>
+          <p>Обсуждается в переписке: карта, крипта или перевод. Обычно часть до старта, остаток по приёмке. Платёжных кнопок на сайте пока нет намеренно.</p>
+        </details>
+        <details class="faq-item" data-spot>
+          <summary>Что, если результат не подойдёт?</summary>
+          <p>Критерий приёмки фиксируется до старта — «подойдёт/не подойдёт» проверяется по нему, а не по ощущениям. Не дотянул до критерия — дорабатываю в рамках спринта без доплаты.</p>
+        </details>
+        <details class="faq-item" data-spot>
+          <summary>Кому принадлежит код?</summary>
+          <p>Вам. Передаю исходники и права на использование; для Living Mascot действует лицензия из комплекта.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -380,16 +601,22 @@
       <label for="lm-message">Сообщение</label>
       <textarea id="lm-message" name="msg" placeholder="Коротко: задача, текущий контекст, сроки"></textarea>
       <a class="send" id="lm-send" href="mailto:sanexxx777@gmail.com">Открыть письмо</a>
-      <p class="fine">Открывает почтовый клиент с заполненным письмом. Данные нигде не сохраняются.</p>
+      <a class="send send-tg" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Написать в Telegram</a>
+      <p class="fine">Письмо откроется в почтовом клиенте с заполненным текстом; Telegram — быстрее. Оплату обсудим в переписке: карта, крипта или перевод. Данные нигде не сохраняются.</p>
     </form>
   </div>
 </div>
 
 <script src="app.js"></script>
+<script src="assets/effects.js"></script>
 <script type="module">
   import { createOctopus3D } from './assets/octopus3d.js';
   var canvas = document.getElementById('hero-mascot');
-  if (canvas) createOctopus3D(canvas);
+  try {
+    if (canvas) createOctopus3D(canvas);
+  } catch (e) {
+    if (canvas) canvas.style.display = 'none'; // нет WebGL - прячем сцену, страница живёт дальше
+  }
 </script>
 </body>
 </html>

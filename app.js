@@ -102,6 +102,17 @@
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      // focus trap: Tab циклится внутри открытой модалки, не уходит на задний план
+      if (e.key === 'Tab' && modal.classList.contains('open')) {
+        var focusables = modal.querySelectorAll('button, input, textarea, a[href]');
+        if (!focusables.length) return;
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      }
     });
 
     // build the mailto: link from the filled fields right before navigation
@@ -109,6 +120,13 @@
     var form = modal.querySelector('[data-lead-form]');
     if (sendLink && form) {
       if (contactField) contactField.addEventListener('input', clearError);
+      // Enter в полях = то же, что клик по «Открыть письмо» (submit-кнопки в форме нет)
+      form.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          sendLink.click();
+        }
+      });
       sendLink.addEventListener('click', function (e) {
         var item = form.item.value.trim() || STR.fallbackItem;
         var contact = form.contact.value.trim();

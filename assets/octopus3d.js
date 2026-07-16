@@ -99,6 +99,28 @@ export function createOctopus3D(canvas, opts) {
   var outlineMat = new THREE.MeshBasicMaterial({ color: PAL.outline, side: THREE.BackSide });
   var blushMat = new THREE.MeshBasicMaterial({ color: PAL.blush, transparent: true, opacity: 0, depthWrite: false });
 
+  // fresnel rim on the toon materials: coral glow along the silhouette that survives the
+  // hard cel bands. Injected after <lights_fragment_end> where `normal`/`vViewPosition` are
+  // in scope and reflectedLight is still open for adding; outgoingLight is declared later.
+  function addRim(mat, strength) {
+    mat.onBeforeCompile = function (sh) {
+      sh.uniforms.rimColor = { value: new THREE.Color(PAL.rim) };
+      var before = sh.fragmentShader.length;
+      sh.fragmentShader = 'uniform vec3 rimColor;\n' + sh.fragmentShader.replace(
+        '#include <lights_fragment_end>',
+        '#include <lights_fragment_end>\n' +
+        'float rimF = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 3.0);\n' +
+        'reflectedLight.indirectDiffuse += rimColor * rimF * ' + strength.toFixed(2) + ';'
+      );
+      // replace на переименованном чанке молча вернёт строку как есть - rim исчезнет без
+      // ошибки; ловим это при будущем bump вендоренной three
+      if (sh.fragmentShader.length <= before + 20) console.warn('octopus rim: shader chunk not found, rim light disabled');
+    };
+    mat.customProgramCacheKey = function () { return 'octo-rim-' + strength.toFixed(2); };
+  }
+  addRim(headMat, 0.55);
+  addRim(legMat, 0.4);
+
   function addOutline(mesh, scale) {
     var o = new THREE.Mesh(mesh.geometry, outlineMat);
     o.scale.setScalar(scale);
@@ -139,6 +161,10 @@ export function createOctopus3D(canvas, opts) {
     var p = new THREE.Mesh(new THREE.SphereGeometry(0.075, 8, 6), eyeDarkMat);
     p.position.z = 0.13;
     g.add(p);
+    // specular catchlight: tiny fixed white dot up-left on the pupil - the "alive" glint
+    var glint = new THREE.Mesh(new THREE.SphereGeometry(0.024, 6, 5), new THREE.MeshBasicMaterial({ color: 0xfff8ee }));
+    glint.position.set(-0.026, 0.028, 0.062);
+    p.add(glint);
     g.position.set(s * 0.5, HEAD_R * 0.08, HEAD_R * 0.92);
     g.userData.pupil = p;
     g.userData.white = w;
@@ -163,6 +189,8 @@ export function createOctopus3D(canvas, opts) {
       var r = SEG_R0 * (1 - s / SEGMENTS * 0.55);
       var seg = new THREE.Group();
       seg.position.y = s === 0 ? 0 : -SEG_LEN;
+      seg.userData.avx = 0; // angular velocity state for the follow-through spring
+      seg.userData.avz = 0;
       var mesh = new THREE.Mesh(new THREE.CapsuleGeometry(r, SEG_LEN * 0.82, 4, 8), legMat);
       mesh.position.y = -SEG_LEN / 2;
       seg.add(mesh);
@@ -174,11 +202,38 @@ export function createOctopus3D(canvas, opts) {
     legs.push({ chain: chain, phase: Math.random() * Math.PI * 2, side: u });
   }
 
-  // soft contact shadow (flat, cheap - not real shadow mapping for a decorative widget)
-  var shadowMat = new THREE.MeshBasicMaterial({ color: 0x0c0602, transparent: true, opacity: 0.34 });
-  var shadow = new THREE.Mesh(new THREE.CircleGeometry(1.15, 16), shadowMat);
+  // dumbo-octopus ear fins on top of the mantle: two flattened cones with a soft flap,
+  // phase-locked to the bob so they read as part of the same "breathing" body
+  var fins = [-1, 1].map(function (s) {
+    var fin = new THREE.Mesh(new THREE.ConeGeometry(HEAD_R * 0.22, HEAD_R * 0.52, 8), headMat);
+    fin.position.set(s * HEAD_R * 0.72, HEAD_R * 0.62, -HEAD_R * 0.1);
+    fin.scale.set(0.45, 1, 0.8);
+    fin.rotation.z = s * -0.95;
+    addOutline(fin, 1.22);
+    root.add(fin);
+    return { mesh: fin, side: s, baseRot: s * -0.95 };
+  });
+
+  // soft contact shadow: radial-gradient alpha texture instead of a hard-edged disc, so the
+  // character actually "sits" on a surface; opacity fades as the body lifts off the ground
+  var shadowTex = (function () {
+    var c = document.createElement('canvas');
+    c.width = 64; c.height = 64;
+    var ctx = c.getContext('2d');
+    var g = ctx.createRadialGradient(32, 32, 2, 32, 32, 32);
+    g.addColorStop(0, 'rgba(12, 6, 2, 0.55)');
+    g.addColorStop(0.55, 'rgba(12, 6, 2, 0.28)');
+    g.addColorStop(1, 'rgba(12, 6, 2, 0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  })();
+  var shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false });
+  var shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.7, 2.7), shadowMat);
   shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = -2.55;
+  // inside the camera frustum: bottom of view at z=0 is ~-2.43 (fov 32, dist~8.85), the old
+  // -2.55 put the shadow permanently off-screen - it had never actually been visible
+  shadow.position.y = -2.18;
   scene.add(shadow);
 
   var zSprite = makeSprite('z', '#fff2df');
@@ -186,12 +241,23 @@ export function createOctopus3D(canvas, opts) {
 
   // ink bubbles - the "flower" idle-mood equivalent from the ghost, reinterpreted for an
   // octopus: a small burst of bubbles instead of a flower, same idle-pool slot/weight.
-  var bubbles = [];
+  // Pooled: materials are created once and recycled (create/dispose per burst caused GC hitches).
+  var BUBBLE_POOL = 8;
   var bubbleGeo = new THREE.SphereGeometry(1, 8, 6);
+  var bubbles = [];
+  for (var bp = 0; bp < BUBBLE_POOL; bp++) {
+    var bMat = new THREE.MeshBasicMaterial({ color: 0xcdeeff, transparent: true, opacity: 0 });
+    var bM = new THREE.Mesh(bubbleGeo, bMat);
+    bM.visible = false;
+    bM.userData.live = false;
+    scene.add(bM);
+    bubbles.push(bM);
+  }
   function spawnBubbles(t) {
-    for (var n = 0; n < 5; n++) {
-      var mat = new THREE.MeshBasicMaterial({ color: 0xcdeeff, transparent: true, opacity: 0.7 });
-      var m = new THREE.Mesh(bubbleGeo, mat);
+    var spawned = 0;
+    for (var n = 0; n < bubbles.length && spawned < 5; n++) {
+      var m = bubbles[n];
+      if (m.userData.live) continue;
       var a = Math.random() * Math.PI * 2;
       m.position.copy(root.position);
       m.position.y += HEAD_R * 0.3;
@@ -201,9 +267,49 @@ export function createOctopus3D(canvas, opts) {
       m.userData.born = t;
       m.userData.life = 1100 + Math.random() * 500;
       m.scale.setScalar(0.05 + Math.random() * 0.06);
-      scene.add(m);
-      bubbles.push(m);
+      m.userData.live = true;
+      m.visible = true;
+      spawned++;
     }
+  }
+
+  // ink cloud burst - the signature octopus move, fired on click escalation: one flipbook
+  // sprite (4 posterized dark-blob frames on a single texture, UV offset per frame) that
+  // expands and fades. One draw call, reads as a chunky pixel-art ink "poof" at low res.
+  var inkTex = (function () {
+    var c = document.createElement('canvas');
+    c.width = 256; c.height = 64; // 4 frames of 64x64
+    var ctx = c.getContext('2d');
+    for (var f = 0; f < 4; f++) {
+      var ox = f * 64 + 32;
+      var blobs = 5 + f * 2;
+      for (var b = 0; b < blobs; b++) {
+        var ba = (b / blobs) * Math.PI * 2 + f * 0.7;
+        var br = (6 + f * 5) * (0.5 + Math.random() * 0.8);
+        var bx = ox + Math.cos(ba) * (4 + f * 7) * (0.6 + Math.random() * 0.7);
+        var by = 32 + Math.sin(ba) * (4 + f * 6) * (0.6 + Math.random() * 0.7);
+        ctx.fillStyle = 'rgba(26, 16, 48, ' + (0.9 - f * 0.14).toFixed(2) + ')';
+        ctx.beginPath();
+        ctx.arc(bx, by, br, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    var tex = new THREE.CanvasTexture(c);
+    tex.minFilter = THREE.NearestFilter;
+    tex.magFilter = THREE.NearestFilter;
+    tex.repeat.set(0.25, 1);
+    return tex;
+  })();
+  var inkMat = new THREE.SpriteMaterial({ map: inkTex, transparent: true, opacity: 0, depthTest: false });
+  var inkSprite = new THREE.Sprite(inkMat);
+  inkSprite.visible = false;
+  scene.add(inkSprite);
+  var inkBorn = -1;
+  var INK_DUR = 950;
+  function spawnInk(t) {
+    inkBorn = t;
+    inkSprite.visible = true;
+    inkSprite.position.set(root.position.x, root.position.y - HEAD_R * 0.2, root.position.z - HEAD_R * 0.6);
   }
 
   // --- emotion system (ported behavior model from the sold ghost engine, re-tuned for this
@@ -234,6 +340,8 @@ export function createOctopus3D(canvas, opts) {
     if (name === 'wink') winkSide = Math.random() < 0.5 ? 0 : 1;
     if (name === 'angry') angryUntil = t + DUR.angry;
     if (name === 'bubble') spawnBubbles(t);
+    // the signature octopus move: pestered enough - vanishes behind an ink cloud
+    if (name === 'surprise' || name === 'angry') spawnInk(t);
   }
   function wake(t) { if (sleeping) { sleeping = false; startEmote('bounce', t); } }
   function click(t) {
@@ -256,6 +364,8 @@ export function createOctopus3D(canvas, opts) {
   var home = new THREE.Vector3(0, 0.05, 0);
   var pos = home.clone();
   var vel = new THREE.Vector3();
+  var prevPos = pos.clone();
+  var bodyVel = new THREE.Vector3(); // measured per-frame motion (covers both drag and spring)
   var dragging = false, dragTarget = new THREE.Vector3();
   var downPos = null, downT = 0, moved = false;
   var pointerNDC = new THREE.Vector2(0, -0.4);
@@ -285,7 +395,9 @@ export function createOctopus3D(canvas, opts) {
     return out || new THREE.Vector3();
   }
 
+  var lastInteract = performance.now();
   function onDown(e) {
+    lastInteract = performance.now();
     var w = pointerToWorld(e.clientX, e.clientY);
     if (w.distanceTo(pos) <= HEAD_R * 1.6) {
       dragging = true;
@@ -304,8 +416,9 @@ export function createOctopus3D(canvas, opts) {
     lastPointer = performance.now();
     if (sleeping) wake(lastPointer);
     var w = pointerToWorld(e.clientX, e.clientY);
-    lookX = THREE.MathUtils.clamp((e.clientX - (canvas.getBoundingClientRect().left + canvas.getBoundingClientRect().width / 2)) / 220, -1, 1);
-    lookY = THREE.MathUtils.clamp(-(e.clientY - (canvas.getBoundingClientRect().top + canvas.getBoundingClientRect().height / 2)) / 220, -1, 1);
+    var cr = canvas.getBoundingClientRect(); // один rect на move, не пять
+    lookX = THREE.MathUtils.clamp((e.clientX - (cr.left + cr.width / 2)) / 220, -1, 1);
+    lookY = THREE.MathUtils.clamp(-(e.clientY - (cr.top + cr.height / 2)) / 220, -1, 1);
     if (!dragging) return;
     if (downPos && (Math.abs(e.clientX - downPos.x) > 6 || Math.abs(e.clientY - downPos.y) > 6)) moved = true;
     var b = boundsAt(0);
@@ -325,6 +438,38 @@ export function createOctopus3D(canvas, opts) {
   window.addEventListener('pointerup', onUp);
   canvas.style.touchAction = 'none';
   canvas.style.cursor = 'grab';
+
+  // --- page awareness: the character notices the page, not just the cursor.
+  // Glance toward clicks anywhere on the page; perk up when hero CTAs are hovered;
+  // tentacles get dragged by scroll momentum (handled in tick via scrollImp).
+  var gazeUntil = 0, gazeX = 0, gazeY = -0.15;
+  function gazeAtClient(cx, cy, dur) {
+    var r = canvas.getBoundingClientRect();
+    gazeX = THREE.MathUtils.clamp((cx - (r.left + r.width / 2)) / 260, -1.15, 1.15);
+    gazeY = THREE.MathUtils.clamp(-(cy - (r.top + r.height / 2)) / 260, -1, 1);
+    gazeUntil = performance.now() + (dur || 1100);
+  }
+  function onDocDown(e) {
+    if (e.target === canvas) return;
+    gazeAtClient(e.clientX, e.clientY, 900);
+  }
+  document.addEventListener('pointerdown', onDocDown, { passive: true });
+  function onCtaEnter(e) {
+    var t = performance.now();
+    if (sleeping || dragging) return;
+    var r = e.currentTarget.getBoundingClientRect();
+    gazeAtClient(r.left + r.width / 2, r.top + r.height / 2, 1400);
+    if (!reduced && !emote) startEmote('bounce', t);
+  }
+  var ctaEls = Array.prototype.slice.call(document.querySelectorAll('.hero-cta .btn, .cta-mini, .hero-stage-cap'));
+  ctaEls.forEach(function (el) { el.addEventListener('pointerenter', onCtaEnter); });
+  var lastScrollY = window.scrollY, scrollImp = 0;
+  function onScroll() {
+    var y = window.scrollY;
+    scrollImp += y - lastScrollY;
+    lastScrollY = y;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
 
   function resize() {
     var w = canvas.clientWidth || canvas.width, h = canvas.clientHeight || canvas.height;
@@ -404,6 +549,18 @@ export function createOctopus3D(canvas, opts) {
       if (p >= 1) { emote = null; } else { name = emote.name; }
     }
 
+    // measured body velocity for tentacle follow-through: works during drag too, where the
+    // spring `vel` is zeroed; normalized per 16.7ms step so it is frame-rate independent
+    bodyVel.set(
+      THREE.MathUtils.clamp((pos.x - prevPos.x) / dt, -0.09, 0.09),
+      THREE.MathUtils.clamp((pos.y - prevPos.y) / dt, -0.09, 0.09),
+      0
+    );
+    prevPos.copy(pos);
+    // scroll momentum decays and feeds the tentacles like a water current
+    scrollImp *= Math.pow(0.85, dt);
+    var scrollLean = THREE.MathUtils.clamp(scrollImp * 0.0011, -0.55, 0.55);
+
     var speed = vel.length();
     reactT = Math.max(0, reactT - 0.02 * dt);
     var bobFreq = THREE.MathUtils.lerp(0.0016, 0.0007, sleepK), bobAmp = THREE.MathUtils.lerp(0.05, 0.022, sleepK);
@@ -443,7 +600,10 @@ export function createOctopus3D(canvas, opts) {
     var squash = 1 - Math.min(0.12, speed * 2.2) - reactT * 0.05;
     root.position.set(pos.x, pos.y + bob + yE, pos.z);
     root.scale.set(sxE / Math.sqrt(stretch), stretch * syE, sxE / Math.sqrt(stretch));
-    head.scale.set(1, squash, 1);
+    // mantle breathing: slow uneven pulse, slower and deeper while asleep - the micro-motion
+    // that separates "a creature" from "a model"
+    var breath = reduced ? 0 : Math.sin(t * THREE.MathUtils.lerp(0.0013, 0.0008, sleepK)) * THREE.MathUtils.lerp(0.014, 0.024, sleepK);
+    head.scale.set(1 + breath * 0.6, squash * (1 + breath), 1 + breath * 0.6);
     root.rotation.y = THREE.MathUtils.lerp(root.rotation.y, yawExtra, name === 'turn' ? 1 : 0.2);
     root.rotation.x = THREE.MathUtils.lerp(root.rotation.x, pitchExtra, name === 'flip' ? 1 : 0.2);
 
@@ -464,18 +624,34 @@ export function createOctopus3D(canvas, opts) {
     if (!reduced) {
       var tilt = dragging ? (dragTarget.x - pos.x) * 0.25 : Math.sin(t * 0.0009) * 0.06 * (1 - sleepK);
       root.rotation.z = THREE.MathUtils.lerp(root.rotation.z, tilt + tiltExtra, 1 - Math.pow(1 - 0.15, dt));
+      // tentacle follow-through: each segment is a damped angular spring chasing the swim
+      // wave plus an inertia term from the measured body motion (drag/spring/scroll) - the
+      // chain lags, whips and settles instead of replaying a fixed sine. Stiffness falls and
+      // lag weight grows toward the tip, so tips trail the most.
       legs.forEach(function (leg) {
         leg.chain.forEach(function (seg, si) {
+          var w = (si + 1) / SEGMENTS;
           var amp = (dragging ? 0.10 : 0.16) * legAmpMul;
-          var w1 = Math.sin(t * 0.0026 + leg.phase + si * 0.9) * amp * (si + 1) / SEGMENTS;
-          var w2 = Math.cos(t * 0.0021 + leg.phase * 1.3 + si * 0.7) * amp * 0.6 * (si + 1) / SEGMENTS;
-          seg.rotation.x = w1;
-          seg.rotation.z = w2 + leg.side * 0.12;
+          var targetX = Math.sin(t * 0.0026 + leg.phase - si * 0.6) * amp * w
+            + (bodyVel.y * 4.5 + scrollLean) * w;
+          var targetZ = Math.cos(t * 0.0021 + leg.phase * 1.3 - si * 0.5) * amp * 0.6 * w
+            + leg.side * 0.12 - bodyVel.x * 5.5 * w;
+          var k = (0.22 - si * 0.03) * dt;
+          var d = Math.pow(0.78, dt);
+          seg.userData.avx = (seg.userData.avx + (targetX - seg.rotation.x) * k) * d;
+          seg.userData.avz = (seg.userData.avz + (targetZ - seg.rotation.z) * k) * d;
+          seg.rotation.x += seg.userData.avx * dt;
+          seg.rotation.z += seg.userData.avz * dt;
         });
       });
+      // ear fins flap in counter-phase, calm down during sleep
+      fins.forEach(function (f, fi) {
+        f.mesh.rotation.z = f.baseRot + Math.sin(t * 0.0021 + fi * Math.PI * 0.6) * 0.16 * (1 - sleepK * 0.6) * f.side;
+      });
       var wanderActive = !dragging && (t - lastPointer > 4000);
-      var curLookX = dragging ? lookX : lookOverrideX !== null ? lookOverrideX : wanderActive ? wanderX : lookX;
-      var curLookY = dragging ? lookY : lookOverrideY !== null ? lookOverrideY : wanderActive ? wanderY : lookY;
+      var gazeActive = !dragging && t < gazeUntil;
+      var curLookX = dragging ? lookX : lookOverrideX !== null ? lookOverrideX : gazeActive ? gazeX : wanderActive ? wanderX : lookX;
+      var curLookY = dragging ? lookY : lookOverrideY !== null ? lookOverrideY : gazeActive ? gazeY : wanderActive ? wanderY : lookY;
       eyes.forEach(function (g, idx) {
         var pu = g.userData.pupil, wh = g.userData.white;
         pu.position.x = THREE.MathUtils.clamp(curLookX, -1, 1) * 0.05;
@@ -502,20 +678,43 @@ export function createOctopus3D(canvas, opts) {
       angerSprite.scale.setScalar(0.42 + wAngry * 0.14);
     } else { angerSprite.visible = false; }
 
-    // ink bubbles - rise, drift, fade, then get recycled
-    for (var bi = bubbles.length - 1; bi >= 0; bi--) {
+    // bubbles - rise, drift, fade, then return to the pool (no dispose churn)
+    for (var bi = 0; bi < bubbles.length; bi++) {
       var bm = bubbles[bi];
+      if (!bm.userData.live) continue;
       var life = (t - bm.userData.born) / bm.userData.life;
-      if (life >= 1) { scene.remove(bm); bm.material.dispose(); bubbles.splice(bi, 1); continue; }
+      if (life >= 1) { bm.userData.live = false; bm.visible = false; bm.material.opacity = 0; continue; }
       bm.position.x += bm.userData.vx * dt;
       bm.position.y += bm.userData.vy * dt;
       bm.material.opacity = 0.7 * (1 - life);
     }
 
-    shadow.position.x = pos.x;
-    shadow.scale.setScalar(THREE.MathUtils.clamp(1 - pos.y * 0.15, 0.7, 1.15));
+    // ink cloud flipbook: frame by UV offset, expand + fade
+    if (inkBorn >= 0) {
+      var ip = (t - inkBorn) / INK_DUR;
+      if (ip >= 1) {
+        inkBorn = -1;
+        inkSprite.visible = false;
+        inkMat.opacity = 0;
+      } else {
+        inkTex.offset.x = Math.min(3, Math.floor(ip * 4)) * 0.25;
+        inkSprite.scale.setScalar((0.8 + ip * 2.4) * HEAD_R * 2);
+        inkMat.opacity = ip < 0.15 ? (ip / 0.15) * 0.85 : 0.85 * (1 - (ip - 0.15) / 0.85);
+      }
+    }
 
-    renderer.render(scene, camera);
+    shadow.position.x = pos.x;
+    // the higher the lift-off, the smaller AND lighter the contact shadow
+    var lift = (pos.y + bob + yE) - home.y;
+    shadow.scale.setScalar(THREE.MathUtils.clamp(1 - lift * 0.15, 0.7, 1.15));
+    shadowMat.opacity = THREE.MathUtils.clamp(1 - lift * 0.4, 0.3, 1);
+
+    // under reduced-motion the ambient animation is all zeroed - don't re-render identical
+    // frames 60/s (battery); draw only while something user-driven can actually change.
+    // The loop itself must stay alive: dragging has to redraw (see note below).
+    var needsRender = !reduced || dragging || inkBorn >= 0 || wAngry > 0.01 || wBlush > 0.01
+      || (t - lastInteract < 3000);
+    if (needsRender) renderer.render(scene, camera);
     raf = requestAnimationFrame(tick);
   }
 
@@ -532,6 +731,9 @@ export function createOctopus3D(canvas, opts) {
       window.removeEventListener('pointermove', onMoveWindow);
       window.removeEventListener('pointerup', onUp);
       window.removeEventListener('resize', resize);
+      document.removeEventListener('pointerdown', onDocDown);
+      window.removeEventListener('scroll', onScroll);
+      ctaEls.forEach(function (el) { el.removeEventListener('pointerenter', onCtaEnter); });
       if (raf) cancelAnimationFrame(raf);
       renderer.dispose();
     },
