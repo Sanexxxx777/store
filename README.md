@@ -20,4 +20,4 @@ python3 -m http.server 8080
 
 ## Contact
 
-sanexxx777@gmail.com · [Telegram](https://t.me/Aleksandr_NFA) · [Portfolio](https://shulgin.is-a.dev)
+Aleksandr Shulgin · sanexxx777@gmail.com · [Telegram](https://t.me/Aleksandr_NFA) · [Portfolio](https://shulgin.is-a.dev)
