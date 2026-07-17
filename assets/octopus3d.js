@@ -25,7 +25,7 @@ export function createOctopus3D(canvas, opts) {
     blush: 0xff9d8a,
   }, opts.colors ? opts.colors() : {});
 
-  var PIXEL_SCALE = 4.2; // CSS px per rendered "pixel" - the chunky pixel-art grid size
+  var PIXEL_SCALE = 3.8; // CSS px per rendered "pixel" - the chunky pixel-art grid size
 
   var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(1); // fixed grid: pixel-block size stays consistent across devices
@@ -52,13 +52,13 @@ export function createOctopus3D(canvas, opts) {
   var root = new THREE.Group();
   scene.add(root);
 
-  // hard 4-step gradient LUT for the N.L term - what turns smooth PBR shading into flat
+  // hard 5-step gradient LUT for the N.L term - what turns smooth PBR shading into flat
   // cel/toon bands (generic toon-shader technique, not specific to this asset)
   var gradientMap = (function () {
     var c = document.createElement('canvas');
-    c.width = 4; c.height = 1;
+    c.width = 5; c.height = 1;
     var ctx = c.getContext('2d');
-    [40, 120, 190, 255].forEach(function (v, i) {
+    [30, 95, 150, 205, 255].forEach(function (v, i) {
       ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')';
       ctx.fillRect(i, 0, 1, 1);
     });
@@ -177,6 +177,9 @@ export function createOctopus3D(canvas, opts) {
   // previous one so a sine wave applied down the chain reads as an organic wave, cheap to
   // animate (rotate a few groups per frame, no geometry rebuild)
   var LEGS = 6, SEGMENTS = 5, SEG_LEN = 0.245, SEG_R0 = 0.173;
+  // suckers: shared unit-sphere geometry scaled per instance - one geometry, many cheap meshes
+  var suckGeo = new THREE.SphereGeometry(1, 6, 5);
+  var suckMat = toonMat(PAL.belly);
   var legs = [];
   for (var i = 0; i < LEGS; i++) {
     var u = (i + 0.5) / LEGS - 0.5; // -0.5..0.5
@@ -195,11 +198,36 @@ export function createOctopus3D(canvas, opts) {
       mesh.position.y = -SEG_LEN / 2;
       seg.add(mesh);
       addOutline(mesh, 1.32);
+      // front-facing sucker pads down the chain - the detail that sells "octopus", not "worms"
+      if (s >= 1) {
+        for (var sk = 0; sk < 2; sk++) {
+          var su = new THREE.Mesh(suckGeo, suckMat);
+          su.scale.setScalar(r * 0.3);
+          su.position.set(0, -SEG_LEN * (0.22 + sk * 0.44), r * 0.82);
+          seg.add(su);
+        }
+      }
       parent.add(seg);
       parent = seg;
       chain.push(seg);
     }
     legs.push({ chain: chain, phase: Math.random() * Math.PI * 2, side: u });
+  }
+
+  // plankton motes: tiny warm dust drifting at different depths - parallax sells the volume
+  // of the scene even when the character holds still
+  var moteGeo = new THREE.SphereGeometry(1, 5, 4);
+  var motes = [];
+  for (var mi = 0; mi < 14; mi++) {
+    var moMat = new THREE.MeshBasicMaterial({ color: 0xffcf9a, transparent: true, opacity: 0, depthWrite: false });
+    var mo = new THREE.Mesh(moteGeo, moMat);
+    mo.scale.setScalar(0.016 + Math.random() * 0.028);
+    mo.position.set((Math.random() - 0.5) * 4.6, (Math.random() - 0.5) * 3.4, -1.6 + Math.random() * 2.4);
+    mo.userData.ph = Math.random() * Math.PI * 2;
+    mo.userData.baseOp = 0.12 + Math.random() * 0.16;
+    moMat.opacity = mo.userData.baseOp;
+    scene.add(mo);
+    motes.push(mo);
   }
 
   // dumbo-octopus ear fins on top of the mantle: two flattened cones with a soft flap,
@@ -415,6 +443,9 @@ export function createOctopus3D(canvas, opts) {
   function onMoveWindow(e) {
     lastPointer = performance.now();
     if (sleeping) wake(lastPointer);
+    // вне вьюпорта raycast + два getBoundingClientRect на каждый pointermove
+    // по всей странице - пустой расход, персонажа всё равно не видно
+    if (!visible) return;
     var w = pointerToWorld(e.clientX, e.clientY);
     var cr = canvas.getBoundingClientRect(); // один rect на move, не пять
     lookX = THREE.MathUtils.clamp((e.clientX - (cr.left + cr.width / 2)) / 220, -1, 1);
@@ -436,7 +467,9 @@ export function createOctopus3D(canvas, opts) {
   canvas.addEventListener('pointerdown', onDown);
   window.addEventListener('pointermove', onMoveWindow, { passive: true });
   window.addEventListener('pointerup', onUp);
-  canvas.style.touchAction = 'none';
+  // pan-y, НЕ none: канвас стоит в потоке страницы, палец на осьминоге обязан
+  // прокручивать её вертикально; горизонтальный драг и тапы работают как раньше
+  canvas.style.touchAction = 'pan-y';
   canvas.style.cursor = 'grab';
 
   // --- page awareness: the character notices the page, not just the cursor.
@@ -484,15 +517,23 @@ export function createOctopus3D(canvas, opts) {
   resize();
   window.addEventListener('resize', resize);
 
-  var visible = true;
-  var io = new IntersectionObserver(function (es) { visible = es[0].isIntersecting; });
-  io.observe(canvas);
-
   var raf = 0, destroyed = false, lastT = 0;
+  var visible = true;
+  function arm() { if (!raf && !destroyed && visible && !document.hidden) raf = requestAnimationFrame(tick); }
+  // rAF останавливается полностью вне вьюпорта/в скрытой вкладке (не re-arm впустую);
+  // будят IntersectionObserver и visibilitychange
+  var io = new IntersectionObserver(function (es) {
+    visible = es[0].isIntersecting;
+    if (visible) { lastT = 0; arm(); }
+  });
+  io.observe(canvas);
+  function onVis() { if (!document.hidden) { lastT = 0; arm(); } }
+  document.addEventListener('visibilitychange', onVis);
+
   function tick(t) {
     raf = 0;
     if (destroyed) return;
-    if (!visible || document.hidden) { lastT = 0; raf = requestAnimationFrame(tick); return; }
+    if (!visible || document.hidden) { lastT = 0; return; }
 
     var dt = lastT ? THREE.MathUtils.clamp((t - lastT) / 16.6667, 0, 4) : 1;
     lastT = t;
@@ -648,6 +689,13 @@ export function createOctopus3D(canvas, opts) {
       fins.forEach(function (f, fi) {
         f.mesh.rotation.z = f.baseRot + Math.sin(t * 0.0021 + fi * Math.PI * 0.6) * 0.16 * (1 - sleepK * 0.6) * f.side;
       });
+      // plankton drift: slow uneven float + per-mote shimmer (frequencies deliberately uneven)
+      for (var mm = 0; mm < motes.length; mm++) {
+        var mo2 = motes[mm];
+        mo2.position.y += Math.sin(t * 0.00037 + mo2.userData.ph) * 0.0011 * dt;
+        mo2.position.x += Math.cos(t * 0.00029 + mo2.userData.ph * 1.7) * 0.0008 * dt;
+        mo2.material.opacity = mo2.userData.baseOp * (0.65 + 0.35 * Math.sin(t * 0.0011 + mo2.userData.ph * 2.3));
+      }
       var wanderActive = !dragging && (t - lastPointer > 4000);
       var gazeActive = !dragging && t < gazeUntil;
       var curLookX = dragging ? lookX : lookOverrideX !== null ? lookOverrideX : gazeActive ? gazeX : wanderActive ? wanderX : lookX;
@@ -731,6 +779,7 @@ export function createOctopus3D(canvas, opts) {
       window.removeEventListener('pointermove', onMoveWindow);
       window.removeEventListener('pointerup', onUp);
       window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', onVis);
       document.removeEventListener('pointerdown', onDocDown);
       window.removeEventListener('scroll', onScroll);
       ctaEls.forEach(function (el) { el.removeEventListener('pointerenter', onCtaEnter); });

@@ -42,6 +42,9 @@
               el.style.transitionDelay = (i * 70) + 'ms';
               el.classList.add('in');
               el.classList.remove('pre');
+              // снять stagger-задержку после reveal: иначе она остаётся на элементе
+              // и тормозит hover-транзишены фона
+              setTimeout(function () { el.style.transitionDelay = ''; }, 600 + i * 70);
             });
             batch = [];
             flush = null;
@@ -115,35 +118,59 @@
       }
     });
 
-    // build the mailto: link from the filled fields right before navigation
+    // build the outgoing links from the filled fields right before navigation.
+    // Telegram is the primary channel (RU-аудитория, mailto у многих открывает пустоту):
+    // the composed text rides along via t.me/...?text= (official clients prefill the draft)
+    // and is also copied to the clipboard as a fallback - written text must never be lost.
     var sendLink = document.getElementById('lm-send');
+    var tgLink = modal.querySelector('.send-tg');
     var form = modal.querySelector('[data-lead-form]');
-    if (sendLink && form) {
+    if (form) {
       if (contactField) contactField.addEventListener('input', clearError);
-      // Enter в полях = то же, что клик по «Открыть письмо» (submit-кнопки в форме нет)
+      // Enter в полях = то же, что клик по главной кнопке (submit-кнопки в форме нет).
+      // На ссылках/кнопках Enter НЕ перехватываем - иначе клавиатурный пользователь
+      // не может активировать вторичную mailto-ссылку
       form.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-          e.preventDefault();
-          sendLink.click();
-        }
+        if (e.key !== 'Enter' || e.target.tagName === 'TEXTAREA') return;
+        if (e.target.closest('a, button')) return;
+        e.preventDefault();
+        (tgLink || sendLink).click();
       });
-      sendLink.addEventListener('click', function (e) {
+      function composed() {
         var item = form.item.value.trim() || STR.fallbackItem;
         var contact = form.contact.value.trim();
         var msg = form.msg.value.trim();
-        if (!contact) {
-          e.preventDefault();
-          if (errorEl) errorEl.textContent = STR.contactRequired;
-          if (contactField) {
-            contactField.setAttribute('aria-invalid', 'true');
-            contactField.focus();
+        return {
+          item: item,
+          contact: contact,
+          body: (contact ? STR.myContact + contact + '\n\n' : '') + msg,
+          text: item + (msg ? '\n' + msg : '') + (contact ? '\n' + STR.myContact + contact : ''),
+        };
+      }
+      if (tgLink) {
+        tgLink.addEventListener('click', function () {
+          var c = composed();
+          // в Telegram контакт не обязателен - отправитель и есть контакт
+          tgLink.href = 'https://t.me/Aleksandr_NFA?text=' + encodeURIComponent(c.text);
+          if (navigator.clipboard && c.text) navigator.clipboard.writeText(c.text).catch(function () {});
+        });
+      }
+      if (sendLink) {
+        sendLink.addEventListener('click', function (e) {
+          var c = composed();
+          if (!c.contact) {
+            e.preventDefault();
+            if (errorEl) errorEl.textContent = STR.contactRequired;
+            if (contactField) {
+              contactField.setAttribute('aria-invalid', 'true');
+              contactField.focus();
+            }
+            return;
           }
-          return;
-        }
-        clearError();
-        var body = (contact ? STR.myContact + contact + '\n\n' : '') + msg;
-        sendLink.href = 'mailto:sanexxx777@gmail.com?subject=' + encodeURIComponent(item) + '&body=' + encodeURIComponent(body);
-      });
+          clearError();
+          sendLink.href = 'mailto:sanexxx777@gmail.com?subject=' + encodeURIComponent(c.item) + '&body=' + encodeURIComponent(c.body);
+        });
+      }
     }
   }
 })();
