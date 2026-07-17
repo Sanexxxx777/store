@@ -107,21 +107,26 @@
       for (var i = 0; i < state.dots.length; i++) {
         var d = state.dots[i];
         var live = assembling ? Math.max(0, Math.min(1, (now - t0 - d.delay) / 640)) : 1;
-        /* репульсия от курсора: точки в радиусе раздвигаются, пружина собирает их
-           обратно, когда курсор ушёл - локальная волна, не общий взрыв */
+        /* репульсия от курсора как ПОЛЕ СМЕЩЕНИЯ, не удар по скорости: каждая точка
+           плавно стремится к цели, сдвинутой от курсора; гауссов спад - у эффекта нет
+           ощутимой границы, разбег ограничен REPEL_AMP */
+        var ox = 0, oy = 0;
         if (cAct) {
           var ddx = d.x - cursor.x, ddy = d.y - cursor.y;
           var dd = ddx * ddx + ddy * ddy;
-          if (dd < REPEL_R2 && dd > 0.01) {
-            var dist = Math.sqrt(dd);
-            var push = (1 - dist / REPEL_R) * REPEL_F / Math.max(dist, 4);
-            d.vx += ddx * push;
-            d.vy += ddy * push;
+          if (dd < REPEL_R2) {
+            var dist = Math.sqrt(dd) || 1;
+            /* профиль «производная гауссианы»: под курсором ~0, пик на σ, плавный ноль
+               вдали. Ровный гауссов купол сгонял точки в кольцо-«скорлупу» на радиусе
+               амплитуды - то самое ощущение границы; здесь градиент смещения мал везде */
+            var push = REPEL_AMP * (dist / REPEL_SIGMA) * Math.exp(0.5 - dd / (2 * REPEL_SIGMA * REPEL_SIGMA));
+            ox = ddx / dist * push;
+            oy = ddy / dist * push;
           }
         }
-        /* пружина к цели + затухание разлёта */
-        d.vx = (d.vx + (d.tx - d.x) * 0.045) * 0.82;
-        d.vy = (d.vy + (d.ty - d.y) * 0.045) * 0.82;
+        /* мягкая пружина к (цель + смещение поля) - медленнее и плавнее удара */
+        d.vx = (d.vx + (d.tx + ox - d.x) * 0.028) * 0.87;
+        d.vy = (d.vy + (d.ty + oy - d.y) * 0.028) * 0.87;
         d.x += d.vx; d.y += d.vy;
         if (Math.abs(d.tx - d.x) > .4 || Math.abs(d.ty - d.y) > .4 || live < 1) busy = true;
         /* LED-мерцание: медленная синус-пульсация + редкие «пропадания» точки */
@@ -150,13 +155,14 @@
 
     /* курсор в координатах буфера канваса; слушаем window, не канвас - работает и при
        pointer-events:none, и когда курсор ходит РЯДОМ с глифами */
-    var REPEL_R = 34 * DPR, REPEL_R2 = REPEL_R * REPEL_R, REPEL_F = 2.1 * DPR;
+    var REPEL_SIGMA = 34 * DPR, REPEL_AMP = 9 * DPR;
+    var REPEL_R = REPEL_SIGMA * 3.2, REPEL_R2 = REPEL_R * REPEL_R;
     var cursor = { x: 0, y: 0, active: false };
     if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
       window.addEventListener('pointermove', function (e) {
         if (!visible) { cursor.active = false; return; }
         var r = canvas.getBoundingClientRect();
-        var pad = 40;
+        var pad = 120; /* не меньше радиуса поля - иначе эффект «включается» на подходе */
         if (e.clientX < r.left - pad || e.clientX > r.right + pad ||
             e.clientY < r.top - pad || e.clientY > r.bottom + pad) {
           cursor.active = false;

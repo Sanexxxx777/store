@@ -25,7 +25,7 @@ export function createOctopus3D(canvas, opts) {
     blush: 0xff9d8a,
   }, opts.colors ? opts.colors() : {});
 
-  var PIXEL_SCALE = 3.8; // CSS px per rendered "pixel" - the chunky pixel-art grid size
+  var PIXEL_SCALE = 3.2; // CSS px per rendered "pixel" - finer grid: заметно больше деталей, стиль тот же
 
   // naturalness knobs - what separates "a looping animation" from "a creature".
   // All overridable via opts.natural: this file is meant as an engine with parameters,
@@ -118,27 +118,47 @@ export function createOctopus3D(canvas, opts) {
   var outlineMat = new THREE.MeshBasicMaterial({ color: PAL.outline, side: THREE.BackSide });
   var blushMat = new THREE.MeshBasicMaterial({ color: PAL.blush, transparent: true, opacity: 0, depthWrite: false });
 
-  // fresnel rim on the toon materials: coral glow along the silhouette that survives the
-  // hard cel bands. Injected after <lights_fragment_end> where `normal`/`vViewPosition` are
-  // in scope and reflectedLight is still open for adding; outgoingLight is declared later.
-  function addRim(mat, strength) {
+  // "skin" injection on the toon materials: fresnel rim (coral glow along the silhouette
+  // that survives the hard cel bands) + chromatophores - procedural darker spots whose
+  // visibility is driven per-frame via uSpots (an octopus flushes its spots with mood).
+  // Rim math goes after <lights_fragment_end> (normal/vViewPosition in scope, reflectedLight
+  // still open); spots multiply diffuseColor right after <color_fragment>. Spots sample the
+  // REST-pose position attribute, so they stay glued to the skin under skinning/squash.
+  var skinShaders = [];
+  function addSkin(mat, rimStrength, spotty) {
     mat.onBeforeCompile = function (sh) {
       sh.uniforms.rimColor = { value: new THREE.Color(PAL.rim) };
+      sh.uniforms.uSpots = { value: 0 };
       var before = sh.fragmentShader.length;
-      sh.fragmentShader = 'uniform vec3 rimColor;\n' + sh.fragmentShader.replace(
-        '#include <lights_fragment_end>',
-        '#include <lights_fragment_end>\n' +
-        'float rimF = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 3.0);\n' +
-        'reflectedLight.indirectDiffuse += rimColor * rimF * ' + strength.toFixed(2) + ';'
+      sh.vertexShader = 'varying vec3 vObjPos;\n' + sh.vertexShader.replace(
+        '#include <begin_vertex>',
+        '#include <begin_vertex>\nvObjPos = position;'
       );
-      // replace на переименованном чанке молча вернёт строку как есть - rim исчезнет без
+      sh.fragmentShader = 'uniform vec3 rimColor;\nuniform float uSpots;\nvarying vec3 vObjPos;\n' + sh.fragmentShader
+        .replace(
+          '#include <color_fragment>',
+          '#include <color_fragment>\n' + (spotty
+            ? 'vec3 cq = vObjPos * 7.0;\n' +
+              'vec3 cid = floor(cq); vec3 cf = fract(cq) - 0.5;\n' +
+              'float crnd = fract(sin(dot(cid, vec3(127.1, 311.7, 74.7))) * 43758.5453);\n' +
+              'float cspot = smoothstep(0.36, 0.22, length(cf)) * step(0.55, crnd);\n' +
+              'diffuseColor.rgb = mix(diffuseColor.rgb, diffuseColor.rgb * 0.5, cspot * uSpots);\n'
+            : ''))
+        .replace(
+          '#include <lights_fragment_end>',
+          '#include <lights_fragment_end>\n' +
+          'float rimF = pow(1.0 - clamp(dot(normalize(vViewPosition), normal), 0.0, 1.0), 3.0);\n' +
+          'reflectedLight.indirectDiffuse += rimColor * rimF * ' + rimStrength.toFixed(2) + ';'
+        );
+      // replace на переименованном чанке молча вернёт строку как есть - эффект исчезнет без
       // ошибки; ловим это при будущем bump вендоренной three
-      if (sh.fragmentShader.length <= before + 20) console.warn('octopus rim: shader chunk not found, rim light disabled');
+      if (sh.fragmentShader.length <= before + 40) console.warn('octopus skin: shader chunk not found, rim/spots disabled');
+      skinShaders.push(sh);
     };
-    mat.customProgramCacheKey = function () { return 'octo-rim-' + strength.toFixed(2); };
+    mat.customProgramCacheKey = function () { return 'octo-skin-' + rimStrength.toFixed(2) + '-' + (spotty ? 1 : 0); };
   }
-  addRim(headMat, 0.55);
-  addRim(legMat, 0.4);
+  addSkin(headMat, 0.55, true);
+  addSkin(legMat, 0.4, true);
 
   function addOutline(mesh, scale) {
     var o = new THREE.Mesh(mesh.geometry, outlineMat);
@@ -151,7 +171,18 @@ export function createOctopus3D(canvas, opts) {
   // (measured empirically: ghost ~56% of canvas height, ~28% width, centered slightly below
   // middle) - k applied uniformly to every body dimension below, margins stay proportional.
   var HEAD_R = 0.975;
-  var head = new THREE.Mesh(new THREE.SphereGeometry(HEAD_R, 28, 20), headMat);
+  // мантия - НЕ сфера: поверхность вращения по параметрическому профилю (t: 0 низ -> 1
+  // макушка, r в долях HEAD_R). Профиль = параметр движка: тот же код с другим массивом
+  // рисует медузу, каплю или призрака - см. living-canvas skill.
+  var PROFILE = opts.profile || [
+    [0.00, 0.36], [0.08, 0.62], [0.20, 0.85], [0.36, 0.97], [0.52, 1.00],
+    [0.66, 0.95], [0.78, 0.82], [0.88, 0.61], [0.95, 0.37], [1.00, 0.02],
+  ];
+  var lathePts = PROFILE.map(function (pt) {
+    return new THREE.Vector2(Math.max(pt[1] * HEAD_R, 0.001), (pt[0] * 1.78 - 0.70) * HEAD_R);
+  });
+  var head = new THREE.Mesh(new THREE.LatheGeometry(lathePts, 32), headMat);
+  head.rotation.x = -0.06; // едва заметный завал мантии назад
   root.add(head);
   addOutline(head, 1.13);
 
@@ -179,12 +210,15 @@ export function createOctopus3D(canvas, opts) {
     addOutline(w, 1.34);
     var p = new THREE.Mesh(new THREE.SphereGeometry(0.075, 8, 6), eyeDarkMat);
     p.position.z = 0.13;
+    p.scale.set(1.5, 0.55, 0.9); // зрачок-щель: у осьминога он горизонтальной перекладиной
     g.add(p);
     // specular catchlight: tiny fixed white dot up-left on the pupil - the "alive" glint
     var glint = new THREE.Mesh(new THREE.SphereGeometry(0.024, 6, 5), new THREE.MeshBasicMaterial({ color: 0xfff8ee }));
     glint.position.set(-0.026, 0.028, 0.062);
     p.add(glint);
-    g.position.set(s * 0.5, HEAD_R * 0.08, HEAD_R * 0.92);
+    // радиальная дистанция должна быть БОЛЬШЕ радиуса лате-профиля на этой высоте,
+    // иначе глаз тонет в мантии (сфера была уже, лате шире)
+    g.position.set(s * 0.46, HEAD_R * 0.08, HEAD_R * 1.02);
     g.userData.pupil = p;
     g.userData.white = w;
     root.add(g);
@@ -195,43 +229,81 @@ export function createOctopus3D(canvas, opts) {
   // tentacles - segment chains hanging under the head; each segment is a child group of the
   // previous one so a sine wave applied down the chain reads as an organic wave, cheap to
   // animate (rotate a few groups per frame, no geometry rebuild)
-  var LEGS = 6, SEGMENTS = 5, SEG_LEN = 0.245, SEG_R0 = 0.173;
-  // suckers: shared unit-sphere geometry scaled per instance - one geometry, many cheap meshes
+  // tentacles 3.0: eight arms in an HONEST CIRCLE around the mantle (the old front-arc
+  // read as an "apron" the moment the body turned - a real octopus has arms all around),
+  // each arm is one smooth tapered tube on bones (SkinnedMesh) instead of a capsule chain.
+  // The spring physics below drives the same bone chain it used to drive as groups.
+  var LEGS = 8, SEGMENTS = 5, SEG_LEN = 0.245, SEG_R0 = 0.155;
+  var LEG_LEN = SEGMENTS * SEG_LEN;
   var suckGeo = new THREE.SphereGeometry(1, 6, 5);
   var suckMat = toonMat(PAL.belly);
+  function tubeGeo(rTop, rBottom) {
+    var g = new THREE.CylinderGeometry(rTop, rBottom, LEG_LEN, 10, SEGMENTS * 4);
+    g.translate(0, -LEG_LEN / 2, 0); // корень в y=0, хвост свисает вниз
+    // веса скиннинга линейно по высоте: плавный конус без "сосисочных" стыков
+    var posA = g.attributes.position;
+    var sIdx = [], sWts = [];
+    for (var v = 0; v < posA.count; v++) {
+      var h = -posA.getY(v);
+      var bi = Math.min(SEGMENTS - 1, Math.max(0, Math.floor(h / SEG_LEN)));
+      var frac = THREE.MathUtils.clamp(h / SEG_LEN - bi, 0, 1);
+      sIdx.push(bi, Math.min(SEGMENTS - 1, bi + 1), 0, 0);
+      sWts.push(1 - frac, frac, 0, 0);
+    }
+    g.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(sIdx, 4));
+    g.setAttribute('skinWeight', new THREE.Float32BufferAttribute(sWts, 4));
+    return g;
+  }
   var legs = [];
   for (var i = 0; i < LEGS; i++) {
-    var u = (i + 0.5) / LEGS - 0.5; // -0.5..0.5
+    var ang = (i / LEGS) * Math.PI * 2 + Math.PI / LEGS;
     var base = new THREE.Group();
-    base.position.set(u * HEAD_R * 1.5, -HEAD_R * 0.62, Math.sqrt(Math.max(0, HEAD_R * HEAD_R * 0.55 - u * u * HEAD_R * HEAD_R * 2.2)));
+    base.position.set(Math.sin(ang) * HEAD_R * 0.68, -HEAD_R * 0.60, Math.cos(ang) * HEAD_R * 0.68);
+    base.rotation.y = ang; // локальный +z щупальца смотрит радиально наружу от тела
     root.add(base);
-    var parent = base;
-    var chain = [];
+    var bones = [];
     for (var s = 0; s < SEGMENTS; s++) {
-      var r = SEG_R0 * (1 - s / SEGMENTS * 0.55);
-      var seg = new THREE.Group();
-      seg.position.y = s === 0 ? 0 : -SEG_LEN;
-      seg.userData.avx = 0; // angular velocity state for the follow-through spring
-      seg.userData.avz = 0;
-      var mesh = new THREE.Mesh(new THREE.CapsuleGeometry(r, SEG_LEN * 0.82, 4, 8), legMat);
-      mesh.position.y = -SEG_LEN / 2;
-      seg.add(mesh);
-      addOutline(mesh, 1.32);
-      // front-facing sucker pads down the chain - the detail that sells "octopus", not "worms"
+      var bone = new THREE.Bone();
+      bone.position.y = s === 0 ? 0 : -SEG_LEN;
+      bone.userData.avx = 0; // angular velocity state for the follow-through spring
+      bone.userData.avz = 0;
+      if (s > 0) bones[s - 1].add(bone);
+      bones.push(bone);
+      // присоски на ВНУТРЕННЕЙ стороне (к телу), как у настоящего - мелькают при подкрутке
       if (s >= 1) {
+        var r = SEG_R0 * (1 - s / SEGMENTS * 0.6);
         for (var sk = 0; sk < 2; sk++) {
           var su = new THREE.Mesh(suckGeo, suckMat);
-          su.scale.setScalar(r * 0.3);
-          su.position.set(0, -SEG_LEN * (0.22 + sk * 0.44), r * 0.82);
-          seg.add(su);
+          su.scale.setScalar(r * 0.32);
+          su.position.set(0, -SEG_LEN * (0.22 + sk * 0.44), -r * 0.78);
+          bone.add(su);
         }
       }
-      parent.add(seg);
-      parent = seg;
-      chain.push(seg);
     }
-    legs.push({ chain: chain, phase: Math.random() * Math.PI * 2, side: u });
+    var skel = new THREE.Skeleton(bones);
+    var tube = new THREE.SkinnedMesh(tubeGeo(SEG_R0 * 0.24, SEG_R0), legMat);
+    tube.add(bones[0]);
+    tube.bind(skel);
+    base.add(tube);
+    // inverted-hull контур для скиннед-меша: та же кость-цепочка, геометрия чуть толще
+    var tubeOut = new THREE.SkinnedMesh(tubeGeo(SEG_R0 * 0.24 + 0.028, SEG_R0 + 0.034), outlineMat);
+    tubeOut.bind(skel, tube.bindMatrix);
+    base.add(tubeOut);
+    var tip = new THREE.Mesh(new THREE.SphereGeometry(SEG_R0 * 0.26, 8, 6), legMat);
+    tip.position.y = -SEG_LEN;
+    bones[SEGMENTS - 1].add(tip);
+    addOutline(tip, 1.5);
+    legs.push({ chain: bones, phase: Math.random() * Math.PI * 2, cos: Math.cos(ang), sin: Math.sin(ang) });
   }
+
+  // перепонка-«юбка» между основаниями щупалец (веб-мембрана настоящего осьминога)
+  var webMat = toonMat(PAL.shade);
+  webMat.transparent = true;
+  webMat.opacity = 0.92;
+  webMat.side = THREE.DoubleSide;
+  var web = new THREE.Mesh(new THREE.ConeGeometry(HEAD_R * 0.82, HEAD_R * 0.52, 16, 1, true), webMat);
+  web.position.y = -HEAD_R * 0.64;
+  root.add(web);
 
   // plankton motes: tiny warm dust drifting at different depths - parallax sells the volume
   // of the scene even when the character holds still
@@ -249,11 +321,34 @@ export function createOctopus3D(canvas, opts) {
     motes.push(mo);
   }
 
+  // палитра из CSS-токенов хоста (generic-фича движка, для витрины не включена -
+  // её палитра авторская): opts.cssVars = { mid: '--accent', rim: '--accent-2', ... }
+  if (opts.cssVars) {
+    var applyVars = function () {
+      var cs = getComputedStyle(document.documentElement);
+      Object.keys(opts.cssVars).forEach(function (k) {
+        var v = cs.getPropertyValue(opts.cssVars[k]).trim();
+        if (!v) return;
+        if (k === 'mid') headBaseColor.set(v);
+        if (k === 'shade') { legBaseColor.set(v); webMat.color.set(v); }
+        if (k === 'belly') { bellyMat.color.set(v); suckMat.color.set(v); }
+        if (k === 'anger') angerColor.set(v);
+        if (k === 'rim') {
+          rim.color.set(v);
+          for (var si = 0; si < skinShaders.length; si++) skinShaders[si].uniforms.rimColor.value.set(v);
+        }
+      });
+    };
+    applyVars();
+    new MutationObserver(applyVars).observe(document.documentElement,
+      { attributes: true, attributeFilter: ['data-theme', 'data-style', 'class'] });
+  }
+
   // dumbo-octopus ear fins on top of the mantle: two flattened cones with a soft flap,
   // phase-locked to the bob so they read as part of the same "breathing" body
   var fins = [-1, 1].map(function (s) {
     var fin = new THREE.Mesh(new THREE.ConeGeometry(HEAD_R * 0.22, HEAD_R * 0.52, 8), headMat);
-    fin.position.set(s * HEAD_R * 0.72, HEAD_R * 0.62, -HEAD_R * 0.1);
+    fin.position.set(s * HEAD_R * 0.78, HEAD_R * 0.82, -HEAD_R * 0.12);
     fin.scale.set(0.45, 1, 0.8);
     fin.rotation.z = s * -0.95;
     addOutline(fin, 1.22);
@@ -353,19 +448,42 @@ export function createOctopus3D(canvas, opts) {
   scene.add(inkSprite);
   var inkBorn = -1;
   var INK_DUR = 950;
+  // чернильные точки: облако рассыпается круглыми частицами - тот же «точечный» язык,
+  // что у dot-matrix глифов страницы (пул, без dispose-дёрганья)
+  var inkDots = [];
+  for (var idn = 0; idn < 12; idn++) {
+    var idMat = new THREE.MeshBasicMaterial({ color: 0x241540, transparent: true, opacity: 0, depthWrite: false });
+    var idM = new THREE.Mesh(new THREE.SphereGeometry(1, 6, 5), idMat);
+    idM.visible = false;
+    idM.userData.live = false;
+    scene.add(idM);
+    inkDots.push(idM);
+  }
   function spawnInk(t) {
     inkBorn = t;
     inkSprite.visible = true;
     inkSprite.position.set(root.position.x, root.position.y - HEAD_R * 0.2, root.position.z - HEAD_R * 0.6);
+    for (var n = 0; n < inkDots.length; n++) {
+      var m = inkDots[n];
+      var a = Math.random() * Math.PI * 2;
+      m.position.copy(inkSprite.position);
+      m.userData.vx = Math.cos(a) * (0.014 + Math.random() * 0.02);
+      m.userData.vy = Math.sin(a) * (0.012 + Math.random() * 0.016);
+      m.userData.born = t;
+      m.userData.life = 650 + Math.random() * 450;
+      m.scale.setScalar(0.04 + Math.random() * 0.05);
+      m.userData.live = true;
+      m.visible = true;
+    }
   }
 
   // --- emotion system (ported behavior model from the sold ghost engine, re-tuned for this
   // body): weighted idle-mood pool, click escalation (melt -> surprise -> angry), sleep after
   // sustained inactivity, blink cycle, idle eye-wander and body drift.
-  var DUR = { wink: 750, lookAround: 1700, bounce: 950, blush: 2400, turn: 2100, flip: 1300,
-    melt: 1900, bubble: 1800, yawn: 1900, surprise: 750, angry: 2600 };
+  var DUR = { wink: 750, lookAround: 1700, bounce: 1250, blush: 2400, turn: 2100, flip: 1300,
+    melt: 1900, bubble: 1800, yawn: 1900, surprise: 750, angry: 2600, jet: 2900 };
   var IDLE_POOL = [['wink', 2.3], ['lookAround', 3], ['bounce', 2], ['blush', 2], ['turn', 1.6],
-    ['flip', 1], ['melt', 0.7], ['bubble', 0.9], ['yawn', 1.3]];
+    ['flip', 1], ['melt', 0.7], ['bubble', 0.9], ['yawn', 1.3], ['jet', 1.5]];
   var IDLE_TOTAL = IDLE_POOL.reduce(function (s, e) { return s + e[1]; }, 0);
   var JUMP = HEAD_R * 0.55, HOP = HEAD_R * 0.22;
   var SLEEP_AFTER = 30000, SLEEP_IN = 1200;
@@ -380,6 +498,8 @@ export function createOctopus3D(canvas, opts) {
   var driftT = 1400, driftX = 0, driftY = 0, driftTX = 0, driftTY = 0;
   var wHappy = 0, wAngry = 0, wWide = 0, wBlush = 0, angryUntil = 0, angryHeat = 0;
   var clicks = [];
+  var jetTarget = new THREE.Vector3(), jetFired = false, legFold = 0;
+  var hoverSince = 0, curiosity = 0, curW = new THREE.Vector3();
 
   function env(p) { return Math.sin(Math.PI * Math.min(1, Math.max(0, p))); }
   function easeIO(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
@@ -389,6 +509,17 @@ export function createOctopus3D(canvas, opts) {
     if (name === 'wink') winkSide = Math.random() < 0.5 ? 0 : 1;
     if (name === 'angry') angryUntil = t + DUR.angry;
     if (name === 'bubble') spawnBubbles(t);
+    if (name === 'jet') {
+      // джет-пропульсия: выбираем новую точку обитания в границах сцены
+      var jb = boundsAt(0);
+      jetTarget.set(
+        THREE.MathUtils.clamp(pos.x + (Math.random() - 0.5) * 4.4, jb.minX * 0.8, jb.maxX * 0.8),
+        THREE.MathUtils.clamp(pos.y + (Math.random() - 0.5) * 2.6, jb.minY * 0.55, jb.maxY * 0.7),
+        0
+      );
+      jetFired = false;
+      spawnBubbles(t);
+    }
     // the signature octopus move: pestered enough - vanishes behind an ink cloud
     if (name === 'surprise' || name === 'angry') spawnInk(t);
   }
@@ -471,6 +602,13 @@ export function createOctopus3D(canvas, opts) {
     var cr = canvas.getBoundingClientRect(); // один rect на move, не пять
     lookX = THREE.MathUtils.clamp((e.clientX - (cr.left + cr.width / 2)) / 220, -1, 1);
     lookY = THREE.MathUtils.clamp(-(e.clientY - (cr.top + cr.height / 2)) / 220, -1, 1);
+    // трекинг для любопытства: сколько курсор висит над сценой и где он в мире
+    if (e.clientX >= cr.left && e.clientX <= cr.right && e.clientY >= cr.top && e.clientY <= cr.bottom) {
+      if (!hoverSince) hoverSince = performance.now();
+      curW.copy(w);
+    } else {
+      hoverSince = 0;
+    }
     if (!dragging) return;
     if (downPos && (Math.abs(e.clientX - downPos.x) > 6 || Math.abs(e.clientY - downPos.y) > 6)) moved = true;
     var b = boundsAt(0);
@@ -600,10 +738,21 @@ export function createOctopus3D(canvas, opts) {
     }
 
     var sleepK = sleeping ? THREE.MathUtils.clamp((t - sleepSince) / SLEEP_IN, 0, 1) : 0;
+    // любопытство: курсор задержался над сценой >2.6с - подплывает поближе посмотреть
+    if (!reduced) {
+      var wantCur = (!emote && !dragging && !sleeping && hoverSince && t - hoverSince > 2600) ? 1 : 0;
+      curiosity += (wantCur - curiosity) * (1 - Math.pow(1 - 0.016, dt));
+    }
     var homeX = home.x + (sleeping ? 0 : driftX), homeY = home.y + (sleeping ? 0 : driftY);
+    if (curiosity > 0.01) {
+      var cb = boundsAt(0);
+      homeX += (THREE.MathUtils.clamp(curW.x, cb.minX * 0.85, cb.maxX * 0.85) - homeX) * 0.24 * curiosity;
+      homeY += (THREE.MathUtils.clamp(curW.y, cb.minY * 0.7, cb.maxY * 0.8) - homeY) * 0.24 * curiosity;
+    }
 
     if (dragging) {
-      pos.lerp(dragTarget, 1 - Math.pow(1 - 0.32, dt));
+      // подводная инерция: за курсором плавно и не спеша, а не приклеенным
+      pos.lerp(dragTarget, 1 - Math.pow(1 - 0.13, dt));
       vel.set(0, 0, 0);
     } else if (!reduced) {
       // critically-damped spring back to home - real position/velocity integration, dt-scaled
@@ -636,6 +785,7 @@ export function createOctopus3D(canvas, opts) {
 
     var speed = vel.length();
     reactT = Math.max(0, reactT - 0.02 * dt);
+    legFold = Math.max(0, legFold - 0.03 * dt);
     // парение = сумма двух несоизмеримых синусов: ритм не читается как метроном
     var bobSlow = THREE.MathUtils.lerp(1, 0.5, sleepK);
     var bob = reduced ? 0
@@ -647,7 +797,20 @@ export function createOctopus3D(canvas, opts) {
 
     if (!reduced) {
       if (name === 'wink') { tiltExtra += 0.08 * env(p); }
-      if (name === 'bounce') { yE += Math.abs(Math.sin(p * Math.PI * 2)) * HOP; }
+      if (name === 'bounce') {
+        // классические принципы: замах (присед) -> одна мягкая дуга -> сквош приземления
+        if (p < 0.22) {
+          var ba = env(p / 0.22);
+          syE *= 1 - 0.10 * ba; sxE *= 1 + 0.06 * ba;
+        } else if (p < 0.78) {
+          var bp = (p - 0.22) / 0.56;
+          yE += Math.sin(bp * Math.PI) * HOP;
+          syE *= 1 + 0.05 * Math.sin(bp * Math.PI);
+        } else {
+          var bl = env((p - 0.78) / 0.22);
+          syE *= 1 - 0.07 * bl; sxE *= 1 + 0.05 * bl;
+        }
+      }
       if (name === 'blush') { sxE = syE = 1 - 0.05 * env(p); lookOverrideX = -0.7; lookOverrideY = 0.5; }
       if (name === 'turn') { yawExtra = easeIO(p) * Math.PI * 2; legAmpMul = 1.5; }
       if (name === 'flip') {
@@ -669,6 +832,32 @@ export function createOctopus3D(canvas, opts) {
       if (name === 'angry') {
         tiltExtra += Math.sin(t * 0.05) * 0.02;
         yE += Math.sin(t * 0.09) * 0.03 * (1 + heat * 0.3) * env(Math.min(p * 3, 1));
+      }
+      if (name === 'jet') {
+        // джет: присесть (мантия сжалась, ноги поджаты) -> ПЛАВНАЯ тяга вместо удара
+        // (разгон размазан по окну тяги - раньше мгновенный кик читался как телепорт)
+        if (p < 0.3) {
+          var jc = env(p / 0.3);
+          syE *= 1 - 0.16 * jc;
+          sxE *= 1 + 0.10 * jc;
+          legFold = Math.max(legFold, jc);
+          legAmpMul = 0.4;
+        } else {
+          if (!jetFired) {
+            jetFired = true;
+            home.copy(jetTarget); // реально переезжает: новая точка обитания в сцене
+          }
+          if (p < 0.62) {
+            var jd = jetTarget.clone().sub(pos), jl = jd.length();
+            if (jl > 0.05) {
+              var thrust = 0.006 * env((p - 0.3) / 0.32);
+              vel.x += jd.x / jl * thrust * dt;
+              vel.y += jd.y / jl * thrust * dt;
+            }
+            legFold = Math.max(legFold, 0.5);
+          }
+          legAmpMul = 0.7;
+        }
       }
     }
 
@@ -699,24 +888,36 @@ export function createOctopus3D(canvas, opts) {
 
     headMat.color.copy(headBaseColor).lerp(angerColor, wAngry);
     legMat.color.copy(legBaseColor).lerp(angerColor, wAngry * 0.8);
+    // хроматофоры: фоновая лёгкая пятнистость, вспыхивает с настроением (злость)
+    var spotLevel = 0.22 + wAngry * 0.6; // фоновая фактура кожи чуть заметнее (детализация)
+    for (var ss = 0; ss < skinShaders.length; ss++) skinShaders[ss].uniforms.uSpots.value = spotLevel;
     blushes.forEach(function (m) { m.scale.setScalar(Math.max(0.001, wBlush)); });
     blushMat.opacity = 0.55 * wBlush;
 
     if (!reduced) {
-      var tilt = dragging ? (dragTarget.x - pos.x) * 0.25 : Math.sin(t * 0.0009) * 0.06 * (1 - sleepK);
+      // наклон в сторону движения: при джете/пружине корпус ложится на курс
+      var moveLean = THREE.MathUtils.clamp(vel.x * 2.4, -0.28, 0.28);
+      var tilt = dragging ? (dragTarget.x - pos.x) * 0.25 : Math.sin(t * 0.0009) * 0.06 * (1 - sleepK) + moveLean;
       root.rotation.z = THREE.MathUtils.lerp(root.rotation.z, tilt + tiltExtra, 1 - Math.pow(1 - 0.15, dt));
       // tentacle follow-through: each segment is a damped angular spring chasing the swim
       // wave plus an inertia term from the measured body motion (drag/spring/scroll) - the
       // chain lags, whips and settles instead of replaying a fixed sine. Stiffness falls and
       // lag weight grows toward the tip, so tips trail the most.
       legs.forEach(function (leg) {
+        // мировая инерция раскладывается в локальные оси ноги: нога повёрнута на свой
+        // угол по кругу, "трейлить против движения" для каждой значит своё
+        var vRad = bodyVel.x * leg.sin;
+        var vTan = bodyVel.x * leg.cos;
         leg.chain.forEach(function (seg, si) {
           var w = (si + 1) / SEGMENTS;
           var amp = (dragging ? 0.10 : 0.16) * legAmpMul;
           var targetX = Math.sin(t * 0.0026 + leg.phase - si * 0.6) * amp * w
-            + (bodyVel.y * 4.5 + scrollLean) * w;
+            + (bodyVel.y * 4.5 + scrollLean) * w
+            - 0.22                    // постоянный наружный развал круга ног
+            + vRad * 5.5 * w
+            + legFold * 0.9 * w;      // джет: поджать ноги к оси перед импульсом
           var targetZ = Math.cos(t * 0.0021 + leg.phase * 1.3 - si * 0.5) * amp * 0.6 * w
-            + leg.side * 0.12 - bodyVel.x * 5.5 * w;
+            - vTan * 5.5 * w;
           // кончики подкручиваются собственным ритмом - щупальце "ищет", а не висит
           if (si === SEGMENTS - 1) targetX += Math.sin(t * NAT.tipCurlFreq + leg.phase * 2.3) * NAT.tipCurlAmp * 0.4 * legAmpMul;
           var k = (0.22 - si * 0.03) * dt;
@@ -785,6 +986,18 @@ export function createOctopus3D(canvas, opts) {
       bm.position.x += bm.userData.vx * dt;
       bm.position.y += bm.userData.vy * dt;
       bm.material.opacity = 0.7 * (1 - life);
+    }
+
+    // чернильные точки: разлёт, лёгкое расширение, растворение
+    for (var di = 0; di < inkDots.length; di++) {
+      var dm = inkDots[di];
+      if (!dm.userData.live) continue;
+      var dlife = (t - dm.userData.born) / dm.userData.life;
+      if (dlife >= 1) { dm.userData.live = false; dm.visible = false; dm.material.opacity = 0; continue; }
+      dm.position.x += dm.userData.vx * dt;
+      dm.position.y += dm.userData.vy * dt;
+      dm.scale.multiplyScalar(1 + 0.006 * dt);
+      dm.material.opacity = 0.8 * (1 - dlife);
     }
 
     // ink cloud flipbook: frame by UV offset, expand + fade
