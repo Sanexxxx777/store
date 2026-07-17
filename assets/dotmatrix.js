@@ -10,31 +10,48 @@
   'use strict';
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  /* bleed-поля: разлетевшимся точкам нужно место за габаритом глифов, иначе их режет
+     край канваса (виден прямоугольник). Элемент расширяется на PAD со всех сторон,
+     layout компенсируется отрицательным margin - визуальная позиция глифов не меняется */
+  var PAD = 30;
 
   function buildDots(canvas) {
     var text = canvas.dataset.dots || '';
     if (!text) return null;
-    var cw = canvas.clientWidth, ch = canvas.clientHeight;
-    if (!cw || !ch) return null;
-    canvas.width = Math.round(cw * DPR);
-    canvas.height = Math.round(ch * DPR);
+    var padded = canvas.dataset.dmPadded === '1';
+    var cw = canvas.clientWidth - (padded ? PAD * 2 : 0);
+    var ch = canvas.clientHeight - (padded ? PAD * 2 : 0);
+    if (cw <= 0 || ch <= 0) return null;
+    if (!padded) {
+      var cs = getComputedStyle(canvas);
+      canvas.style.width = (cw + PAD * 2) + 'px';
+      canvas.style.height = (ch + PAD * 2) + 'px';
+      /* свои margin'ы канваса сохраняем (у .dm-strip есть margin-top) - вычитаем PAD посторонне */
+      canvas.style.margin = (parseFloat(cs.marginTop) - PAD) + 'px ' + (parseFloat(cs.marginRight) - PAD) + 'px ' +
+        (parseFloat(cs.marginBottom) - PAD) + 'px ' + (parseFloat(cs.marginLeft) - PAD) + 'px';
+      canvas.style.pointerEvents = 'none';
+      canvas.dataset.dmPadded = '1';
+    }
+    canvas.width = Math.round((cw + PAD * 2) * DPR);
+    canvas.height = Math.round((ch + PAD * 2) * DPR);
+    var P = PAD * DPR, innerW = cw * DPR, innerH = ch * DPR;
 
     /* глиф-сэмплер: текст в offscreen, читаем альфу по сетке */
     var off = document.createElement('canvas');
     off.width = canvas.width; off.height = canvas.height;
     var octx = off.getContext('2d', { willReadFrequently: true });
-    var size = ch * DPR * 0.92;
+    var size = innerH * 0.92;
     octx.font = '600 ' + size + 'px "JetBrains Mono", monospace';
     octx.textBaseline = 'middle';
     /* вписать по ширине: моно-шрифт меряется точно */
     var w = octx.measureText(text).width;
-    if (w > off.width) {
-      size *= off.width / w * 0.98;
+    if (w > innerW) {
+      size *= innerW / w * 0.98;
       octx.font = '600 ' + size + 'px "JetBrains Mono", monospace';
       w = octx.measureText(text).width;
     }
     octx.fillStyle = '#fff';
-    var x0 = canvas.dataset.align === 'left' ? 0 : (off.width - w) / 2;
+    var x0 = P + (canvas.dataset.align === 'left' ? 0 : (innerW - w) / 2);
     octx.fillText(text, x0, off.height / 2);
 
     var gap = Math.max(3, Math.round(size / 11));
@@ -124,9 +141,9 @@
             oy = ddy / dist * push;
           }
         }
-        /* мягкая пружина к (цель + смещение поля) - медленнее и плавнее удара */
-        d.vx = (d.vx + (d.tx + ox - d.x) * 0.028) * 0.87;
-        d.vy = (d.vy + (d.ty + oy - d.y) * 0.028) * 0.87;
+        /* мягкая пружина к (цель + смещение поля); отклик поживее, но без удара */
+        d.vx = (d.vx + (d.tx + ox - d.x) * 0.042) * 0.86;
+        d.vy = (d.vy + (d.ty + oy - d.y) * 0.042) * 0.86;
         d.x += d.vx; d.y += d.vy;
         if (Math.abs(d.tx - d.x) > .4 || Math.abs(d.ty - d.y) > .4 || live < 1) busy = true;
         /* LED-мерцание: медленная синус-пульсация + редкие «пропадания» точки */
@@ -155,14 +172,15 @@
 
     /* курсор в координатах буфера канваса; слушаем window, не канвас - работает и при
        pointer-events:none, и когда курсор ходит РЯДОМ с глифами */
-    var REPEL_SIGMA = 34 * DPR, REPEL_AMP = 9 * DPR;
+    /* AMP держать < PAD, иначе разбег снова упрётся в край канваса */
+    var REPEL_SIGMA = 44 * DPR, REPEL_AMP = 22 * DPR;
     var REPEL_R = REPEL_SIGMA * 3.2, REPEL_R2 = REPEL_R * REPEL_R;
     var cursor = { x: 0, y: 0, active: false };
     if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
       window.addEventListener('pointermove', function (e) {
         if (!visible) { cursor.active = false; return; }
         var r = canvas.getBoundingClientRect();
-        var pad = 120; /* не меньше радиуса поля - иначе эффект «включается» на подходе */
+        var pad = 150; /* не меньше радиуса поля - иначе эффект «включается» на подходе */
         if (e.clientX < r.left - pad || e.clientX > r.right + pad ||
             e.clientY < r.top - pad || e.clientY > r.bottom + pad) {
           cursor.active = false;

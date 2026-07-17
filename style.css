@@ -408,6 +408,7 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 }
 .sprint:hover { background: var(--bg-soft); }
 .sprint--hot { grid-column: span 2; box-shadow: inset 2px 0 0 var(--red); background: linear-gradient(90deg, rgb(238 78 78 / .05), var(--bg) 60%); }
+.sprint--wide { grid-column: span 2; }
 .sprint--hot:hover { background: linear-gradient(90deg, rgb(238 78 78 / .07), var(--bg-soft) 60%); }
 .service-label { color: var(--cream-mute); font-size: 10px; }
 .sprint--hot .service-label { color: var(--red); }
@@ -443,13 +444,20 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 .srv-price { color: var(--cream-mute); font-family: "JetBrains Mono", monospace; font-size: 12px; }
 .srv-price strong { color: var(--red); font-size: 1.45em; font-weight: 600; }
 /* скидка: перечёркнутая старая цена + плашка процента */
-.price-old { color: var(--cream-mute); text-decoration: line-through; font-size: 1.1em; }
+.price-old {
+  color: var(--cream-dim);
+  text-decoration: line-through;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  font-size: 1.3em;
+}
 .sale {
   display: inline-block;
   font-style: normal;
-  font-size: 10px;
-  letter-spacing: .04em;
-  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  padding: 3px 8px;
   margin-left: 4px;
   background: var(--red);
   color: #0a0a0c;
@@ -708,7 +716,7 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   .hero-proof { flex-direction: column; gap: 6px; }
   .route { grid-template-columns: 34px 1fr; gap: 10px; }
   .sprint-grid { grid-template-columns: 1fr; }
-  .sprint--hot { grid-column: auto; }
+  .sprint--hot, .sprint--wide { grid-column: auto; }
   .sprint-fill:not(.sprint-fill--cta), .sprint-fill--sm { display: none; }
   .card-actions { flex-direction: column; }
   .card-actions .btn { width: 100%; }

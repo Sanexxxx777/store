@@ -1,6 +1,6 @@
 # Product Lab — Aleksandr Shulgin
 
-> A product storefront offering the Living Mascot canvas engine as a self-service download, plus twelve fixed-scope sprints (interactive mascots, landing pages, motion polish, site speed, AI-assisted project rescue, Telegram bots, AI chat widgets, workflow automation, AI search visibility, data scraping, dashboards and VPS security). Every sprint has a defined input, output and acceptance check before the price is quoted.
+> A product storefront offering the Living Mascot canvas engine as a self-service download, plus thirteen fixed-scope sprints (interactive mascots, landing pages, particle case-study sites, motion polish, site speed, AI-assisted project rescue, Telegram bots, AI chat widgets, workflow automation, AI search visibility, data scraping, dashboards and VPS security). Every sprint has a defined input, output and acceptance check before the price is quoted.
 
 ## Products
 
@@ -10,6 +10,7 @@
 
 - Interactive Mascot Sprint: from $49 (launch discount, was $89). Animate an existing character or build a simple code-native one for a hero, onboarding, login or status flow.
 - Landing Page Sprint: from $79 (launch discount, was $129). A complete page: offer, structure, visual language, responsive build and deploy.
+- Particle Case Sprint: from $119. A cinematic scroll-driven case-study site: a story in five chapters rendered by a 24,000-particle WebGL scene, 60 fps on phones, zero dependencies. Live demo: https://shulgin.is-a.dev/store/case-demo/
 - Motion Polish Sprint: from $59. Audit and sharpen 5-8 key micro-interactions on an existing site.
 - Site Speed Sprint: from $49. Core Web Vitals diagnosis and top fixes, with a Lighthouse report before and after.
 - Vibe Code Rescue: from $119 (launch discount, was $199). Take a project built in Cursor, Lovable, Bolt or ChatGPT to production: security audit, error handling, real server deploy.

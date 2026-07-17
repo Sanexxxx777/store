@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сайт-кейс из частиц — живое демо | Магазин Шульгина</title>
+  <meta name="description" content="Демо кинематографичного сайта-кейса: пять глав истории собираются из 24 000 частиц по мере скролла. Работает на телефоне, весит меньше одной фотографии.">
+  <link rel="canonical" href="https://shulgin.is-a.dev/store/case-demo/">
+  <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/case-demo/en/">
+  <link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/case-demo/">
+  <meta property="og:title" content="Сайт-кейс из частиц — живое демо">
+  <meta property="og:description" content="Пять глав истории собираются из частиц по мере скролла. 60 fps на телефоне.">
+  <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='19'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700..900&family=Oswald:wght@500..700&family=JetBrains+Mono:wght@400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="js-off">
+
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+
+<div id="loader" role="status" aria-label="Загрузка сцены">
+  <div class="ring"></div>
+  <span class="ring-label">0%</span>
+</div>
+
+<header class="demo-top">
+  <a href="../">&larr; магазин</a>
+  <span class="tag">живое демо</span>
+  <a href="en/" lang="en" hreflang="en">EN</a>
+</header>
+
+<main id="story">
+  <section class="chapter">
+    <div class="pin"><div class="card">
+      <p class="kicker">движок storyfield &middot; демо-кейс</p>
+      <h1>История, собранная из&nbsp;частиц</h1>
+      <p class="body">Так может выглядеть кейс вашего продукта: пять глав, один непрерывный кадр. Всё, что вы видите, — <strong>24&nbsp;000 частиц</strong>, которые пересобираются по мере скролла.</p>
+      <p class="hint">листайте <span class="arr">&darr;</span></p>
+    </div></div>
+  </section>
+
+  <section class="chapter">
+    <div class="pin"><div class="card">
+      <p class="kicker"><span class="num">01</span>бриф</p>
+      <h2>Рамки — до&nbsp;старта</h2>
+      <p class="body">Созвон или переписка: задача, аудитория, критерий приёмки. Объём и цена фиксируются <strong>до первой строки кода</strong> — дальше никаких сюрпризов.</p>
+    </div></div>
+  </section>
+
+  <section class="chapter">
+    <div class="pin"><div class="card">
+      <p class="kicker"><span class="num">02</span>исследование</p>
+      <h2>Референсы и&nbsp;структура</h2>
+      <p class="body">Смотрим лучшие работы жанра, собираем структуру страниц и черновик оффера. Направление видно <strong>до дизайна</strong>, а не после.</p>
+    </div></div>
+  </section>
+
+  <section class="chapter">
+    <div class="pin"><div class="card">
+      <p class="kicker"><span class="num">03</span>дизайн</p>
+      <h2>Визуальный язык</h2>
+      <p class="body">Токены цвета, типографика, движение. Не шаблон: язык собирается <strong>под вашу задачу</strong> — как эта сцена собирается из частиц.</p>
+    </div></div>
+  </section>
+
+  <section class="chapter">
+    <div class="pin"><div class="card">
+      <p class="kicker"><span class="num">04</span>сборка</p>
+      <h2>Код без конструкторов</h2>
+      <p class="body">Чистый HTML/CSS/JS или ваш стек. Быстрый, доступный, плавный на телефоне: вся эта страница весит <strong>меньше одной фотографии</strong>.</p>
+    </div></div>
+  </section>
+
+  <section class="chapter">
+    <div class="pin"><div class="card">
+      <p class="kicker"><span class="num">05</span>запуск</p>
+      <h2>Деплой и&nbsp;передача</h2>
+      <p class="body">Домен, аналитика, машиночитаемый слой для ИИ-поиска. Код и права — <strong>ваши</strong>, без абонентки и привязки к платформе.</p>
+    </div></div>
+  </section>
+
+  <section class="chapter">
+    <div class="pin"><div class="card">
+      <p class="kicker">эта страница — и есть демо</p>
+      <h2>Такой кейс — под&nbsp;ваш продукт</h2>
+      <p class="body">Контент, палитра и формы — конфиг. Движок один, историй много: кейс, запуск продукта, годовой отчёт, портфолио.</p>
+      <a class="btn" href="../#case-sprint">Обсудить свой кейс &rarr;</a>
+      <p class="aside-note">фикс-цена и сроки — <a href="../">в магазине</a></p>
+    </div></div>
+  </section>
+</main>
+
+<script type="module">
+  import { createStoryField } from '../assets/storyfield.js';
+
+  const config = {
+    bg: '#050507',
+    seed: 20260717,
+    particles: { count: 24000, size: 1.0, glow: 1.2, dprCap: 2, scatter: 0.9, turb: 0.05 },
+    shapes: {
+      galaxy: { type: 'galaxy', arms: 3, radius: 1.15, twist: 2.3, tilt: -0.5 },
+      cloud:  { type: 'cloud', sx: 0.62, sy: 0.42, sz: 0.5 },
+      sphere: { type: 'sphere', radius: 0.92 },
+      ring:   { type: 'ring', radius: 0.86, tube: 0.15, tilt: -0.45 },
+      wave:   { type: 'wave', width: 1.55, depth: 0.75 },
+      word:   { type: 'text', text: 'ГОТОВО', font: '"Oswald", sans-serif', weight: 700, width: 2.35, offset: [0, 0.62, 0] },
+    },
+    chapters: [
+      { shape: 'galaxy', color: '#efe6d4', spin: 0.05 },
+      { shape: 'cloud',  color: '#d99a63', spin: 0.02 },
+      { shape: 'sphere', color: '#e8e0cf', spin: 0.12 },
+      { shape: 'ring',   color: '#ee6a5c', spin: 0.25 },
+      { shape: 'wave',   color: '#e6ddca', spin: 0 },
+      { shape: 'word',   color: '#f07a64', spin: 0 },
+      { shape: 'galaxy', color: '#efe6d4', spin: 0.06 },
+    ],
+  };
+
+  const loader = document.getElementById('loader');
+  const ring = loader.querySelector('.ring');
+  const ringLabel = loader.querySelector('.ring-label');
+  const cards = [...document.querySelectorAll('.chapter .card')];
+  const LAST = config.chapters.length - 1;
+
+  function updateCards(f) {
+    for (let i = 0; i < cards.length; i++) {
+      const d = Math.abs(f - i);
+      const o = Math.min(Math.max(1 - (d - 0.18) / 0.3, 0), 1);
+      cards[i].style.opacity = o.toFixed(3);
+      cards[i].style.transform = `translateY(${(Math.min(Math.max(f - i, -1), 1) * -26).toFixed(1)}px)`;
+    }
+  }
+
+  async function boot() {
+    try { await document.fonts.ready; } catch {}
+    document.body.classList.remove('js-off'); /* канвас должен быть видим ДО init: display:none даёт clientWidth=0 и пустой буфер */
+    const field = await createStoryField(document.getElementById('field'), config, {
+      onProgress(p) {
+        ring.style.setProperty('--p', p.toFixed(2));
+        ringLabel.textContent = Math.round(p * 100) + '%';
+      },
+      onFrame: updateCards,
+    });
+    if (!field) { document.body.classList.add('js-off'); loader.classList.add('done'); return; } /* нет WebGL2 — статичный фолбэк */
+
+    const readScroll = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      field.setTarget(max > 0 ? (scrollY / max) * LAST : 0);
+    };
+    addEventListener('scroll', readScroll, { passive: true });
+    readScroll();
+    updateCards(0);
+    loader.classList.add('done');
+  }
+  boot().catch(() => { document.body.classList.add('js-off'); loader.classList.add('done'); }); /* при любом сбое контент остаётся видимым */
+</script>
+
+</body>
+</html>
