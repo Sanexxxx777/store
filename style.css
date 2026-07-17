@@ -420,6 +420,16 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   background-size: 14px 14px;
 }
 .sprint-fill--sm { display: none; }
+/* филлер-CTA: «дыра» сетки превращена в вход для нестандартной задачи */
+.sprint-fill--cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px 22px;
+}
+.sprint-fill--cta p { color: var(--cream-dim); font-size: .92rem; }
 .sprint-link { color: var(--red); }
 .sprint-link:hover { text-decoration: underline; }
 .sprint-foot {
@@ -432,6 +442,19 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 }
 .srv-price { color: var(--cream-mute); font-family: "JetBrains Mono", monospace; font-size: 12px; }
 .srv-price strong { color: var(--red); font-size: 1.45em; font-weight: 600; }
+/* скидка: перечёркнутая старая цена + плашка процента */
+.price-old { color: var(--cream-mute); text-decoration: line-through; font-size: 1.1em; }
+.sale {
+  display: inline-block;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: .04em;
+  padding: 2px 6px;
+  margin-left: 4px;
+  background: var(--red);
+  color: #0a0a0c;
+  vertical-align: 2px;
+}
 .srv-action {
   padding: 12px 0;
   margin: -12px 0;
@@ -491,6 +514,7 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
 .foot h4 { margin-bottom: 12px; color: var(--cream-mute); font-family: "JetBrains Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
 .foot .cols > div > a { display: block; padding: 4px 0; color: var(--cream-dim); font-size: .92rem; }
 .foot .cols > div > a:hover { color: var(--cream); }
+.legal { padding-bottom: 16px; color: var(--cream-mute); font-size: .74rem; line-height: 1.6; max-width: var(--wrap); }
 .base { display: flex; justify-content: space-between; gap: 20px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--cream-mute); font-size: .82rem; }
 
 /* Modal */
@@ -685,7 +709,7 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   .route { grid-template-columns: 34px 1fr; gap: 10px; }
   .sprint-grid { grid-template-columns: 1fr; }
   .sprint--hot { grid-column: auto; }
-  .sprint-fill, .sprint-fill--sm { display: none; }
+  .sprint-fill:not(.sprint-fill--cta), .sprint-fill--sm { display: none; }
   .card-actions { flex-direction: column; }
   .card-actions .btn { width: 100%; }
   .card-price { flex-direction: column; align-items: flex-start; gap: 10px; }

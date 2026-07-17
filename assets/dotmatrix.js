@@ -62,8 +62,8 @@
     var ctx = canvas.getContext('2d');
     var color = canvas.dataset.color ||
       (canvas.classList.contains('dm-price') ? '#ee4e4e'
-        : canvas.classList.contains('watermark-dots') ? 'rgba(255,255,255,0.13)'
-          : '#b8b1a3');
+        : canvas.classList.contains('watermark-dots') ? 'rgba(255,255,255,0.24)'
+          : '#ede4d3');
     var state = buildDots(canvas);
     if (!state) return;
 
@@ -103,9 +103,22 @@
       var busy = false;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = color;
+      var cAct = cursor.active;
       for (var i = 0; i < state.dots.length; i++) {
         var d = state.dots[i];
         var live = assembling ? Math.max(0, Math.min(1, (now - t0 - d.delay) / 640)) : 1;
+        /* репульсия от курсора: точки в радиусе раздвигаются, пружина собирает их
+           обратно, когда курсор ушёл - локальная волна, не общий взрыв */
+        if (cAct) {
+          var ddx = d.x - cursor.x, ddy = d.y - cursor.y;
+          var dd = ddx * ddx + ddy * ddy;
+          if (dd < REPEL_R2 && dd > 0.01) {
+            var dist = Math.sqrt(dd);
+            var push = (1 - dist / REPEL_R) * REPEL_F / Math.max(dist, 4);
+            d.vx += ddx * push;
+            d.vy += ddy * push;
+          }
+        }
         /* пружина к цели + затухание разлёта */
         d.vx = (d.vx + (d.tx - d.x) * 0.045) * 0.82;
         d.vy = (d.vy + (d.ty - d.y) * 0.045) * 0.82;
@@ -135,17 +148,25 @@
     io.observe(canvas);
     document.addEventListener('visibilitychange', wake);
 
-    /* hover-взрыв: точки разлетаются, пружина собирает обратно */
+    /* курсор в координатах буфера канваса; слушаем window, не канвас - работает и при
+       pointer-events:none, и когда курсор ходит РЯДОМ с глифами */
+    var REPEL_R = 34 * DPR, REPEL_R2 = REPEL_R * REPEL_R, REPEL_F = 2.1 * DPR;
+    var cursor = { x: 0, y: 0, active: false };
     if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      canvas.addEventListener('pointerenter', function () {
-        state.dots.forEach(function (d) {
-          var a = Math.random() * Math.PI * 2;
-          var f = (2 + Math.random() * 5) * DPR;
-          d.vx += Math.cos(a) * f;
-          d.vy += Math.sin(a) * f;
-        });
+      window.addEventListener('pointermove', function (e) {
+        if (!visible) { cursor.active = false; return; }
+        var r = canvas.getBoundingClientRect();
+        var pad = 40;
+        if (e.clientX < r.left - pad || e.clientX > r.right + pad ||
+            e.clientY < r.top - pad || e.clientY > r.bottom + pad) {
+          cursor.active = false;
+          return;
+        }
+        cursor.x = (e.clientX - r.left) * (canvas.width / r.width);
+        cursor.y = (e.clientY - r.top) * (canvas.height / r.height);
+        cursor.active = true;
         wake();
-      });
+      }, { passive: true });
     }
   }
 

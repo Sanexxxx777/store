@@ -27,6 +27,25 @@ export function createOctopus3D(canvas, opts) {
 
   var PIXEL_SCALE = 3.8; // CSS px per rendered "pixel" - the chunky pixel-art grid size
 
+  // naturalness knobs - what separates "a looping animation" from "a creature".
+  // All overridable via opts.natural: this file is meant as an engine with parameters,
+  // not a hardcoded octopus (see living-canvas skill, "слагаемые естественности").
+  var NAT = Object.assign({
+    bobFreqs: [0.0016, 0.00093],   // два несоизмеримых синуса парения - ритм не зацикливается
+    bobAmps: [0.042, 0.02],
+    yawNoiseAmp: 0.05,             // медленное шумовое поворачивание корпуса
+    yawNoiseFreq: 0.00031,
+    sighEvery: [18000, 42000],     // редкий глубокий "вздох" мантии, мс (min..max)
+    sighDur: 3400,
+    sighDepth: 2.1,                // множитель глубины дыхания на пике вздоха
+    saccadeEvery: [900, 2600],     // микро-рывки зрачков при слежении, мс
+    saccadeAmp: 0.09,
+    tipCurlAmp: 0.5,               // подкручивание кончиков щупалец
+    tipCurlFreq: 0.0031,
+    blinkClose: 80,                // двухфазное моргание: быстро закрыл...
+    blinkOpen: 210,                // ...медленнее открыл
+  }, opts.natural || {});
+
   var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
   renderer.setPixelRatio(1); // fixed grid: pixel-block size stays consistent across devices
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -354,7 +373,9 @@ export function createOctopus3D(canvas, opts) {
   var emote = null, nextIdle = 4000 + Math.random() * 6000;
   var lastPointer = performance.now();
   var sleeping = false, sleepSince = 0;
-  var lastBlink = 0, nextBlink = 2200 + Math.random() * 3800, blinkUntil = 0;
+  var lastBlink = 0, nextBlink = 2200 + Math.random() * 3800, blinkStart = -1e9;
+  var nextSigh = 9000 + Math.random() * (NAT.sighEvery[1] - NAT.sighEvery[0]), sighStart = -1e9;
+  var nextSaccade = 0, sacX = 0, sacY = 0;
   var wanderT = 0, wanderX = 0, wanderY = -0.2, wanderTX = 0, wanderTY = -0.2;
   var driftT = 1400, driftX = 0, driftY = 0, driftTX = 0, driftTY = 0;
   var wHappy = 0, wAngry = 0, wWide = 0, wBlush = 0, angryUntil = 0, angryHeat = 0;
@@ -540,7 +561,18 @@ export function createOctopus3D(canvas, opts) {
 
     if (!reduced) {
       // blink cycle (suppressed by sleep/wink/surprise, handled in the eye pass below)
-      if (t - lastBlink > nextBlink) { blinkUntil = t + 140; lastBlink = t; nextBlink = 2200 + Math.random() * 3800; }
+      if (t - lastBlink > nextBlink) { blinkStart = t; lastBlink = t; nextBlink = 2200 + Math.random() * 3800; }
+      // редкий глубокий вздох мантии
+      if (t > nextSigh) {
+        sighStart = t;
+        nextSigh = t + NAT.sighEvery[0] + Math.random() * (NAT.sighEvery[1] - NAT.sighEvery[0]);
+      }
+      // саккады: зрачки при живом слежении двигаются микро-рывками, не идеальной слежкой
+      if (t > nextSaccade) {
+        nextSaccade = t + NAT.saccadeEvery[0] + Math.random() * (NAT.saccadeEvery[1] - NAT.saccadeEvery[0]);
+        sacX = (Math.random() - 0.5) * 2 * NAT.saccadeAmp;
+        sacY = (Math.random() - 0.5) * 2 * NAT.saccadeAmp;
+      }
       // idle eye-wander once the pointer has been still for a while
       if (t - lastPointer > 4000) {
         wanderT -= 16.7 * dt;
@@ -604,8 +636,11 @@ export function createOctopus3D(canvas, opts) {
 
     var speed = vel.length();
     reactT = Math.max(0, reactT - 0.02 * dt);
-    var bobFreq = THREE.MathUtils.lerp(0.0016, 0.0007, sleepK), bobAmp = THREE.MathUtils.lerp(0.05, 0.022, sleepK);
-    var bob = reduced ? 0 : Math.sin(t * bobFreq) * bobAmp;
+    // парение = сумма двух несоизмеримых синусов: ритм не читается как метроном
+    var bobSlow = THREE.MathUtils.lerp(1, 0.5, sleepK);
+    var bob = reduced ? 0
+      : Math.sin(t * NAT.bobFreqs[0] * bobSlow) * NAT.bobAmps[0] * THREE.MathUtils.lerp(1, 0.45, sleepK)
+      + Math.sin(t * NAT.bobFreqs[1] * bobSlow + 1.7) * NAT.bobAmps[1] * THREE.MathUtils.lerp(1, 0.45, sleepK);
     var yE = 0, sxE = 1, syE = 1, tiltExtra = 0, yawExtra = 0, pitchExtra = 0;
     var lookOverrideX = null, lookOverrideY = null, legAmpMul = 1;
     var heat = Math.min(3, angryHeat);
@@ -643,9 +678,14 @@ export function createOctopus3D(canvas, opts) {
     root.scale.set(sxE / Math.sqrt(stretch), stretch * syE, sxE / Math.sqrt(stretch));
     // mantle breathing: slow uneven pulse, slower and deeper while asleep - the micro-motion
     // that separates "a creature" from "a model"
-    var breath = reduced ? 0 : Math.sin(t * THREE.MathUtils.lerp(0.0013, 0.0008, sleepK)) * THREE.MathUtils.lerp(0.014, 0.024, sleepK);
+    var sighP = (t - sighStart) / NAT.sighDur;
+    var sighMul = (sighP > 0 && sighP < 1) ? 1 + (NAT.sighDepth - 1) * env(sighP) : 1;
+    var breath = reduced ? 0 : Math.sin(t * THREE.MathUtils.lerp(0.0013, 0.0008, sleepK)) * THREE.MathUtils.lerp(0.014, 0.024, sleepK) * sighMul;
     head.scale.set(1 + breath * 0.6, squash * (1 + breath), 1 + breath * 0.6);
-    root.rotation.y = THREE.MathUtils.lerp(root.rotation.y, yawExtra, name === 'turn' ? 1 : 0.2);
+    // шумовое поворачивание корпуса: две несоизмеримые частоты, гаснет во сне
+    var yawNoise = reduced ? 0
+      : (Math.sin(t * NAT.yawNoiseFreq) + 0.5 * Math.sin(t * NAT.yawNoiseFreq * 2.63 + 1.1)) * NAT.yawNoiseAmp * (1 - sleepK * 0.5);
+    root.rotation.y = THREE.MathUtils.lerp(root.rotation.y, yawExtra + (name === 'turn' ? 0 : yawNoise), name === 'turn' ? 1 : 0.2);
     root.rotation.x = THREE.MathUtils.lerp(root.rotation.x, pitchExtra, name === 'flip' ? 1 : 0.2);
 
     var wAngryTarget = name === 'angry' ? 1 : 0;
@@ -677,6 +717,8 @@ export function createOctopus3D(canvas, opts) {
             + (bodyVel.y * 4.5 + scrollLean) * w;
           var targetZ = Math.cos(t * 0.0021 + leg.phase * 1.3 - si * 0.5) * amp * 0.6 * w
             + leg.side * 0.12 - bodyVel.x * 5.5 * w;
+          // кончики подкручиваются собственным ритмом - щупальце "ищет", а не висит
+          if (si === SEGMENTS - 1) targetX += Math.sin(t * NAT.tipCurlFreq + leg.phase * 2.3) * NAT.tipCurlAmp * 0.4 * legAmpMul;
           var k = (0.22 - si * 0.03) * dt;
           var d = Math.pow(0.78, dt);
           seg.userData.avx = (seg.userData.avx + (targetX - seg.rotation.x) * k) * d;
@@ -700,12 +742,20 @@ export function createOctopus3D(canvas, opts) {
       var gazeActive = !dragging && t < gazeUntil;
       var curLookX = dragging ? lookX : lookOverrideX !== null ? lookOverrideX : gazeActive ? gazeX : wanderActive ? wanderX : lookX;
       var curLookY = dragging ? lookY : lookOverrideY !== null ? lookOverrideY : gazeActive ? gazeY : wanderActive ? wanderY : lookY;
+      // саккады только при живом слежении - сценарные взгляды (lookAround/gaze) точны
+      var sOffX = (lookOverrideX === null && !sleeping) ? sacX : 0;
+      var sOffY = (lookOverrideY === null && !sleeping) ? sacY : 0;
+      // двухфазное моргание: быстро закрыл, медленнее открыл
+      var bT = t - blinkStart, bTot = NAT.blinkClose + NAT.blinkOpen;
+      var blinkAmt = (bT >= 0 && bT < bTot && name !== 'surprise')
+        ? (bT < NAT.blinkClose ? bT / NAT.blinkClose : 1 - (bT - NAT.blinkClose) / NAT.blinkOpen)
+        : 0;
       eyes.forEach(function (g, idx) {
         var pu = g.userData.pupil, wh = g.userData.white;
-        pu.position.x = THREE.MathUtils.clamp(curLookX, -1, 1) * 0.05;
-        pu.position.y = THREE.MathUtils.clamp(curLookY, -1, 1) * 0.05;
+        pu.position.x = THREE.MathUtils.clamp(curLookX + sOffX, -1.1, 1.1) * 0.05;
+        pu.position.y = THREE.MathUtils.clamp(curLookY + sOffY, -1.1, 1.1) * 0.05;
         var isWinking = name === 'wink' && idx === winkSide;
-        var closeAmt = sleeping ? sleepK : isWinking ? env(p) : (t < blinkUntil && name !== 'surprise' ? 1 : 0);
+        var closeAmt = sleeping ? sleepK : isWinking ? env(p) : blinkAmt;
         var s = THREE.MathUtils.lerp(1, 0.12, closeAmt) * THREE.MathUtils.lerp(1, 1.32, wWide);
         wh.scale.set(1, s, 1);
       });

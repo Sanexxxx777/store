@@ -8,18 +8,18 @@
 
 ## Services
 
-- Interactive Mascot Sprint: from $89. Animate an existing character or build a simple code-native one for a hero, onboarding, login or status flow.
-- Landing Page Sprint: from $129. A complete page: offer, structure, visual language, responsive build and deploy.
-- Motion Polish Sprint: from $99. Audit and sharpen 5-8 key micro-interactions on an existing site.
-- Site Speed Sprint: from $89. Core Web Vitals diagnosis and top fixes, with a Lighthouse report before and after.
-- Vibe Code Rescue: from $199. Take a project built in Cursor, Lovable, Bolt or ChatGPT to production: security audit, error handling, real server deploy.
-- Telegram Bot Sprint: from $199. A turnkey bot with conversation logic, notifications, deploy and full code handover.
-- AI Chat Widget Sprint: from $149. A chat widget on Claude or GPT trained on your own materials, with a token cost estimate included.
-- Workflow Automation Sprint: from $149. Turn one repeated manual process into a testable pipeline, with optional payment and CRM integrations.
-- AI Visibility Sprint: from $119. Technical readiness for AI search: llms.txt, JSON-LD, metadata, a machine-readable layer.
-- Data Scraping Sprint: from $129. Scheduled data collection from legal, public sources, with code handed over.
-- Dashboard Sprint: from $199. A live metrics panel with 1-2 data connections and 4-6 widgets, no monthly BI license.
-- VPS Safety Sprint: from $79. Audit of public surface, SSH, firewall, secrets and backups, with verification commands for every fix.
+- Interactive Mascot Sprint: from $49 (launch discount, was $89). Animate an existing character or build a simple code-native one for a hero, onboarding, login or status flow.
+- Landing Page Sprint: from $79 (launch discount, was $129). A complete page: offer, structure, visual language, responsive build and deploy.
+- Motion Polish Sprint: from $59. Audit and sharpen 5-8 key micro-interactions on an existing site.
+- Site Speed Sprint: from $49. Core Web Vitals diagnosis and top fixes, with a Lighthouse report before and after.
+- Vibe Code Rescue: from $119 (launch discount, was $199). Take a project built in Cursor, Lovable, Bolt or ChatGPT to production: security audit, error handling, real server deploy.
+- Telegram Bot Sprint: from $119. A turnkey bot with conversation logic, notifications, deploy and full code handover.
+- AI Chat Widget Sprint: from $89. A chat widget on Claude or GPT trained on your own materials, with a token cost estimate included.
+- Workflow Automation Sprint: from $89. Turn one repeated manual process into a testable pipeline, with optional payment and CRM integrations.
+- AI Visibility Sprint: from $69. Technical readiness for AI search: llms.txt, JSON-LD, metadata, a machine-readable layer.
+- Data Scraping Sprint: from $79. Scheduled data collection from legal, public sources, with code handed over.
+- Dashboard Sprint: from $119. A live metrics panel with 1-2 data connections and 4-6 widgets, no monthly BI license.
+- VPS Safety Sprint: from $49. Audit of public surface, SSH, firewall, secrets and backups, with verification commands for every fix.
 
 ## Open Source
 
@@ -30,6 +30,9 @@
 - [Transaction Guardian](https://github.com/Sanexxxx777/transaction-guardian): A security bot for crypto wallets: transaction monitoring and alerts. MIT.
 - [Curated Claude Code](https://github.com/Sanexxxx777/curated-claude-code): A methodology for AI-augmented development: conventions, verification discipline, working patterns.
 - MEXC PHP Client: A zero-dependency cURL client, pending a release review before the repository is opened.
+
+- Custom task: any other web, AI or automation job can be requested through the contact form; scope and price are quoted before work starts.
+- Payment: card, crypto or transfer, discussed in chat. For sprints up to $100 paying in full on acceptance is an option.
 
 ## Contact
 
