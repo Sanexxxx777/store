@@ -332,6 +332,7 @@ export async function createStoryField(canvas, config, hooks = {}) {
   function resize(force) {
     const dpr = Math.min(devicePixelRatio || 1, dprCap, TIERS[state.tier].dpr);
     const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+    if (!force && W && coarse && Math.abs(w - W) < 2) return; /* touch: height-only resize = URL-бар, буфер не трогаем (лёгкое CSS-растяжение вместо скачка перспективы) */
     if (!force && Math.abs(w - W) < 40 * dpr && Math.abs(h - H) < 40 * dpr) return; /* адресная строка iOS дёргает viewport */
     if (!w || !h) return;
     W = w; H = h;
@@ -373,7 +374,10 @@ export async function createStoryField(canvas, config, hooks = {}) {
 
     const iA = Math.min(Math.floor(state.f), chapters.length - 1);
     const iB = Math.min(iA + 1, chapters.length - 1);
-    const p = state.f - iA;
+    /* linger: плато у краёв промежутка — форма стоит собранной, пока читается текст глав,
+       морф сжат к середине; края доглаживает шейдерный smoothstep */
+    const LINGER = 0.14;
+    const p = Math.min(Math.max((state.f - iA - LINGER) / (1 - 2 * LINGER), 0), 1);
 
     gl.useProgram(prog);
     gl.bindVertexArray(vao);
