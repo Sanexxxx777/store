@@ -1,6 +1,6 @@
 # Product Lab — store.shulgin.is-a.dev
 
-Storefront for private-beta Mac apps, ready-made code and short, fixed-scope work: SashaSwitcher, Sketchbook Planner, the Living Mascot canvas engine, product sprints, and an Open Lab of free MIT repos. Static site (no build step), RU/EN.
+Storefront for private-beta desktop/mobile tools, ready-made code and short, fixed-scope work: SashaSwitcher, Sketchbook Planner, the Living Mascot canvas engine, product sprints, and an Open Lab of free MIT repos. Static site (no build step), RU/EN.
 
 ## Structure
 

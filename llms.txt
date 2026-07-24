@@ -5,8 +5,8 @@
 ## Products
 
 - [Living Mascot](https://shulgin.is-a.dev/store/mascot/): A living canvas engine with a flexible theme, recolorable for any brand through a single color config. Reacts to the pointer and clicks, expresses 10 emotions, falls asleep when idle. Canvas 2D, zero runtime dependencies, ESM and plain script builds. $19, personal license, 6.9 KB gzip. Live demo at the link above.
-- SashaSwitcher: private beta for macOS 13+. Locally switches already typed text between Russian and English keyboard layouts. Planned price: $19. Public release follows Apple signing and notarization.
-- Sketchbook Planner: private beta for Apple silicon Macs. Turns free-form notes into a previewable plan and Things 3 tasks, with rollback and Undo. The current build requires Things 3 and Claude CLI. Planned price: $24. Public release follows Apple signing and notarization.
+- SashaSwitcher: private beta for macOS 13+, with a Windows edition in preparation. Locally switches already typed text between Russian and English keyboard layouts. Planned price: $19. Public release follows platform signing and packaging.
+- Sketchbook Planner: private beta for desktop plus an installable mobile PWA. Turns free-form notes into a previewable plan and Things 3 tasks, with rollback and Undo. Desktop sync uses Things 3 and Claude CLI; mobile web works locally. Planned price: $24.
 
 ## Services
 
