@@ -379,6 +379,42 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 .proof-block span { color: var(--cream-mute); font-family: "JetBrains Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
 .proof-block strong { display: block; margin-top: 7px; font-size: .96rem; line-height: 1.45; font-weight: 500; color: var(--cream-dim); }
 
+/* Mac apps */
+.apps-blk { background: var(--bg-soft); }
+.app-grid {
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+.app-card {
+  display: flex;
+  min-width: 0;
+  min-height: 480px;
+  padding: 30px;
+  flex-direction: column;
+  background: var(--bg);
+}
+.app-card__top { display: flex; align-items: center; gap: 22px; }
+.app-card__top img { width: 112px; height: 112px; flex: 0 0 auto; }
+.app-status {
+  color: var(--cream-mute);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.app-card h3 { margin-top: 7px; font-size: clamp(2.2rem, 4vw, 3.7rem); line-height: .92; }
+.app-card > p { max-width: 58ch; margin-top: 24px; color: var(--cream-dim); }
+.app-facts { margin: 20px 0 28px; padding: 0; list-style: none; color: var(--cream-dim); font-size: .9rem; }
+.app-facts li { padding: 9px 0; border-top: 1px solid var(--line); }
+.app-facts li::before { content: "—"; margin-right: 10px; color: var(--cream-mute); }
+.app-card__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-top: auto; }
+.app-price { color: var(--red); font-family: "JetBrains Mono", monospace; font-size: 1.65rem; font-weight: 600; line-height: 1; }
+.app-price small { display: block; margin-top: 8px; color: var(--cream-mute); font-size: 10px; font-weight: 500; text-transform: uppercase; }
+.apps-note { margin-top: 16px; color: var(--cream-mute); font-size: .82rem; }
+
 /* Sprints: компактная сетка-прайс вместо 12 полных рядов */
 .sprint-grid {
   display: grid;
@@ -699,6 +735,8 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   .product-feature { grid-template-columns: 1fr; }
   .product-main { padding: 26px 22px; }
   .product-proof { border-top: 1px solid var(--line); border-left: 0; }
+  .app-grid { grid-template-columns: 1fr; }
+  .app-card { min-height: 0; }
   .sprint-grid { grid-template-columns: 1fr 1fr; }
   .sprint-fill--sm { display: block; }
   .srv-group { padding: 18px 16px 10px; }
@@ -721,6 +759,11 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   .card-actions { flex-direction: column; }
   .card-actions .btn { width: 100%; }
   .card-price { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .app-card { padding: 22px; }
+  .app-card__top { align-items: flex-start; gap: 15px; }
+  .app-card__top img { width: 80px; height: 80px; }
+  .app-card__foot { align-items: stretch; flex-direction: column; }
+  .app-card__foot .btn { width: 100%; }
   .base { flex-direction: column; gap: 6px; }
   .steps { grid-template-columns: 1fr; }
 }
