@@ -764,6 +764,8 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   .app-card { padding: 22px; }
   .app-card__top { align-items: flex-start; gap: 15px; }
   .app-card__top img { width: 80px; height: 80px; }
+  /* обёртке нужен min-width:0, иначе она не сжимается ниже своего содержимого */
+  .app-card__top > div { min-width: 0; }
   .app-card__foot { align-items: stretch; flex-direction: column; }
   .app-card__foot .btn { width: 100%; }
   .base { flex-direction: column; gap: 6px; }
@@ -774,4 +776,13 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
   .rise { opacity: 1 !important; transform: none !important; }
+}
+
+@media (max-width: 420px) {
+  /* «SashaSwitcher» / «Sketchbook Planner» — длинные слова в крупном кегле: рядом с
+     иконкой 80px они не помещаются. На 320px это распирало документ (341 при экране 320),
+     а на 360-414 заголовок упирался в край карточки без отступа. Иконка встаёт отдельной
+     строкой — кегль заголовка при этом не мельчает */
+  .app-card__top { flex-wrap: wrap; }
+  .app-card__top > div { flex: 1 1 100%; }
 }

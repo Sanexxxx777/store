@@ -15,26 +15,47 @@
      layout компенсируется отрицательным margin - визуальная позиция глифов не меняется */
   var PAD = 30;
 
+  /* сколько места есть по бокам до края вьюпорта. Меряем логическую позицию элемента:
+     если bleed уже применён, прибавляем его обратно, иначе на втором проходе room=0 */
+  function bleedRoom(canvas, curPad) {
+    var r = canvas.getBoundingClientRect();
+    var vw = document.documentElement.clientWidth;
+    return Math.min(r.left + curPad, vw - (r.right - curPad));
+  }
+
   function buildDots(canvas) {
     var text = canvas.dataset.dots || '';
     if (!text) return null;
     var padded = canvas.dataset.dmPadded === '1';
-    var cw = canvas.clientWidth - (padded ? PAD * 2 : 0);
-    var ch = canvas.clientHeight - (padded ? PAD * 2 : 0);
+    var curPad = padded ? parseFloat(canvas.dataset.dmPad) || 0 : 0;
+    var cw = canvas.clientWidth - curPad * 2;
+    var ch = canvas.clientHeight - curPad * 2;
     if (cw <= 0 || ch <= 0) return null;
+    /* bleed не может быть шире свободного места: на мобильном колонка занимает почти всю
+       ширину экрана, и PAD=30 при отступе страницы 18 распирал документ на 12px в каждую
+       сторону. Горизонтальную прокрутку это не давало, но документ был шире вьюпорта.
+       На узких экранах hover-репульсии нет (pointer: coarse), так что урезанный bleed
+       там ничего не стоит; на десктопе места хватает и PAD остаётся полным */
+    var pad = Math.max(0, Math.min(PAD, Math.floor(bleedRoom(canvas, curPad))));
     if (!padded) {
       var cs = getComputedStyle(canvas);
-      canvas.style.width = (cw + PAD * 2) + 'px';
-      canvas.style.height = (ch + PAD * 2) + 'px';
-      /* свои margin'ы канваса сохраняем (у .dm-strip есть margin-top) - вычитаем PAD посторонне */
-      canvas.style.margin = (parseFloat(cs.marginTop) - PAD) + 'px ' + (parseFloat(cs.marginRight) - PAD) + 'px ' +
-        (parseFloat(cs.marginBottom) - PAD) + 'px ' + (parseFloat(cs.marginLeft) - PAD) + 'px';
+      /* базовые margin'ы канваса запоминаем до компенсации (у .dm-strip есть margin-top),
+         иначе повторный проход вычтет bleed второй раз */
+      canvas.dataset.dmMargin = [cs.marginTop, cs.marginRight, cs.marginBottom, cs.marginLeft]
+        .map(parseFloat).join(' ');
       canvas.style.pointerEvents = 'none';
       canvas.dataset.dmPadded = '1';
     }
-    canvas.width = Math.round((cw + PAD * 2) * DPR);
-    canvas.height = Math.round((ch + PAD * 2) * DPR);
-    var P = PAD * DPR, innerW = cw * DPR, innerH = ch * DPR;
+    var base = (canvas.dataset.dmMargin || '0 0 0 0').split(' ').map(Number);
+    canvas.style.width = (cw + pad * 2) + 'px';
+    canvas.style.height = (ch + pad * 2) + 'px';
+    canvas.style.margin = (base[0] - pad) + 'px ' + (base[1] - pad) + 'px ' +
+      (base[2] - pad) + 'px ' + (base[3] - pad) + 'px';
+    canvas.dataset.dmPad = pad;
+
+    canvas.width = Math.round((cw + pad * 2) * DPR);
+    canvas.height = Math.round((ch + pad * 2) * DPR);
+    var P = pad * DPR, innerW = cw * DPR, innerH = ch * DPR;
 
     /* глиф-сэмплер: текст в offscreen, читаем альфу по сетке */
     var off = document.createElement('canvas');
