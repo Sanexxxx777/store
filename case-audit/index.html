@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Образец отчёта: аудит вайбкод-проекта | Магазин Шульгина</title>
+  <meta name="description" content="Как выглядит отчёт по услуге Vibe Code Rescue: реальная находка на живом сайте, которую не видит ни один автоскан, — с числами, кадрами до/после и проверкой фикса на проде.">
+  <link rel="canonical" href="https://shulgin.is-a.dev/store/case-audit/">
+  <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/case-audit/en/">
+  <link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/case-audit/">
+  <meta property="og:title" content="Образец отчёта: аудит вайбкод-проекта">
+  <meta property="og:description" content="Дефект, который проходит мимо линтера и Lighthouse: на трети мобильных экранов часть контента молча не показывалась. Числа, кадры, фикс, проверка на проде.">
+  <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='19'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700..900&family=Oswald:wght@500..700&family=JetBrains+Mono:wght@400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="top">
+  <a href="/store/">← Магазин</a>
+  <span class="tag">образец отчёта</span>
+  <a href="/store/case-audit/en/" hreflang="en">EN</a>
+</nav>
+
+<main>
+  <header class="hero wrap">
+    <div class="kicker"><span class="num">01</span> Vibe Code Rescue · как выглядит результат</div>
+    <h1>Дефект, которого<br>не видит <span class="accent">автоскан</span></h1>
+    <p class="lede">
+      Это образец отчёта по услуге «Доделать за ИИ». Чтобы не показывать чужой код, аудит прогнан
+      на собственном сайте — и нашёл в нём настоящую ошибку. Ниже она целиком: как обнаружена,
+      чем доказана, что исправлено и как проверено, что фикс доехал до прода.
+    </p>
+  </header>
+
+  <section class="wrap">
+    <h2>Рамки <span class="accent">проверки</span></h2>
+    <dl class="facts">
+      <div class="fact"><dt>Объект</dt><dd>Публичный сайт-портфолио, React + Vite, статический хостинг</dd></div>
+      <div class="fact"><dt>Дата</dt><dd>29 июля 2026</dd></div>
+      <div class="fact"><dt>Что проверялось</dt><dd>Мобильная вёрстка, вес и скорость загрузки, заголовки безопасности, ошибки в консоли</dd></div>
+      <div class="fact"><dt>Найдено</dt><dd>1 дефект средней важности, исправлен и проверен на проде</dd></div>
+      <div class="fact"><dt>Время</dt><dd>Около часа от первого запроса до подтверждённого фикса</dd></div>
+    </dl>
+  </section>
+
+  <section class="wrap">
+    <h2>Находка</h2>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="id">F-01</span>
+        <span class="name">Блок контактов обрезается на узких экранах</span>
+        <span class="sev med">средняя</span>
+      </div>
+      <div class="finding-body">
+        <p>
+          На экранах <strong>шириной до 380 px</strong> — а это распространённые Android-модели —
+          блок контактов оказывался шире страницы: документ растягивался до <code>370 px</code>
+          при экране <code>360 px</code>. Правая граница карточек и край заголовка секции
+          уходили за пределы видимой области.
+        </p>
+
+        <h3>Почему это не поймали раньше</h3>
+        <p>
+          Дефект прятался за строкой <code>body { overflow-x: hidden }</code>. Она отключает
+          горизонтальную прокрутку — страница не «едет» вбок, и внешне всё выглядит нормально.
+          Лишние пиксели просто не показываются. Симптом не в том, что что-то съехало,
+          а в том, что часть контента <strong>молча не отображается</strong>.
+        </p>
+        <p>
+          На iPhone (390 px и шире) воспроизвести невозможно — там всё помещается.
+          Проверка «открыл на своём телефоне, всё хорошо» этот класс дефектов не ловит в принципе.
+        </p>
+
+        <h3>Что говорят автоматические проверки</h3>
+        <p>
+          Ничего. HTML и CSS валидны, ошибок в консоли ноль, ни один сетевой запрос не падает,
+          Lighthouse доволен. Линтер и сканер тут молчат, потому что синтаксически код правильный —
+          неверно только поведение на конкретной ширине экрана.
+        </p>
+
+        <div class="shots">
+          <figure>
+            <img src="case-before.webp" width="720" height="542" loading="lazy" decoding="async"
+                 alt="Блок контактов на экране 360 пикселей до исправления: правая граница карточек срезана краем экрана">
+            <figcaption><b>До.</b> Ширина документа 370 px при экране 360 px. Правая граница карточек срезана.</figcaption>
+          </figure>
+          <figure>
+            <img src="case-after.webp" width="720" height="724" loading="lazy" decoding="async"
+                 alt="Тот же блок после исправления: подпись над значением, рамка карточек видна целиком">
+            <figcaption><b>После.</b> 360 px из 360 px. Подпись встала над значением, email и ссылки видны целиком.</figcaption>
+          </figure>
+        </div>
+
+        <h3>Причина</h3>
+        <p>
+          Классическая ловушка флекс-раскладки: элементы внутри строки по умолчанию имеют
+          <code>min-width: auto</code> и отказываются сжиматься меньше своего содержимого.
+          Подпись слева была зафиксирована на <code>5.5rem</code>, а длинный email справа
+          не мог ужаться — в сумме строка перестала помещаться в контейнер.
+        </p>
+
+        <h3>Исправление</h3>
+        <p>
+          Пять строк CSS: на узких экранах строка переносится, подпись занимает отдельную строку
+          над значением, значению разрешено сжиматься.
+        </p>
+        <pre><code>@media (max-width: 520px) {
+  .row    { flex-wrap: wrap; row-gap: 0.35rem; }
+  .rowLbl { min-width: 0; flex: 0 0 100%; }
+  .rowVal { min-width: 0; overflow-wrap: anywhere; }
+}</code></pre>
+
+        <h3>Проверка результата</h3>
+        <p>
+          Замер повторён на четырёх ширинах уже <strong>на живом сайте после деплоя</strong>,
+          критерий — ширина документа не превышает ширину экрана и нет текста за его границей:
+        </p>
+        <pre><code>320 px → 320 / 320 · обрезанного текста: 0 · OK
+360 px → 360 / 360 · обрезанного текста: 0 · OK
+390 px → 390 / 390 · обрезанного текста: 0 · OK
+414 px → 414 / 414 · обрезанного текста: 0 · OK</code></pre>
+        <p>
+          «Собралось без ошибок» — не доказательство. Доказательство — что дефект
+          перестал воспроизводиться там, где он воспроизводился.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Проверено <span class="accent">и чисто</span></h2>
+    <p>
+      В отчёт входит и то, что оказалось в порядке, — иначе непонятно, что вообще смотрели.
+    </p>
+    <div class="checks">
+      <div class="check">
+        <span class="what">Вес страницы</span>
+        <span class="res">180 КБ по сети на весь интерфейс. Раздувания нет <span class="sev ok">ок</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Ошибки в консоли</span>
+        <span class="res">Ноль на всех проверенных ширинах <span class="sev ok">ок</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Упавшие запросы</span>
+        <span class="res">Ноль <span class="sev ok">ок</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Мета viewport</span>
+        <span class="res">На месте и корректна <span class="sev ok">ок</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Заголовки безопасности</span>
+        <span class="res">Статический хостинг их не отдаёт — ограничение платформы. Для страницы без форм и личных данных риск низкий, отмечено как известное <span class="sev med">к сведению</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Что входит <span class="accent">в услугу</span></h2>
+    <p>
+      Границы заданы жёстко — иначе аудит превращается в бесконечное чтение чужого кода.
+    </p>
+    <ul>
+      <li>Один сайт или один репозиторий</li>
+      <li>Срок 2–3 дня</li>
+      <li>Отчёт в таком же виде: находки, отсортированные по влиянию на пользователя и деньги</li>
+      <li>По каждой находке — как воспроизвести, чем доказана, что делать</li>
+      <li>Мелкие фиксы — сразу, как этот; крупные переделки оцениваются отдельно</li>
+    </ul>
+    <p>
+      Работаю по коду и публичному адресу. Доступ к боевому серверу, базе и ключам не требуется
+      и не запрашивается.
+    </p>
+    <p class="note">
+      Честная оговорка: аудит не гарантирует отсутствия других дефектов. Он показывает то,
+      что найдено в оговорённых рамках и за оговорённое время, — с доказательством, а не списком
+      предупреждений линтера.
+    </p>
+  </section>
+
+  <section class="wrap">
+    <div class="cta">
+      <h2>Прогнать <span class="accent">ваш проект</span></h2>
+      <p>
+        Проект из Cursor, Lovable, Bolt или собранный с ИИ вручную — посмотрю тем же методом
+        и покажу, что в нём происходит на самом деле.
+      </p>
+      <a class="btn" href="/store/#rescue-sprint">Обсудить аудит →</a>
+      <p class="note">
+        Услуга «Vibe Code Rescue» на витрине: <a href="/store/#rescue-sprint">аудит + фиксы</a>.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  Образец отчёта · 29.07.2026 · <a href="/store/">магазин</a> · <a href="https://shulgin.is-a.dev">портфолио</a>
+</footer>
+
+</body>
+</html>

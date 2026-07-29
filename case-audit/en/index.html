@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sample audit report: AI-built project | Shulgin's Store</title>
+  <meta name="description" content="What a Vibe Code Rescue report looks like: a real defect on a live site that no automated scanner reports - with numbers, before/after frames and a fix verified in production.">
+  <link rel="canonical" href="https://shulgin.is-a.dev/store/case-audit/en/">
+  <link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/case-audit/">
+  <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/case-audit/en/">
+  <meta property="og:title" content="Sample audit report: AI-built project">
+  <meta property="og:description" content="A defect that passes linters and Lighthouse: on a third of mobile screens part of the content silently went missing. Numbers, frames, fix, production check.">
+  <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='19'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700..900&family=Oswald:wght@500..700&family=JetBrains+Mono:wght@400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav class="top">
+  <a href="/store/en/">← Store</a>
+  <span class="tag">sample report</span>
+  <a href="/store/case-audit/" hreflang="ru">RU</a>
+</nav>
+
+<main>
+  <header class="hero wrap">
+    <div class="kicker"><span class="num">01</span> Vibe Code Rescue · what you get</div>
+    <h1>The defect<br>no <span class="accent">scanner</span> reports</h1>
+    <p class="lede">
+      This is a sample report for the "finish what the AI started" service. Rather than exposing
+      a client's code, the audit was run against my own site - and found a real bug in it.
+      Here it is in full: how it surfaced, what proves it, what was fixed, and how the fix was
+      verified in production.
+    </p>
+  </header>
+
+  <section class="wrap">
+    <h2>Scope of <span class="accent">the check</span></h2>
+    <dl class="facts">
+      <div class="fact"><dt>Target</dt><dd>Public portfolio site, React + Vite, static hosting</dd></div>
+      <div class="fact"><dt>Date</dt><dd>29 July 2026</dd></div>
+      <div class="fact"><dt>Checked</dt><dd>Mobile layout, page weight and load time, security headers, console errors</dd></div>
+      <div class="fact"><dt>Found</dt><dd>1 medium-severity defect, fixed and verified in production</dd></div>
+      <div class="fact"><dt>Time spent</dt><dd>About an hour from first request to a confirmed fix</dd></div>
+    </dl>
+  </section>
+
+  <section class="wrap">
+    <h2>The finding</h2>
+
+    <div class="finding">
+      <div class="finding-head">
+        <span class="id">F-01</span>
+        <span class="name">Contact block clipped on narrow screens</span>
+        <span class="sev med">medium</span>
+      </div>
+      <div class="finding-body">
+        <p>
+          On screens <strong>up to 380 px wide</strong> - common Android models - the contact block
+          was wider than the page: the document stretched to <code>370 px</code> against a
+          <code>360 px</code> screen. The right border of the cards and the edge of the section
+          heading fell outside the visible area.
+        </p>
+
+        <h3>Why it went unnoticed</h3>
+        <p>
+          The defect hid behind <code>body { overflow-x: hidden }</code>. That line disables
+          horizontal scrolling - the page does not drift sideways, so everything looks fine.
+          The extra pixels are simply never shown. The symptom is not that something moved;
+          it is that part of the content <strong>silently fails to render</strong>.
+        </p>
+        <p>
+          It cannot be reproduced on an iPhone (390 px and wider) - everything fits there.
+          Checking "I opened it on my phone, looks fine" cannot catch this class of defect at all.
+        </p>
+
+        <h3>What automated checks say</h3>
+        <p>
+          Nothing. HTML and CSS are valid, zero console errors, no failed requests, Lighthouse is
+          happy. Linters and scanners stay quiet because the code is syntactically correct -
+          only the behaviour at a specific screen width is wrong.
+        </p>
+
+        <div class="shots">
+          <figure>
+            <img src="../case-before.webp" width="720" height="542" loading="lazy" decoding="async"
+                 alt="Contact block at 360 pixels before the fix: the right border of the cards is cut off by the screen edge">
+            <figcaption><b>Before.</b> Document 370 px against a 360 px screen. Right border of the cards is cut off.</figcaption>
+          </figure>
+          <figure>
+            <img src="../case-after.webp" width="720" height="724" loading="lazy" decoding="async"
+                 alt="The same block after the fix: label above the value, card border fully visible">
+            <figcaption><b>After.</b> 360 px of 360 px. Label moved above the value; email and links are fully visible.</figcaption>
+          </figure>
+        </div>
+
+        <h3>Root cause</h3>
+        <p>
+          The classic flexbox trap: items inside a row default to <code>min-width: auto</code> and
+          refuse to shrink below their content. The label on the left was pinned at
+          <code>5.5rem</code> while the long email on the right could not compress - together they
+          stopped fitting the container.
+        </p>
+
+        <h3>The fix</h3>
+        <p>
+          Five lines of CSS: on narrow screens the row wraps, the label takes its own line above the
+          value, and the value is allowed to shrink.
+        </p>
+        <pre><code>@media (max-width: 520px) {
+  .row    { flex-wrap: wrap; row-gap: 0.35rem; }
+  .rowLbl { min-width: 0; flex: 0 0 100%; }
+  .rowVal { min-width: 0; overflow-wrap: anywhere; }
+}</code></pre>
+
+        <h3>Verification</h3>
+        <p>
+          The measurement was repeated at four widths <strong>on the live site after deployment</strong>.
+          The criterion: document width never exceeds screen width, and no text sits beyond the edge.
+        </p>
+        <pre><code>320 px → 320 / 320 · clipped text: 0 · OK
+360 px → 360 / 360 · clipped text: 0 · OK
+390 px → 390 / 390 · clipped text: 0 · OK
+414 px → 414 / 414 · clipped text: 0 · OK</code></pre>
+        <p>
+          "It builds without errors" is not proof. Proof is that the defect stopped reproducing
+          where it used to reproduce.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Checked <span class="accent">and clean</span></h2>
+    <p>
+      The report also covers what turned out to be fine - otherwise there is no way to tell what
+      was actually examined.
+    </p>
+    <div class="checks">
+      <div class="check">
+        <span class="what">Page weight</span>
+        <span class="res">180 KB over the wire for the whole interface. No bloat <span class="sev ok">ok</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Console errors</span>
+        <span class="res">Zero at every width tested <span class="sev ok">ok</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Failed requests</span>
+        <span class="res">Zero <span class="sev ok">ok</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Viewport meta</span>
+        <span class="res">Present and correct <span class="sev ok">ok</span></span>
+      </div>
+      <div class="check">
+        <span class="what">Security headers</span>
+        <span class="res">Static hosting does not serve them - a platform limitation. Low risk for a page with no forms or personal data; logged as known <span class="sev med">noted</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>What the <span class="accent">service covers</span></h2>
+    <p>
+      The scope is deliberately tight - otherwise an audit turns into endless reading of someone
+      else's code.
+    </p>
+    <ul>
+      <li>One site or one repository</li>
+      <li>2-3 days turnaround</li>
+      <li>A report in exactly this shape: findings ranked by impact on users and revenue</li>
+      <li>For each finding - how to reproduce it, what proves it, what to do</li>
+      <li>Small fixes done on the spot, like this one; larger rewrites quoted separately</li>
+    </ul>
+    <p>
+      I work from the code and the public URL. Access to your production server, database or keys
+      is neither required nor requested.
+    </p>
+    <p class="note">
+      An honest caveat: an audit does not guarantee the absence of other defects. It shows what was
+      found within the agreed scope and time - with proof, not a list of linter warnings.
+    </p>
+  </section>
+
+  <section class="wrap">
+    <div class="cta">
+      <h2>Run it on <span class="accent">your project</span></h2>
+      <p>
+        A project from Cursor, Lovable, Bolt - or hand-assembled with an AI. I will look at it the
+        same way and show you what is actually going on inside.
+      </p>
+      <a class="btn" href="/store/en/#rescue-sprint">Discuss an audit →</a>
+      <p class="note">
+        The service on the storefront: <a href="/store/en/#rescue-sprint">Vibe Code Rescue - audit + fixes</a>.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  Sample report · 29 Jul 2026 · <a href="/store/en/">store</a> · <a href="https://shulgin.is-a.dev">portfolio</a>
+</footer>
+
+</body>
+</html>

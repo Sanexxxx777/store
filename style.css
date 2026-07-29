@@ -749,7 +749,9 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
 
 @media (max-width: 620px) {
   body { font-size: 16px; }
-  .nav { font-size: 12px; }
+  /* шесть якорей не влезают в строку уже на 414px и распирали документ (378 при экране 360):
+     сам .nav переносов не имел, хотя .head .wrap оборачивается с 880 */
+  .nav { font-size: 12px; flex-wrap: wrap; row-gap: 6px; }
   .cta-mini { padding: 8px 11px; font-size: 12px; }
   .hero-proof { flex-direction: column; gap: 6px; }
   .route { grid-template-columns: 34px 1fr; gap: 10px; }
