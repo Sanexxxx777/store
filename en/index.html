@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Product Lab - Aleksandr Shulgin</title>
-<meta name="description" content="Mac apps, ready-made code and fixed-scope web, AI and automation work: SashaSwitcher, Sketchbook Planner, Living Mascot and product sprints.">
+<meta name="description" content="Mac apps, ready-made code and fixed-scope web, AI and automation work: Qwerty Switcher, Sketchbook Planner, Living Mascot and product sprints.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&amp;family=Oswald:wght@200..700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
@@ -26,11 +26,14 @@
   "@type": "ProfessionalService",
   "name": "Product Lab - Aleksandr Shulgin",
   "url": "https://shulgin.is-a.dev/store/en/",
-  "description": "Two private-beta Mac apps, the ready-made Living Mascot engine and 13 fixed-scope product sprints.",
+  "description": "Qwerty Switcher on subscription, Sketchbook Planner in private beta, the ready-made Living Mascot engine and 13 fixed-scope product sprints.",
   "email": "sanexxx777@gmail.com",
   "sameAs": ["https://shulgin.is-a.dev", "https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"],
   "priceRange": "$19-$119+",
-  "makesOffer": { "@type": "Offer", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "Product", "name": "Living Mascot", "url": "https://shulgin.is-a.dev/store/mascot/" } },
+  "makesOffer": [
+    { "@type": "Offer", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "Product", "name": "Living Mascot", "url": "https://shulgin.is-a.dev/store/mascot/" } },
+    { "@type": "Offer", "price": "19", "priceCurrency": "USD", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "19", "priceCurrency": "USD", "billingDuration": "P1Y" }, "itemOffered": { "@type": "SoftwareApplication", "name": "Qwerty Switcher", "operatingSystem": "macOS", "applicationCategory": "UtilitiesApplication", "url": "https://shulgin.is-a.dev/store/en/#apps" } }
+  ],
   "founder": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev" }
 }
 </script>
@@ -195,28 +198,32 @@
           <span class="kicker"><span class="star">★</span> Mac apps and mobile web</span>
           <h2>Two tools, without unnecessary cloud</h2>
         </div>
-        <p class="blk-sub">Both apps have passed a technical audit and are available in private beta. Public release follows Apple signing and notarization.</p>
+        <p class="blk-sub">Qwerty Switcher is already available for purchase, Sketchbook Planner is in private beta. Both have passed a technical audit.</p>
       </div>
 
       <div class="app-grid">
         <article class="app-card rise">
           <div class="app-card__top">
-            <img src="../assets/sasha-switcher.png" width="112" height="112" alt="">
+            <img src="../assets/qwerty-switcher.png" width="112" height="112" alt="">
             <div>
-              <span class="app-status">private beta · macOS 13+ · Windows in progress</span>
-              <h3>SashaSwitcher</h3>
+              <span class="app-status">subscription · macOS 13+ · 14-day trial</span>
+              <h3>Qwerty Switcher</h3>
             </div>
           </div>
-          <p>Switches already typed text between Russian and English keyboard layouts. Fully local: your text never leaves the Mac.</p>
+          <p>Switches already typed text between Russian and English keyboard layouts. All input is processed locally and never leaves the Mac; the license check sends only an anonymous device ID.</p>
           <ul class="app-facts">
-            <li>Fix a selection or the last phrase</li>
-            <li>Global keyboard shortcuts</li>
-            <li>67 independent core checks</li>
+            <li>111 automated core checks</li>
+            <li>14-day trial, no card required</li>
+            <li>Key is locked to the device, reinstalling does not reset the term</li>
           </ul>
           <div class="app-card__foot">
-            <span class="app-price">$19 <small>planned price</small></span>
-            <button class="btn btn-sm" type="button" data-modal-open data-item="SashaSwitcher — private beta">Request beta</button>
+            <span class="app-price">$19 <small>per year</small></span>
+            <div class="card-actions">
+              <a class="btn btn-sm" href="../downloads/QwertySwitcher-0.4.1.dmg" download>Download for macOS</a>
+              <a class="btn btn-sm btn-ghost" href="#" data-modal-open data-item="Qwerty Switcher — subscription key">Buy a key</a>
+            </div>
           </div>
+          <p class="app-card__fine">The build is signed with a self-signed certificate: on first launch, right-click → Open. Apple notarization is in progress.</p>
         </article>
 
         <article class="app-card rise">
@@ -239,7 +246,7 @@
           </div>
         </article>
       </div>
-      <p class="apps-note">The invite-only beta is free. Desktop sync uses Things 3 and Claude CLI; the mobile PWA works as a local planner.</p>
+      <p class="apps-note">Qwerty Switcher is now a public subscription product. Sketchbook Planner stays in a free, invite-only beta: desktop sync uses Things 3 and Claude CLI, the mobile PWA works as a local planner.</p>
     </div>
   </section>
 

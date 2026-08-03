@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Продуктовая лаборатория — Александр Шульгин</title>
-<meta name="description" content="Приложения для Mac, готовый код и задачи из веба, ИИ и автоматизации по фиксированной цене: SashaSwitcher, Sketchbook Planner, Living Mascot и продуктовые спринты.">
+<meta name="description" content="Приложения для Mac, готовый код и задачи из веба, ИИ и автоматизации по фиксированной цене: Qwerty Switcher, Sketchbook Planner, Living Mascot и продуктовые спринты.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&amp;family=Oswald:wght@200..700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
@@ -26,11 +26,14 @@
   "@type": "ProfessionalService",
   "name": "Продуктовая лаборатория — Александр Шульгин",
   "url": "https://shulgin.is-a.dev/store/",
-  "description": "Два приложения для Mac в закрытой beta, готовый код Living Mascot и 13 продуктовых спринтов с фиксированным scope.",
+  "description": "Qwerty Switcher по подписке, Sketchbook Planner в закрытой beta, готовый код Living Mascot и 13 продуктовых спринтов с фиксированным scope.",
   "email": "sanexxx777@gmail.com",
   "sameAs": ["https://shulgin.is-a.dev", "https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"],
   "priceRange": "$19-$119+",
-  "makesOffer": { "@type": "Offer", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "Product", "name": "Living Mascot", "url": "https://shulgin.is-a.dev/store/mascot/" } },
+  "makesOffer": [
+    { "@type": "Offer", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "Product", "name": "Living Mascot", "url": "https://shulgin.is-a.dev/store/mascot/" } },
+    { "@type": "Offer", "price": "19", "priceCurrency": "USD", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "19", "priceCurrency": "USD", "billingDuration": "P1Y" }, "itemOffered": { "@type": "SoftwareApplication", "name": "Qwerty Switcher", "operatingSystem": "macOS", "applicationCategory": "UtilitiesApplication", "url": "https://shulgin.is-a.dev/store/#apps" } }
+  ],
   "founder": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev" }
 }
 </script>
@@ -195,28 +198,32 @@
           <span class="kicker"><span class="star">★</span> приложения для Mac и мобильного веба</span>
           <h2>Два инструмента, без лишнего облака</h2>
         </div>
-        <p class="blk-sub">Оба приложения прошли технический аудит и доступны в закрытой beta. Публичный релиз — после подписи и нотариального заверения Apple.</p>
+        <p class="blk-sub">Qwerty Switcher уже доступен для покупки, Sketchbook Planner в закрытой beta. Оба прошли технический аудит.</p>
       </div>
 
       <div class="app-grid">
         <article class="app-card rise">
           <div class="app-card__top">
-            <img src="assets/sasha-switcher.png" width="112" height="112" alt="">
+            <img src="assets/qwerty-switcher.png" width="112" height="112" alt="">
             <div>
-              <span class="app-status">закрытая beta · macOS 13+ · Windows в работе</span>
-              <h3>SashaSwitcher</h3>
+              <span class="app-status">подписка · macOS 13+ · триал 14 дней</span>
+              <h3>Qwerty Switcher</h3>
             </div>
           </div>
-          <p>Переключает раскладку уже набранного текста между русским и английским. Работает локально: текст не покидает Mac.</p>
+          <p>Переключает раскладку уже набранного текста между русским и английским. Весь ввод обрабатывается локально и не покидает Mac; лицензионная проверка отправляет только анонимный ID устройства.</p>
           <ul class="app-facts">
-            <li>Исправление выделения и последней фразы</li>
-            <li>Глобальные горячие клавиши</li>
-            <li>67 независимых проверок ядра</li>
+            <li>111 автоматических проверок ядра</li>
+            <li>Триал 14 дней — без карты</li>
+            <li>Ключ привязан к устройству, переустановка не сбрасывает срок</li>
           </ul>
           <div class="app-card__foot">
-            <span class="app-price">$19 <small>плановая цена</small></span>
-            <button class="btn btn-sm" type="button" data-modal-open data-item="SashaSwitcher — закрытая beta">Запросить beta</button>
+            <span class="app-price">$19 <small>в год</small></span>
+            <div class="card-actions">
+              <a class="btn btn-sm" href="downloads/QwertySwitcher-0.4.1.dmg" download>Скачать для macOS</a>
+              <a class="btn btn-sm btn-ghost" href="#" data-modal-open data-item="Qwerty Switcher — ключ подписки">Купить ключ</a>
+            </div>
           </div>
+          <p class="app-card__fine">Сборка подписана самоподписанным сертификатом: при первом запуске — правый клик → Открыть. Нотаризация Apple — в работе.</p>
         </article>
 
         <article class="app-card rise">
@@ -239,7 +246,7 @@
           </div>
         </article>
       </div>
-      <p class="apps-note">Beta бесплатна по приглашению. Desktop-синхронизация Planner использует Things 3 и Claude CLI; мобильный PWA работает как локальный планировщик.</p>
+      <p class="apps-note">Qwerty Switcher теперь публичный продукт по подписке. Sketchbook Planner остаётся закрытой beta бесплатно по приглашению: desktop-синхронизация использует Things 3 и Claude CLI, мобильный PWA работает как локальный планировщик.</p>
     </div>
   </section>
 

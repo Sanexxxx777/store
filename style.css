@@ -414,6 +414,8 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 .app-price { color: var(--red); font-family: "JetBrains Mono", monospace; font-size: 1.65rem; font-weight: 600; line-height: 1; }
 .app-price small { display: block; margin-top: 8px; color: var(--cream-mute); font-size: 10px; font-weight: 500; text-transform: uppercase; }
 .apps-note { margin-top: 16px; color: var(--cream-mute); font-size: .82rem; }
+.app-card__foot .card-actions { margin-top: 0; }
+.app-card__fine { margin-top: 14px; color: var(--cream-mute); font-size: .74rem; line-height: 1.4; }
 
 /* Sprints: компактная сетка-прайс вместо 12 полных рядов */
 .sprint-grid {
