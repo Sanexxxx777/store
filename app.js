@@ -8,9 +8,9 @@
     myContact: 'My contact: ',
     contactRequired: 'Add a Telegram handle or email so I know where to reply.',
   } : {
-    subFor: function (item) { return 'По поводу: ' + item + '. Оставьте контакт — отвечу.'; },
-    subDefault: 'Расскажите, что нужно получить — отвечу в Telegram или почте.',
-    fallbackItem: 'Продуктовая лаборатория — вопрос',
+    subFor: function (item) { return 'По поводу: ' + item + '. Оставьте контакт, отвечу.'; },
+    subDefault: 'Расскажите, что нужно получить, отвечу в Telegram или почте.',
+    fallbackItem: 'Продуктовая лаборатория: вопрос',
     myContact: 'Мой контакт: ',
     contactRequired: 'Укажите Telegram или email, чтобы я знал, куда ответить.',
   };
@@ -177,7 +177,7 @@
 
 
 /* Qwerty Switcher: оплата криптой через CryptoBot. Пока /v1/buy отвечает 503
-   (токен не подключён) — тихо откатываемся на соседнюю модалку «Купить ключ». */
+   (токен не подключён), тихо откатываемся на соседнюю модалку «Купить ключ». */
 document.querySelectorAll('[data-qsw-buy]').forEach(function (btn) {
   btn.addEventListener('click', async function (e) {
     e.preventDefault();
