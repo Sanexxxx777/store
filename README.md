@@ -1,13 +1,13 @@
 # Product Lab — store.shulgin.is-a.dev
 
-Storefront for private-beta desktop/mobile tools, ready-made code and short, fixed-scope work: SashaSwitcher, Sketchbook Planner, the Living Mascot canvas engine, product sprints, and an Open Lab of free MIT repos. Static site (no build step), RU/EN.
+Storefront for desktop tools, ready-made code and short, fixed-scope work: Qwerty Switcher, the Living Mascot canvas engine, product sprints, and an Open Lab of free MIT repos. Static site (no build step), RU/EN.
 
 ## Structure
 
 - `index.html` / `en/index.html` — the store, RU and EN
 - `app.js` — reveal-on-scroll and the contact-modal/mailto flow
 - `assets/octopus3d.js` — decorative hero mascot (three.js, WebGL)
-- `assets/sasha-switcher.png` / `assets/sketchbook-planner.png` — Mac app icons
+- `assets/qwerty-switcher.png` — Mac app icon
 - `mascot/` — live demo of the sellable Living Mascot engine (`mascot.esm.js`), with a color/emotion playground
 - `style.css` — brutalist styling, shared across RU/EN
 

@@ -6,7 +6,6 @@
 
 - [Living Mascot](https://shulgin.is-a.dev/store/mascot/): A living canvas engine with a flexible theme, recolorable for any brand through a single color config. Reacts to the pointer and clicks, expresses 10 emotions, falls asleep when idle. Canvas 2D, zero runtime dependencies, ESM and plain script builds. $19, personal license, 6.9 KB gzip. Live demo at the link above.
 - [Qwerty Switcher](https://shulgin.is-a.dev/store/#apps): macOS 13+ subscription app, $6/year with a 14-day free trial, no card required. Locally switches already typed text between Russian and English keyboard layouts; all input stays on the Mac, license checks send only an anonymous device ID. DMG download on the store page. Self-signed build (right-click → Open on first launch); Apple notarization in progress.
-- Sketchbook Planner: private beta for desktop plus a mobile PWA build ready for HTTPS hosting. Turns free-form notes into a previewable plan and Things 3 tasks, with rollback and Undo. Desktop sync uses Things 3 and Claude CLI; mobile web works locally. Planned price: $24.
 
 ## Services
 

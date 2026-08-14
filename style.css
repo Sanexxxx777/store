@@ -383,7 +383,8 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
 .apps-blk { background: var(--bg-soft); }
 .app-grid {
   display: grid;
-  grid-template-columns: 1.08fr .92fr;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 44rem;
   gap: 1px;
   border: 1px solid var(--line);
   background: var(--line);
@@ -781,7 +782,7 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
 }
 
 @media (max-width: 420px) {
-  /* «SashaSwitcher» / «Sketchbook Planner» — длинные слова в крупном кегле: рядом с
+  /* «Qwerty Switcher» — длинные слова в крупном кегле: рядом с
      иконкой 80px они не помещаются. На 320px это распирало документ (341 при экране 320),
      а на 360-414 заголовок упирался в край карточки без отступа. Иконка встаёт отдельной
      строкой — кегль заголовка при этом не мельчает */
