@@ -788,3 +788,43 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   .app-card__top { flex-wrap: wrap; }
   .app-card__top > div { flex: 1 1 100%; }
 }
+
+
+/* ===== Ролики (секция #films) =====
+   Видео грузится только по клику (preload="none"): три автозагрузки на
+   витрине съели бы мобильный трафик до того, как человек решит смотреть. */
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1.25rem;
+}
+.film-card {
+  margin: 0;
+  border: 1px solid var(--line, rgba(255,255,255,.12));
+  background: var(--bg-2, #141114);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.film-card video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  background: #0d0b0d;
+  object-fit: cover;
+}
+.film-card figcaption {
+  padding: 0.9rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.film-card strong {
+  font-size: 1.02rem;
+  line-height: 1.2;
+}
+.film-card span {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  opacity: 0.72;
+}
