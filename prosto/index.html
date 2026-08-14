@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сайты и автоматика для небольшого бизнеса — Александр Шульгин</title>
+<meta name="description" content="Сайт, бот для заявок, автоматизация рутины. Показываю макет до оплаты, предоплату не беру. Приморский край, работаю по всей России.">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="canonical" href="https://shulgin.is-a.dev/store/prosto/">
+<meta property="og:title" content="Сайты и автоматика для небольшого бизнеса">
+<meta property="og:description" content="Сначала макет, потом решение о работе. Предоплату не беру.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d50'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' fill='%23f6f1e7' text-anchor='middle'%3E%D0%A8%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --paper: #f7f3ec;
+    --ink: #23201c;
+    --ink-soft: #5c554c;
+    --green: #2f5d50;
+    --green-soft: #e3ece7;
+    --clay: #b4522f;
+    --line: #e0d8cb;
+    --card: #fffdf9;
+    --radius: 14px;
+    --wrap: 62rem;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.06rem;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+  h1, h2, h3 { font-family: 'Oswald', 'Inter', sans-serif; font-weight: 600; line-height: 1.12; letter-spacing: -.01em; margin: 0; }
+  h1 { font-size: clamp(2.1rem, 6vw, 3.5rem); }
+  h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); margin-bottom: 1.1rem; }
+  h3 { font-size: 1.16rem; margin-bottom: .5rem; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--green); }
+
+  header.top { padding: 1.4rem 0; border-bottom: 1px solid var(--line); }
+  .top-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .name { font-family: 'Oswald', sans-serif; font-size: 1.06rem; letter-spacing: .04em; text-transform: uppercase; }
+  .name span { color: var(--ink-soft); text-transform: none; letter-spacing: 0; font-family: 'Inter', sans-serif; font-size: .93rem; }
+
+  .hero { padding: clamp(2.6rem, 8vw, 5rem) 0 clamp(2rem, 5vw, 3rem); }
+  .hero p.lead { font-size: clamp(1.08rem, 2.4vw, 1.3rem); color: var(--ink-soft); max-width: 34em; margin-top: 1.3rem; }
+  .cta-row { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.9rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.5rem;
+    border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 1rem;
+    background: var(--green); color: #fff; border: 1px solid var(--green);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(47,93,80,.22); }
+  .btn.ghost { background: transparent; color: var(--green); }
+  .note { font-size: .93rem; color: var(--ink-soft); margin-top: .9rem; }
+
+  section { padding: clamp(2.4rem, 6vw, 4rem) 0; border-top: 1px solid var(--line); }
+  .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; }
+  .card p { color: var(--ink-soft); margin: 0; font-size: .98rem; }
+  .price { display: block; margin-top: .85rem; font-family: 'Oswald', sans-serif; font-size: 1.05rem; color: var(--clay); }
+
+  .steps { counter-reset: s; display: grid; gap: 1.1rem; }
+  .step { display: grid; grid-template-columns: 2.3rem 1fr; gap: 1rem; align-items: start; }
+  .step b {
+    counter-increment: s; width: 2.3rem; height: 2.3rem; border-radius: 50%;
+    background: var(--green-soft); color: var(--green); display: grid; place-items: center;
+    font-family: 'Oswald', sans-serif; font-size: 1rem;
+  }
+  .step b::before { content: counter(s); }
+  .step p { margin: 0; color: var(--ink-soft); }
+  .step strong { color: var(--ink); display: block; font-weight: 600; }
+
+  .works { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+  .work { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .work img { display: block; width: 100%; height: 11rem; object-fit: cover; background: var(--green-soft); }
+  .work div { padding: 1rem 1.2rem 1.25rem; }
+  .work strong { display: block; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 500; }
+  .work span { font-size: .93rem; color: var(--ink-soft); }
+
+  .faq details { border-bottom: 1px solid var(--line); padding: 1rem 0; }
+  .faq summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; color: var(--green); font-size: 1.3rem; line-height: 1; }
+  .faq details[open] summary::after { content: '−'; }
+  .faq p { margin: .8rem 0 0; color: var(--ink-soft); }
+
+  .final { background: var(--green); color: #f6f1e7; border-radius: var(--radius); padding: clamp(1.8rem, 5vw, 3rem); margin: 0 0 3rem; }
+  .final h2 { color: #fff; }
+  .final p { color: #d9e6e0; max-width: 32em; }
+  .final .btn { background: #f6f1e7; color: var(--green); border-color: #f6f1e7; }
+  .final .btn.ghost { background: transparent; color: #f6f1e7; border-color: rgba(246,241,231,.5); }
+
+  footer { padding: 2rem 0 3rem; color: var(--ink-soft); font-size: .93rem; border-top: 1px solid var(--line); }
+  footer a { color: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="name">Александр Шульгин<br><span>сайты и автоматика для небольшого дела</span></div>
+    <a class="btn ghost" href="https://t.me/Aleksandr_NFA">Написать в Telegram</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero" style="border-top:0">
+      <h1>Сделаю сайт, который<br>приводит клиентов.</h1>
+      <p class="lead">Сначала покажу, как он будет выглядеть именно у вас. Понравится, доделаю и запущу. Не понравится, разойдёмся: вы ничего не платите и ничем не обязаны.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://t.me/Aleksandr_NFA">Обсудить в Telegram</a>
+        <a class="btn ghost" href="#works">Посмотреть работы</a>
+      </div>
+      <p class="note">Без предоплаты · макет бесплатно · работаю по всей России, живу в Приморье</p>
+    </section>
+
+    <section>
+      <h2>Что я делаю</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Сайт для дела</h3>
+          <p>Одна страница или целый сайт: услуги, цены, фотографии, форма заявки. Работает на телефоне так же, как на компьютере.</p>
+          <span class="price">от 15 000 ₽</span>
+        </div>
+        <div class="card">
+          <h3>Сайт, который правите вы</h3>
+          <p>Заходите со своего телефона и меняете цены, тексты и фотографии сами. Без программиста и без «подождите до понедельника».</p>
+          <span class="price">от 25 000 ₽</span>
+        </div>
+        <div class="card">
+          <h3>Бот для заявок и записи</h3>
+          <p>Клиент пишет в Telegram, бот принимает заявку, записывает на время и присылает вам уведомление. Ночью тоже работает.</p>
+          <span class="price">от 12 000 ₽</span>
+        </div>
+        <div class="card">
+          <h3>Ремонт того, что уже есть</h3>
+          <p>Сайт медленный, кривой на телефоне, форма не отправляет заявки, хостинг заканчивается. Посмотрю и починю.</p>
+          <span class="price">от 5 000 ₽</span>
+        </div>
+        <div class="card">
+          <h3>Автоматика вместо рутины</h3>
+          <p>То, что вы делаете руками каждый день: отчёты, выгрузки, перенос данных из таблицы в таблицу, рассылка уведомлений. Один раз настроить и забыть.</p>
+          <span class="price">от 10 000 ₽</span>
+        </div>
+        <div class="card">
+          <h3>Помощник на основе ИИ</h3>
+          <p>Отвечает клиентам по вашим материалам, пишет описания товаров, разбирает отзывы. Обучен на ваших данных, а не на выдумках.</p>
+          <span class="price">от 15 000 ₽</span>
+        </div>
+        <div class="card">
+          <h3>Короткое видео о деле</h3>
+          <p>Ролик на 15–20 секунд для соцсетей: ваши фотографии, музыка, титры. Собираю из того, что у вас уже снято.</p>
+          <span class="price">от 7 000 ₽</span>
+        </div>
+        <div class="card">
+          <h3>Порядок в интернете</h3>
+          <p>Домен, почта на вашем домене, карты, чтобы вас находили, резервные копии. Скучное, но без этого теряются клиенты.</p>
+          <span class="price">от 5 000 ₽</span>
+        </div>
+      </div>
+      <p class="note">Цены сейчас ниже обычных: набираю работы в портфолио и понимаю, что время непростое. Точную сумму называю до начала и потом не меняю.</p>
+    </section>
+
+    <section>
+      <h2>Как это происходит</h2>
+      <div class="steps">
+        <div class="step"><b></b><p><strong>Разговор на 15 минут</strong>Рассказываете, чем занимаетесь и что хотите. Вопросы задаю я, разбираться в терминах вам не нужно.</p></div>
+        <div class="step"><b></b><p><strong>Показываю макет</strong>Через несколько дней присылаю, как будет выглядеть ваш сайт. С вашими фотографиями и текстами, а не абстрактный пример.</p></div>
+        <div class="step"><b></b><p><strong>Правим вместе</strong>Говорите, что поменять. Меняю. Это нормальная часть работы, а не «дополнительная услуга».</p></div>
+        <div class="step"><b></b><p><strong>Запускаю</strong>Сайт открывается по вашему адресу, работает на телефонах, заявки приходят вам в Telegram или на почту.</p></div>
+        <div class="step"><b></b><p><strong>Остаюсь на связи</strong>Месяц после запуска мелкие правки бесплатно. Дальше по-человечески, а не «оставьте заявку в поддержку».</p></div>
+      </div>
+    </section>
+
+    <section id="works">
+      <h2>Что уже сделано</h2>
+      <div class="works">
+        <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
+          <img src="../assets/work-horsesfarm.webp" alt="Сайт конного двора в Сержантово" loading="lazy" width="600" height="360">
+          <div><strong>Конный двор в Сержантово</strong><span>Живой сайт зоофермы: афиша, цены, животные, дорога. Хозяйка сама меняет тексты и фотографии со своего телефона.</span></div>
+        </a>
+        <a class="work" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
+          <img src="../assets/work-kratno.webp" alt="Пример сайта для консалтинга" loading="lazy" width="600" height="360">
+          <div><strong>Бюро «Кратно»</strong><span>Пример сайта для услуг: понятная структура, кейсы, форма заявки. Компания вымышленная, сайт настоящий.</span></div>
+        </a>
+        <a class="work" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
+          <img src="../assets/work-signal.webp" alt="Пример сайта для агентства" loading="lazy" width="600" height="360">
+          <div><strong>Студия «Сигнал»</strong><span>Пример для тех, кто продаёт результат: цифры, отзывы, расчёт бюджета прямо на странице.</span></div>
+        </a>
+      </div>
+      <p class="note">Если у вас похожая задача, покажу, как это будет выглядеть на вашем материале, до всяких договорённостей.</p>
+    </section>
+
+    <section class="faq">
+      <h2>Частые вопросы</h2>
+      <details><summary>Сколько ждать?</summary><p>Простой сайт: неделя. Сайт, который вы правите сами: две-три недели. Бот: несколько дней. Точный срок называю после разговора, вместе с ценой.</p></details>
+      <details><summary>А если мне не понравится?</summary><p>Макет бесплатный и ни к чему не обязывает. Деньги беру только когда работа принята, предоплату не прошу.</p></details>
+      <details><summary>У меня нет ни фотографий, ни текстов.</summary><p>Обычная ситуация. Тексты напишу сам после разговора, дальше вы поправите. По фотографиям подскажу, что снять на телефон, этого чаще всего достаточно.</p></details>
+      <details><summary>Кто владелец сайта потом?</summary><p>Вы. Домен и хостинг оформляются на вас, доступы отдаю все. Я не держу сайт «в заложниках» и не беру абонентскую плату за то, что он просто работает.</p></details>
+      <details><summary>Я не в Приморье, это помешает?</summary><p>Нет. Общаемся в мессенджере или созвоном, работаю с любым городом. Разница во времени решается перепиской.</p></details>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <div class="final">
+      <h2>Расскажите, чем занимаетесь</h2>
+      <p>Отвечу, что имеет смысл сделать в вашем случае, а что деньги на ветер. Даже если решите не работать со мной.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://t.me/Aleksandr_NFA">Написать в Telegram</a>
+        <a class="btn ghost" href="mailto:sanexxx777@gmail.com">Написать на почту</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Александр Шульгин · Приморский край · <a href="https://t.me/Aleksandr_NFA">Telegram</a> · <a href="mailto:sanexxx777@gmail.com">sanexxx777@gmail.com</a><br>
+    Технические работы и открытый код — <a href="https://shulgin.is-a.dev">shulgin.is-a.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

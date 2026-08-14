@@ -25,7 +25,6 @@
 
 ## Open Source
 
-- [NFA Design System](https://github.com/Sanexxxx777/nfa-design-system): Three visual systems, tokens, SVG assets, fonts and components. MIT.
 - [Server Hardening Playbook](https://github.com/Sanexxxx777/server-hardening-playbook): A practical failure to fix to verify format for SSH, firewall, service binding, secrets and databases. MIT.
 - [PM2 Cockpit](https://github.com/Sanexxxx777/pm2-cockpit): A Telegram control panel for PM2 processes with confirmations, an allowlist and real state verification. MIT.
 - [Erdos OpenEvolve](https://github.com/Sanexxxx777/erdos-openevolve): An evolutionary LLM pipeline that reproduced a SOTA result on an Erdos problem, with an independent verify.py.
