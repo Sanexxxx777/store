@@ -116,13 +116,13 @@
 <main class="wrap">
   <span class="kicker" style="display:block; margin-top:34px">★ живое демо · это и есть товар</span>
   <h1>Living Mascot</h1>
-  <p class="sub">Страница изображает «ваш сайт» в двух темах. Персонаж читает цвета из CSS-токенов и перекрашивается сам — тот же движок и тот же контракт, что приедут к вам в ZIP.</p>
+  <p class="sub">Страница изображает «ваш сайт» в двух темах. Персонаж читает цвета из CSS-токенов и перекрашивается сам, тот же движок и тот же контракт, что приедут к вам в ZIP.</p>
 
   <div class="stage"><canvas id="mascot" width="960" height="640"></canvas></div>
   <p class="hint">кликните по персонажу · подразните его пятью кликами · оставьте в покое на 50 секунд</p>
 
   <div class="sect">
-    <span class="kicker">эмоции — вызываются и из вашего кода: mascot.emote('wink')</span>
+    <span class="kicker">эмоции: вызываются и из вашего кода: mascot.emote('wink')</span>
     <div class="row">
       <button data-emote="wink">wink</button>
       <button data-emote="bounce">bounce</button>
@@ -138,14 +138,14 @@
   </div>
 
   <div class="sect">
-    <span class="kicker">тема хоста — персонаж перекрашивается сам</span>
+    <span class="kicker">тема хоста: персонаж перекрашивается сам</span>
     <div class="row">
       <button id="theme-toggle" class="primary">Переключить тему</button>
     </div>
   </div>
 
   <div class="sect">
-    <span class="kicker">цвета вживую — контракт opts.colors()</span>
+    <span class="kicker">цвета вживую: контракт opts.colors()</span>
     <div class="panel">
       <label>Body A <input type="color" id="c-a"></label>
       <label>Body B <input type="color" id="c-b"></label>
@@ -158,7 +158,7 @@
   </div>
 
   <div class="sect">
-    <span class="kicker">подключение — целиком</span>
+    <span class="kicker">подключение: целиком</span>
     <pre><span class="c">&lt;!-- ESM: --&gt;</span>
 import { createLivingMascot } from './mascot.esm.js';
 const m = createLivingMascot(canvas, { colors: () =&gt; ({ a: '#7fb3ff', b: '#5a86d6' }) });
@@ -171,7 +171,7 @@ window.LivingMascot(canvas, { colors: ... });</pre>
 
   <div class="buy-strip">
     <canvas class="dm-price" data-dots="$19" data-color="#ee4e4e" width="10" height="10" aria-hidden="true"></canvas>
-    <p>Стартовая цена, личная лицензия. В ZIP: исходники, обе сборки (ESM + script), это демо и лицензия — отправляю после оплаты в переписке.</p>
+    <p>Стартовая цена, личная лицензия. В ZIP: исходники, обе сборки (ESM + script), это демо и лицензия, отправляю после оплаты в переписке.</p>
     <a class="buy" href="../index.html#products">Приобрести →</a>
   </div>
 </main>
