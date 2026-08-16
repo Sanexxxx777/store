@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Контур для ИИ-агента | Магазин Шульгина</title>
+  <meta name="description" content="Ваш ИИ-агент пишет код быстро и ломает вещи молча. Ставлю контур: правила проекта, память между сессиями, гейты на опасные действия, проверяемая сдача работы.">
+  <link rel="canonical" href="https://shulgin.is-a.dev/store/agents/">
+  <meta property="og:title" content="Контур для ИИ-агента">
+  <meta property="og:description" content="Правила, память, гейты и проверяемость для Claude Code и Cursor. Чтобы агент не начинал каждую сессию с нуля и не ломал прод молча.">
+  <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='19'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../fonts/fonts.css">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Контур для ИИ-агента",
+    "url": "https://shulgin.is-a.dev/store/agents/",
+    "provider": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev" },
+    "description": "Настройка рабочего контура для агентов-кодеров: правила проекта, память между сессиями, гейты на необратимые действия, процедуры и проверяемая сдача работы.",
+    "offers": { "@type": "Offer", "price": "290", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+
+<nav class="top">
+  <a href="/store/">← Магазин</a>
+  <span class="tag">услуга под ключ</span>
+  <a href="https://t.me/Aleksandr_NFA">Telegram</a>
+</nav>
+
+<main>
+  <header class="hero wrap">
+    <div class="kicker"><span class="num">03</span> Agent Harness · для тех, у кого агент уже работает</div>
+    <h1>Агент пишет код быстро<br>и ломает вещи <span class="accent">молча</span></h1>
+    <p class="lede">
+      Claude Code, Cursor, Codex: инструмент вы уже поставили. Дальше начинается то,
+      о чём не пишут в туториалах: агент не помнит вчерашнее, повторяет одну ошибку
+      третий раз, лезет туда, куда не просили, и говорит «готово» там, где ничего не проверено.
+      Это чинится не подпиской подороже, а контуром вокруг агента. Я ставлю такой контур.
+    </p>
+  </header>
+
+  <section class="wrap">
+    <h2>Знакомо?</h2>
+    <ul>
+      <li>Каждая новая сессия начинается с пересказа: где что лежит, почему сделано так, чего делать нельзя.</li>
+      <li>Один и тот же баг чинится по третьему кругу, потому что вывод прошлого раза нигде не записан.</li>
+      <li>Агент «оптимизировал» соседний файл, который его не просили трогать, и вы узнали об этом из прода.</li>
+      <li>Тесты зелёные, отчёт бодрый, а фича не работает, потому что проверялась не она.</li>
+      <li>Скиллов и промптов накопилось столько, что никто не помнит, что там есть, и всё пишется заново.</li>
+      <li>Агент запускает команды, стоимость ошибки которых вы бы предпочли обсудить заранее.</li>
+    </ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Что ставлю</h2>
+
+    <div class="finding">
+      <div class="finding-head"><span class="id">01</span><span class="name">Правила проекта, которые агент действительно читает</span></div>
+      <div class="finding-body"><p>Это не документация для людей, а инструкции для модели: гетчи, которые не выводятся из кода за пять минут, исключения из конвенций явным «делай X, не Y», прямые запреты на хрупкие места. Короткий файл, который экономит каждую сессию.</p></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head"><span class="id">02</span><span class="name">Память между сессиями</span></div>
+      <div class="finding-body"><p>Находки, решения и их причины переживают перезапуск: один факт живёт в одном месте, индекс подсказывает агенту, когда факт релевантен. Результат буквальный: вы перестаёте пересказывать одно и то же.</p></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head"><span class="id">03</span><span class="name">Гейты на необратимое</span></div>
+      <div class="finding-body"><p>Список того, что агент не делает без вашего слова: деплой, удаление, деньги, публикации, чужая инфраструктура. Плюс автоматические проверки перед отправкой кода — секреты, случайно попавшие в коммит, ловятся до пуша, а не после.</p></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head"><span class="id">04</span><span class="name">Проверяемая сдача</span></div>
+      <div class="finding-body"><p>«Готово» перестаёт быть просто словом. Для каждой задачи заранее формулируется критерий приёмки, а в отчёте отделяется проверенное от предположенного и явно называется, что осталось за границей проверки. Зелёный тест не выдаётся за работающую фичу.</p></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head"><span class="id">05</span><span class="name">Ваши процедуры как навыки агента</span></div>
+      <div class="finding-body"><p>Повторяемые операции команды — релиз, разбор инцидента, ревью, проверка перед сдачей клиенту — превращаются в процедуры, которые агент выполняет одинаково каждый раз. Тут же правило, которое экономит больше всего: когда навык заводить не нужно.</p></div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head"><span class="id">06</span><span class="name">Разделение труда между моделями</span></div>
+      <div class="finding-body"><p>Тяжёлая модель думает и проверяет, дешёвая делает механику, длинные задачи уходят в фон и не жгут контекст. Это заметно и по скорости, и по счёту за токены.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Чем это <span class="accent">подкреплено</span></h2>
+    <p>Контур, который я ставлю, это то, чем сам работаю каждый день: полсотни процедур, восемь наборов правил, память, гейты и делегирование, обкатанные на живых системах, где ошибка стоит денег. Часть инструментов выложена открыто, код можно посмотреть до разговора:</p>
+    <ul>
+      <li><a href="https://github.com/Sanexxxx777/curated-claude-code">curated-claude-code</a>, маленький проверенный набор вместо свалки из сотен скиллов с авто-хуками</li>
+      <li><a href="https://github.com/Sanexxxx777/evidence-to-skill">evidence-to-skill</a>, гейт, превращающий недоверенный материал в навык агента с атрибуцией</li>
+      <li><a href="https://github.com/Sanexxxx777/agent-graph-inspector">agent-graph-inspector</a>, карта многоагентного прогона одной HTML-страницей, чтобы видеть, где рой потерял агента</li>
+      <li><a href="https://github.com/Sanexxxx777/server-hardening-playbook">server-hardening-playbook</a>, чек-лист харденинга, где каждый пункт написан после конкретного инцидента</li>
+    </ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Рамки <span class="accent">честно</span></h2>
+    <dl class="facts">
+      <div class="fact"><dt>Для кого</dt><dd>Команда или разработчик, у которых агент уже в работе и уже мешает. Если агента ещё нет, это другой разговор, и дешевле начать с одной задачи</dd></div>
+      <div class="fact"><dt>Инструменты</dt><dd>Claude Code основной; Cursor и Codex на уровне правил, памяти и процедур. Что-то из перечисленного у вас может не поддерживаться: проверяем до оплаты</dd></div>
+      <div class="fact"><dt>Чего не обещаю</dt><dd>Что агент перестанет ошибаться. Контур меняет другое: ошибки становятся видимыми, обратимыми и не повторяются по третьему разу</dd></div>
+      <div class="fact"><dt>Ваше участие</dt><dd>Один созвон на разбор процессов и один на передачу. Между ними работаю сам</dd></div>
+      <div class="fact"><dt>Что остаётся у вас</dt><dd>Все файлы контура в вашем репозитории, обычный текст под git. Ни привязки ко мне, ни подписки</dd></div>
+    </dl>
+  </section>
+
+  <section class="wrap">
+    <h2>Цена</h2>
+    <div class="price-grid">
+      <div class="price-card">
+        <span class="price-label">Контур под проект</span>
+        <span class="price-num">от $290</span>
+        <ul>
+          <li>правила проекта и память</li>
+          <li>гейты на необратимые действия</li>
+          <li>3–5 процедур под ваши операции</li>
+          <li>разделение задач между моделями</li>
+          <li>передача с инструкцией</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <span class="price-label">Аудит того, что уже есть</span>
+        <span class="price-num">от $120</span>
+        <ul>
+          <li>разбор текущих правил и навыков</li>
+          <li>что дублируется и что мертво</li>
+          <li>чего не хватает, по приоритету</li>
+          <li>отчёт с конкретными правками</li>
+          <li>засчитывается в стоимость контура</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="cta">
+      <h2>Обсудить <span class="accent">ваш случай</span></h2>
+      <p>Расскажите, чем пользуетесь и что именно раздражает. Если ваша проблема решается одним файлом правил, я так и скажу. Это бесплатно и без меня.</p>
+      <a class="btn" href="https://t.me/Aleksandr_NFA">Написать в Telegram</a>
+      <p class="note">Или почтой: <a href="mailto:sanexxx777@gmail.com">sanexxx777@gmail.com</a>. Отвечаю в течение дня.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Aleksandr Shulgin · <a href="/store/">магазин</a> · <a href="/store/factory/">контент-завод</a> · <a href="https://shulgin.is-a.dev">портфолио</a>
+  </div>
+</footer>
+
+</body>
+</html>
