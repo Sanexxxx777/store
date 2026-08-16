@@ -1,6 +1,6 @@
 # Product Lab — Aleksandr Shulgin
 
-> A product storefront offering the Living Mascot canvas engine as a self-service download, plus thirteen fixed-scope sprints (interactive mascots, landing pages, particle case-study sites, motion polish, site speed, AI-assisted project rescue, Telegram bots, AI chat widgets, workflow automation, AI search visibility, data scraping, dashboards and VPS security). Every sprint has a defined input, output and acceptance check before the price is quoted.
+> A product storefront offering the Living Mascot canvas engine as a self-service download, two turnkey services (a personal content factory that publishes to five social platforms daily, and an agent harness that makes coding agents remember context and stop breaking things silently), plus fixed-scope sprints (interactive mascots, landing pages, particle case-study sites, promo videos rendered from code, motion polish, site speed, AI-assisted project rescue, Telegram bots, AI chat widgets, workflow automation, AI search visibility, data scraping, dashboards and VPS security). Every sprint has a defined input, output and acceptance check before the price is quoted.
 
 ## Products
 
@@ -8,6 +8,10 @@
 - [Qwerty Switcher](https://shulgin.is-a.dev/store/#apps): macOS 13+ subscription app, $6/year with a 14-day free trial, no card required. Locally switches already typed text between Russian and English keyboard layouts; all input stays on the Mac, license checks send only an anonymous device ID. DMG download on the store page. Self-signed build (right-click → Open on first launch); Apple notarization in progress.
 
 ## Services
+
+- [Content Factory](https://shulgin.is-a.dev/store/factory/): from $250 setup, from $75/mo support (or run it on your own API keys). A turnkey personal content factory: one topic each morning becomes platform-specific posts for X, LinkedIn, Threads, Bluesky and VK, with generated covers, a built-in critic that rejects weak drafts before publishing, per-platform best-time scheduling and a content strategy that rotates value, warm-up and offer posts. The author's own factory has been running daily since May 2026 with 100+ posts published on autopilot. Demo video and live screenshots on the page. English version: https://shulgin.is-a.dev/store/factory/en/
+- [Agent Harness](https://shulgin.is-a.dev/store/agents/): from $290 per project, from $120 for an audit of an existing setup (the audit price counts toward the harness). Setup around coding agents such as Claude Code, Cursor and Codex: project rules the model actually reads, memory of findings across sessions, gates on irreversible actions (deploy, deletion, money, publishing), verifiable handoff instead of the word "done", your repeatable operations captured as agent procedures, and task routing between heavy and cheap models. All harness files stay in your repository as plain text under git, with no lock-in or subscription.
+- Promo Video Sprint: from $89. A 30-60 second promo rendered from code rather than edited by hand: kinetic type, animated figures, product footage, music. Rebuilding with new numbers is one command, not a new order. 16:9 and 9:16.
 
 - Interactive Mascot Sprint: from $49 (launch discount, was $89). Animate an existing character or build a simple code-native one for a hero, onboarding, login or status flow.
 - Landing Page Sprint: from $79 (launch discount, was $129). A complete page: offer, structure, visual language, responsive build and deploy.
