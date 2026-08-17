@@ -72,7 +72,7 @@
     letter-spacing: -.005em;
     margin: 0;
   }
-  h1 { font-size: clamp(3.1rem, 8.4vw, 6.6rem); }
+  h1 { font-size: clamp(2.6rem, 5.4vw, 4.7rem); }
   h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; }
   h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
   em { font-style: italic; color: var(--bronze-ink); }
@@ -123,23 +123,48 @@
   .btn.outline-light:hover { background: rgba(253, 250, 243, .12); }
 
   /* герой */
-  .hero { padding: clamp(3.5rem, 11vw, 8.5rem) 0 clamp(3rem, 8vw, 6rem); position: relative; }
-  .hero h1 { max-width: 15ch; }
-  .hero .lead {
-    font-size: clamp(1.12rem, 1.9vw, 1.32rem);
-    color: var(--soft);
-    max-width: 44ch;
-    margin-top: 2.2rem;
+  .hero { padding: clamp(1.6rem, 4vw, 3.4rem) 0 clamp(2.4rem, 6vw, 4rem); position: relative; }
+  .hero-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+    gap: clamp(1.8rem, 5vw, 4.5rem);
+    align-items: start;
   }
-  .hero .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: 2.6rem; }
+  .hero h1 { max-width: 13ch; }
+  .hero .lead {
+    font-size: clamp(1.08rem, 1.9vw, 1.32rem);
+    color: var(--soft);
+    max-width: 42ch;
+    margin-top: clamp(1.2rem, 2.4vw, 2rem);
+  }
+  .hero .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: clamp(1.5rem, 2.6vw, 2.4rem); }
+
+  /* вещдок в первом экране: работающий сайт, а не обещание */
+  .proof { margin: 0; }
+  .proof a { display: block; text-decoration: none; color: inherit; }
+  .proof img {
+    display: block;
+    width: 100%;
+    height: clamp(9rem, 22vw, 15rem);
+    object-fit: cover;
+    object-position: top center;
+    background: var(--paper-deep);
+    box-shadow: 0 16px 40px rgba(42, 38, 33, .14);
+    transition: transform .8s var(--ease);
+  }
+  .proof a:hover img { transform: translateY(-3px); }
+  .proof figcaption { margin-top: .8rem; font-size: .89rem; color: var(--soft); line-height: 1.5; }
+  .proof figcaption b { display: block; font-family: var(--display); font-size: 1.15rem; font-weight: 400; color: var(--ink); }
+  .proof .go { color: var(--bronze-ink); }
+
   .hero .meta {
-    margin-top: 2.4rem;
-    padding-top: 1.4rem;
+    margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
+    padding-top: 1.3rem;
     border-top: 1px solid var(--line-soft);
     display: flex;
-    gap: 2.4rem;
+    gap: clamp(1.4rem, 3vw, 2.6rem);
     flex-wrap: wrap;
-    max-width: 52rem;
+    max-width: 56rem;
   }
   .hero .meta div { max-width: 15rem; }
   .hero .meta strong { display: block; font-family: var(--display); font-size: 1.35rem; font-weight: 400; }
@@ -152,27 +177,59 @@
   .sec-head { margin-bottom: clamp(2rem, 4vw, 3.4rem); max-width: 46rem; }
   .sec-head .label { display: block; margin-bottom: 1.1rem; }
   .sec-head p { color: var(--soft); margin-top: 1.2rem; max-width: 42ch; }
+  /* два модификатора геометрии: смена постановки заголовка читается как «новая глава» */
+  .sec-head--indent { margin-left: clamp(0rem, 12vw, 11rem); }
+  .sec-head--wide { max-width: 64rem; }
+  .sec-head--wide h2 { max-width: none; }
 
-  /* каталог */
+  /* короткий мостик: единственная направляющая линия на странице, только на стыке героя и каталога */
+  .bridge { display: block; width: 1px; height: clamp(2.2rem, 5vw, 3.6rem); background: linear-gradient(180deg, transparent, var(--bronze)); margin: 0 auto; opacity: .8; }
+
+  /* каталог: карта из восьми групп, подробности по требованию */
   .groups { list-style: none; margin: 0; padding: 0; }
-  .group {
-    display: grid;
-    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
-    gap: clamp(1.4rem, 4vw, 4rem);
-    padding: clamp(2rem, 3.6vw, 3.2rem) 0;
-    border-top: 1px solid var(--line-soft);
-  }
+  .group { border-top: 1px solid var(--line-soft); position: relative; }
   .group:first-child { border-top: 1px solid var(--line); }
-  .group-head .num {
-    font-family: var(--display);
-    font-size: 1.05rem;
-    color: var(--bronze);
-    display: block;
-    margin-bottom: .5rem;
-    letter-spacing: .1em;
+
+  .group > details > summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 1fr) 1.6rem;
+    gap: clamp(.8rem, 2vw, 1.6rem);
+    align-items: baseline;
+    padding: clamp(1.5rem, 2.6vw, 2.2rem) 0;
+    transition: background .4s var(--ease);
   }
-  .group-head p { color: var(--soft); font-size: .95rem; margin: .8rem 0 0; max-width: 26ch; }
-  .items { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 3rem; }
+  .group > details > summary::-webkit-details-marker { display: none; }
+  .group > details > summary:hover { background: rgba(169, 116, 63, .045); }
+  .group .num {
+    font-family: var(--display);
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    color: var(--bronze);
+    line-height: .9;
+    opacity: .55;
+  }
+  .group > details > summary > span:nth-child(2) { max-width: 62ch; }
+  .group h3 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); }
+  .group .hint { display: block; color: var(--soft); font-size: .93rem; margin-top: .35rem; max-width: 52ch; }
+  .group .sign {
+    font-size: 1.35rem;
+    color: var(--bronze);
+    line-height: 1;
+    justify-self: end;
+    font-family: var(--body);
+    transition: transform .4s var(--ease);
+  }
+  .group > details[open] .sign { transform: rotate(45deg); }
+  .group > details[open] .num { opacity: 1; }
+
+  .items {
+    list-style: none;
+    margin: 0 0 clamp(1.4rem, 2.6vw, 2.2rem);
+    padding: 0 0 0 clamp(0rem, 4.2vw, 4.2rem);
+    columns: 2;
+    column-gap: 3rem;
+  }
   .items li {
     break-inside: avoid;
     padding: .62rem 0 .62rem 1.3rem;
@@ -192,19 +249,14 @@
   }
   .items li:first-child { border-top: 0; }
 
-  /* «нет в списке» */
-  .open {
-    border: 1px solid var(--line);
-    padding: clamp(1.8rem, 4vw, 3.4rem);
-    background: linear-gradient(180deg, rgba(253, 250, 243, .8), rgba(253, 250, 243, .3));
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(1.4rem, 4vw, 3.4rem);
-    align-items: center;
+  /* хвост каталога: дверь для задачи, которой в списке нет */
+  .after-catalog {
+    margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
+    padding-top: clamp(1.4rem, 2.6vw, 2rem);
+    border-top: 1px solid var(--line);
+    color: var(--soft);
+    max-width: 56ch;
   }
-  .open h2 { max-width: 12ch; }
-  .open p { color: var(--soft); margin-bottom: 1rem; }
-  .open p:last-of-type { margin-bottom: 0; }
 
   /* как это происходит */
   .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
@@ -313,7 +365,7 @@
 
   /* адаптив */
   @media (max-width: 900px) {
-    .group { grid-template-columns: 1fr; }
+    .hero-top { grid-template-columns: 1fr; align-items: start; }
     .items { columns: 1; }
     .open { grid-template-columns: 1fr; }
     .final { grid-template-columns: 1fr; }
@@ -326,6 +378,23 @@
     .step .n { font-size: 2.1rem; }
     .rules { grid-template-columns: 1fr; }
     .btn { padding: .85rem 1.3rem; }
+    /* на телефоне вещдок и доводы обязаны попасть в первый экран: жмём вертикаль, не трогая десктоп */
+    h1 { font-size: 2.45rem; }
+    /* кнопка в шапке на телефоне съедала экран и дублировала главное действие */
+    .top { padding: 1.1rem 0; }
+    .top .btn { display: none; }
+    .hero { padding-top: 1.2rem; }
+    .hero h1 { max-width: none; }
+    .hero .lead { margin-top: 1rem; }
+    .hero .actions { margin-top: 1.3rem; }
+    .proof img { height: 8rem; }
+    .proof figcaption { font-size: .84rem; margin-top: .6rem; }
+    .hero .meta { margin-top: 1.4rem; padding-top: 1rem; gap: .9rem 1.6rem; }
+    .hero .meta div { max-width: none; }
+    .hero .meta strong { font-size: 1.15rem; }
+    .hero .meta span { font-size: .84rem; }
+    .sec-head--indent { margin-left: 0; }
+    .group > details > summary { grid-template-columns: 2.4rem minmax(0, 1fr) 1.2rem; }
   }
 
   /* появление при прокрутке */
@@ -360,195 +429,239 @@
   <div class="page">
 
     <section class="hero">
-      <h1>Делаю цифровую часть <em>вашего дела</em>.</h1>
-      <p class="lead">Сайт, запись клиентов, бот, отчёты, которые считаются сами, помощник, отвечающий за вас ночью. Если задача начинается со слов «а можно ли», обычно можно.</p>
-      <div class="actions">
-        <a class="btn" href="https://t.me/Aleksandr_NFA">Рассказать о задаче</a>
-        <a class="btn ghost" href="#catalog">Что вообще бывает</a>
+      <div class="hero-top">
+        <div>
+          <h1>Делаю цифровую часть <em>вашего дела</em>.</h1>
+          <p class="lead">Сайт, запись клиентов, бот, отчёты, которые считаются сами, помощник, отвечающий за вас ночью. Для дела и для себя. Если задача начинается со слов «а можно ли», обычно можно.</p>
+          <div class="actions">
+            <a class="btn" href="https://t.me/Aleksandr_NFA">Рассказать о задаче</a>
+            <a class="btn ghost" href="#catalog">Чем могу помочь</a>
+          </div>
+        </div>
+        <figure class="proof">
+          <a href="https://horsesfarm.ru" target="_blank" rel="noopener">
+            <img src="../assets/work-horsesfarm.webp" alt="Сайт конного двора в Сержантово" width="600" height="360" fetchpriority="high">
+            <figcaption>
+              <b>Конный двор в Сержантово</b>
+              Хозяйка меняет цены и фотографии сама, со своего телефона. <span class="go">Открыть сайт</span>
+            </figcaption>
+          </a>
+        </figure>
       </div>
       <div class="meta">
         <div>
           <strong>Сначала макет</strong>
-          <span>Показываю, как будет у вас. Не понравилось: расходимся, вы ничего не должны.</span>
+          <span>Показываю, как будет у вас. Бесплатно.</span>
         </div>
         <div>
           <strong>Без предоплаты</strong>
-          <span>Деньги обсуждаем, когда работа принята.</span>
+          <span>Деньги после того, как работа принята.</span>
         </div>
         <div>
           <strong>Отвечает человек</strong>
-          <span>Пишете в Telegram, отвечаю я, а не служба поддержки.</span>
+          <span>Пишете в Telegram, отвечаю я сам.</span>
         </div>
       </div>
     </section>
 
+    <span class="bridge" aria-hidden="true"></span>
+
     <section class="rule reveal" id="catalog">
-      <div class="sec-head">
+      <div class="sec-head sec-head--wide">
         <span class="label">Что можно поручить</span>
-        <h2>Список неполный, и это нормально</h2>
-        <p>Здесь то, что чаще всего просят. Половина задач всё равно приходит своими словами: «у меня вот такая морока, с этим можно что-то сделать?» Обычно можно.</p>
+        <h2>Восемь ответов на вопрос «а это можно?»</h2>
+        <p>Откройте то, что ближе к вашему случаю. Список неполный: половина задач приходит своими словами, и это нормально. <em>Берусь, если вижу, как сделать хорошо</em>, а если задача не по силам, скажу сразу.</p>
       </div>
 
       <ol class="groups">
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">01</span>
-            <h3>Место в интернете</h3>
-            <p>Чтобы вас можно было найти и понять за минуту.</p>
-          </div>
-          <ul class="items">
-            <li>Сайт: услуги, цены, фотографии, форма заявки</li>
-            <li>Сайт, который вы правите сами с телефона</li>
-            <li>Магазин с корзиной и приёмом оплаты</li>
-            <li>Страница мероприятия, тура, набора, курса</li>
-            <li>Своё имя в адресе и почта на нём</li>
-            <li>Карты и справочники, чтобы находили рядом</li>
-            <li>Перенос сайта от прежнего исполнителя</li>
-            <li>Починить то, что уже есть и работает плохо</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">01</span>
+              <span>
+                <h3>Место в интернете</h3>
+                <span class="hint">Сайт с ценами и заявкой, магазин с оплатой, перенос от прежнего исполнителя, и ещё пять пунктов</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Сайт: услуги, цены, фотографии, форма заявки</li>
+              <li>Сайт, который вы правите сами с телефона</li>
+              <li>Магазин с корзиной и приёмом оплаты</li>
+              <li>Страница мероприятия, тура, набора, курса</li>
+              <li>Своё имя в адресе и почта на нём</li>
+              <li>Карты и справочники, чтобы находили рядом</li>
+              <li>Перенос сайта от прежнего исполнителя</li>
+              <li>Починить то, что уже есть и работает плохо</li>
+            </ul>
+          </details>
         </li>
 
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">02</span>
-            <h3>Клиенты и заявки</h3>
-            <p>Чтобы ни одно обращение не терялось в переписке.</p>
-          </div>
-          <ul class="items">
-            <li>Бот в Telegram: принимает заявку и записывает на время</li>
-            <li>Онлайн-запись с календарём и свободными окнами</li>
-            <li>Напоминание клиенту накануне визита</li>
-            <li>Заявки приходят вам в телефон сразу</li>
-            <li>Простая база клиентов: кто, когда, на что приходил</li>
-            <li>Приём предоплат и чеки</li>
-            <li>Сбор отзывов после визита, без вашего участия</li>
-            <li>Рассылка по своим: акция, новинка, «давно не были»</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">02</span>
+              <span>
+                <h3>Клиенты и заявки</h3>
+                <span class="hint">Бот, который записывает на время, онлайн-запись с календарём, напоминания клиентам, и ещё пять пунктов</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Бот в Telegram: принимает заявку и записывает на время</li>
+              <li>Онлайн-запись с календарём и свободными окнами</li>
+              <li>Напоминание клиенту накануне визита</li>
+              <li>Заявки приходят вам в телефон сразу</li>
+              <li>Простая база клиентов: кто, когда, на что приходил</li>
+              <li>Приём предоплат и чеки</li>
+              <li>Сбор отзывов после визита, без вашего участия</li>
+              <li>Рассылка по своим: акция, новинка, «давно не были»</li>
+            </ul>
+          </details>
         </li>
 
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">03</span>
-            <h3>Рутина, которую делает машина</h3>
-            <p>Всё, что вы повторяете одинаково, обычно можно не делать руками.</p>
-          </div>
-          <ul class="items">
-            <li>Отчёты и выгрузки, которые вы сводите каждую неделю</li>
-            <li>Перенос данных между таблицами и площадками</li>
-            <li>Слежение за ценами конкурентов</li>
-            <li>Договор, счёт и акт по шаблону, за секунду</li>
-            <li>Учёт остатков, смен, расписания</li>
-            <li>Заявки с разных площадок в одно окно</li>
-            <li>Напоминания сотрудникам и себе</li>
-            <li>Разбор почты и документов без ручного перекладывания</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">03</span>
+              <span>
+                <h3>Для себя, а не для дела</h3>
+                <span class="hint">Бизнеса может и не быть: оцифровать архив, бот для клуба, умный дом без подписок, и ещё пять пунктов</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Небольшая программа под вашу задачу, которой нигде нет</li>
+              <li>Бот для чата, клуба, сообщества по интересам</li>
+              <li>Оцифровать архив: плёнки, бумаги, записи, альбомы</li>
+              <li>Сайт-память о семье, поездке, проекте</li>
+              <li>Учёт коллекции, библиотеки, рецептов, тренировок</li>
+              <li>Умный дом и бытовая автоматика без подписок</li>
+              <li>Игра или интерактивная штука, которую хочется сделать</li>
+              <li>Свой ИИ дома: приватный, без отправки данных наружу</li>
+            </ul>
+          </details>
         </li>
 
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">04</span>
-            <h3>Помощники на искусственном интеллекте</h3>
-            <p>Не игрушка: работает по вашим материалам и не выдумывает.</p>
-          </div>
-          <ul class="items">
-            <li>Отвечает клиентам по вашему прайсу и правилам</li>
-            <li>Пишет описания товаров, посты и ответы на отзывы</li>
-            <li>Переводит звонки и голосовые в текст и краткую выжимку</li>
-            <li>Поиск по вашим документам: «где был тот договор»</li>
-            <li>Сортирует входящие заявки по важности</li>
-            <li>Разбирает отзывы и показывает, на что жалуются чаще всего</li>
-            <li>Помощник, живущий на вашем компьютере, без облака</li>
-            <li>Перевод и озвучка ваших материалов</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">04</span>
+              <span>
+                <h3>Рутина, которую делает машина</h3>
+                <span class="hint">Еженедельные отчёты, договор и счёт по шаблону, цены конкурентов, и ещё пять пунктов</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Отчёты и выгрузки, которые вы сводите каждую неделю</li>
+              <li>Перенос данных между таблицами и площадками</li>
+              <li>Слежение за ценами конкурентов</li>
+              <li>Договор, счёт и акт по шаблону, за секунду</li>
+              <li>Учёт остатков, смен, расписания</li>
+              <li>Заявки с разных площадок в одно окно</li>
+              <li>Напоминания сотрудникам и себе</li>
+              <li>Разбор почты и документов без ручного перекладывания</li>
+            </ul>
+          </details>
         </li>
 
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">05</span>
-            <h3>Как вас видят</h3>
-            <p>Один узнаваемый вид вместо разнобоя на пяти площадках.</p>
-          </div>
-          <ul class="items">
-            <li>Короткий ролик для соцсетей из ваших фотографий</li>
-            <li>Оформление профилей: обложка, аватар, шапка</li>
-            <li>Соцсети, которые ведутся сами: каждый день выходит пост</li>
-            <li>Логотип и фирменные цвета, если их нет</li>
-            <li>Презентация и коммерческое предложение</li>
-            <li>Обработка фотографий товара под единый стиль</li>
-            <li>Печатное: визитка, меню, ценник, вывеска</li>
-            <li>Видео с экрана: как пользоваться вашим продуктом</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">05</span>
+              <span>
+                <h3>Помощники на искусственном интеллекте</h3>
+                <span class="hint">Отвечает клиентам по вашему прайсу, переводит звонки в текст, ищет по вашим документам, и ещё пять пунктов</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Отвечает клиентам по вашему прайсу и правилам</li>
+              <li>Пишет описания товаров, посты и ответы на отзывы</li>
+              <li>Переводит звонки и голосовые в текст и краткую выжимку</li>
+              <li>Поиск по вашим документам: «где был тот договор»</li>
+              <li>Сортирует входящие заявки по важности</li>
+              <li>Разбирает отзывы и показывает, на что жалуются чаще всего</li>
+              <li>Помощник, живущий на вашем компьютере, без облака</li>
+              <li>Перевод и озвучка ваших материалов</li>
+            </ul>
+          </details>
         </li>
 
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">06</span>
-            <h3>Цифры и решения</h3>
-            <p>Чтобы видеть, что приносит деньги, а что их ест.</p>
-          </div>
-          <ul class="items">
-            <li>Простой экран: выручка, заявки, загрузка</li>
-            <li>Какая реклама окупилась, а какая нет</li>
-            <li>Сколько закупать под сезон</li>
-            <li>Кто из клиентов возвращается, а кто пропал</li>
-            <li>Слежение за упоминаниями о вас</li>
-            <li>Сведение данных из разных мест в одну картину</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">06</span>
+              <span>
+                <h3>Как вас видят</h3>
+                <span class="hint">Ролик из ваших фотографий, оформление профилей, логотип и цвета, и ещё пять пунктов</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Короткий ролик для соцсетей из ваших фотографий</li>
+              <li>Оформление профилей: обложка, аватар, шапка</li>
+              <li>Соцсети, которые ведутся сами: каждый день выходит пост</li>
+              <li>Логотип и фирменные цвета, если их нет</li>
+              <li>Презентация и коммерческое предложение</li>
+              <li>Обработка фотографий товара под единый стиль</li>
+              <li>Печатное: визитка, меню, ценник, вывеска</li>
+              <li>Видео с экрана: как пользоваться вашим продуктом</li>
+            </ul>
+          </details>
         </li>
 
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">07</span>
-            <h3>Для себя, а не для дела</h3>
-            <p>Бизнеса может и не быть. Задача всё равно решается.</p>
-          </div>
-          <ul class="items">
-            <li>Небольшая программа под вашу задачу, которой нигде нет</li>
-            <li>Бот для чата, клуба, сообщества по интересам</li>
-            <li>Оцифровать архив: плёнки, бумаги, записи, альбомы</li>
-            <li>Сайт-память о семье, поездке, проекте</li>
-            <li>Учёт коллекции, библиотеки, рецептов, тренировок</li>
-            <li>Умный дом и бытовая автоматика без подписок</li>
-            <li>Игра или интерактивная штука, которую хочется сделать</li>
-            <li>Свой ИИ дома: приватный, без отправки данных наружу</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">07</span>
+              <span>
+                <h3>Цифры и решения</h3>
+                <span class="hint">Выручка и заявки на одном экране, какая реклама окупилась, сколько закупать под сезон, и ещё три пункта</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Простой экран: выручка, заявки, загрузка</li>
+              <li>Какая реклама окупилась, а какая нет</li>
+              <li>Сколько закупать под сезон</li>
+              <li>Кто из клиентов возвращается, а кто пропал</li>
+              <li>Слежение за упоминаниями о вас</li>
+              <li>Сведение данных из разных мест в одну картину</li>
+            </ul>
+          </details>
         </li>
 
         <li class="group reveal">
-          <div class="group-head">
-            <span class="num">08</span>
-            <h3>Порядок и спокойствие</h3>
-            <p>Скучное, без чего однажды становится больно.</p>
-          </div>
-          <ul class="items">
-            <li>Резервные копии, чтобы ничего не исчезло</li>
-            <li>Доступы, оформленные на вас, а не на подрядчика</li>
-            <li>Проверка сайта на дыры до запуска</li>
-            <li>Скорость: чтобы страница открывалась сразу</li>
-            <li>Разбор «что у меня вообще есть» и что с этим делать</li>
-            <li>Второе мнение по работе другого исполнителя</li>
-          </ul>
+          <details>
+            <summary>
+              <span class="num">08</span>
+              <span>
+                <h3>Порядок и спокойствие</h3>
+                <span class="hint">Резервные копии, доступы на ваше имя, проверка сайта до запуска, и ещё три пункта</span>
+              </span>
+              <span class="sign" aria-hidden="true">+</span>
+            </summary>
+            <ul class="items">
+              <li>Резервные копии, чтобы ничего не исчезло</li>
+              <li>Доступы, оформленные на вас, а не на подрядчика</li>
+              <li>Проверка сайта на дыры до запуска</li>
+              <li>Скорость: чтобы страница открывалась сразу</li>
+              <li>Разбор «что у меня вообще есть» и что с этим делать</li>
+              <li>Второе мнение по работе другого исполнителя</li>
+            </ul>
+          </details>
         </li>
       </ol>
+
+      <p class="after-catalog">Своего не нашли? Так чаще всего и бывает. Опишите словами, что отнимает время, и я отвечу, решается это или нет. <a href="https://t.me/Aleksandr_NFA">Написать в Telegram</a></p>
     </section>
 
     <section class="rule reveal">
-      <div class="open">
-        <div>
-          <h2>Не нашли <em>своего</em>?</h2>
-        </div>
-        <div>
-          <p>Так чаще всего и бывает. Список выше складывался из того, с чем приходили, а приходят каждый раз с новым.</p>
-          <p>Опишите своими словами, что отнимает время или не получается. Отвечу честно: делается это или нет, сколько примерно займёт и стоит ли вообще браться. Иногда лучший ответ: «вам это не нужно, сделайте вот так и бесплатно».</p>
-          <p><a href="https://t.me/Aleksandr_NFA">Написать в Telegram</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="rule reveal">
-      <div class="sec-head">
+      <div class="sec-head sec-head--indent">
         <span class="label">Как это происходит</span>
-        <h2>Без терминов и брифов на десять листов</h2>
+        <h2>Без терминов и брифов на <em>десять листов</em></h2>
       </div>
       <ol class="steps">
         <li class="step">
@@ -596,14 +709,6 @@
       </div>
       <div class="rules">
         <div>
-          <h3>Сначала макет</h3>
-          <p>Вы видите результат до того, как заходит разговор о деньгах.</p>
-        </div>
-        <div>
-          <h3>Предоплаты нет</h3>
-          <p>Совсем. Ни аванса, ни «символической брони места».</p>
-        </div>
-        <div>
           <h3>Всё остаётся вашим</h3>
           <p>Адрес, доступы, материалы. Никакой платы за то, что сайт просто работает.</p>
         </div>
@@ -615,10 +720,6 @@
           <h3>Скажу, если не стоит</h3>
           <p>Когда задача не окупится или решается бесплатно, вы услышите это сразу.</p>
         </div>
-        <div>
-          <h3>Пишете мне, а не в поддержку</h3>
-          <p>Один человек от первого сообщения до запуска и после.</p>
-        </div>
       </div>
     </section>
 
@@ -628,12 +729,6 @@
         <h2>Живое, а не картинки на память</h2>
       </div>
       <div class="works">
-        <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
-          <div class="shot"><img src="../assets/work-horsesfarm.webp" alt="Сайт конного двора в Сержантово" loading="lazy" width="600" height="360"></div>
-          <h3>Конный двор в Сержантово</h3>
-          <span>Афиша, животные, цены, дорога. Хозяйка меняет тексты и фотографии сама, со своего телефона.</span>
-          <span class="go">Открыть сайт</span>
-        </a>
         <a class="work" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
           <div class="shot"><img src="../assets/work-kratno.webp" alt="Пример сайта для консалтинга" loading="lazy" width="600" height="360"></div>
           <h3>Бюро «Кратно»</h3>
@@ -646,13 +741,19 @@
           <span>Для тех, кто продаёт результат: цифры, отзывы, расчёт прямо на странице.</span>
           <span class="go">Посмотреть</span>
         </a>
+        <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
+          <div class="shot"><img src="../assets/work-horsesfarm.webp" alt="Сайт конного двора в Сержантово" loading="lazy" width="600" height="360"></div>
+          <h3>Конный двор в Сержантово</h3>
+          <span>Афиша, животные, цены, дорога. Хозяйка меняет тексты и фотографии сама, со своего телефона.</span>
+          <span class="go">Открыть сайт</span>
+        </a>
       </div>
     </section>
 
     <section class="rule reveal">
-      <div class="sec-head">
+      <div class="sec-head sec-head--indent">
         <span class="label">Частые вопросы</span>
-        <h2>То, что спрашивают до начала</h2>
+        <h2>То, что спрашивают <em>до начала</em></h2>
       </div>
       <div class="faq">
         <details>
