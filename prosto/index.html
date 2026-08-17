@@ -194,7 +194,7 @@
     list-style: none;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 3.4rem minmax(0, 1fr) 1.6rem;
+    grid-template-columns: 4.2rem minmax(0, 1fr) 1.6rem;
     gap: clamp(.8rem, 2vw, 1.6rem);
     align-items: baseline;
     padding: clamp(1.5rem, 2.6vw, 2.2rem) 0;
@@ -202,12 +202,24 @@
   }
   .group > details > summary::-webkit-details-marker { display: none; }
   .group > details > summary:hover { background: rgba(169, 116, 63, .045); }
+  /* цифра = сколько пунктов внутри. Считает, а не украшает: декоративная нумерация 01…08 — типовой признак ИИ-вёрстки */
   .group .num {
     font-family: var(--display);
     font-size: clamp(1.9rem, 3.4vw, 2.6rem);
     color: var(--bronze);
     line-height: .9;
-    opacity: .55;
+    opacity: .6;
+    text-align: right;
+  }
+  .group .num i {
+    display: block;
+    font-family: var(--body);
+    font-style: normal;
+    font-size: .58rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-top: .25rem;
   }
   .group > details > summary > span:nth-child(2) { max-width: 62ch; }
   .group h3 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); }
@@ -394,7 +406,7 @@
     .hero .meta strong { font-size: 1.15rem; }
     .hero .meta span { font-size: .84rem; }
     .sec-head--indent { margin-left: 0; }
-    .group > details > summary { grid-template-columns: 2.4rem minmax(0, 1fr) 1.2rem; }
+    .group > details > summary { grid-template-columns: 3.4rem minmax(0, 1fr) 1.2rem; }
   }
 
   /* появление при прокрутке */
@@ -474,10 +486,10 @@
       </div>
 
       <ol class="groups">
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">01</span>
+              <span class="num">8<i>пунктов</i></span>
               <span>
                 <h3>Место в интернете</h3>
                 <span class="hint">Сайт с ценами и заявкой, магазин с оплатой, перенос от прежнего исполнителя, и ещё пять пунктов</span>
@@ -497,10 +509,10 @@
           </details>
         </li>
 
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">02</span>
+              <span class="num">8<i>пунктов</i></span>
               <span>
                 <h3>Клиенты и заявки</h3>
                 <span class="hint">Бот, который записывает на время, онлайн-запись с календарём, напоминания клиентам, и ещё пять пунктов</span>
@@ -520,10 +532,10 @@
           </details>
         </li>
 
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">03</span>
+              <span class="num">8<i>пунктов</i></span>
               <span>
                 <h3>Для себя, а не для дела</h3>
                 <span class="hint">Бизнеса может и не быть: оцифровать архив, бот для клуба, умный дом без подписок, и ещё пять пунктов</span>
@@ -543,10 +555,10 @@
           </details>
         </li>
 
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">04</span>
+              <span class="num">8<i>пунктов</i></span>
               <span>
                 <h3>Рутина, которую делает машина</h3>
                 <span class="hint">Еженедельные отчёты, договор и счёт по шаблону, цены конкурентов, и ещё пять пунктов</span>
@@ -566,10 +578,10 @@
           </details>
         </li>
 
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">05</span>
+              <span class="num">8<i>пунктов</i></span>
               <span>
                 <h3>Помощники на искусственном интеллекте</h3>
                 <span class="hint">Отвечает клиентам по вашему прайсу, переводит звонки в текст, ищет по вашим документам, и ещё пять пунктов</span>
@@ -589,10 +601,10 @@
           </details>
         </li>
 
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">06</span>
+              <span class="num">8<i>пунктов</i></span>
               <span>
                 <h3>Как вас видят</h3>
                 <span class="hint">Ролик из ваших фотографий, оформление профилей, логотип и цвета, и ещё пять пунктов</span>
@@ -612,10 +624,10 @@
           </details>
         </li>
 
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">07</span>
+              <span class="num">6<i>пунктов</i></span>
               <span>
                 <h3>Цифры и решения</h3>
                 <span class="hint">Выручка и заявки на одном экране, какая реклама окупилась, сколько закупать под сезон, и ещё три пункта</span>
@@ -633,10 +645,10 @@
           </details>
         </li>
 
-        <li class="group reveal">
+        <li class="group">
           <details>
             <summary>
-              <span class="num">08</span>
+              <span class="num">6<i>пунктов</i></span>
               <span>
                 <h3>Порядок и спокойствие</h3>
                 <span class="hint">Резервные копии, доступы на ваше имя, проверка сайта до запуска, и ещё три пункта</span>
