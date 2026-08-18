@@ -11,6 +11,10 @@
 <meta property="og:description" content="Расскажите, что отнимает время. Сделаю так, чтобы перестало.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shulgin.is-a.dev/store/prosto/">
+<meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og-prosto.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f6f1e6">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%237d4526'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' fill='%23f6f1e6' text-anchor='middle'%3E%D0%A8%3C/text%3E%3C/svg%3E">
 <style>
@@ -137,11 +141,13 @@
     max-width: 42ch;
     margin-top: clamp(1.2rem, 2.4vw, 2rem);
   }
+  .hero .who { font-size: .92rem; color: var(--soft); max-width: 46ch; margin: .9rem 0 0; }
   .hero .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: clamp(1.5rem, 2.6vw, 2.4rem); }
+  .hero .note { font-size: .85rem; color: var(--soft); margin: .8rem 0 0; }
 
   /* вещдок в первом экране: работающий сайт, а не обещание */
   .proof { margin: 0; }
-  .proof a { display: block; text-decoration: none; color: inherit; }
+  .proof a { position: relative; display: block; text-decoration: none; color: inherit; }
   .proof img {
     display: block;
     width: 100%;
@@ -170,6 +176,13 @@
   .hero .meta strong { display: block; font-family: var(--display); font-size: 1.35rem; font-weight: 400; }
   .hero .meta span { font-size: .88rem; color: var(--soft); line-height: 1.5; display: block; margin-top: .15rem; }
 
+  /* оттиск: печать на «без предоплаты», единственный обещающий пункт метаданных */
+  .hero .meta .stamp span { display: inline-block; font-size: inherit; margin-top: 0; padding: .06em .4em; border: 1.5px solid var(--bronze); border-radius: 3px; transform: rotate(-2deg); color: var(--bronze-ink); }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero .meta .stamp span { animation: stampIn .5s cubic-bezier(.2, 1.4, .4, 1) .9s both; }
+    @keyframes stampIn { from { opacity: 0; transform: rotate(-2deg) scale(1.25); } to { opacity: 1; transform: rotate(-2deg) scale(1); } }
+  }
+
 
   /* секции */
   section { padding: clamp(3.2rem, 8vw, 6.5rem) 0; }
@@ -185,12 +198,18 @@
   /* короткий мостик: единственная направляющая линия на странице, только на стыке героя и каталога */
   .bridge { display: block; width: 1px; height: clamp(2.2rem, 5vw, 3.6rem); background: linear-gradient(180deg, transparent, var(--bronze)); margin: 0 auto; opacity: .8; }
 
+  /* манифест: почему это возможно одному человеку */
+  .manifest { padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(1.6rem, 4vw, 2.6rem); border-top: 1px solid var(--line-soft); }
+  .manifest-line { font-family: var(--display); font-size: clamp(1.55rem, 3.2vw, 2.5rem); line-height: 1.22; max-width: 34ch; margin: 0; }
+  .manifest-why { color: var(--soft); font-size: .98rem; max-width: 62ch; margin: 1.2rem 0 0; }
+
   /* каталог: карта из восьми групп, подробности по требованию */
   .groups { list-style: none; margin: 0; padding: 0; }
   .group { border-top: 1px solid var(--line-soft); position: relative; }
   .group:first-child { border-top: 1px solid var(--line); }
 
   .group > details > summary {
+    position: relative;
     list-style: none;
     cursor: pointer;
     display: grid;
@@ -261,6 +280,22 @@
   }
   .items li:first-child { border-top: 0; }
 
+  /* живой каталог: пункты каскадом при раскрытии, кромка под заголовком */
+  @media (prefers-reduced-motion: no-preference) {
+    .group details[open] .items li { animation: itemIn .34s var(--ease) both; }
+    .group details[open] .items li:nth-child(1) { animation-delay: .03s; }
+    .group details[open] .items li:nth-child(2) { animation-delay: .055s; }
+    .group details[open] .items li:nth-child(3) { animation-delay: .08s; }
+    .group details[open] .items li:nth-child(4) { animation-delay: .105s; }
+    .group details[open] .items li:nth-child(5) { animation-delay: .13s; }
+    .group details[open] .items li:nth-child(6) { animation-delay: .155s; }
+    .group details[open] .items li:nth-child(7) { animation-delay: .18s; }
+    .group details[open] .items li:nth-child(8) { animation-delay: .205s; }
+    @keyframes itemIn { from { opacity: 0; transform: translateY(.4rem); } to { opacity: 1; transform: none; } }
+    .group details[open] > summary::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%; background: var(--bronze); transform-origin: left; animation: lineDraw .4s var(--ease) both; }
+    @keyframes lineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  }
+
   /* хвост каталога: дверь для задачи, которой в списке нет */
   .after-catalog {
     margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
@@ -269,6 +304,7 @@
     color: var(--soft);
     max-width: 56ch;
   }
+  .after-catalog--biz { border-top: 0; padding-top: 0; margin-top: 1.1rem; }
 
   /* как это происходит */
   .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
@@ -284,6 +320,7 @@
   .step .n { font-family: var(--display); font-size: 3.2rem; color: var(--bronze); line-height: .9; }
   .step h3 { font-size: clamp(1.6rem, 2.4vw, 2rem); margin-bottom: .5rem; }
   .step p { color: var(--soft); margin: 0; max-width: 54ch; }
+  .step-cta { margin: clamp(1.4rem, 3vw, 2rem) 0 0; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--soft); max-width: 56ch; }
 
   /* принципы */
   .rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(1.5rem, 4vw, 3.5rem); }
@@ -398,7 +435,12 @@
     .hero { padding-top: 1.2rem; }
     .hero h1 { max-width: none; }
     .hero .lead { margin-top: 1rem; }
-    .hero .actions { margin-top: 1.3rem; }
+    /* фолд-инвариант: вещдок обязан начинаться в первом экране, нота уступает ему место */
+    .hero .note { display: none; }
+    .hero .who { margin-top: .5rem; font-size: .86rem; line-height: 1.45; }
+    .hero .lead { font-size: 1.02rem; }
+    .hero .actions { margin-top: .9rem; }
+    .brand span { font-size: .68rem; letter-spacing: .08em; }
     .proof img { height: 8rem; }
     .proof figcaption { font-size: .84rem; margin-top: .6rem; }
     .hero .meta { margin-top: 1.4rem; padding-top: 1rem; gap: .9rem 1.6rem; }
@@ -423,6 +465,48 @@
       }
     }
   }
+
+  @media print {
+    .reveal, .items li { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .sketch, .sketch-edge { display: none !important; }
+  }
+
+  /* сцена «набросок становится сайтом»: карандашный каркас поверх вещдока, кромка проявляет фото */
+  .sketch {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--paper-deep);
+    pointer-events: none;
+  }
+  .sketch-tag {
+    position: absolute;
+    bottom: 6%;
+    left: 5%;
+    font-size: .62rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--soft);
+    font-weight: 500;
+  }
+  .sketch-block {
+    position: absolute;
+    border: 1px solid var(--faint);
+    background: transparent;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: sketchIn .4s var(--ease) both;
+  }
+  @keyframes sketchIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .sketch-edge {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: var(--bronze);
+    box-shadow: 0 0 12px rgba(169, 116, 63, .5);
+    z-index: 2;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -431,7 +515,7 @@
   <div class="page top-in">
     <div class="brand">
       <b>Александр Шульгин</b>
-      <span>Приморский край</span>
+      <span>Приморский край · работаю по всей России</span>
     </div>
     <a class="btn ghost" href="https://t.me/Aleksandr_NFA">Написать в Telegram</a>
   </div>
@@ -445,10 +529,12 @@
         <div>
           <h1>Делаю цифровую часть <em>вашего дела</em>.</h1>
           <p class="lead">Сайт, запись клиентов, бот, отчёты, которые считаются сами, помощник, отвечающий за вас ночью. Для дела и для себя. Если задача начинается со слов «а можно ли», обычно можно.</p>
+          <p class="who">Салон, автосервис, кафе, магазин, курсы, доставка, мастер, который работает один: всё, где есть клиенты и рутина. И личные задачи, где никакого бизнеса нет.</p>
           <div class="actions">
             <a class="btn" href="https://t.me/Aleksandr_NFA">Рассказать о задаче</a>
             <a class="btn ghost" href="#catalog">Чем могу помочь</a>
           </div>
+          <p class="note">Готовое задание не нужно: расскажите своими словами, отвечаю я сам. <a href="mailto:sanexxx777@gmail.com">Удобнее почтой</a></p>
         </div>
         <figure class="proof">
           <a href="https://horsesfarm.ru" target="_blank" rel="noopener">
@@ -466,14 +552,19 @@
           <span>Показываю, как будет у вас. Бесплатно.</span>
         </div>
         <div>
-          <strong>Без предоплаты</strong>
+          <strong class="stamp"><span>Без предоплаты</span></strong>
           <span>Деньги после того, как работа принята.</span>
         </div>
         <div>
           <strong>Отвечает человек</strong>
-          <span>Пишете в Telegram, отвечаю я сам.</span>
+          <span>Пишете в Telegram, разговариваете со мной, а не с менеджером.</span>
         </div>
       </div>
+    </section>
+
+    <section class="manifest reveal">
+      <p class="manifest-line">Почти всё, что можно объяснить словами, можно превратить в программу. <em>Сайт, бот, ролик, отчёт, помощник, отвечающий вместо вас.</em> Если не возьмусь, скажу в первый же день, а не через месяц.</p>
+      <p class="manifest-why">Почему это возможно одному человеку: черновую работу пишет искусственный интеллект, я ставлю задачу, проверяю и отвечаю за результат. Объём как у студии, а разговариваете вы с тем, кто делает: без менеджеров и пересказов.</p>
     </section>
 
     <span class="bridge" aria-hidden="true"></span>
@@ -482,12 +573,12 @@
       <div class="sec-head sec-head--wide">
         <span class="label">Что можно поручить</span>
         <h2>Восемь ответов на вопрос «а это можно?»</h2>
-        <p>Откройте то, что ближе к вашему случаю. Список неполный: половина задач приходит своими словами, и это нормально. <em>Берусь, если вижу, как сделать хорошо</em>, а если задача не по силам, скажу сразу.</p>
+        <p>Откройте то, что ближе к вашему случаю. Список неполный: половина задач приходит своими словами, и это нормально.</p>
       </div>
 
       <ol class="groups">
         <li class="group">
-          <details>
+          <details open>
             <summary>
               <span class="num">8<i>пунктов</i></span>
               <span>
@@ -501,8 +592,8 @@
               <li>Сайт, который вы правите сами с телефона</li>
               <li>Магазин с корзиной и приёмом оплаты</li>
               <li>Страница мероприятия, тура, набора, курса</li>
-              <li>Своё имя в адресе и почта на нём</li>
-              <li>Карты и справочники, чтобы находили рядом</li>
+              <li>Свой адрес сайта, например salon-vesna.ru, и почта на нём</li>
+              <li>Яндекс Карты, 2ГИС и Google: чтобы вас находили рядом</li>
               <li>Перенос сайта от прежнего исполнителя</li>
               <li>Починить то, что уже есть и работает плохо</li>
             </ul>
@@ -567,11 +658,11 @@
             </summary>
             <ul class="items">
               <li>Отчёты и выгрузки, которые вы сводите каждую неделю</li>
-              <li>Перенос данных между таблицами и площадками</li>
+              <li>Перенос данных между таблицами, сайтом и площадками, без ручного копирования</li>
               <li>Слежение за ценами конкурентов</li>
               <li>Договор, счёт и акт по шаблону, за секунду</li>
               <li>Учёт остатков, смен, расписания</li>
-              <li>Заявки с разных площадок в одно окно</li>
+              <li>Заявки с Авито, ВКонтакте, WhatsApp и сайта приходят в одно окно</li>
               <li>Напоминания сотрудникам и себе</li>
               <li>Разбор почты и документов без ручного перекладывания</li>
             </ul>
@@ -667,7 +758,8 @@
         </li>
       </ol>
 
-      <p class="after-catalog">Своего не нашли? Так чаще всего и бывает. Опишите словами, что отнимает время, и я отвечу, решается это или нет. <a href="https://t.me/Aleksandr_NFA">Написать в Telegram</a></p>
+      <p class="after-catalog">Своего не нашли? Так чаще всего и бывает. Опишите словами, что отнимает время, и я отвечу, решается это или нет. Маленькие задачи беру тоже: если работы на день, так и скажу, и стоить это будет как день, а не как проект. <a href="https://t.me/Aleksandr_NFA">Написать в Telegram</a> или <a href="mailto:sanexxx777@gmail.com">на почту</a>.</p>
+      <p class="after-catalog after-catalog--biz">Если у вас уже есть сайт, CRM и сотрудники, переделывать всё не предлагаю. Чаще нужно связать то, что уже работает: заявки с разных площадок в одно окно, выгрузки и отчёты, ИИ-помощник поверх ваших документов. Расскажите, где рвётся вручную, посмотрю и скажу честно, стоит ли это автоматизировать.</p>
     </section>
 
     <section class="rule reveal">
@@ -712,6 +804,7 @@
           </div>
         </li>
       </ol>
+      <p class="step-cta">Уже понятно, что нужно? <a href="https://t.me/Aleksandr_NFA">Напишите в двух словах</a>, отвечу, как это решается и сколько займёт.</p>
     </section>
 
     <section class="rule reveal">
@@ -750,7 +843,7 @@
         <a class="work" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
           <div class="shot"><img src="../assets/work-signal.webp" alt="Пример сайта для агентства" loading="lazy" width="600" height="360"></div>
           <h3>Студия «Сигнал»</h3>
-          <span>Для тех, кто продаёт результат: цифры, отзывы, расчёт прямо на странице.</span>
+          <span>Для тех, кто продаёт результат: цифры, отзывы, расчёт прямо на странице. Компания придумана, сайт настоящий.</span>
           <span class="go">Посмотреть</span>
         </a>
         <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
@@ -770,7 +863,11 @@
       <div class="faq">
         <details>
           <summary>Сколько это стоит?</summary>
-          <p>Зависит от объёма, и честно назвать сумму до разговора невозможно: одна и та же на словах задача бывает на неделю и на месяц. Оценка и макет бесплатные. Сумму называю до начала работы и потом не меняю.</p>
+          <p>Оценка и макет бесплатные: сумму вы узнаёте до начала работы, и потом она не меняется. Точную цифру заранее не публикую честно: одна и та же на словах задача бывает на два дня и на месяц. Проще с другой стороны: скажите, в какой бюджет хотите уложиться, и я отвечу, что в него реально помещается.</p>
+        </details>
+        <details>
+          <summary>А что придётся платить потом?</summary>
+          <p>За то, что сделанное просто работает, платить мне не нужно: абонентской платы у меня нет. Останутся прямые расходы: адрес сайта и хостинг, а если делаем бота или ИИ-помощника, ещё сервер и плата за обращения к нейросети. Сколько это выходит в месяц, посчитаю и назову до начала работы, платите вы напрямую, не через меня. Мелкие правки месяц после запуска бесплатны, крупные доработки считаем отдельно.</p>
         </details>
         <details>
           <summary>Я совсем не разбираюсь в технике.</summary>
@@ -845,6 +942,96 @@
   "email": "sanexxx777@gmail.com",
   "sameAs": ["https://t.me/Aleksandr_NFA", "https://shulgin.is-a.dev"]
 }
+</script>
+
+<script>
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var proofLink = document.querySelector('.proof a');
+  if (!proofLink) return;
+
+  var isMobile = window.matchMedia('(max-width: 560px)').matches;
+  var blocks = isMobile
+    ? [[5, 5, 90, 8], [55, 20, 40, 34], [5, 38, 22, 9]]
+    : [
+        [5, 5, 90, 8], [5, 20, 44, 12], [55, 20, 40, 34], [5, 38, 22, 9],
+        [5, 62, 27, 20], [36.5, 62, 27, 20], [68, 62, 27, 20]
+      ];
+  var stagger = isMobile ? 60 : 80;
+  var revealDelay = isMobile ? 700 : 700;
+  var revealDuration = isMobile ? 800 : 1100;
+  var ease = getComputedStyle(document.documentElement).getPropertyValue('--ease').trim() || 'cubic-bezier(.23, 1, .32, 1)';
+
+  var sketch = document.createElement('div');
+  sketch.className = 'sketch';
+  sketch.setAttribute('aria-hidden', 'true');
+
+  var tag = document.createElement('div');
+  tag.className = 'sketch-tag';
+  tag.textContent = 'сначала макет';
+  sketch.appendChild(tag);
+
+  blocks.forEach(function (b, i) {
+    var el = document.createElement('div');
+    el.className = 'sketch-block';
+    el.style.left = b[0] + '%';
+    el.style.top = b[1] + '%';
+    el.style.width = b[2] + '%';
+    el.style.height = b[3] + '%';
+    el.style.animationDelay = (i * stagger) + 'ms';
+    sketch.appendChild(el);
+  });
+
+  var edge = document.createElement('div');
+  edge.className = 'sketch-edge';
+
+  proofLink.appendChild(sketch);
+  proofLink.appendChild(edge);
+
+  // сцена накрывает только фото, подпись под ним остаётся читаемой всё время
+  var proofImg = proofLink.querySelector('img');
+  var imgH = proofImg ? proofImg.offsetHeight : 0;
+  if (imgH) {
+    sketch.style.bottom = 'auto';
+    sketch.style.height = imgH + 'px';
+  }
+
+  function cleanup() {
+    sketch.remove();
+    edge.remove();
+  }
+
+  function runReveal() {
+    setTimeout(function () {
+      var h = imgH || proofLink.offsetHeight;
+      // уборка регистрируется ДО animate: если WAAPI бросит, оверлей всё равно уйдёт
+      setTimeout(cleanup, revealDuration + 100);
+      try {
+        sketch.animate(
+          [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(100% 0 0 0)' }],
+          { duration: revealDuration, easing: ease, fill: 'forwards' }
+        );
+        edge.animate(
+          [{ transform: 'translateY(0)' }, { transform: 'translateY(' + h + 'px)' }],
+          { duration: revealDuration, easing: 'linear', fill: 'forwards' }
+        );
+      } catch (e) {
+        cleanup();
+      }
+    }, revealDelay);
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && !proofLink.dataset.played) {
+        proofLink.dataset.played = 'true';
+        observer.disconnect();
+        runReveal();
+      }
+    });
+  }, { threshold: .5 });
+  observer.observe(proofLink);
+})();
 </script>
 
 </body>
