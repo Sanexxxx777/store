@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /store/handoff/
+Disallow: /store/outputs/
+Disallow: /store/downloads/
+
+Sitemap: https://shulgin.is-a.dev/store/sitemap.xml

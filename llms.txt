@@ -27,6 +27,11 @@
 - Dashboard Sprint: from $119. A live metrics panel with 1-2 data connections and 4-6 widgets, no monthly BI license.
 - VPS Safety Sprint: from $49. Audit of public surface, SSH, firewall, secrets and backups, with verification commands for every fix.
 
+## For Non-Technical Clients
+
+- [Prosto (RU)](https://shulgin.is-a.dev/store/prosto/): A plain-language services page for non-technical clients: websites, bots, automation and AI assistants explained without jargon. Russian, the primary version. Machine-readable summary: https://shulgin.is-a.dev/store/prosto/llms.txt
+- [Prosto (EN)](https://shulgin.is-a.dev/store/prosto/en/): English mirror of the same plain-language services page.
+
 ## Open Source
 
 - [Server Hardening Playbook](https://github.com/Sanexxxx777/server-hardening-playbook): A practical failure to fix to verify format for SSH, firewall, service binding, secrets and databases. MIT.

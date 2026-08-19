@@ -21,6 +21,7 @@
 <link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/prosto/">
 <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/prosto/en/">
 <link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/prosto/">
+<link rel="alternate" type="text/markdown" href="llms.txt">
 <meta property="og:title" content="Цифровая работа для небольшого дела">
 <meta property="og:description" content="Расскажите, что отнимает время. Сделаю так, чтобы перестало.">
 <meta property="og:type" content="website">
@@ -486,6 +487,31 @@
   .final em { color: #d3a06a; }
   .final p { color: rgba(253, 250, 243, .72); max-width: 44ch; margin-top: 1.4rem; }
   .final .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: 2.2rem; }
+  .lead-form { margin-top: 2.2rem; max-width: 34rem; position: relative; z-index: 1; }
+  .lead-form-label { font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(253, 250, 243, .55); margin: 0 0 .9rem; }
+  .lead-form-row { display: flex; gap: .8rem; }
+  .lead-form input[type="text"], .lead-form textarea {
+    width: 100%;
+    background: rgba(253, 250, 243, .06);
+    border: 1px solid rgba(253, 250, 243, .25);
+    color: var(--paper-light);
+    font-family: var(--body);
+    font-size: .92rem;
+    padding: .8rem 1rem;
+    margin-bottom: .8rem;
+  }
+  .lead-form input::placeholder, .lead-form textarea::placeholder { color: rgba(253, 250, 243, .45); }
+  .lead-form input:focus, .lead-form textarea:focus { outline: none; border-color: var(--bronze); }
+  .lead-form textarea { resize: vertical; min-height: 4.6rem; }
+  .lead-hp { display: none; }
+  .lead-consent { display: flex; align-items: flex-start; gap: .6rem; font-size: .82rem; color: rgba(253, 250, 243, .72); margin: .3rem 0 1.2rem; cursor: pointer; }
+  .lead-consent input { margin-top: .2rem; }
+  .lead-consent a { color: var(--paper-light); text-decoration: underline; }
+  .lead-form button { font-family: inherit; cursor: pointer; }
+  .lead-status { margin-top: .9rem; font-size: .88rem; color: rgba(253, 250, 243, .8); min-height: 1.2em; }
+  @media (max-width: 560px) {
+    .lead-form-row { flex-direction: column; }
+  }
   .final::after {
     content: "";
     position: absolute;
@@ -1041,6 +1067,24 @@
           <a class="btn light" href="https://t.me/Aleksandr_NFA">Написать в Telegram</a>
           <a class="btn outline-light" href="mailto:sanexxx777@gmail.com">Написать на почту</a>
         </div>
+        <form class="lead-form" id="leadform">
+          <p class="lead-form-label">или оставьте заявку здесь</p>
+          <div class="lead-fields">
+            <div class="lead-form-row">
+              <input type="text" name="name" placeholder="Имя" aria-label="Имя" autocomplete="name">
+              <input type="text" name="contact" placeholder="Telegram, WhatsApp, телефон или почта" aria-label="Telegram, WhatsApp, телефон или почта" autocomplete="off">
+            </div>
+            <textarea name="message" rows="3" placeholder="Что отнимает время" aria-label="Что отнимает время"></textarea>
+            <input type="text" name="website" class="lead-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="hidden" name="page" value="">
+            <label class="lead-consent">
+              <input type="checkbox" name="consent" required>
+              <span>Согласен на обработку персональных данных (<a href="privacy/">политика</a>)</span>
+            </label>
+            <button type="submit" class="btn light">Отправить</button>
+          </div>
+          <div class="lead-status" role="status" aria-live="polite"></div>
+        </form>
       </div>
       <ul class="final-side">
         <li><b>Что писать</b><span>Своими словами: чем занимаетесь и что не устраивает. Готовое задание не нужно.</span></li>
@@ -1072,6 +1116,87 @@
   "areaServed": "RU",
   "email": "sanexxx777@gmail.com",
   "sameAs": ["https://t.me/Aleksandr_NFA", "https://shulgin.is-a.dev"]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Сколько это стоит?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Оценка и макет бесплатные: сумму вы узнаёте до начала работы, и потом она не меняется. Точную цифру заранее не публикую честно: одна и та же на словах задача бывает на два дня и на месяц. Проще с другой стороны: скажите, в какой бюджет хотите уложиться, и я отвечу, что в него реально помещается."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "А что придётся платить потом?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "За то, что сделанное просто работает, платить мне не нужно: абонентской платы у меня нет. Останутся прямые расходы: адрес сайта и хостинг, а если делаем бота или ИИ-помощника, ещё сервер и плата за обращения к нейросети. Сколько это выходит в месяц, посчитаю и назову до начала работы, платите вы напрямую, не через меня. Мелкие правки месяц после запуска бесплатны, крупные доработки считаем отдельно."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Я совсем не разбираюсь в технике.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Так и должно быть, это моя часть. От вас нужен рассказ о деле обычными словами. Термины я в разговор не тащу, а после запуска показываю, куда нажимать."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько ждать?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Простые вещи: несколько дней. Сайт: неделя или две. Большая автоматизация: дольше, но по частям, чтобы вы видели движение, а не ждали в тишине."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "А если мне не понравится?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Макет ни к чему не обязывает. Не понравилось, разошлись, вы ничего не платите."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "У меня нет ни фотографий, ни текстов.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Обычное дело. Тексты напишу после разговора, вы поправите. По фотографиям подскажу, что снять на телефон: этого почти всегда достаточно."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Кому потом принадлежит сделанное?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Вам. Адрес и доступы оформляются на вас, отдаю всё. Я не держу работу в заложниках и не беру абонентскую плату за то, что она просто работает."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Я в другом городе, это помешает?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет. Работаю с любым регионом, общаемся в мессенджере или голосом. Разница во времени решается перепиской."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "А то, чего вы раньше не делали?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Берусь, если вижу, как это сделать хорошо. Если задача мне не по силам или дешевле решается готовым сервисом, скажу об этом сразу и подскажу, куда смотреть."
+      }
+    }
+  ]
 }
 </script>
 
@@ -1171,6 +1296,52 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
     try { localStorage.setItem('lang', a.getAttribute('data-setlang')); } catch (e) {}
   });
 });
+</script>
+
+<script>
+/* Счётчик визитов: без кук и без IP (endpoint адреса не логирует). Страница, язык, источник, глубина скролла. */
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var E = 'https://backend-test.45-82-95-142.nip.io:8443/hit';
+    var base = 'p=' + encodeURIComponent(location.pathname) +
+               '&l=' + encodeURIComponent(navigator.language || '') +
+               '&r=' + encodeURIComponent(document.referrer || '');
+    navigator.sendBeacon(E + '?' + base);
+    var md = 0;
+    addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - innerHeight;
+      var d = h > 0 ? Math.round(scrollY / h * 100) : 100;
+      if (d > md) md = d;
+    }, { passive: true });
+    addEventListener('pagehide', function () {
+      navigator.sendBeacon(E + '?e=depth&d=' + md + '&' + base);
+    });
+  } catch (e) {}
+})();
+</script>
+<script>
+(function () {
+  var form = document.getElementById('leadform');
+  if (!form) return;
+  var pageField = form.querySelector('input[name="page"]');
+  if (pageField) pageField.value = location.pathname;
+  var fields = form.querySelector('.lead-fields');
+  var status = form.querySelector('.lead-status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    fetch('https://backend-test.45-82-95-142.nip.io:8443/qsw/v1/lead', {
+      method: 'POST',
+      body: new URLSearchParams(new FormData(form))
+    }).then(function (resp) {
+      if (!resp.ok) throw new Error('bad status');
+      status.textContent = 'Получил, отвечу в ближайшее время.';
+      fields.style.display = 'none';
+    }).catch(function () {
+      status.textContent = 'Не отправилось. Напишите в Telegram или на почту, ссылки выше.';
+    });
+  });
+})();
 </script>
 </body>
 </html>

@@ -606,5 +606,28 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
   });
 });
 </script>
+
+<script>
+/* Visit counter: no cookies, no IP logging on the endpoint. Page, language, referrer, scroll depth. */
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var E = 'https://backend-test.45-82-95-142.nip.io:8443/hit';
+    var base = 'p=' + encodeURIComponent(location.pathname) +
+               '&l=' + encodeURIComponent(navigator.language || '') +
+               '&r=' + encodeURIComponent(document.referrer || '');
+    navigator.sendBeacon(E + '?' + base);
+    var md = 0;
+    addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - innerHeight;
+      var d = h > 0 ? Math.round(scrollY / h * 100) : 100;
+      if (d > md) md = d;
+    }, { passive: true });
+    addEventListener('pagehide', function () {
+      navigator.sendBeacon(E + '?e=depth&d=' + md + '&' + base);
+    });
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
