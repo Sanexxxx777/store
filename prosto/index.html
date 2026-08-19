@@ -503,10 +503,7 @@
   .lead-form input::placeholder, .lead-form textarea::placeholder { color: rgba(253, 250, 243, .45); }
   .lead-form input:focus, .lead-form textarea:focus { outline: none; border-color: var(--bronze); }
   .lead-form textarea { resize: vertical; min-height: 4.6rem; }
-  .lead-hp { display: none; }
-  .lead-consent { display: flex; align-items: flex-start; gap: .6rem; font-size: .82rem; color: rgba(253, 250, 243, .72); margin: .3rem 0 1.2rem; cursor: pointer; }
-  .lead-consent input { margin-top: .2rem; }
-  .lead-consent a { color: var(--paper-light); text-decoration: underline; }
+  .lead-note { font-size: .78rem; line-height: 1.5; color: rgba(253, 250, 243, .55); margin: .9rem 0 0; max-width: 30rem; }
   .lead-form button { font-family: inherit; cursor: pointer; }
   .lead-status { margin-top: .9rem; font-size: .88rem; color: rgba(253, 250, 243, .8); min-height: 1.2em; }
   @media (max-width: 560px) {
@@ -1068,20 +1065,15 @@
           <a class="btn outline-light" href="mailto:sanexxx777@gmail.com">Написать на почту</a>
         </div>
         <form class="lead-form" id="leadform">
-          <p class="lead-form-label">или оставьте заявку здесь</p>
+          <p class="lead-form-label">или соберите заявку здесь</p>
           <div class="lead-fields">
             <div class="lead-form-row">
               <input type="text" name="name" maxlength="80" placeholder="Имя" aria-label="Имя" autocomplete="name">
               <input type="text" name="contact" maxlength="120" placeholder="Telegram, WhatsApp, телефон или почта" aria-label="Telegram, WhatsApp, телефон или почта" autocomplete="off">
             </div>
             <textarea name="message" rows="3" maxlength="400" placeholder="Что отнимает время" aria-label="Что отнимает время"></textarea>
-            <input type="text" name="website" class="lead-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <input type="hidden" name="page" value="">
-            <label class="lead-consent">
-              <input type="checkbox" name="consent" required>
-              <span>Согласен на обработку персональных данных (<a href="privacy/">политика</a>)</span>
-            </label>
-            <button type="submit" class="btn light">Отправить</button>
+            <a class="btn light" id="lead-send" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Отправить в Telegram</a>
+            <p class="lead-note">Форма ничего не отправляет и не сохраняет: кнопка открывает Telegram с готовым текстом, он же копируется в буфер.</p>
           </div>
           <div class="lead-status" role="status" aria-live="polite"></div>
         </form>
@@ -1101,7 +1093,8 @@
     <div>
       <a href="https://t.me/Aleksandr_NFA">Telegram</a> ·
       <a href="mailto:sanexxx777@gmail.com">sanexxx777@gmail.com</a> ·
-      <a href="https://shulgin.is-a.dev">shulgin.is-a.dev</a>
+      <a href="https://shulgin.is-a.dev">shulgin.is-a.dev</a> ·
+      <a href="privacy/">Данные и приватность</a>
     </div>
   </div>
 </footer>
@@ -1324,23 +1317,37 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
 (function () {
   var form = document.getElementById('leadform');
   if (!form) return;
-  var pageField = form.querySelector('input[name="page"]');
-  if (pageField) pageField.value = location.pathname;
-  var fields = form.querySelector('.lead-fields');
+  var send = document.getElementById('lead-send');
   var status = form.querySelector('.lead-status');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    fetch('https://backend-test.45-82-95-142.nip.io:8443/qsw/v1/lead', {
-      method: 'POST',
-      body: new URLSearchParams(new FormData(form))
-    }).then(function (resp) {
-      if (!resp.ok) throw new Error('bad status');
-      status.textContent = 'Получил, отвечу в ближайшее время.';
-      fields.style.display = 'none';
-    }).catch(function () {
-      status.textContent = 'Не отправилось. Напишите в Telegram или на почту, ссылки выше.';
-    });
+  if (!send) return;
+  function field(n) {
+    var el = form.elements[n];
+    return el && el.value ? el.value.trim() : '';
+  }
+  function composed() {
+    var parts = [];
+    var msg = field('message');
+    if (msg) parts.push(msg);
+    var name = field('name');
+    if (name) parts.push('Имя: ' + name);
+    var contact = field('contact');
+    if (contact) parts.push('Контакт: ' + contact);
+    return parts.join('\n');
+  }
+  send.addEventListener('click', function () {
+    var text = composed();
+    send.href = 'https://t.me/Aleksandr_NFA' + (text ? '?text=' + encodeURIComponent(text) : '');
+    if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(function () {});
+    status.textContent = 'Открываю Telegram с готовым текстом. Он же скопирован в буфер.';
   });
+  // Enter в полях = клик по кнопке; в textarea перенос строки остаётся переносом
+  form.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' || e.target.tagName === 'TEXTAREA') return;
+    if (e.target.closest('a, button')) return;
+    e.preventDefault();
+    send.click();
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); });
 })();
 </script>
 </body>
