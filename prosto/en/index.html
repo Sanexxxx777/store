@@ -487,7 +487,7 @@
   .final em { color: #d3a06a; }
   .final p { color: rgba(253, 250, 243, .72); max-width: 44ch; margin-top: 1.4rem; }
   .final .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: 2.2rem; }
-  .lead-form { margin-top: 2.2rem; max-width: 34rem; position: relative; z-index: 1; }
+  .lead-form { margin-top: 2.2rem; max-width: 38rem; position: relative; z-index: 1; }
   .lead-form-label { font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(253, 250, 243, .55); margin: 0 0 .9rem; }
   .lead-form-row { display: flex; gap: .8rem; }
   .lead-form input[type="text"], .lead-form textarea {
@@ -496,8 +496,8 @@
     border: 1px solid rgba(253, 250, 243, .25);
     color: var(--paper-light);
     font-family: var(--body);
-    font-size: .92rem;
-    padding: .8rem 1rem;
+    font-size: .85rem;
+    padding: .75rem .9rem;
     margin-bottom: .8rem;
   }
   .lead-form input::placeholder, .lead-form textarea::placeholder { color: rgba(253, 250, 243, .45); }
@@ -1071,10 +1071,10 @@
           <p class="lead-form-label">Or leave a request here</p>
           <div class="lead-fields">
             <div class="lead-form-row">
-              <input type="text" name="name" placeholder="Name" aria-label="Name" autocomplete="name">
-              <input type="text" name="contact" placeholder="Telegram, WhatsApp, phone or email" aria-label="Telegram, WhatsApp, phone or email" autocomplete="off">
+              <input type="text" name="name" maxlength="80" placeholder="Name" aria-label="Name" autocomplete="name">
+              <input type="text" name="contact" maxlength="120" placeholder="Telegram, WhatsApp, phone or email" aria-label="Telegram, WhatsApp, phone or email" autocomplete="off">
             </div>
-            <textarea name="message" rows="3" placeholder="What eats your time" aria-label="What eats your time"></textarea>
+            <textarea name="message" rows="3" maxlength="400" placeholder="What eats your time" aria-label="What eats your time"></textarea>
             <input type="text" name="website" class="lead-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
             <input type="hidden" name="page" value="">
             <label class="lead-consent">
