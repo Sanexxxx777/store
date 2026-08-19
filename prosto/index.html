@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var here = 'ru';
+    var saved = localStorage.getItem('lang');
+    var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+    if (want !== here) location.replace('en/');
+  } catch (e) {}
+})();
+</script>
 <title>Александр Шульгин — цифровая работа для небольшого дела</title>
 <meta name="description" content="Сайты, боты, автоматизация рутины, помощники на ИИ, ролики и всё, что вы делаете руками каждый день. Сначала показываю макет, предоплату не беру.">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -602,7 +613,7 @@
       <span>Макет бесплатно · оплата после приёмки</span>
     </div>
     <div class="top-right">
-      <nav class="lang" aria-label="Язык страницы"><span>RU</span><a href="en/">EN</a></nav>
+      <nav class="lang" aria-label="Язык страницы"><span>RU</span><a href="en/" data-setlang="en">EN</a></nav>
       <a class="btn ghost" href="https://t.me/Aleksandr_NFA">Написать в Telegram</a>
     </div>
   </div>
@@ -1154,5 +1165,12 @@
 })();
 </script>
 
+<script>
+document.querySelectorAll('a[data-setlang]').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('lang', a.getAttribute('data-setlang')); } catch (e) {}
+  });
+});
+</script>
 </body>
 </html>

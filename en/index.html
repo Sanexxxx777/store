@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var here = 'en';
+    var saved = localStorage.getItem('lang');
+    var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+    if (want !== here) location.replace('../');
+  } catch (e) {}
+})();
+</script>
 <title>Product Lab - Aleksandr Shulgin</title>
 <meta name="description" content="Mac apps, ready-made code and fixed-scope web, AI and automation work: Qwerty Switcher, Living Mascot and product sprints.">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -55,7 +66,7 @@
       <a href="#faq">FAQ</a>
       <a href="https://shulgin.is-a.dev" class="back">Portfolio</a>
     </nav>
-    <a class="lang-switch" href="../index.html" aria-label="Русская версия">RU</a>
+    <a class="lang-switch" href="../index.html" aria-label="Русская версия" data-setlang="ru">RU</a>
     <a class="cta-mini" href="#" data-modal-open>Discuss</a>
   </div>
 </header>
@@ -587,6 +598,13 @@
   } catch (e) {
     if (canvas) canvas.style.display = 'none'; // no WebGL - hide the scene, page keeps working
   }
+</script>
+<script>
+document.querySelectorAll('a[data-setlang]').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('lang', a.getAttribute('data-setlang')); } catch (e) {}
+  });
+});
 </script>
 </body>
 </html>

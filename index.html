@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var here = 'ru';
+    var saved = localStorage.getItem('lang');
+    var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+    if (want !== here) location.replace('en/');
+  } catch (e) {}
+})();
+</script>
 <title>Продуктовая лаборатория — Александр Шульгин</title>
 <meta name="description" content="Приложения для Mac, готовый код и задачи из веба, ИИ и автоматизации по фиксированной цене: Qwerty Switcher, Living Mascot и продуктовые спринты.">
 <link rel="stylesheet" href="fonts/fonts.css">
@@ -58,7 +69,7 @@
       <a href="prosto/" class="back">Проще о том же</a>
       <a href="https://shulgin.is-a.dev" class="back">Портфолио</a>
     </nav>
-    <a class="lang-switch" href="en/index.html" aria-label="English version">EN</a>
+    <a class="lang-switch" href="en/index.html" aria-label="English version" data-setlang="en">EN</a>
     <a class="cta-mini" href="#" data-modal-open>Обсудить</a>
   </div>
 </header>
@@ -590,6 +601,13 @@
   } catch (e) {
     if (canvas) canvas.style.display = 'none'; // нет WebGL - прячем сцену, страница живёт дальше
   }
+</script>
+<script>
+document.querySelectorAll('a[data-setlang]').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('lang', a.getAttribute('data-setlang')); } catch (e) {}
+  });
+});
 </script>
 </body>
 </html>

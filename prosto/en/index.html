@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var here = 'en';
+    var saved = localStorage.getItem('lang');
+    var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+    if (want !== here) location.replace('../');
+  } catch (e) {}
+})();
+</script>
 <title>Aleksandr Shulgin: digital work for a small business</title>
 <meta name="description" content="Websites, bots, routine automation, AI assistants, videos, anything you do by hand every day. I show you a mockup first and don't ask for money upfront.">
 <link rel="stylesheet" href="../../fonts/fonts.css">
@@ -602,7 +613,7 @@
       <span>Free mockup · pay on acceptance</span>
     </div>
     <div class="top-right">
-      <nav class="lang" aria-label="Page language"><a href="../">RU</a><span>EN</span></nav>
+      <nav class="lang" aria-label="Page language"><a href="../" data-setlang="ru">RU</a><span>EN</span></nav>
       <a class="btn ghost" href="https://t.me/Aleksandr_NFA">Message on Telegram</a>
     </div>
   </div>
@@ -949,19 +960,19 @@
         <a class="work" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
           <div class="shot"><img src="../../assets/work-kratno.webp" alt="Consulting website example" loading="lazy" width="600" height="360"></div>
           <h3>Kratno Bureau</h3>
-          <span>What a services site looks like: clear structure, case studies, a contact form. The company is fictional, the site is real. In Russian.</span>
+          <span>What a services site looks like: clear structure, case studies, a contact form. The company is fictional, the site is real.</span>
           <span class="go">View it</span>
         </a>
         <a class="work" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
           <div class="shot"><img src="../../assets/work-signal.webp" alt="Agency website example" loading="lazy" width="600" height="360"></div>
           <h3>Signal Studio</h3>
-          <span>For people who sell results: numbers, testimonials, a calculator right on the page. The company is fictional, the site is real. In Russian.</span>
+          <span>For people who sell results: numbers, testimonials, a calculator right on the page. The company is fictional, the site is real.</span>
           <span class="go">View it</span>
         </a>
         <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
           <div class="shot"><img src="../../assets/work-horsesfarm.webp" alt="Horse farm website in Serzhantovo" loading="lazy" width="600" height="360"></div>
           <h3>Horse farm in Serzhantovo</h3>
-          <span>Events, animals, prices, directions. The owner updates the text and photos herself, from her phone. Site in Russian.</span>
+          <span>Events, animals, prices, directions. The owner updates the text and photos herself, from her phone. Built for a client in Russia.</span>
           <span class="go">Visit the site</span>
         </a>
       </div>
@@ -1154,5 +1165,12 @@
 })();
 </script>
 
+<script>
+document.querySelectorAll('a[data-setlang]').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('lang', a.getAttribute('data-setlang')); } catch (e) {}
+  });
+});
+</script>
 </body>
 </html>
