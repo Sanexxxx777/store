@@ -910,3 +910,12 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
    и платит уже в приложении. Стоимость продления осталась строкой под карточкой. */
 .app-price--free { white-space: nowrap; }
 .app-price--free small { display: block; margin-top: 2px; font-size: .72rem; opacity: .7; }
+/* Широкая карточка тянет ряд по высоте: у соседа видео 16:9 кончается раньше,
+   и под ним оставалась чёрная дыра. Сцена растягивается на весь остаток
+   карточки, подпись прижата к низу. */
+.film-card { align-self: stretch; }
+.film-card .film-stage { flex: 1 1 auto; display: flex; }
+.film-card .film-stage video { height: 100%; aspect-ratio: auto; min-height: 100%; }
+@media (max-width: 720px) {
+  .film-card .film-stage video { aspect-ratio: 16 / 9; height: auto; min-height: 0; }
+}
