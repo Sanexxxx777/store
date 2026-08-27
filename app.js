@@ -175,33 +175,6 @@
   }
 })();
 
-
-/* Qwerty Switcher: оплата криптой через CryptoBot. Пока /v1/buy отвечает 503
-   (токен не подключён), тихо откатываемся на соседнюю модалку «Купить ключ». */
-document.querySelectorAll('[data-qsw-buy]').forEach(function (btn) {
-  btn.addEventListener('click', async function (e) {
-    e.preventDefault();
-    if (btn.dataset.busy) return;
-    btn.dataset.busy = '1';
-    var label = btn.textContent;
-    btn.textContent = '…';
-    try {
-      var resp = await fetch('https://backend-test.45-82-95-142.nip.io:8443/qsw/v1/buy', { method: 'POST' });
-      if (resp.ok) {
-        var data = await resp.json();
-        if (data.pay_url) { window.location = data.pay_url; return; }
-      }
-      throw new Error('buy unavailable: ' + resp.status);
-    } catch (err) {
-      var modalBtn = btn.parentElement.querySelector('[data-modal-open]');
-      if (modalBtn) modalBtn.click();
-    } finally {
-      btn.textContent = label;
-      delete btn.dataset.busy;
-    }
-  });
-});
-
 /* Ролики. Превью крутится без звука, но только пока карточка в кадре: четыре
    видео, стартующие разом, съедают мобильный трафик и рисуют пустые прямоугольники,
    пока грузятся. Нажатие открывает ролик крупно и со звуком в нативном <dialog>.

@@ -906,3 +906,7 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
 }
 .film-lightbox__close:hover { color: #fff; border-color: rgb(255 255 255 / .4); }
 @media (max-width: 640px) { .film-lightbox__close { top: 6px; right: 6px; } }
+/* Цена уступила место триалу: покупки на витрине больше нет, человек скачивает
+   и платит уже в приложении. Стоимость продления осталась строкой под карточкой. */
+.app-price--free { white-space: nowrap; }
+.app-price--free small { display: block; margin-top: 2px; font-size: .72rem; opacity: .7; }
