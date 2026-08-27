@@ -829,3 +829,80 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   line-height: 1.45;
   opacity: 0.72;
 }
+
+/* Ролики: превью крутится без звука, нажатие открывает крупно со звуком.
+   Автоплей включается только когда карточка попала в кадр (см. app.js) —
+   иначе четыре видео начинают грузиться одновременно на первом экране. */
+.film-card--wide { grid-column: span 2; }
+@media (max-width: 720px) { .film-card--wide { grid-column: auto; } }
+.film-stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #0d0b0d;
+  cursor: pointer;
+  overflow: hidden;
+}
+.film-stage video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  transition: transform .4s ease, filter .3s ease;
+}
+.film-stage:hover video,
+.film-stage:focus-visible video { transform: scale(1.015); filter: brightness(1.06); }
+.film-stage:focus-visible { outline: 2px solid var(--accent, #cc785c); outline-offset: 2px; }
+.film-badge {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 10px;
+  background: rgb(10 10 12 / .74);
+  color: #fff;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: .04em;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.film-badge::before { content: "▶ "; }
+
+.film-lightbox {
+  width: min(1180px, calc(100vw - 32px));
+  padding: 0;
+  border: 1px solid var(--line, rgb(255 255 255 / .12));
+  border-radius: 2px;
+  background: #0d0b0d;
+  color: var(--cream, #f5f1ea);
+  overflow: visible;
+}
+.film-lightbox::backdrop { background: rgb(8 8 10 / .88); }
+.film-lightbox video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #000; }
+.film-lightbox__cap {
+  margin: 0;
+  padding: 10px 14px 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  opacity: .66;
+}
+.film-lightbox__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  min-width: 40px;
+  min-height: 40px;
+  border: 1px solid var(--line, rgb(255 255 255 / .16));
+  border-radius: 50%;
+  background: #0d0b0d;
+  color: var(--cream, #f5f1ea);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.film-lightbox__close:hover { color: #fff; border-color: rgb(255 255 255 / .4); }
+@media (max-width: 640px) { .film-lightbox__close { top: 6px; right: 6px; } }

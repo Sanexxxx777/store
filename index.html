@@ -458,21 +458,37 @@
           <span class="kicker"><span class="star">★</span> короткие ролики</span>
           <h2>Посмотреть, а не читать</h2>
         </div>
-        <p class="blk-sub">Три ролика по 13–18 секунд. Каждый собран кодом: HTML, CSS и остановленный таймлайн рендерятся покадрово в видео. Тем же движком, который можно заказать под свой продукт.</p>
+        <p class="blk-sub">Четыре ролика. Каждый собран кодом: HTML, CSS и остановленный таймлайн рендерятся покадрово в видео — тем же движком, который можно заказать под свой продукт. Превью идут без звука; нажмите на любое — откроется крупно и со звуком.</p>
       </div>
 
       <div class="film-grid">
-        <figure class="film-card">
-          <video src="https://shulgin.is-a.dev/films/web-turnkey.mp4" poster="https://shulgin.is-a.dev/films/web-turnkey.jpg" controls preload="none" playsinline></video>
-          <figcaption><strong>Сайт под ключ</strong><span>что входит в заказ и что остаётся у вас · 13 с</span></figcaption>
+        <figure class="film-card film-card--wide">
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/qwerty.mp4" data-film-title="Qwerty Switcher — промо">
+            <video src="https://shulgin.is-a.dev/films/qwerty.mp4" poster="https://shulgin.is-a.dev/films/qwerty.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">32 с · со звуком</span>
+          </button>
+          <figcaption><strong>Qwerty Switcher</strong><span>промо приложения, которое продаётся выше — <a href="#apps">взять на 14 дней бесплатно</a></span></figcaption>
         </figure>
         <figure class="film-card">
-          <video src="https://shulgin.is-a.dev/films/serzhantovo.mp4" poster="https://shulgin.is-a.dev/films/serzhantovo.jpg" controls preload="none" playsinline></video>
-          <figcaption><strong>Конный двор «Сержантово»</strong><span>клиентская работа: место и сайт для него · 17 с</span></figcaption>
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/kadr.mp4" data-film-title="Kadr — движок роликов">
+            <video src="https://shulgin.is-a.dev/films/kadr.mp4" poster="https://shulgin.is-a.dev/films/kadr.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">34 с · со звуком</span>
+          </button>
+          <figcaption><strong>Kadr — движок</strong><span>тот, которым собраны все ролики на этой странице · <a href="#promo-video-sprint">заказать ролик</a></span></figcaption>
         </figure>
         <figure class="film-card">
-          <video src="https://shulgin.is-a.dev/films/qwerty.mp4" poster="https://shulgin.is-a.dev/films/qwerty.jpg" controls preload="none" playsinline></video>
-          <figcaption><strong>Qwerty Switcher</strong><span>промо приложения, которое продаётся выше · 18 с</span></figcaption>
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/web-turnkey.mp4" data-film-title="Сайт под ключ">
+            <video src="https://shulgin.is-a.dev/films/web-turnkey.mp4" poster="https://shulgin.is-a.dev/films/web-turnkey.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">13 с · со звуком</span>
+          </button>
+          <figcaption><strong>Сайт под ключ</strong><span>что входит в заказ и что остаётся у вас</span></figcaption>
+        </figure>
+        <figure class="film-card">
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/serzhantovo.mp4" data-film-title="Конный двор «Сержантово»">
+            <video src="https://shulgin.is-a.dev/films/serzhantovo.mp4" poster="https://shulgin.is-a.dev/films/serzhantovo.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">17 с · со звуком</span>
+          </button>
+          <figcaption><strong>Конный двор «Сержантово»</strong><span>клиентская работа: место и сайт для него</span></figcaption>
         </figure>
       </div>
     </div>
@@ -641,5 +657,11 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
   } catch (e) {}
 })();
 </script>
+
+  <dialog id="film-lightbox" class="film-lightbox" closedby="any" aria-label="Просмотр ролика">
+    <button class="film-lightbox__close" type="button" data-film-close aria-label="Закрыть">&times;</button>
+    <video controls playsinline preload="none"></video>
+    <p class="film-lightbox__cap"></p>
+  </dialog>
 </body>
 </html>

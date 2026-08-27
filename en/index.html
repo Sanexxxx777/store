@@ -447,21 +447,37 @@
           <span class="kicker"><span class="star">★</span> short films</span>
           <h2>Watch instead of reading</h2>
         </div>
-        <p class="blk-sub">Three clips of 13 to 18 seconds. Each one is rendered from code: HTML, CSS and a paused timeline captured frame by frame, by the same engine you can commission for your own product.</p>
+        <p class="blk-sub">Four films. Each one is rendered from code: HTML, CSS and a paused timeline captured frame by frame, by the same engine you can commission for your own product. Previews run silently; click any of them to open it large, with sound.</p>
       </div>
 
       <div class="film-grid">
-        <figure class="film-card">
-          <video src="https://shulgin.is-a.dev/films/web-turnkey.mp4" poster="https://shulgin.is-a.dev/films/web-turnkey.jpg" controls preload="none" playsinline></video>
-          <figcaption><strong>A website, end to end</strong><span>what an order includes and what you keep · 13s</span></figcaption>
+        <figure class="film-card film-card--wide">
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/qwerty-en.mp4" data-film-title="Qwerty Switcher promo">
+            <video src="https://shulgin.is-a.dev/films/qwerty-en.mp4" poster="https://shulgin.is-a.dev/films/qwerty-en.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">32s · with sound</span>
+          </button>
+          <figcaption><strong>Qwerty Switcher</strong><span>promo for the app sold above — <a href="#apps">start the 14-day trial</a></span></figcaption>
         </figure>
         <figure class="film-card">
-          <video src="https://shulgin.is-a.dev/films/serzhantovo.mp4" poster="https://shulgin.is-a.dev/films/serzhantovo.jpg" controls preload="none" playsinline></video>
-          <figcaption><strong>Serzhantovo Horse Yard</strong><span>client work: the place and the site built for it · 17s</span></figcaption>
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/kadr.mp4" data-film-title="Kadr — the film engine">
+            <video src="https://shulgin.is-a.dev/films/kadr.mp4" poster="https://shulgin.is-a.dev/films/kadr.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">34s · with sound</span>
+          </button>
+          <figcaption><strong>Kadr — the engine</strong><span>the one that rendered every film on this page · <a href="#promo-video-sprint">order a film</a></span></figcaption>
         </figure>
         <figure class="film-card">
-          <video src="https://shulgin.is-a.dev/films/qwerty.mp4" poster="https://shulgin.is-a.dev/films/qwerty.jpg" controls preload="none" playsinline></video>
-          <figcaption><strong>Qwerty Switcher</strong><span>promo for the app sold above · 18s</span></figcaption>
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/web-turnkey.mp4" data-film-title="A website, end to end">
+            <video src="https://shulgin.is-a.dev/films/web-turnkey.mp4" poster="https://shulgin.is-a.dev/films/web-turnkey.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">13s · with sound</span>
+          </button>
+          <figcaption><strong>A website, end to end</strong><span>what an order includes and what you keep</span></figcaption>
+        </figure>
+        <figure class="film-card">
+          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/serzhantovo.mp4" data-film-title="Serzhantovo Horse Yard">
+            <video src="https://shulgin.is-a.dev/films/serzhantovo.mp4" poster="https://shulgin.is-a.dev/films/serzhantovo.jpg" muted loop playsinline preload="none"></video>
+            <span class="film-badge">17s · with sound</span>
+          </button>
+          <figcaption><strong>Serzhantovo Horse Yard</strong><span>client work: the place and the site built for it</span></figcaption>
         </figure>
       </div>
     </div>
@@ -630,5 +646,11 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
   } catch (e) {}
 })();
 </script>
+
+  <dialog id="film-lightbox" class="film-lightbox" closedby="any" aria-label="Film viewer">
+    <button class="film-lightbox__close" type="button" data-film-close aria-label="Close">&times;</button>
+    <video controls playsinline preload="none"></video>
+    <p class="film-lightbox__cap"></p>
+  </dialog>
 </body>
 </html>

@@ -201,3 +201,68 @@ document.querySelectorAll('[data-qsw-buy]').forEach(function (btn) {
     }
   });
 });
+
+/* Ролики. Превью крутится без звука, но только пока карточка в кадре: четыре
+   видео, стартующие разом, съедают мобильный трафик и рисуют пустые прямоугольники,
+   пока грузятся. Нажатие открывает ролик крупно и со звуком в нативном <dialog>.
+   Автоплей не включается при prefers-reduced-motion и при включённой экономии
+   трафика — там остаётся постер, а нажатие работает как обычно. */
+(function () {
+  var stages = document.querySelectorAll('.film-stage');
+  if (!stages.length) return;
+
+  var saveData = navigator.connection && navigator.connection.saveData;
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mayLoop = !saveData && !calm && 'IntersectionObserver' in window;
+
+  if (mayLoop) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target.querySelector('video');
+        if (!v) return;
+        if (en.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.45 });
+    stages.forEach(function (s) { io.observe(s); });
+  }
+
+  var box = document.getElementById('film-lightbox');
+  if (!box) return;
+  var player = box.querySelector('video');
+  var cap = box.querySelector('.film-lightbox__cap');
+
+  stages.forEach(function (stage) {
+    stage.addEventListener('click', function () {
+      player.src = stage.dataset.film;
+      player.currentTime = 0;
+      player.muted = false;
+      if (cap) cap.textContent = stage.dataset.filmTitle || '';
+      box.showModal();
+      var p = player.play(); if (p && p.catch) p.catch(function () {});
+    });
+  });
+
+  box.querySelectorAll('[data-film-close]').forEach(function (el) {
+    el.addEventListener('click', function () { box.close(); });
+  });
+
+  /* close срабатывает и на Esc, и на light-dismiss, и на кнопку — гасим ролик
+     в одном месте и снимаем src, чтобы он не догружался в фоне. */
+  box.addEventListener('close', function () {
+    player.pause();
+    player.removeAttribute('src');
+    player.load();
+  });
+
+  /* Safari пока не знает closedby="any" — там клик по подложке ловим руками. */
+  if (!('closedBy' in HTMLDialogElement.prototype)) {
+    box.addEventListener('click', function (e) {
+      if (e.target !== box) return;
+      var r = box.getBoundingClientRect();
+      var inside = r.top <= e.clientY && e.clientY <= r.bottom &&
+                   r.left <= e.clientX && e.clientX <= r.right;
+      if (!inside) box.close();
+    });
+  }
+})();
