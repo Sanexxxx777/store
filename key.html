@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Ключ подписки — Qwerty Switcher</title>
+<link rel="icon" href="assets/qwerty-switcher.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Страница одного заказа: человек попадает сюда сразу после оплаты. */
+  .key-wrap { max-width: 720px; margin: 0 auto; padding: 12vh 20px 10vh; }
+  .key-status {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .6;
+  }
+  .key-h { margin: 14px 0 10px; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.1; }
+  .key-sub { color: var(--cream-dim, #b9b3aa); line-height: 1.6; }
+  .key-box {
+    margin: 28px 0 12px;
+    padding: 22px 20px;
+    border: 1px solid var(--line, rgb(255 255 255 / .14));
+    background: var(--bg-soft, #161316);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    justify-content: space-between;
+  }
+  .key-value {
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(1.1rem, 3.4vw, 1.7rem);
+    letter-spacing: .06em;
+    user-select: all;
+  }
+  .key-steps { margin: 22px 0 0; padding-left: 20px; line-height: 1.7; }
+  .key-steps li { margin-bottom: 6px; }
+  .key-wait { display: flex; align-items: center; gap: 12px; margin-top: 26px; }
+  .key-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent, #cc785c);
+    animation: keyPulse 1.4s ease-in-out infinite;
+  }
+  @keyframes keyPulse { 0%, 100% { opacity: .35 } 50% { opacity: 1 } }
+  @media (prefers-reduced-motion: reduce) { .key-dot { animation: none; opacity: .8 } }
+  .key-err { color: #e0705a; }
+</style>
+</head>
+<body>
+  <main class="key-wrap">
+    <p class="key-status" id="st">проверяем оплату…</p>
+    <h1 class="key-h" id="h">Заказ обрабатывается</h1>
+    <p class="key-sub" id="sub">Как только оплата подтвердится, ключ появится на этой странице. Её можно держать открытой — она обновляется сама.</p>
+
+    <div class="key-box" id="box" hidden>
+      <span class="key-value" id="key"></span>
+      <button class="btn btn-sm" id="copy" type="button">Скопировать</button>
+    </div>
+
+    <ol class="key-steps" id="steps" hidden>
+      <li>Откройте Qwerty Switcher на Mac.</li>
+      <li>Меню в строке состояния → «Лицензия».</li>
+      <li>Вставьте ключ и нажмите «Активировать».</li>
+    </ol>
+
+    <div class="key-wait" id="wait"><span class="key-dot"></span><span class="key-sub">ждём подтверждения от платёжной системы</span></div>
+
+    <p class="key-sub" style="margin-top:32px">
+      Ключ не появился или что-то пошло не так — напишите
+      <a href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">в Telegram</a>,
+      приложив номер заказа. Он в адресе этой страницы.
+    </p>
+  </main>
+
+<script>
+/* Страница живёт ровно на одном заказе: id приходит в ?order=. Ключ отдаёт
+   только сервер и только после подтверждённой оплаты — здесь его негде
+   «угадать». Опрос затухает, чтобы забытая открытая вкладка не долбила API. */
+(function () {
+  var API = 'https://backend-test.45-82-95-142.nip.io:8443/qsw/v1/order/';
+  var q = new URLSearchParams(location.search);
+  var order = q.get('order') || '';
+  var st = document.getElementById('st'), h = document.getElementById('h'),
+      sub = document.getElementById('sub'), box = document.getElementById('box'),
+      keyEl = document.getElementById('key'), steps = document.getElementById('steps'),
+      wait = document.getElementById('wait'), copy = document.getElementById('copy');
+
+  if (!/^ord_[a-z0-9]{16}$/.test(order)) {
+    st.textContent = 'номер заказа не найден';
+    st.classList.add('key-err');
+    h.textContent = 'Ссылка неполная';
+    sub.textContent = 'В адресе страницы нет номера заказа. Откройте ссылку из сообщения об оплате целиком или напишите в Telegram.';
+    wait.hidden = true;
+    return;
+  }
+
+  var tries = 0;
+  function delay() { return tries < 20 ? 3000 : (tries < 60 ? 8000 : 30000); }
+
+  function paid(data) {
+    st.textContent = 'оплата подтверждена';
+    h.textContent = 'Ключ готов';
+    sub.textContent = 'Подписка на ' + (data.days || 365) + ' дней. Ключ привязывается к первому Mac, на котором его активируют.';
+    keyEl.textContent = data.key;
+    box.hidden = false;
+    steps.hidden = false;
+    wait.hidden = true;
+  }
+
+  function dead(text) {
+    st.textContent = 'заказ не активен';
+    st.classList.add('key-err');
+    h.textContent = 'Заказ не найден';
+    sub.textContent = text;
+    wait.hidden = true;
+  }
+
+  async function tick() {
+    tries++;
+    try {
+      var r = await fetch(API + order, { cache: 'no-store' });
+      if (r.status === 404) return dead('Такого заказа нет. Проверьте ссылку или напишите в Telegram.');
+      if (r.ok) {
+        var d = await r.json();
+        if (d.status === 'paid' && d.key) return paid(d);
+        if (d.status === 'expired') return dead('Срок заказа истёк, оплата не поступила. Оформите покупку заново.');
+      }
+    } catch (e) { /* сеть моргнула — просто попробуем ещё раз */ }
+    setTimeout(tick, delay());
+  }
+  tick();
+
+  copy.addEventListener('click', async function () {
+    try {
+      await navigator.clipboard.writeText(keyEl.textContent);
+      copy.textContent = 'Скопировано';
+      setTimeout(function () { copy.textContent = 'Скопировать'; }, 1800);
+    } catch (e) {
+      /* clipboard закрыт политикой — текст уже выделяется целиком по клику */
+      var rng = document.createRange();
+      rng.selectNodeContents(keyEl);
+      getSelection().removeAllRanges();
+      getSelection().addRange(rng);
+      copy.textContent = 'Выделено, скопируйте';
+    }
+  });
+})();
+</script>
+</body>
+</html>
