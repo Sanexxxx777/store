@@ -110,6 +110,15 @@
     wait.hidden = true;
   }
 
+  function activated() {
+    /* Ключ уже привязан к Mac: подписка приходит приложению по идентификатору
+       устройства, поэтому сам ключ по ссылке больше не показываем. */
+    st.textContent = 'ключ активирован';
+    h.textContent = 'Подписка уже работает';
+    sub.textContent = 'Этот ключ активирован на вашем Mac — приложение получает подписку само, вводить его повторно не нужно. Переставили систему и ключ снова понадобился — напишите в Telegram.';
+    wait.hidden = true;
+  }
+
   function dead(text) {
     st.textContent = 'заказ не активен';
     st.classList.add('key-err');
@@ -126,6 +135,7 @@
       if (r.ok) {
         var d = await r.json();
         if (d.status === 'paid' && d.key) return paid(d);
+        if (d.status === 'paid' && d.activated) return activated();
         if (d.status === 'expired') return dead('Срок заказа истёк, оплата не поступила. Оформите покупку заново.');
       }
     } catch (e) { /* сеть моргнула — просто попробуем ещё раз */ }
