@@ -603,6 +603,12 @@
   </div>
 </div>
 
+  <dialog id="film-lightbox" class="film-lightbox" closedby="any" aria-label="Film viewer">
+    <button class="film-lightbox__close" type="button" data-film-close aria-label="Close">&times;</button>
+    <video controls playsinline preload="none"></video>
+    <p class="film-lightbox__cap"></p>
+  </dialog>
+
 <script src="../app.js"></script>
 <script src="../assets/effects.js"></script>
 <script src="../assets/dotmatrix.js"></script>
@@ -646,10 +652,5 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
 })();
 </script>
 
-  <dialog id="film-lightbox" class="film-lightbox" closedby="any" aria-label="Film viewer">
-    <button class="film-lightbox__close" type="button" data-film-close aria-label="Close">&times;</button>
-    <video controls playsinline preload="none"></video>
-    <p class="film-lightbox__cap"></p>
-  </dialog>
 </body>
 </html>
