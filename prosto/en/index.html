@@ -1296,10 +1296,20 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
 (function () {
   try {
     if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    /* В хит уходят только utm-метки, а не весь query: в адресе может оказаться
+       номер заказа или почта, и такому в логе не место. */
+    function utmOnly() {
+      try {
+        var p = new URLSearchParams(location.search || '');
+        return ['utm_source', 'utm_medium', 'utm_campaign']
+          .map(function (k) { var v = p.get(k); return v ? k + '=' + v : ''; })
+          .filter(Boolean).join('&');
+      } catch (e) { return ''; }
+    }
     var E = 'https://backend-test.45-82-95-142.nip.io:8443/hit';
     var base = 'p=' + encodeURIComponent(location.pathname) +
                '&l=' + encodeURIComponent(navigator.language || '') +
-               '&q=' + encodeURIComponent(location.search || '') +
+               '&q=' + encodeURIComponent(utmOnly()) +
                '&r=' + encodeURIComponent(document.referrer || '');
     navigator.sendBeacon(E + '?' + base);
     var md = 0;
