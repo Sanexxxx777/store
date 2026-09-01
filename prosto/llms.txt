@@ -71,8 +71,15 @@
 ## Из сделанного
 
 - [Конный двор в Сержантово](https://horsesfarm.ru): настоящий клиентский сайт, хозяйка меняет цены и фотографии сама, со своего телефона.
+- [Курс Татьяны Буниной](https://tanyabunina.ru): настоящий клиентский сайт онлайн-курса, заказчица ведёт сама.
 - [Бюро «Кратно»](https://shulgin.is-a.dev/kratno-landing-demo/): демонстрационный сайт услуг, компания придумана, сайт настоящий.
 - [Студия «Сигнал»](https://shulgin.is-a.dev/signal-studio-landing-demo/): демонстрационный сайт агентства, компания придумана, сайт настоящий.
+
+## Готовое с ценой
+
+- Qwerty Switcher: 6 $ / мес. https://shulgin.is-a.dev/store/#apps
+- Аудит сайта на штрафы РКН: 500 ₽. https://shulgin.is-a.dev/store/rkn-audit/
+- Спасение сайта после ИИ-конструктора: 119 $. https://shulgin.is-a.dev/store/case-audit/
 
 ## Контакты
 
@@ -86,6 +93,8 @@ Aleksandr Shulgin is a solo, AI-augmented developer: AI drafts the rough work, h
 
 Terms: a free mockup, no upfront payment, the price is fixed before work starts and doesn't change, a contract and tax receipt for every payment, a month of free minor fixes after launch. Process: a conversation, a mockup, revisions together, launch, ongoing small fixes. Works remotely.
 
-Case: horsesfarm.ru (real client site), plus two demo sites (Kratno Bureau, Signal Studio, fictional companies, real builds).
+Case: horsesfarm.ru and tanyabunina.ru (real client sites), plus two demo sites (Kratno Bureau, Signal Studio, fictional companies, real builds).
+
+Ready-made, priced: Qwerty Switcher ($6/mo), a data-law compliance audit for Russian websites (500 rubles) and an AI-website rescue audit ($119), all available today at https://shulgin.is-a.dev/store/prosto/en/#ready.
 
 Contact: Telegram t.me/Aleksandr_NFA, email sanexxx777@gmail.com. Page: https://shulgin.is-a.dev/store/prosto/en/

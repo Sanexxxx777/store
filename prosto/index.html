@@ -93,7 +93,7 @@
     letter-spacing: -.005em;
     margin: 0;
   }
-  h1 { font-size: clamp(2.6rem, 5.4vw, 4.7rem); }
+  h1 { font-size: clamp(2.6rem, 5vw, 4.2rem); }
   h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; }
   h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
   em { font-style: italic; color: var(--bronze-ink); }
@@ -156,14 +156,13 @@
     gap: clamp(1.8rem, 5vw, 4.5rem);
     align-items: start;
   }
-  .hero h1 { max-width: 13ch; }
+  .hero h1 { max-width: 17ch; }
   .hero .lead {
     font-size: clamp(1.08rem, 1.9vw, 1.32rem);
     color: var(--soft);
     max-width: 42ch;
     margin-top: clamp(1.2rem, 2.4vw, 2rem);
   }
-  .hero .who { font-size: .92rem; color: var(--soft); max-width: 46ch; margin: .9rem 0 0; }
   .hero .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: clamp(1.5rem, 2.6vw, 2.4rem); }
   .hero .note { font-size: .85rem; color: var(--soft); margin: .8rem 0 0; }
 
@@ -204,6 +203,17 @@
     .hero .meta .stamp span { animation: stampIn .5s cubic-bezier(.2, 1.4, .4, 1) .9s both; }
     @keyframes stampIn { from { opacity: 0; transform: rotate(-2deg) scale(1.25); } to { opacity: 1; transform: rotate(-2deg) scale(1); } }
   }
+
+  /* полоса офферов: с чем приходят чаще всего, без карточек и теней, только верхняя линия */
+  .offers { margin-top: clamp(1.6rem, 3vw, 2.2rem); }
+  .offers > .label { display: block; margin-bottom: 1rem; }
+  .offers ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1.6rem 1.4rem; }
+  .offers a { display: block; padding: 1rem 0 1.1rem; border-top: 1px solid var(--line); text-decoration: none; color: inherit; }
+  .offers .ico { display: block; width: 28px; height: 28px; color: var(--bronze); margin-bottom: .6rem; transition: transform .35s var(--ease); }
+  .offers strong { display: block; font-family: var(--display); font-size: 1.2rem; font-weight: 400; }
+  .offers a span { display: block; font-size: .86rem; color: var(--soft); margin-top: .3rem; }
+  .offers a:hover { border-top-color: var(--bronze); }
+  .offers a:hover .ico { transform: translateY(-2px); }
 
 
   /* секции */
@@ -261,6 +271,9 @@
     }
     .manifest { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
     .manifest-why { max-width: 46ch; }
+    .works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .maker { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+    .maker-links { margin-top: .3rem; }
     .marked::before { content: ""; position: absolute; left: -1.2rem; top: .28em; bottom: .28em; width: .5rem; border: 1px solid var(--bronze); border-right: 0; opacity: .8; }
     .faq-wrap { display: grid; grid-template-columns: minmax(0, 52rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
     .faq-aside { position: sticky; top: 5.5rem; border-left: 1px solid var(--line); padding: .2rem 0 .2rem 1.4rem; }
@@ -311,15 +324,21 @@
   }
   .group > details > summary::-webkit-details-marker { display: none; }
   .group > details > summary:hover { background: rgba(169, 116, 63, .045); }
-  /* цифра = сколько пунктов внутри. Считает, а не украшает: декоративная нумерация 01…08 — типовой признак ИИ-вёрстки */
+  /* иконка группы = о чём раздел, счётчик под ней = сколько пунктов внутри */
   .group .num {
-    font-family: var(--display);
-    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
-    color: var(--bronze);
-    line-height: .9;
-    opacity: .6;
+    display: block;
     text-align: right;
   }
+  .group .num .ico {
+    display: block;
+    margin-left: auto;
+    width: 32px;
+    height: 32px;
+    color: var(--bronze);
+    opacity: .75;
+    transition: opacity .4s var(--ease);
+  }
+  .group > details[open] .num .ico { opacity: 1; }
   .group .num i {
     display: block;
     font-family: var(--body);
@@ -328,7 +347,8 @@
     letter-spacing: .12em;
     text-transform: uppercase;
     color: var(--soft);
-    margin-top: .25rem;
+    margin-top: .35rem;
+    text-align: right;
   }
   .group > details > summary > span:nth-child(2) { max-width: 62ch; }
   .group h3 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); }
@@ -342,7 +362,6 @@
     transition: transform .4s var(--ease);
   }
   .group > details[open] .sign { transform: rotate(45deg); }
-  .group > details[open] .num { opacity: 1; }
 
   .items {
     list-style: none;
@@ -396,18 +415,37 @@
   }
   .after-catalog--biz { border-top: 0; padding-top: 0; margin-top: 1.1rem; }
 
-  /* как это происходит */
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  /* как это происходит: номера нанизаны на пунктирную нить вместо линий-разделителей */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; position: relative; }
+  .steps::before {
+    content: "";
+    position: absolute;
+    left: 1.2rem;
+    top: 2rem;
+    bottom: 2rem;
+    border-left: 1px dashed var(--bronze);
+    opacity: .5;
+    pointer-events: none;
+  }
   .step {
     display: grid;
     grid-template-columns: 4.5rem minmax(0, 1fr);
     gap: clamp(1rem, 3vw, 2.5rem);
     padding: 1.5rem 0;
-    border-top: 1px solid var(--line-soft);
     align-items: start;
   }
-  .step:first-child { border-top: 1px solid var(--line); }
-  .step .n { font-family: var(--display); font-size: 3.2rem; color: var(--bronze); line-height: .9; }
+  .step .n {
+    font-family: var(--display);
+    font-size: 3.2rem;
+    color: var(--bronze);
+    line-height: .9;
+    display: inline-block;
+    width: 2.4rem;
+    text-align: center;
+    background: var(--paper);
+    position: relative;
+    z-index: 1;
+  }
   .step h3 { font-size: clamp(1.6rem, 2.4vw, 2rem); margin-bottom: .5rem; }
   .step p { color: var(--soft); margin: 0; max-width: 54ch; }
   .step-cta { margin: clamp(1.4rem, 3vw, 2rem) 0 0; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--soft); max-width: 56ch; }
@@ -422,7 +460,7 @@
   .rules p { color: var(--soft); margin: 0; font-size: .95rem; }
 
   /* работы */
-  .works { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: clamp(1.2rem, 2.5vw, 2rem); }
+  .works { display: grid; gap: clamp(1.2rem, 2.5vw, 2rem); }
   .work { display: block; text-decoration: none; color: inherit; }
   .work .shot {
     position: relative;
@@ -442,6 +480,27 @@
   .work h3 { font-size: 1.35rem; margin-top: 1.1rem; }
   .work span { display: block; color: var(--soft); font-size: .93rem; margin-top: .35rem; }
   .work .go { display: inline-block; margin-top: .7rem; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--bronze-ink); }
+  .work-kind { display: block; margin-top: 1rem; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+  .work--client .work-kind { color: var(--bronze-ink); }
+  /* клиентские карточки крупнее демо: снимок настоящего сайта важнее примера */
+  .work--client img { height: 17rem; }
+  .work--demo img { height: 11rem; filter: saturate(.8); }
+  .work--demo h3 { font-size: 1.2rem; }
+
+  /* готовое с ценой: три оффера без обсуждения условий */
+  .ready-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); }
+  .ready-card { display: block; text-decoration: none; color: inherit; border-top: 1px solid var(--line); padding: 1.6rem 0 1.8rem; }
+  .ready-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .ready-head h3 { font-size: 1.25rem; }
+  .ready-head .price { font-family: var(--display); font-size: 2.1rem; color: var(--bronze-ink); white-space: nowrap; }
+  .ready-card p { color: var(--soft); font-size: .95rem; margin: .8rem 0 0; }
+  .ready-card .go { display: inline-block; margin-top: .9rem; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--bronze-ink); }
+
+  /* кто делает: закрывающий блок секции «готовое» */
+  .maker { margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
+  .maker-text p { color: var(--soft); margin: .8rem 0 0; max-width: 56ch; }
+  .maker-links { display: flex; flex-direction: column; gap: .7rem; margin-top: 1.4rem; }
+  .maker-links a { display: inline-block; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--bronze-ink); text-decoration: none; }
 
   /* вопросы */
   .faq { max-width: 52rem; }
@@ -532,11 +591,15 @@
     .final { grid-template-columns: 1fr; }
     .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .hero .meta { gap: 1.6rem; }
+    .work--client img { height: 12rem; }
+    .work--demo img { height: 9rem; }
+    .offers ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .ready-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 560px) {
     :root { --page: min(1240px, 100% - 2rem); }
     .step { grid-template-columns: 2.6rem minmax(0, 1fr); gap: 1rem; }
-    .step .n { font-size: 2.1rem; }
+    .step .n { font-size: 2.1rem; width: 2rem; }
     .rules { grid-template-columns: 1fr; }
     .btn { padding: .85rem 1.3rem; }
     /* на телефоне вещдок и доводы обязаны попасть в первый экран: жмём вертикаль, не трогая десктоп */
@@ -549,7 +612,6 @@
     .hero .lead { margin-top: 1rem; }
     /* фолд-инвариант: вещдок обязан начинаться в первом экране, нота уступает ему место */
     .hero .note { display: none; }
-    .hero .who { margin-top: .5rem; font-size: .86rem; line-height: 1.45; }
     .hero .lead { font-size: 1.02rem; }
     .hero .actions { margin-top: .9rem; }
     .brand span { font-size: .68rem; letter-spacing: .08em; }
@@ -561,6 +623,8 @@
     .hero .meta span { font-size: .84rem; }
     .sec-head--indent { margin-left: 0; }
     .group > details > summary { grid-template-columns: 3.4rem minmax(0, 1fr) 1.2rem; }
+    .offers ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .steps::before { left: 1rem; }
   }
 
   /* появление при прокрутке */
@@ -643,14 +707,61 @@
 </header>
 
 <main>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-site" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <line x1="3" y1="9" x2="21" y2="9"/>
+      <circle cx="6.5" cy="7" r=".6"/>
+      <circle cx="9" cy="7" r=".6"/>
+    </symbol>
+    <symbol id="i-clients" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="15" rx="2"/>
+      <line x1="3" y1="9" x2="21" y2="9"/>
+      <line x1="7" y1="3" x2="7" y2="6"/>
+      <line x1="17" y1="3" x2="17" y2="6"/>
+      <path d="M8 14l2.5 2.5L16 11"/>
+    </symbol>
+    <symbol id="i-self" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 11.5 12 4l8 7.5"/>
+      <path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/>
+      <path d="M12 17.2s-2.6-1.7-2.6-3.5a1.6 1.6 0 0 1 2.6-1.2 1.6 1.6 0 0 1 2.6 1.2c0 1.8-2.6 3.5-2.6 3.5Z"/>
+    </symbol>
+    <symbol id="i-routine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/>
+      <path d="M20 4v4h-4"/>
+      <path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/>
+      <path d="M4 20v-4h4"/>
+    </symbol>
+    <symbol id="i-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z"/>
+      <path d="M13 6.5 14 9l2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5Z"/>
+    </symbol>
+    <symbol id="i-look" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/>
+      <circle cx="12" cy="12" r="2.6"/>
+    </symbol>
+    <symbol id="i-numbers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="20" x2="21" y2="20"/>
+      <line x1="6" y1="20" x2="6" y2="13"/>
+      <line x1="12" y1="20" x2="12" y2="8"/>
+      <line x1="18" y1="20" x2="18" y2="15"/>
+    </symbol>
+    <symbol id="i-order" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/>
+      <path d="M8.5 12.5 11 15l4.5-5"/>
+    </symbol>
+    <symbol id="i-ready" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 12.5 12.5 20a1.5 1.5 0 0 1-2.1 0L4 13.6a1.5 1.5 0 0 1 0-2.1L11.5 4H19a1 1 0 0 1 1 1v7.5Z"/>
+      <circle cx="15.5" cy="8.5" r="1.4"/>
+    </symbol>
+  </svg>
   <div class="page">
 
     <section class="hero">
       <div class="hero-top">
         <div>
-          <h1>Делаю цифровую часть <em>вашего дела</em>.</h1>
-          <p class="lead">Сайт, запись клиентов, бот, отчёты, которые считаются сами, помощник, отвечающий за вас ночью. Для дела и для себя. Если задача начинается со слов «а можно ли», обычно можно.</p>
-          <p class="who">Салон, автосервис, кафе, магазин, курсы, доставка, мастер, который работает один: всё, где есть клиенты и рутина. И личные задачи, где никакого бизнеса нет.</p>
+          <h1>Делаю сайты, ботов и помощников <em>для небольшого дела</em>.</h1>
+          <p class="lead">Для салона, автосервиса, кафе, магазина, курсов, мастера, который работает один. Объясняете своими словами, что мешает, я говорю, решается ли это и сколько займёт.</p>
           <div class="actions">
             <a class="btn" href="https://t.me/Aleksandr_NFA">Рассказать о задаче</a>
             <a class="btn ghost" href="#catalog">Чем могу помочь</a>
@@ -681,6 +792,17 @@
           <span>Пишете в Telegram, разговариваете со мной, а не с менеджером.</span>
         </div>
       </div>
+      <nav class="offers" aria-label="С чем приходят чаще всего">
+        <span class="label">С чем приходят чаще всего</span>
+        <ul>
+          <li><a href="#g-site"><svg class="ico"><use href="#i-site"/></svg><strong>Сайт с админкой</strong><span>Меняете цены и фото сами</span></a></li>
+          <li><a href="#g-clients"><svg class="ico"><use href="#i-clients"/></svg><strong>Запись и заявки</strong><span>Бот записывает, вы получаете уведомление</span></a></li>
+          <li><a href="#g-ai"><svg class="ico"><use href="#i-ai"/></svg><strong>Помощник на ИИ</strong><span>Отвечает клиентам по вашему прайсу</span></a></li>
+          <li><a href="#g-routine"><svg class="ico"><use href="#i-routine"/></svg><strong>Рутина автоматом</strong><span>Отчёты, договоры, выгрузки без рук</span></a></li>
+          <li><a href="#g-look"><svg class="ico"><use href="#i-look"/></svg><strong>Соцсети сами</strong><span>Каждый день выходит пост</span></a></li>
+          <li><a href="#ready"><svg class="ico"><use href="#i-ready"/></svg><strong>Готовое с ценой</strong><span>Приложение и два аудита, можно взять сегодня</span></a></li>
+        </ul>
+      </nav>
     </section>
 
     <div class="sheet">
@@ -719,10 +841,10 @@
       </div>
 
       <ol class="groups">
-        <li class="group">
+        <li class="group" id="g-site">
           <details open>
             <summary>
-              <span class="num">8<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-site"/></svg><i>8 пунктов</i></span>
               <span>
                 <h3>Место в интернете</h3>
                 <span class="hint">Сайт с ценами и заявкой, магазин с оплатой, перенос от прежнего исполнителя, и ещё пять пунктов</span>
@@ -731,9 +853,9 @@
             </summary>
             <ul class="items">
               <li>Сайт: услуги, цены, фотографии, форма заявки</li>
-              <li>Сайт, который вы правите сами с телефона</li>
+              <li>Сайт, который вы правите сами с телефона <a href="https://horsesfarm.ru" target="_blank" rel="noopener">Так у конного двора</a></li>
               <li>Магазин с корзиной и приёмом оплаты</li>
-              <li>Страница мероприятия, тура, набора, курса</li>
+              <li>Страница мероприятия, тура, набора, курса <a href="https://tanyabunina.ru" target="_blank" rel="noopener">Например, курс</a></li>
               <li>Свой адрес сайта, например salon-vesna.ru, и почта на нём</li>
               <li>Яндекс Карты, 2ГИС и Google: чтобы вас находили рядом</li>
               <li>Перенос сайта от прежнего исполнителя</li>
@@ -742,10 +864,10 @@
           </details>
         </li>
 
-        <li class="group">
+        <li class="group" id="g-clients">
           <details>
             <summary>
-              <span class="num">8<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-clients"/></svg><i>8 пунктов</i></span>
               <span>
                 <h3>Клиенты и заявки</h3>
                 <span class="hint">Бот, который записывает на время, онлайн-запись с календарём, напоминания клиентам, и ещё пять пунктов</span>
@@ -765,10 +887,10 @@
           </details>
         </li>
 
-        <li class="group">
+        <li class="group" id="g-self">
           <details>
             <summary>
-              <span class="num">8<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-self"/></svg><i>8 пунктов</i></span>
               <span>
                 <h3>Для себя, а не для дела</h3>
                 <span class="hint">Бизнеса может и не быть: оцифровать архив, бот для клуба, умный дом без подписок, и ещё пять пунктов</span>
@@ -776,7 +898,7 @@
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>Небольшая программа под вашу задачу, которой нигде нет</li>
+              <li>Небольшая программа под вашу задачу, которой нигде нет <a href="../#apps" target="_blank" rel="noopener">Как моё приложение для Mac</a></li>
               <li>Бот для чата, клуба, сообщества по интересам</li>
               <li>Оцифровать архив: плёнки, бумаги, записи, альбомы</li>
               <li>Сайт-память о семье, поездке, проекте</li>
@@ -788,10 +910,10 @@
           </details>
         </li>
 
-        <li class="group">
+        <li class="group" id="g-routine">
           <details>
             <summary>
-              <span class="num">8<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-routine"/></svg><i>8 пунктов</i></span>
               <span>
                 <h3>Рутина, которую делает машина</h3>
                 <span class="hint">Еженедельные отчёты, договор и счёт по шаблону, цены конкурентов, и ещё пять пунктов</span>
@@ -811,10 +933,10 @@
           </details>
         </li>
 
-        <li class="group">
+        <li class="group" id="g-ai">
           <details>
             <summary>
-              <span class="num">8<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-ai"/></svg><i>8 пунктов</i></span>
               <span>
                 <h3>Помощники на искусственном интеллекте</h3>
                 <span class="hint">Отвечает клиентам по вашему прайсу, переводит звонки в текст, ищет по вашим документам, и ещё пять пунктов</span>
@@ -834,10 +956,10 @@
           </details>
         </li>
 
-        <li class="group">
+        <li class="group" id="g-look">
           <details>
             <summary>
-              <span class="num">8<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-look"/></svg><i>8 пунктов</i></span>
               <span>
                 <h3>Как вас видят</h3>
                 <span class="hint">Ролик из ваших фотографий, оформление профилей, логотип и цвета, и ещё пять пунктов</span>
@@ -857,10 +979,10 @@
           </details>
         </li>
 
-        <li class="group">
+        <li class="group" id="g-numbers">
           <details>
             <summary>
-              <span class="num">6<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-numbers"/></svg><i>6 пунктов</i></span>
               <span>
                 <h3>Цифры и решения</h3>
                 <span class="hint">Выручка и заявки на одном экране, какая реклама окупилась, сколько закупать под сезон, и ещё три пункта</span>
@@ -878,10 +1000,10 @@
           </details>
         </li>
 
-        <li class="group">
+        <li class="group" id="g-order">
           <details>
             <summary>
-              <span class="num">6<i>пунктов</i></span>
+              <span class="num"><svg class="ico"><use href="#i-order"/></svg><i>6 пунктов</i></span>
               <span>
                 <h3>Порядок и спокойствие</h3>
                 <span class="hint">Резервные копии, доступы на ваше имя, проверка сайта до запуска, и ещё три пункта</span>
@@ -978,37 +1100,93 @@
       <div class="sec-head">
         <span class="label">Из сделанного</span>
         <h2>Живое, а не картинки на память</h2>
+        <p>Всё открывается и работает. Два сайта сделаны для заказчиков, два собраны как пример: компании придуманы, сайты настоящие.</p>
       </div>
       <div class="works">
-        <a class="work" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
-          <div class="shot"><img src="../assets/work-kratno.webp" alt="Пример сайта для консалтинга" loading="lazy" width="600" height="360"></div>
-          <h3>Бюро «Кратно»</h3>
-          <span>Как выглядит сайт услуг: понятная структура, кейсы, заявка. Компания придумана, сайт настоящий.</span>
-          <span class="go">Посмотреть</span>
-        </a>
-        <a class="work" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
-          <div class="shot"><img src="../assets/work-signal.webp" alt="Пример сайта для агентства" loading="lazy" width="600" height="360"></div>
-          <h3>Студия «Сигнал»</h3>
-          <span>Для тех, кто продаёт результат: цифры, отзывы, расчёт прямо на странице. Компания придумана, сайт настоящий.</span>
-          <span class="go">Посмотреть</span>
-        </a>
-        <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
+        <a class="work work--client" href="https://horsesfarm.ru" target="_blank" rel="noopener">
           <div class="shot"><img src="../assets/work-horsesfarm.webp" alt="Сайт конного двора в Сержантово" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Заказ клиента</span>
           <h3>Конный двор в Сержантово</h3>
           <span>Афиша, животные, цены, дорога. Хозяйка меняет тексты и фотографии сама, со своего телефона.</span>
           <span class="go">Открыть сайт</span>
         </a>
+        <a class="work work--client" href="https://tanyabunina.ru" target="_blank" rel="noopener">
+          <div class="shot"><img src="../assets/work-tanyabunina.webp" alt="Сайт онлайн-курса Татьяны Буниной" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Заказ клиента</span>
+          <h3>Курс Татьяны Буниной</h3>
+          <span>Страница авторского онлайн-курса: программа, тарифы, запись в Telegram. Живёт по своему адресу, заказчица ведёт сама.</span>
+          <span class="go">Открыть сайт</span>
+        </a>
+        <a class="work work--demo" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
+          <div class="shot"><img src="../assets/work-kratno.webp" alt="Пример сайта для консалтинга" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Демонстрация</span>
+          <h3>Бюро «Кратно»</h3>
+          <span>Как выглядит сайт услуг: понятная структура, кейсы, заявка. Компания придумана, сайт настоящий.</span>
+          <span class="go">Посмотреть</span>
+        </a>
+        <a class="work work--demo" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
+          <div class="shot"><img src="../assets/work-signal.webp" alt="Пример сайта для агентства" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Демонстрация</span>
+          <h3>Студия «Сигнал»</h3>
+          <span>Для тех, кто продаёт результат: цифры, отзывы, расчёт прямо на странице. Компания придумана, сайт настоящий.</span>
+          <span class="go">Посмотреть</span>
+        </a>
       </div>
     </section>
 
-    <section class="rule reveal" data-chapter="V">
+    <section class="rule reveal" id="ready" data-chapter="V">
+      <div class="sec-head">
+        <span class="label">Готовое</span>
+        <h2>Можно взять <em>сегодня</em>, цена известна</h2>
+        <p>Три вещи, которые не нужно обсуждать: скачали или заказали, получили.</p>
+      </div>
+      <div class="ready-grid">
+        <a class="ready-card" href="../#apps">
+          <div class="ready-head">
+            <h3>Qwerty Switcher</h3>
+            <span class="price">6 $ / мес</span>
+          </div>
+          <p>Приложение для Mac: само исправляет набранное в неверной раскладке, работает без облака. 14 дней бесплатно, карта не нужна.</p>
+          <span class="go">Скачать и попробовать</span>
+        </a>
+        <a class="ready-card" href="../rkn-audit/">
+          <div class="ready-head">
+            <h3>Аудит сайта на штрафы РКН</h3>
+            <span class="price">500 ₽</span>
+          </div>
+          <p>Проверяю сайт по 16 пунктам закона о персональных данных: формы, согласия, зарубежные сервисы. Отчёт с суммами возможных штрафов за один день.</p>
+          <span class="go">Заказать проверку</span>
+        </a>
+        <a class="ready-card" href="../case-audit/">
+          <div class="ready-head">
+            <h3>Починка сайта из нейросети</h3>
+            <span class="price">119 $</span>
+          </div>
+          <p>Сайт собрали в нейросети, и он ведёт себя странно. Нахожу то, чего не видит ни один автоскан, чиню и показываю до и после.</p>
+          <span class="go">Посмотреть образец отчёта</span>
+        </a>
+      </div>
+      <p class="after-catalog marked">Всё остальное делается под вас. Сумму называю после разговора, до начала работы, и потом не меняю. <a href="#faq-price">Подробнее про цену</a>.</p>
+      <div class="maker">
+        <div class="maker-text">
+          <span class="label">Кто делает</span>
+          <p>Александр Шульгин, разработчик. Кроме сайтов и ботов для небольшого дела делаю торговые системы, приложения для Mac и исследовательские задачи. Если хочется разобраться в технической стороне, есть подробное портфолио и магазин готового.</p>
+        </div>
+        <div class="maker-links">
+          <a href="https://shulgin.is-a.dev" target="_blank" rel="noopener">Портфолио для технических людей</a>
+          <a href="../">Магазин готового</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rule reveal" data-chapter="VI">
       <div class="sec-head sec-head--indent">
         <span class="label">Частые вопросы</span>
         <h2>То, что спрашивают <em>до начала</em></h2>
       </div>
       <div class="faq-wrap">
       <div class="faq">
-        <details>
+        <details id="faq-price">
           <summary>Сколько это стоит?</summary>
           <p>Оценка и макет бесплатные: сумму вы узнаёте до начала работы, и потом она не меняется. Точную цифру заранее не публикую честно: одна и та же на словах задача бывает на два дня и на месяц. Проще с другой стороны: скажите, в какой бюджет хотите уложиться, и я отвечу, что в него реально помещается.</p>
         </details>
@@ -1359,6 +1537,30 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
     send.click();
   });
   form.addEventListener('submit', function (e) { e.preventDefault(); });
+})();
+</script>
+<script>
+/* Плитки офферов ведут на группы каталога: открываем нужный details и прокручиваем к нему. */
+(function () {
+  function openGroup(id) {
+    if (!id) return;
+    var li = document.getElementById(id);
+    if (!li) return;
+    var details = li.querySelector('details');
+    if (details) details.open = true;
+    li.scrollIntoView();
+  }
+  document.querySelectorAll('.offers a[href^="#g-"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      openGroup(a.getAttribute('href').slice(1));
+    });
+  });
+  function fromHash() {
+    var h = location.hash.slice(1);
+    if (h.indexOf('g-') === 0) openGroup(h);
+  }
+  addEventListener('hashchange', fromHash);
+  fromHash();
 })();
 </script>
 </body>
