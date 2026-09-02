@@ -4,17 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
+/* history.replaceState (see the engine after <body>) changes the visible address, and with it the
+   base URL for relative links/src -- lazy images fetched AFTER the switch would otherwise resolve at
+   the wrong depth. Pin the base to the real load address: doesn't affect already-requested resources,
+   only guards what loads later. */
 (function () {
   try {
-    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
-    var here = 'en';
-    var saved = localStorage.getItem('lang');
-    var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
-    if (want !== here) location.replace('../');
+    var b = document.createElement('base');
+    b.href = location.href;
+    document.head.appendChild(b);
   } catch (e) {}
 })();
 </script>
-<title>Aleksandr Shulgin, developer: websites, bots, automation, apps</title>
+<script>
+/* If the saved or auto-detected language doesn't match the file's own language,
+   hide the page until the in-place translation runs (see the script right after <body>). */
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var here = document.documentElement.getAttribute('lang') || 'en';
+    var saved = localStorage.getItem('lang');
+    var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+    if (want !== here) {
+      window.__i18nWant = want;
+      document.documentElement.style.visibility = 'hidden';
+    }
+  } catch (e) {}
+})();
+</script>
+<title data-i18n="t0">Aleksandr Shulgin, developer: websites, bots, automation, apps</title>
 <meta name="description" content="I turn a task described in plain words into working software: websites, bots, routine automation, AI assistants, apps. An estimate within one business day, the price is fixed before work starts.">
 <link rel="stylesheet" href="../../fonts/fonts.css">
 <link rel="canonical" href="https://shulgin.is-a.dev/store/prosto/en/">
@@ -324,7 +342,7 @@
   }
 
   /* ready-made, priced */
-  .ready-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); margin-top: clamp(2rem, 4vw, 3rem); }
+  .ready-grid { display: grid; grid-template-columns: repeat(var(--ready-cols, 2), minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); margin-top: clamp(2rem, 4vw, 3rem); }
   .ready-grid > * { min-width: 0; }
   .ready-card { display: block; text-decoration: none; color: inherit; border-top: 1px solid var(--line); padding: 1.6rem 0 1.8rem; transition: transform .3s var(--ease), border-color .3s var(--ease); }
   .ready-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
@@ -498,16 +516,116 @@
 </style>
 </head>
 <body>
+<script type="application/json" id="i18n-data">{"dict":{"ru": {"t1": "Александр Шульгин", "t2": "Разработчик. Сайты, боты, автоматизация, приложения", "t3": "Написать в Telegram", "t4": "Разработка под задачу", "t5": "<span id=\"heroLead1Wrap\">Превращаю задачу, объяснённую словами, </span><em id=\"heroEm\">в работающую программу</em>.", "t6": "<span id=\"lead1\">Сайт, бот, автоматизация, приложение, помощник на искусственном интеллекте.</span> Опишите, что мешает или чего хочется, обычными словами. За один рабочий день отвечу, решается ли это, как и сколько стоит.", "t7": "Получить оценку за день", "t8": "Посмотреть работы", "t9": "Готовое задание не нужно. Отвечаю сам, без менеджеров. <a href=\"mailto:sanexxx777@gmail.com\">Удобнее почтой</a>", "t10": "Цена известна до старта", "t11": "Смета письменно до начала работы. Потом не меняется.", "t12": "Оценка за один день", "t13": "Пишете сегодня, завтра знаете, делается ли и за сколько.", "t14": "Отвечает человек", "t15": "Разговариваете с тем, кто делает, а не с менеджером.", "t16": "С чем приходят чаще всего", "t17": "С чем приходят чаще всего", "t18": "<a href=\"#g-site\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><circle cx=\"6.5\" cy=\"7\" r=\".6\"/><circle cx=\"9\" cy=\"7\" r=\".6\"/></svg><strong>Сайт, который вы правите сами</strong><span>Цены и фото меняете с телефона, без программиста</span></a>", "t19": "<a href=\"#g-clients\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"15\" rx=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"7\" y1=\"3\" x2=\"7\" y2=\"6\"/><line x1=\"17\" y1=\"3\" x2=\"17\" y2=\"6\"/><path d=\"M8 14l2.5 2.5L16 11\"/></svg><strong>Клиенты записываются сами</strong><span>Бот или страница записи, вам приходит уведомление</span></a>", "t20": "<a href=\"#g-ai\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z\"/><path d=\"M13 6.5 14 9l2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5Z\"/></svg><strong>Помощник на ИИ отвечает за вас</strong><span>По вашему прайсу и правилам, круглосуточно</span></a>", "t21": "<a href=\"#g-routine\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12a8 8 0 0 1 13.7-5.7L20 8\"/><path d=\"M20 4v4h-4\"/><path d=\"M20 12a8 8 0 0 1-13.7 5.7L4 16\"/><path d=\"M4 20v-4h4\"/></svg><strong>Отчёты приходят сами</strong><span>Выгрузки, договоры, счета по шаблону, без рук</span></a>", "t22": "<a href=\"#g-look\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z\"/><circle cx=\"12\" cy=\"12\" r=\"2.6\"/></svg><strong>Соцсети ведутся сами</strong><span>Пост выходит каждый день по вашему плану</span></a>", "t23": "<a href=\"#ready\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 12.5 12.5 20a1.5 1.5 0 0 1-2.1 0L4 13.6a1.5 1.5 0 0 1 0-2.1L11.5 4H19a1 1 0 0 1 1 1v7.5Z\"/><circle cx=\"15.5\" cy=\"8.5\" r=\"1.4\"/></svg><strong>Готовое с ценой</strong><span>Приложение и два аудита, можно взять сегодня</span></a>", "t24": "<a href=\"https://t.me/Aleksandr_NFA\" data-cta=\"offers-other\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 5.5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 4v-4H6a2 2 0 0 1-2-2v-8Z\"/><path d=\"M12 8.2v3.3\"/><circle cx=\"12\" cy=\"14\" r=\".6\"/></svg><strong>Что-то другое</strong><span>Опишите задачу. За день скажу, решается ли и сколько стоит</span></a>", "t25": "Сделанное", "t26": "Открывается <em>и работает</em>", "t27": "Не картинки на память: всё по живым адресам. Два сайта сделаны по заказу, два собраны как пример: компании придуманы, сайты настоящие.", "t28": "Заказ", "t29": "Конный двор в Сержантово", "t30": "Афиша, животные, цены, дорога. Хозяйка меняет тексты и фотографии сама, со своего телефона, программист ей для этого не нужен.", "t31": "Открыть сайт", "t32": "Заказ", "t33": "Курс Татьяны Буниной", "t34": "Страница авторского онлайн-курса: программа, тарифы, запись в Telegram. Живёт по своему адресу, заказчица ведёт сама.", "t35": "Открыть сайт", "t36": "Демонстрация", "t37": "Бюро «Кратно»", "t38": "Как выглядит сайт услуг: понятная структура, кейсы, заявка. Компания придумана, сайт настоящий.", "t39": "Посмотреть", "t40": "Демонстрация", "t41": "Студия «Сигнал»", "t42": "Для тех, кто продаёт результат: цифры, отзывы, расчёт прямо на странице. Компания придумана, сайт настоящий.", "t43": "Посмотреть", "t44": "Кроме сайтов: торговые системы, которые работают на реальных деньгах, приложение для Mac в магазине, исследовательские и аналитические задачи. Технические подробности в <a href=\"https://shulgin.is-a.dev\" target=\"_blank\" rel=\"noopener\">портфолио</a>.", "t45": "Готовое", "t46": "Можно взять <em>сегодня</em>, цена известна", "t47": "Три вещи, которые не нужно обсуждать: скачали или заказали, получили. Заодно понятен порядок цен.", "t48": "Всё остальное делается под вас. Сумму называю письменно после разговора, до начала работы, и потом не меняю. <a href=\"#faq-price\">Подробнее про цену</a>.", "t49": "Как это происходит", "t50": "Без терминов и брифов на <em>десять листов</em>", "t51": "Разговор и оценка", "t52": "Пятнадцать минут в переписке или голосом. Рассказываете, чем занимаетесь и что мешает. Вопросы задаю я, разбираться в технике вам не нужно. К концу следующего рабочего дня у вас письменно: что делаем, сколько займёт, сколько стоит.", "t53": "Показываю, как будет", "t54": "Через несколько дней присылаю макет или работающий кусочек: на ваших фотографиях и текстах, а не абстрактный пример из интернета.", "t55": "Правим вместе", "t56": "Говорите, что поменять. Меняю. Это часть работы, а не «дополнительная услуга по тарифу».", "t57": "Запускаю", "t58": "Открывается по вашему адресу, работает на телефонах, заявки приходят вам. Показываю, как всем этим пользоваться, простыми словами.", "t59": "Остаюсь рядом", "t60": "Месяц после запуска мелкие правки входят в цену. Дальше по-человечески: написали, ответил.", "t61": "Уже понятно, что нужно? <a href=\"https://t.me/Aleksandr_NFA\" data-cta=\"steps-tg\">Напишите в двух словах</a>, за день отвечу, как это решается и сколько стоит.", "t62": "Честно про совместимость", "t63": "Кому подойдёт, <em>а кому нет</em>", "t64": "Хорошо получается, когда", "t65": "задача описана результатом: «хочу, чтобы клиенты записывались сами», а не «нужен сайт на такой-то платформе»", "t66": "нужен один человек, который отвечает за всё, а не команда с менеджером", "t67": "в первые дни есть кому ответить на мои вопросы и прислать материалы", "t68": "дело любого размера: от мастера, который работает один, до компании с отделами", "t69": "Не берусь, когда", "t70": "«сделайте как у конкурента, один в один»", "t71": "нужно к завтрашнему утру, а работы на две недели", "t72": "некому принимать решения: правки идут от трёх человек и противоречат друг другу", "t73": "накрутки, спам-рассылки, обман пользователей", "t74": "Как я работаю", "t75": "Правила, от которых не отступаю", "t76": "<h3>Всё остаётся вашим</h3><p>Адрес, доступы, материалы. Никакой платы за то, что сделанное просто работает.</p>", "t77": "<h3>Цена не растёт по ходу</h3><p>Сумму называю письменно после разговора, до начала работы, и потом не меняю.</p>", "t78": "<h3>Скажу, если не стоит</h3><p>Когда задача не окупится или решается готовым сервисом, вы услышите это сразу.</p>", "t79": "<h3>Оформляем официально</h3><p>Я самозанятый: договор и чек из налоговой, оплата на карту или счёт, как удобно вам или вашей бухгалтерии.</p>", "t80": "Полный список", "t81": "Шестьдесят задач, <em>которые уже решал</em>", "t82": "Восемь групп, откройте свою. Список неполный: половина задач приходит своими словами, и это нормально.", "t83": "Место в интернете", "t84": "Сайт с ценами и заявкой, магазин с оплатой, перенос от прежнего исполнителя, и ещё пять пунктов", "t85": "Сайт: услуги, цены, фотографии, форма заявки", "t86": "Сайт, который вы правите сами с телефона <a href=\"https://horsesfarm.ru\" target=\"_blank\" rel=\"noopener\">Так у конного двора</a>", "t87": "Магазин с корзиной и приёмом оплаты", "t88": "Страница мероприятия, тура, набора, курса <a href=\"https://tanyabunina.ru\" target=\"_blank\" rel=\"noopener\">Например, курс</a>", "t89": "Свой адрес сайта, например salon-vesna.ru, и почта на нём", "t90": "Яндекс Карты, 2ГИС и Google: чтобы вас находили рядом", "t91": "Перенос сайта от прежнего исполнителя", "t92": "Починить то, что уже есть и работает плохо", "t93": "Клиенты и заявки", "t94": "Бот, который записывает на время, онлайн-запись с календарём, напоминания клиентам, и ещё пять пунктов", "t95": "Бот в Telegram: принимает заявку и записывает на время", "t96": "Онлайн-запись с календарём и свободными окнами", "t97": "Напоминание клиенту накануне визита", "t98": "Заявки приходят вам в телефон сразу", "t99": "Простая база клиентов: кто, когда, на что приходил", "t100": "Приём аванса и чеки", "t101": "Сбор отзывов после визита, без вашего участия", "t102": "Рассылка по своим: акция, новинка, «давно не были»", "t103": "Для себя, а не для дела", "t104": "Бизнеса может и не быть: оцифровать архив, бот для клуба, умный дом без подписок, и ещё пять пунктов", "t105": "Бот для чата, клуба, сообщества по интересам", "t106": "Оцифровать архив: плёнки, бумаги, записи, альбомы", "t107": "Сайт-память о семье, поездке, проекте", "t108": "Учёт коллекции, библиотеки, рецептов, тренировок", "t109": "Умный дом и бытовая автоматика без подписок", "t110": "Игра или интерактивная штука, которую хочется сделать", "t111": "Свой ИИ дома: приватный, без отправки данных наружу", "t112": "Рутина, которую делает машина", "t113": "Еженедельные отчёты, договор и счёт по шаблону, цены конкурентов, и ещё пять пунктов", "t114": "Отчёты и выгрузки, которые вы сводите каждую неделю", "t115": "Перенос данных между таблицами, сайтом и площадками, без ручного копирования", "t116": "Слежение за ценами конкурентов", "t117": "Договор, счёт и акт по шаблону, за секунду", "t118": "Учёт остатков, смен, расписания", "t119": "Заявки с Авито, ВКонтакте, WhatsApp и сайта приходят в одно окно", "t120": "Напоминания сотрудникам и себе", "t121": "Разбор почты и документов без ручного перекладывания", "t122": "Помощники на искусственном интеллекте", "t123": "Отвечает клиентам по вашему прайсу, переводит звонки в текст, ищет по вашим документам, и ещё пять пунктов", "t124": "Отвечает клиентам по вашему прайсу и правилам", "t125": "Пишет описания товаров, посты и ответы на отзывы", "t126": "Переводит звонки и голосовые в текст и краткую выжимку", "t127": "Поиск по вашим документам: «где был тот договор»", "t128": "Сортирует входящие заявки по важности", "t129": "Разбирает отзывы и показывает, на что жалуются чаще всего", "t130": "Помощник, живущий на вашем компьютере, без облака", "t131": "Перевод и озвучка ваших материалов", "t132": "Как вас видят", "t133": "Ролик из ваших фотографий, оформление профилей, логотип и цвета, и ещё пять пунктов", "t134": "Короткий ролик для соцсетей из ваших фотографий", "t135": "Оформление профилей: обложка, аватар, шапка", "t136": "Логотип и фирменные цвета, если их нет", "t137": "Презентация и коммерческое предложение", "t138": "Обработка фотографий товара под единый стиль", "t139": "Печатное: визитка, меню, ценник, вывеска", "t140": "Видео с экрана: как пользоваться вашим продуктом", "t141": "Цифры и решения", "t142": "Выручка и заявки на одном экране, какая реклама окупилась, сколько закупать под сезон, и ещё три пункта", "t143": "Простой экран: выручка, заявки, загрузка", "t144": "Какая реклама окупилась, а какая нет", "t145": "Сколько закупать под сезон", "t146": "Кто из клиентов возвращается, а кто пропал", "t147": "Слежение за упоминаниями о вас", "t148": "Сведение данных из разных мест в одну картину", "t149": "Порядок и спокойствие", "t150": "Резервные копии, доступы на ваше имя, проверка сайта до запуска, и ещё три пункта", "t151": "Резервные копии, чтобы ничего не исчезло", "t152": "Доступы, оформленные на вас, а не на подрядчика", "t153": "Проверка сайта на дыры до запуска", "t154": "Скорость: чтобы страница открывалась сразу", "t155": "Разбор «что у меня вообще есть» и что с этим делать", "t156": "Второе мнение по работе другого исполнителя", "t157": "Частые вопросы", "t158": "То, что спрашивают <em>до начала</em>", "t159": "Сколько это стоит?", "t160": "Сумму называю письменно после разговора, до начала работы, и потом не меняю. Точную цифру заранее не публикую: одна и та же на словах задача бывает на два дня и на месяц. Порядок цен виден по готовому выше.", "t161": "А что придётся платить потом?", "t162": "За то, что сделанное просто работает, платить мне не нужно: абонентской платы у меня нет. Останутся прямые расходы: адрес сайта и хостинг, а если делаем бота или ИИ-помощника, ещё сервер и плата за обращения к нейросети. Сколько это выходит в месяц, посчитаю и назову до начала работы, платите вы напрямую, не через меня. Мелкие правки месяц после запуска входят в цену, крупные доработки считаем отдельно.", "t163": "Я совсем не разбираюсь в технике.", "t164": "Так и должно быть, это моя часть. От вас нужен рассказ о деле обычными словами. Термины я в разговор не тащу, а после запуска показываю, куда нажимать.", "t165": "Сколько ждать?", "t166": "Простые вещи: несколько дней. Сайт: неделя или две. Большая автоматизация: дольше, но по частям, чтобы вы видели движение, а не ждали в тишине.", "t167": "А если результат не понравится?", "t168": "Промежуточный результат показываю до запуска, правки по ходу входят в работу. Принимаете работу вы, а не я: пока не сказали «да», не запускаю.", "t169": "У меня нет ни фотографий, ни текстов.", "t170": "Обычное дело. Тексты напишу после разговора, вы поправите. По фотографиям подскажу, что снять на телефон: этого почти всегда достаточно.", "t171": "Кому потом принадлежит сделанное?", "t172": "Вам. Адрес и доступы оформляются на вас, отдаю всё. Я не держу работу в заложниках и не беру абонентскую плату за то, что она просто работает.", "t173": "Я в другом городе, это помешает?", "t174": "Нет. Работаю с любым регионом, общаемся в мессенджере или голосом. Разница во времени решается перепиской.", "t175": "А то, чего вы раньше не делали?", "t176": "Берусь, если вижу, как это сделать хорошо: черновую работу пишет искусственный интеллект, я ставлю задачу, проверяю и отвечаю за результат, поэтому объём как у студии. Если задача не по силам или дешевле решается готовым сервисом, скажу сразу и подскажу, куда смотреть.", "t177": "если вопроса нет в списке", "t178": "Спросите напрямую, это быстрее, чем искать. Отвечаю без скриптов и без «менеджер свяжется с вами».", "t179": "Задать вопрос в Telegram", "t180": "Опишите задачу, <em>завтра узнаете</em>, решается ли и сколько стоит", "t181": "Отвечу, что имеет смысл сделать в вашем случае, а что деньги на ветер. Даже если работать со мной вы в итоге не станете.", "t182": "Написать в Telegram", "t183": "Написать на почту", "t184": "или соберите заявку здесь", "t185": "Имя", "t186": "Имя", "t187": "Telegram, WhatsApp, телефон или почта", "t188": "Telegram, WhatsApp, телефон или почта", "t189": "Что отнимает время", "t190": "Что отнимает время", "t191": "Отправить в Telegram", "t192": "Форма ничего не отправляет и не сохраняет: кнопка открывает Telegram с готовым текстом, он же копируется в буфер.", "t193": "<b>Что писать</b><span>Своими словами: чем занимаетесь и что не устраивает. Готовое задание не нужно.</span>", "t194": "<b>Что будет дальше</b><span>Задам несколько вопросов и к концу следующего рабочего дня напишу, как это решается, сколько займёт и сколько стоит.</span>", "t195": "<b>Что это вам стоит</b><span>Разговор и оценка ничего не стоят, дальше решаете вы.</span>", "t196": "Александр Шульгин. Работаю по всей России и онлайн с любой страной.", "t197": "Сайт конного двора в Сержантово", "t198": "Сайт онлайн-курса Татьяны Буниной", "t199": "Пример сайта для консалтинга", "t200": "Пример сайта для агентства", "t0": "Александр Шульгин — разработчик: сайты, боты, автоматизация, приложения", "t201": "Небольшая программа под вашу задачу, которой нигде нет ", "t202": "Как моё приложение для Mac", "t203": "Соцсети, которые ведутся сами: каждый день выходит пост. ", "t204": "Посмотреть, как это выглядит", "t205": "Данные и приватность", "t210": "6 $ / мес", "t211": "Приложение для Mac: само исправляет набранное в неверной раскладке, работает без облака. 14 дней бесплатно, карта не нужна.", "t212": "Скачать и попробовать", "t213": "Починка сайта из нейросети", "t214": "119 $", "t215": "Сайт собрали в нейросети, и он ведёт себя странно. Нахожу то, чего не видит ни один автоскан, чиню и показываю до и после.", "t216": "Посмотреть образец отчёта"}, "en": {"t1": "Aleksandr Shulgin", "t2": "Developer. Websites, bots, automation, apps", "t3": "Message on Telegram", "t4": "Development for your task", "t5": "<span id=\"heroLead1Wrap\">I turn a task described in plain words </span><em id=\"heroEm\">into working software</em>.", "t6": "<span id=\"lead1\">A website, a bot, automation, an app, an AI assistant.</span> Describe what gets in your way or what you want, in your own words. Within one business day I'll tell you whether it can be done, how, and what it costs.", "t7": "Get an estimate in a day", "t8": "See the work", "t9": "No brief needed. You talk to me, not to a manager. <a href=\"mailto:sanexxx777@gmail.com\">Prefer email?</a>", "t10": "Price fixed before we start", "t11": "A written quote before work begins. It doesn't change afterwards.", "t12": "Estimate in one day", "t13": "Write today, tomorrow you know whether it can be done and for how much.", "t14": "A person answers", "t15": "You talk to the one who does the work, not a manager.", "t16": "What people come with most often", "t17": "What people come with most often", "t18": "<a href=\"#g-site\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><circle cx=\"6.5\" cy=\"7\" r=\".6\"/><circle cx=\"9\" cy=\"7\" r=\".6\"/></svg><strong>A website you edit yourself</strong><span>Change prices and photos from your phone, no developer needed</span></a>", "t19": "<a href=\"#g-clients\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"15\" rx=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"7\" y1=\"3\" x2=\"7\" y2=\"6\"/><line x1=\"17\" y1=\"3\" x2=\"17\" y2=\"6\"/><path d=\"M8 14l2.5 2.5L16 11\"/></svg><strong>Clients book themselves</strong><span>A bot or a booking page, you get a notification</span></a>", "t20": "<a href=\"#g-ai\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z\"/><path d=\"M13 6.5 14 9l2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5Z\"/></svg><strong>An AI assistant answers for you</strong><span>By your price list and your rules, around the clock</span></a>", "t21": "<a href=\"#g-routine\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12a8 8 0 0 1 13.7-5.7L20 8\"/><path d=\"M20 4v4h-4\"/><path d=\"M20 12a8 8 0 0 1-13.7 5.7L4 16\"/><path d=\"M4 20v-4h4\"/></svg><strong>Reports arrive on their own</strong><span>Exports, contracts, invoices from templates, hands-free</span></a>", "t22": "<a href=\"#g-look\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z\"/><circle cx=\"12\" cy=\"12\" r=\"2.6\"/></svg><strong>Social media runs itself</strong><span>A post goes out every day on your schedule</span></a>", "t23": "<a href=\"#ready\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 12.5 12.5 20a1.5 1.5 0 0 1-2.1 0L4 13.6a1.5 1.5 0 0 1 0-2.1L11.5 4H19a1 1 0 0 1 1 1v7.5Z\"/><circle cx=\"15.5\" cy=\"8.5\" r=\"1.4\"/></svg><strong>Ready-made with a price</strong><span>An app and an audit, available today</span></a>", "t24": "<a href=\"https://t.me/Aleksandr_NFA\" data-cta=\"offers-other\"><svg class=\"ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 5.5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 4v-4H6a2 2 0 0 1-2-2v-8Z\"/><path d=\"M12 8.2v3.3\"/><circle cx=\"12\" cy=\"14\" r=\".6\"/></svg><strong>Something else</strong><span>Describe the task. Within a day I'll say whether it can be done and what it costs</span></a>", "t25": "Done", "t26": "Live <em>and working</em>", "t27": "Not screenshots for the album: everything is live at its own address. Two sites were built for clients, two were built as examples: the companies are invented, the sites are real.", "t28": "Client work", "t29": "Horse yard in Serzhantovo", "t30": "Events, animals, prices, directions. The owner edits texts and photos herself, from her phone, no developer required.", "t31": "Open the site", "t32": "Client work", "t33": "Tatiana Bunina's course", "t34": "A page for an author's online course: programme, pricing, sign-up via Telegram. Lives at its own address, the client runs it herself. Built for a client in Russia.", "t35": "Open the site", "t36": "Demo", "t37": "Kratno bureau", "t38": "What a services site looks like: clear structure, cases, an enquiry form. The company is invented, the site is real.", "t39": "View", "t40": "Demo", "t41": "Signal studio", "t42": "For those who sell results: numbers, testimonials, a calculator right on the page. The company is invented, the site is real.", "t43": "View", "t44": "Beyond websites: trading systems running on real money, a Mac app in the store, research and analytics tasks. Technical details are in the <a href=\"https://shulgin.is-a.dev\" target=\"_blank\" rel=\"noopener\">portfolio</a>.", "t45": "Ready-made", "t46": "Available <em>today</em>, price known", "t47": "Two things that need no discussion: download or order, and it's yours. They also show the price range.", "t48": "Everything else is made for you. I name the sum in writing after we talk, before work starts, and it doesn't change. <a href=\"#faq-price\">More about pricing</a>.", "t49": "How it works", "t50": "No jargon and no <em>ten-page briefs</em>", "t51": "A conversation and an estimate", "t52": "Fifteen minutes in chat or by voice. You tell me what you do and what gets in the way. I ask the questions, you don't need to know the tech. By the end of the next business day you have it in writing: what we do, how long it takes, what it costs.", "t53": "I show you how it will look", "t54": "A few days later you get a mockup or a working piece: with your photos and texts, not an abstract example from the internet.", "t55": "We refine together", "t56": "You say what to change. I change it. That's part of the job, not a \"paid extra\".", "t57": "Launch", "t58": "It opens at your address, works on phones, enquiries reach you. I show you how to use it all, in plain words.", "t59": "I stay around", "t60": "Small fixes are included for a month after launch. After that, it's simple: you write, I answer.", "t61": "Already know what you need? <a href=\"https://t.me/Aleksandr_NFA\" data-cta=\"steps-tg\">Write two lines</a>, within a day I'll answer how it can be done and what it costs.", "t62": "Honest about fit", "t63": "Who it's for, <em>and who it isn't</em>", "t64": "Works well when", "t65": "the task is described as a result: \"I want clients to book themselves\", not \"I need a site on platform X\"", "t66": "you want one person responsible for everything, not a team with a manager", "t67": "in the first days someone can answer my questions and send materials", "t68": "any size of business: from a one-person practice to a company with departments", "t69": "I don't take it when", "t70": "\"make it exactly like the competitor's\"", "t71": "it's needed by tomorrow morning, and it's two weeks of work", "t72": "nobody can make decisions: edits come from three people and contradict each other", "t73": "fake engagement, spam mailings, deceiving users", "t74": "How I work", "t75": "Rules I don't bend", "t76": "<h3>Everything stays yours</h3><p>The address, the access, the materials. No fee for the fact that it simply keeps working.</p>", "t77": "<h3>The price doesn't grow along the way</h3><p>I name the sum in writing after we talk, before work starts, and it doesn't change.</p>", "t78": "<h3>I'll say if it's not worth it</h3><p>If a task won't pay off, or a ready-made service does it better, you'll hear that right away.</p>", "t79": "<h3>Official paperwork</h3><p>Contract and receipt, payment by card or invoice, whichever suits you or your accountant.</p>", "t80": "Full list", "t81": "Sixty tasks <em>I've already solved</em>", "t82": "Eight groups, open yours. The list isn't complete: half of the tasks come in people's own words, and that's fine.", "t83": "A place online", "t84": "A site with prices and a contact form, a store with payments, moving from your old developer, and five more", "t85": "A website: services, prices, photos, a contact form", "t86": "A site you edit yourself from your phone <a href=\"https://horsesfarm.ru\" target=\"_blank\" rel=\"noopener\">The horse farm works this way</a>", "t87": "A store with a cart and payments", "t88": "A page for an event, a tour, enrollment, a course <a href=\"https://tanyabunina.ru\" target=\"_blank\" rel=\"noopener\">For example, a course</a>", "t89": "Your own domain, say salon-vesna.com, and email on it", "t90": "Google Maps and local directories: so people find you nearby", "t91": "Moving your site from a previous developer", "t92": "Fixing what you already have but works poorly", "t93": "Clients and bookings", "t94": "A bot that books appointments, online booking with a calendar, reminders for clients, and five more", "t95": "A Telegram bot: takes a request and books a time slot", "t96": "Online booking with a calendar and open slots", "t97": "A reminder to the client before the visit", "t98": "Requests land on your phone right away", "t99": "A simple client list: who came, when, for what", "t100": "Taking deposits and issuing receipts", "t101": "Collecting reviews after a visit, without you lifting a finger", "t102": "A mailing list for regulars: a promo, something new, \"haven't seen you in a while\"", "t103": "For yourself, not for business", "t104": "There doesn't have to be a business: digitizing an archive, a club bot, a smart home without subscriptions, and five more", "t105": "A bot for a chat, a club, a community", "t106": "Digitizing an archive: film, papers, recordings, albums", "t107": "A memory site about a family, a trip, a project", "t108": "Tracking a collection, a library, recipes, workouts", "t109": "Smart home and household automation without subscriptions", "t110": "A game or interactive thing you've been wanting to build", "t111": "Your own AI at home: private, nothing sent outside", "t112": "Routine the machine can do", "t113": "Weekly reports, a contract and invoice from a template, competitor prices, and five more", "t114": "Reports and exports you currently compile every week", "t115": "Moving data between spreadsheets, your site and marketplaces, without copying by hand", "t116": "Tracking competitor prices", "t117": "A contract, invoice and delivery note from a template, in seconds", "t118": "Tracking inventory, shifts, schedules", "t119": "Leads from marketplaces, social media, WhatsApp and your site into one inbox", "t120": "Reminders for staff and for yourself", "t121": "Sorting email and documents without moving things by hand", "t122": "AI assistants", "t123": "Answers clients using your price list, turns calls into text, searches your documents, and five more", "t124": "Answers clients using your price list and rules", "t125": "Writes product descriptions, posts and replies to reviews", "t126": "Turns calls and voice messages into text and a short summary", "t127": "Search through your documents: \"where was that contract\"", "t128": "Sorts incoming requests by priority", "t129": "Reads through reviews and shows what people complain about most", "t130": "An assistant that lives on your own computer, no cloud", "t131": "Translation and voiceover for your materials", "t132": "How people see you", "t133": "A video made from your photos, profile design, a logo and colors, and five more", "t134": "A short video for social media made from your photos", "t135": "Profile design: cover, avatar, header", "t136": "A logo and brand colors, if you don't have them", "t137": "A pitch deck and proposal", "t138": "Editing product photos into one consistent look", "t139": "Print: business cards, menus, price tags, signage", "t140": "Screen recordings: how to use your product", "t141": "Numbers and decisions", "t142": "Revenue and leads on one screen, which ads paid off, how much to stock for the season, and three more", "t143": "A simple dashboard: revenue, leads, workload", "t144": "Which ads paid off and which didn't", "t145": "How much to order for the season", "t146": "Which clients keep coming back and who's gone quiet", "t147": "Tracking mentions of you", "t148": "Pulling data from different places into one picture", "t149": "Order and peace of mind", "t150": "Backups, access registered in your name, a security check before launch, and three more", "t151": "Backups, so nothing disappears", "t152": "Access registered to you, not to the contractor", "t153": "A security check before launch", "t154": "Speed: so the page loads right away", "t155": "Sorting out \"what do I even have\" and what to do with it", "t156": "A second opinion on another developer's work", "t157": "Common questions", "t158": "What people ask <em>before we start</em>", "t159": "What does it cost?", "t160": "I name the sum in writing after we talk, before work starts, and it doesn't change. I don't publish exact prices in advance: the same task in words can take two days or a month. The ready-made items above show the price range.", "t161": "What will I have to pay later?", "t162": "You don't pay me anything just for the finished work running: I don't charge a subscription. There are direct costs left over: the domain and hosting, and if it's a bot or an AI assistant, a server and the fee for calls to the model. I'll calculate what that comes to per month and tell you before we start, and you pay those directly, not through me. Small fixes are free for a month after launch, bigger changes we price separately.", "t163": "I don't understand tech at all.", "t164": "That's how it should be, that's my part of the job. All I need from you is a plain description of your business. I won't bring jargon into the conversation, and after launch I'll show you what to click.", "t165": "How long does it take?", "t166": "Simple things: a few days. A website: a week or two. Big automation projects: longer, but in stages, so you see progress instead of waiting in silence.", "t167": "What if I don't like the result?", "t168": "You see the intermediate result before launch, and changes along the way are part of the job. You accept the work, not me: until you say yes, it doesn't go live.", "t169": "I have no photos and no texts.", "t170": "That's normal. I'll write the text after we talk, and you'll edit it. For photos, I'll tell you what to shoot on your phone: that's almost always enough.", "t171": "Who owns the result?", "t172": "You do. The domain and access are registered in your name, I hand over everything. I don't hold the work hostage and I don't charge a subscription just for it running.", "t173": "I'm in another country, does that matter?", "t174": "No. I work with any region, we talk in a messenger or by voice. Time zones are handled by writing.", "t175": "What about things you haven't done before?", "t176": "I take it if I can see how to do it well: an AI writes the rough draft, I set the task, check and answer for the result, so the output is that of a studio. If a task is beyond me or a ready-made service does it cheaper, I'll say so right away and point you to it.", "t177": "if your question isn't here", "t178": "Ask directly, it's faster than searching. No scripts and no \"a manager will contact you\".", "t179": "Ask on Telegram", "t180": "Describe the task, <em>tomorrow you'll know</em> whether it can be done and what it costs", "t181": "I'll tell you what makes sense in your case and what would be money down the drain. Even if you end up not working with me.", "t182": "Message on Telegram", "t183": "Send an email", "t184": "or put the request together here", "t185": "Name", "t186": "Name", "t187": "Telegram, WhatsApp, phone or email", "t188": "Telegram, WhatsApp, phone or email", "t189": "What eats your time", "t190": "What eats your time", "t191": "Send via Telegram", "t192": "This form sends and stores nothing: the button opens Telegram with the text ready, and copies it to your clipboard.", "t193": "<b>What to write</b><span>In your own words: what you do and what bothers you. No brief needed.</span>", "t194": "<b>What happens next</b><span>I'll ask a few questions and by the end of the next business day write back how it can be done, how long it takes and what it costs.</span>", "t195": "<b>What it costs you</b><span>The conversation and the estimate cost nothing, the rest is your call.</span>", "t196": "Aleksandr Shulgin. Working online with any country.", "t197": "Horse farm website in Serzhantovo", "t198": "Website of Tatiana Bunina's online course", "t199": "Consulting website example", "t200": "Agency website example", "t0": "Aleksandr Shulgin, developer: websites, bots, automation, apps", "t201": "A small program built for your exact problem, one that doesn't exist off the shelf ", "t202": "Like my Mac app", "t203": "Social media that runs itself: a post goes out every day. ", "t204": "See how it looks", "t205": "Data and privacy", "t210": "$6 / mo", "t211": "A Mac app that fixes text typed in the wrong keyboard layout, no cloud involved. 14 days free, no card needed.", "t212": "Download and try", "t213": "Fixing an AI-built website", "t214": "$119", "t215": "The site was built with an AI tool and behaves oddly. I find what no automated scan sees, fix it and show before and after.", "t216": "See a sample report"}}}</script>
+<script>
+(function () {
+  var DATA = null;
+  function getDict(lang) {
+    if (!DATA) {
+      try { DATA = JSON.parse(document.getElementById('i18n-data').textContent).dict; } catch (e) { DATA = { ru: {}, en: {} }; }
+    }
+    return (lang === 'en' ? DATA.en : DATA.ru) || {};
+  }
+  function pathForLang(lang) {
+    try {
+      var hasTrailingSlash = /\/$/.test(location.pathname);
+      var parts = location.pathname.split('/').filter(Boolean);
+      var idx = parts.lastIndexOf('prosto');
+      if (idx === -1) return null;
+      var hasEn = parts[idx + 1] === 'en';
+      if (lang === 'en' && !hasEn) parts.splice(idx + 1, 0, 'en');
+      if (lang === 'ru' && hasEn) parts.splice(idx + 1, 1);
+      return '/' + parts.join('/') + (hasTrailingSlash ? '/' : '');
+    } catch (e) { return null; }
+  }
+  function renderLangNav(lang) {
+    var other = lang === 'en' ? 'ru' : 'en';
+    var otherHref = pathForLang(other) || (lang === 'ru' ? 'en/' : '../');
+    var label = lang === 'en' ? 'Page language' : 'Язык страницы';
+    /* DOM order is always RU then EN (matches the static markup in both files) --
+       only which one is <span> (current) vs <a> (switch) changes. */
+    var ruPart = lang === 'ru' ? '<span>RU</span>' : '<a href="' + otherHref + '" data-setlang="ru">RU</a>';
+    var enPart = lang === 'en' ? '<span>EN</span>' : '<a href="' + otherHref + '" data-setlang="en">EN</a>';
+    document.querySelectorAll('nav.lang').forEach(function (nav) {
+      nav.setAttribute('aria-label', label);
+      nav.innerHTML = ruPart + enPart;
+    });
+  }
+  function syncReadyGrids() {
+    /* CSS custom property, not style.gridTemplateColumns directly: an inline property would
+       override the mobile media query (.ready-grid{grid-template-columns:1fr} on narrow screens). */
+    document.querySelectorAll('.ready-grid').forEach(function (grid) {
+      var n = 0;
+      Array.prototype.forEach.call(grid.children, function (card) {
+        if (!card.hasAttribute('hidden')) n++;
+      });
+      if (n > 0) grid.style.setProperty('--ready-cols', n);
+    });
+  }
+  function applyLang(lang, opts) {
+    opts = opts || {};
+    var dict = getDict(lang);
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var id = el.getAttribute('data-i18n');
+      if (Object.prototype.hasOwnProperty.call(dict, id)) el.innerHTML = dict[id];
+    });
+    document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+      el.getAttribute('data-i18n-attr').split(';').forEach(function (pair) {
+        var idx = pair.indexOf(':');
+        if (idx === -1) return;
+        var attr = pair.slice(0, idx);
+        var id = pair.slice(idx + 1);
+        if (Object.prototype.hasOwnProperty.call(dict, id)) el.setAttribute(attr, dict[id]);
+      });
+    });
+    document.querySelectorAll('[data-i18n-only]').forEach(function (el) {
+      el.hidden = el.getAttribute('data-i18n-only') !== lang;
+    });
+    syncReadyGrids();
+    renderLangNav(lang);
+    if (window.__i18nApplyUtm) window.__i18nApplyUtm(lang);
+    if (window.__i18nSyncScene) window.__i18nSyncScene(lang);
+    if (opts.persist !== false) {
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
+    var target = pathForLang(lang);
+    if (target) {
+      try { history.replaceState(null, '', target + location.search + location.hash); } catch (e) {}
+    }
+    if (document.documentElement.style.visibility === 'hidden') {
+      document.documentElement.style.visibility = '';
+    }
+  }
+  window.__i18nApplyLang = applyLang;
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.__i18nWant) applyLang(window.__i18nWant, { persist: false });
+  });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-setlang]');
+    if (!a) return;
+    e.preventDefault();
+    var lang = a.getAttribute('data-setlang');
+    applyLang(lang, { persist: true });
+    try {
+      var q = 'p=' + encodeURIComponent(location.pathname) +
+              '&l=' + encodeURIComponent(navigator.language || '') +
+              '&r=' + encodeURIComponent(document.referrer || '');
+      navigator.sendBeacon('https://backend-test.45-82-95-142.nip.io:8443/hit?e=lang&d=' + lang + '&' + q);
+    } catch (e) {}
+  });
+})();
+</script>
 
 <header class="top">
   <div class="page top-in">
     <div class="brand">
-      <b>Aleksandr Shulgin</b>
-      <span>Developer. Websites, bots, automation, apps</span>
+      <b data-i18n="t1">Aleksandr Shulgin</b>
+      <span data-i18n="t2">Developer. Websites, bots, automation, apps</span>
     </div>
     <div class="top-right">
       <nav class="lang" aria-label="Page language"><a href="../" data-setlang="ru">RU</a><span>EN</span></nav>
-      <a class="btn ghost" href="https://t.me/Aleksandr_NFA" data-cta="header-tg">Message on Telegram</a>
+      <a data-i18n="t3" class="btn ghost" href="https://t.me/Aleksandr_NFA" data-cta="header-tg">Message on Telegram</a>
     </div>
   </div>
 </header>
@@ -565,14 +683,14 @@
   <section class="hero">
     <div class="page hero-grid">
       <div class="hero-text">
-        <span class="label">Development for your task</span>
-        <h1><span id="heroLead1Wrap">I turn a task described in plain words </span><em id="heroEm">into working software</em>.</h1>
-        <p class="lead"><span id="lead1">A website, a bot, automation, an app, an AI assistant.</span> Describe what gets in your way or what you want, in your own words. Within one business day I'll tell you whether it can be done, how, and what it costs.</p>
+        <span data-i18n="t4" class="label">Development for your task</span>
+        <h1 data-i18n="t5"><span id="heroLead1Wrap">I turn a task described in plain words </span><em id="heroEm">into working software</em>.</h1>
+        <p data-i18n="t6" class="lead"><span id="lead1">A website, a bot, automation, an app, an AI assistant.</span> Describe what gets in your way or what you want, in your own words. Within one business day I'll tell you whether it can be done, how, and what it costs.</p>
         <div class="actions">
-          <a class="btn" href="https://t.me/Aleksandr_NFA" data-cta="hero-tg">Get an estimate in a day</a>
-          <a class="btn ghost on-ink" href="#works" data-cta="hero-works">See the work</a>
+          <a data-i18n="t7" class="btn" href="https://t.me/Aleksandr_NFA" data-cta="hero-tg">Get an estimate in a day</a>
+          <a data-i18n="t8" class="btn ghost on-ink" href="#works" data-cta="hero-works">See the work</a>
         </div>
-        <p class="note">No brief needed. You talk to me, not to a manager. <a href="mailto:sanexxx777@gmail.com">Prefer email?</a></p>
+        <p data-i18n="t9" class="note">No brief needed. You talk to me, not to a manager. <a href="mailto:sanexxx777@gmail.com">Prefer email?</a></p>
       </div>
       <div class="scene" aria-hidden="true">
         <div class="scene-box" id="scene">
@@ -587,28 +705,28 @@
     <div class="page">
       <div class="facts-grid">
         <div class="fact">
-          <span class="fact-stamp-mark" id="factStamp">Price fixed before we start</span>
-          <span class="fact-sub">A written quote before work begins. It doesn't change afterwards.</span>
+          <span data-i18n="t10" class="fact-stamp-mark" id="factStamp">Price fixed before we start</span>
+          <span data-i18n="t11" class="fact-sub">A written quote before work begins. It doesn't change afterwards.</span>
         </div>
         <div class="fact">
-          <strong>Estimate in one day</strong>
-          <span class="fact-sub">Write today, tomorrow you know whether it can be done and for how much.</span>
+          <strong data-i18n="t12">Estimate in one day</strong>
+          <span data-i18n="t13" class="fact-sub">Write today, tomorrow you know whether it can be done and for how much.</span>
         </div>
         <div class="fact">
-          <strong>A person answers</strong>
-          <span class="fact-sub">You talk to the one who does the work, not a manager.</span>
+          <strong data-i18n="t14">A person answers</strong>
+          <span data-i18n="t15" class="fact-sub">You talk to the one who does the work, not a manager.</span>
         </div>
       </div>
-      <nav class="offers-strip" aria-label="What people come with most often">
-        <span class="label">What people come with most often</span>
+      <nav data-i18n-attr="aria-label:t16" class="offers-strip" aria-label="What people come with most often">
+        <span data-i18n="t17" class="label">What people come with most often</span>
         <ul class="offers-grid">
-          <li><a href="#g-site"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="6.5" cy="7" r=".6"/><circle cx="9" cy="7" r=".6"/></svg><strong>A website you edit yourself</strong><span>Change prices and photos from your phone, no developer needed</span></a></li>
-          <li><a href="#g-clients"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="7" y1="3" x2="7" y2="6"/><line x1="17" y1="3" x2="17" y2="6"/><path d="M8 14l2.5 2.5L16 11"/></svg><strong>Clients book themselves</strong><span>A bot or a booking page, you get a notification</span></a></li>
-          <li><a href="#g-ai"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z"/><path d="M13 6.5 14 9l2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5Z"/></svg><strong>An AI assistant answers for you</strong><span>By your price list and your rules, around the clock</span></a></li>
-          <li><a href="#g-routine"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/><path d="M4 20v-4h4"/></svg><strong>Reports arrive on their own</strong><span>Exports, contracts, invoices from templates, hands-free</span></a></li>
-          <li><a href="#g-look"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.6"/></svg><strong>Social media runs itself</strong><span>A post goes out every day on your schedule</span></a></li>
-          <li><a href="#ready"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5 12.5 20a1.5 1.5 0 0 1-2.1 0L4 13.6a1.5 1.5 0 0 1 0-2.1L11.5 4H19a1 1 0 0 1 1 1v7.5Z"/><circle cx="15.5" cy="8.5" r="1.4"/></svg><strong>Ready-made with a price</strong><span>An app and an audit, available today</span></a></li>
-          <li class="offer-other"><a href="https://t.me/Aleksandr_NFA" data-cta="offers-other"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 4v-4H6a2 2 0 0 1-2-2v-8Z"/><path d="M12 8.2v3.3"/><circle cx="12" cy="14" r=".6"/></svg><strong>Something else</strong><span>Describe the task. Within a day I'll say whether it can be done and what it costs</span></a></li>
+          <li data-i18n="t18"><a href="#g-site"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="6.5" cy="7" r=".6"/><circle cx="9" cy="7" r=".6"/></svg><strong>A website you edit yourself</strong><span>Change prices and photos from your phone, no developer needed</span></a></li>
+          <li data-i18n="t19"><a href="#g-clients"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="7" y1="3" x2="7" y2="6"/><line x1="17" y1="3" x2="17" y2="6"/><path d="M8 14l2.5 2.5L16 11"/></svg><strong>Clients book themselves</strong><span>A bot or a booking page, you get a notification</span></a></li>
+          <li data-i18n="t20"><a href="#g-ai"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z"/><path d="M13 6.5 14 9l2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5Z"/></svg><strong>An AI assistant answers for you</strong><span>By your price list and your rules, around the clock</span></a></li>
+          <li data-i18n="t21"><a href="#g-routine"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/><path d="M4 20v-4h4"/></svg><strong>Reports arrive on their own</strong><span>Exports, contracts, invoices from templates, hands-free</span></a></li>
+          <li data-i18n="t22"><a href="#g-look"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.6"/></svg><strong>Social media runs itself</strong><span>A post goes out every day on your schedule</span></a></li>
+          <li data-i18n="t23"><a href="#ready"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5 12.5 20a1.5 1.5 0 0 1-2.1 0L4 13.6a1.5 1.5 0 0 1 0-2.1L11.5 4H19a1 1 0 0 1 1 1v7.5Z"/><circle cx="15.5" cy="8.5" r="1.4"/></svg><strong>Ready-made with a price</strong><span>An app and an audit, available today</span></a></li>
+          <li data-i18n="t24" class="offer-other"><a href="https://t.me/Aleksandr_NFA" data-cta="offers-other"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 4v-4H6a2 2 0 0 1-2-2v-8Z"/><path d="M12 8.2v3.3"/><circle cx="12" cy="14" r=".6"/></svg><strong>Something else</strong><span>Describe the task. Within a day I'll say whether it can be done and what it costs</span></a></li>
         </ul>
       </nav>
     </div>
@@ -617,137 +735,142 @@
   <section id="works" class="rv rv-b">
     <div class="page">
       <div class="sec-head">
-        <span class="label">Done</span>
-        <h2>Live <em>and working</em></h2>
-        <p>Not screenshots for the album: everything is live at its own address. Two sites were built for clients, two were built as examples: the companies are invented, the sites are real.</p>
+        <span data-i18n="t25" class="label">Done</span>
+        <h2 data-i18n="t26">Live <em>and working</em></h2>
+        <p data-i18n="t27">Not screenshots for the album: everything is live at its own address. Two sites were built for clients, two were built as examples: the companies are invented, the sites are real.</p>
       </div>
       <div class="works-grid">
         <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-horsesfarm.webp" alt="Horse farm website in Serzhantovo" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Client work</span>
-          <h3>Horse yard in Serzhantovo</h3>
-          <p>Events, animals, prices, directions. The owner edits texts and photos herself, from her phone, no developer required.</p>
-          <span class="go">Open the site</span>
+          <div class="shot"><img data-i18n-attr="alt:t197" src="../../assets/work-horsesfarm.webp" alt="Horse farm website in Serzhantovo" loading="lazy" width="600" height="360"></div>
+          <span data-i18n="t28" class="work-kind">Client work</span>
+          <h3 data-i18n="t29">Horse yard in Serzhantovo</h3>
+          <p data-i18n="t30">Events, animals, prices, directions. The owner edits texts and photos herself, from her phone, no developer required.</p>
+          <span data-i18n="t31" class="go">Open the site</span>
         </a>
         <a class="work" href="https://tanyabunina.ru" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-tanyabunina.webp" alt="Website of Tatiana Bunina's online course" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Client work</span>
-          <h3>Tatiana Bunina's course</h3>
-          <p>A page for an author's online course: programme, pricing, sign-up via Telegram. Lives at its own address, the client runs it herself. Built for a client in Russia.</p>
-          <span class="go">Open the site</span>
+          <div class="shot"><img data-i18n-attr="alt:t198" src="../../assets/work-tanyabunina.webp" alt="Website of Tatiana Bunina's online course" loading="lazy" width="600" height="360"></div>
+          <span data-i18n="t32" class="work-kind">Client work</span>
+          <h3 data-i18n="t33">Tatiana Bunina's course</h3>
+          <p data-i18n="t34">A page for an author's online course: programme, pricing, sign-up via Telegram. Lives at its own address, the client runs it herself. Built for a client in Russia.</p>
+          <span data-i18n="t35" class="go">Open the site</span>
         </a>
         <a class="work" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-kratno.webp" alt="Consulting website example" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Demo</span>
-          <h3>Kratno bureau</h3>
-          <p>What a services site looks like: clear structure, cases, an enquiry form. The company is invented, the site is real.</p>
-          <span class="go">View</span>
+          <div class="shot"><img data-i18n-attr="alt:t199" src="../../assets/work-kratno.webp" alt="Consulting website example" loading="lazy" width="600" height="360"></div>
+          <span data-i18n="t36" class="work-kind">Demo</span>
+          <h3 data-i18n="t37">Kratno bureau</h3>
+          <p data-i18n="t38">What a services site looks like: clear structure, cases, an enquiry form. The company is invented, the site is real.</p>
+          <span data-i18n="t39" class="go">View</span>
         </a>
         <a class="work" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-signal.webp" alt="Agency website example" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Demo</span>
-          <h3>Signal studio</h3>
-          <p>For those who sell results: numbers, testimonials, a calculator right on the page. The company is invented, the site is real.</p>
-          <span class="go">View</span>
+          <div class="shot"><img data-i18n-attr="alt:t200" src="../../assets/work-signal.webp" alt="Agency website example" loading="lazy" width="600" height="360"></div>
+          <span data-i18n="t40" class="work-kind">Demo</span>
+          <h3 data-i18n="t41">Signal studio</h3>
+          <p data-i18n="t42">For those who sell results: numbers, testimonials, a calculator right on the page. The company is invented, the site is real.</p>
+          <span data-i18n="t43" class="go">View</span>
         </a>
       </div>
-      <p class="note-line">Beyond websites: trading systems running on real money, a Mac app in the store, research and analytics tasks. Technical details are in the <a href="https://shulgin.is-a.dev" target="_blank" rel="noopener">portfolio</a>.</p>
+      <p data-i18n="t44" class="note-line">Beyond websites: trading systems running on real money, a Mac app in the store, research and analytics tasks. Technical details are in the <a href="https://shulgin.is-a.dev" target="_blank" rel="noopener">portfolio</a>.</p>
     </div>
   </section>
 
   <section id="ready" class="rv rv-a">
     <div class="page">
       <div class="sec-head">
-        <span class="label">Ready-made</span>
-        <h2>Available <em>today</em>, price known</h2>
-        <p>Two things that need no discussion: download or order, and it's yours. They also show the price range.</p>
+        <span data-i18n="t45" class="label">Ready-made</span>
+        <h2 data-i18n="t46">Available <em>today</em>, price known</h2>
+        <p data-i18n="t47">Two things that need no discussion: download or order, and it's yours. They also show the price range.</p>
       </div>
       <div class="ready-grid">
         <a class="ready-card" href="../../#apps">
-          <div class="ready-head"><h3>Qwerty Switcher</h3><span class="price">$6 / mo</span></div>
-          <p>A Mac app that fixes text typed in the wrong keyboard layout, no cloud involved. 14 days free, no card needed.</p>
-          <span class="go">Download and try</span>
+          <div class="ready-head"><h3>Qwerty Switcher</h3><span data-i18n="t210" class="price">$6 / mo</span></div>
+          <p data-i18n="t211">A Mac app that fixes text typed in the wrong keyboard layout, no cloud involved. 14 days free, no card needed.</p>
+          <span data-i18n="t212" class="go">Download and try</span>
+        </a>
+        <a class="ready-card" href="../../rkn-audit/" data-i18n-only="ru" hidden>
+          <div class="ready-head"><h3>Аудит сайта на штрафы РКН</h3><span class="price">500 ₽</span></div>
+          <p>Проверяю сайт по 16 пунктам закона о персональных данных: формы, согласия, зарубежные сервисы. Отчёт с суммами возможных штрафов за один день.</p>
+          <span class="go">Заказать проверку</span>
         </a>
         <a class="ready-card" href="../../case-audit/">
-          <div class="ready-head"><h3>Fixing an AI-built website</h3><span class="price">$119</span></div>
-          <p>The site was built with an AI tool and behaves oddly. I find what no automated scan sees, fix it and show before and after.</p>
-          <span class="go">See a sample report</span>
+          <div class="ready-head"><h3 data-i18n="t213">Fixing an AI-built website</h3><span data-i18n="t214" class="price">$119</span></div>
+          <p data-i18n="t215">The site was built with an AI tool and behaves oddly. I find what no automated scan sees, fix it and show before and after.</p>
+          <span data-i18n="t216" class="go">See a sample report</span>
         </a>
       </div>
-      <p class="note-line">Everything else is made for you. I name the sum in writing after we talk, before work starts, and it doesn't change. <a href="#faq-price">More about pricing</a>.</p>
+      <p data-i18n="t48" class="note-line">Everything else is made for you. I name the sum in writing after we talk, before work starts, and it doesn't change. <a href="#faq-price">More about pricing</a>.</p>
     </div>
   </section>
 
   <section class="rv rv-c">
     <div class="page">
       <div class="sec-head">
-        <span class="label">How it works</span>
-        <h2>No jargon and no <em>ten-page briefs</em></h2>
+        <span data-i18n="t49" class="label">How it works</span>
+        <h2 data-i18n="t50">No jargon and no <em>ten-page briefs</em></h2>
       </div>
       <ol class="steps">
         <li class="step">
           <span class="n">1</span>
           <div>
-            <h3>A conversation and an estimate</h3>
-            <p>Fifteen minutes in chat or by voice. You tell me what you do and what gets in the way. I ask the questions, you don't need to know the tech. By the end of the next business day you have it in writing: what we do, how long it takes, what it costs.</p>
+            <h3 data-i18n="t51">A conversation and an estimate</h3>
+            <p data-i18n="t52">Fifteen minutes in chat or by voice. You tell me what you do and what gets in the way. I ask the questions, you don't need to know the tech. By the end of the next business day you have it in writing: what we do, how long it takes, what it costs.</p>
           </div>
         </li>
         <li class="step">
           <span class="n">2</span>
           <div>
-            <h3>I show you how it will look</h3>
-            <p>A few days later you get a mockup or a working piece: with your photos and texts, not an abstract example from the internet.</p>
+            <h3 data-i18n="t53">I show you how it will look</h3>
+            <p data-i18n="t54">A few days later you get a mockup or a working piece: with your photos and texts, not an abstract example from the internet.</p>
           </div>
         </li>
         <li class="step">
           <span class="n">3</span>
           <div>
-            <h3>We refine together</h3>
-            <p>You say what to change. I change it. That's part of the job, not a "paid extra".</p>
+            <h3 data-i18n="t55">We refine together</h3>
+            <p data-i18n="t56">You say what to change. I change it. That's part of the job, not a "paid extra".</p>
           </div>
         </li>
         <li class="step">
           <span class="n">4</span>
           <div>
-            <h3>Launch</h3>
-            <p>It opens at your address, works on phones, enquiries reach you. I show you how to use it all, in plain words.</p>
+            <h3 data-i18n="t57">Launch</h3>
+            <p data-i18n="t58">It opens at your address, works on phones, enquiries reach you. I show you how to use it all, in plain words.</p>
           </div>
         </li>
         <li class="step">
           <span class="n">5</span>
           <div>
-            <h3>I stay around</h3>
-            <p>Small fixes are included for a month after launch. After that, it's simple: you write, I answer.</p>
+            <h3 data-i18n="t59">I stay around</h3>
+            <p data-i18n="t60">Small fixes are included for a month after launch. After that, it's simple: you write, I answer.</p>
           </div>
         </li>
       </ol>
-      <p class="note-line">Already know what you need? <a href="https://t.me/Aleksandr_NFA" data-cta="steps-tg">Write two lines</a>, within a day I'll answer how it can be done and what it costs.</p>
+      <p data-i18n="t61" class="note-line">Already know what you need? <a href="https://t.me/Aleksandr_NFA" data-cta="steps-tg">Write two lines</a>, within a day I'll answer how it can be done and what it costs.</p>
     </div>
   </section>
 
   <section class="rv rv-a">
     <div class="page">
       <div class="sec-head">
-        <span class="label">Honest about fit</span>
-        <h2>Who it's for, <em>and who it isn't</em></h2>
+        <span data-i18n="t62" class="label">Honest about fit</span>
+        <h2 data-i18n="t63">Who it's for, <em>and who it isn't</em></h2>
       </div>
       <div class="fit-grid">
         <div class="fit-col fit-col--yes">
-          <h3>Works well when</h3>
+          <h3 data-i18n="t64">Works well when</h3>
           <ul>
-            <li>the task is described as a result: "I want clients to book themselves", not "I need a site on platform X"</li>
-            <li>you want one person responsible for everything, not a team with a manager</li>
-            <li>in the first days someone can answer my questions and send materials</li>
-            <li>any size of business: from a one-person practice to a company with departments</li>
+            <li data-i18n="t65">the task is described as a result: "I want clients to book themselves", not "I need a site on platform X"</li>
+            <li data-i18n="t66">you want one person responsible for everything, not a team with a manager</li>
+            <li data-i18n="t67">in the first days someone can answer my questions and send materials</li>
+            <li data-i18n="t68">any size of business: from a one-person practice to a company with departments</li>
           </ul>
         </div>
         <div class="fit-col fit-col--no">
-          <h3>I don't take it when</h3>
+          <h3 data-i18n="t69">I don't take it when</h3>
           <ul>
-            <li>"make it exactly like the competitor's"</li>
-            <li>it's needed by tomorrow morning, and it's two weeks of work</li>
-            <li>nobody can make decisions: edits come from three people and contradict each other</li>
-            <li>fake engagement, spam mailings, deceiving users</li>
+            <li data-i18n="t70">"make it exactly like the competitor's"</li>
+            <li data-i18n="t71">it's needed by tomorrow morning, and it's two weeks of work</li>
+            <li data-i18n="t72">nobody can make decisions: edits come from three people and contradict each other</li>
+            <li data-i18n="t73">fake engagement, spam mailings, deceiving users</li>
           </ul>
         </div>
       </div>
@@ -757,14 +880,14 @@
   <section class="rv rv-b">
     <div class="page">
       <div class="sec-head">
-        <span class="label">How I work</span>
-        <h2>Rules I don't bend</h2>
+        <span data-i18n="t74" class="label">How I work</span>
+        <h2 data-i18n="t75">Rules I don't bend</h2>
       </div>
       <div class="rules-grid">
-        <div><h3>Everything stays yours</h3><p>The address, the access, the materials. No fee for the fact that it simply keeps working.</p></div>
-        <div><h3>The price doesn't grow along the way</h3><p>I name the sum in writing after we talk, before work starts, and it doesn't change.</p></div>
-        <div><h3>I'll say if it's not worth it</h3><p>If a task won't pay off, or a ready-made service does it better, you'll hear that right away.</p></div>
-        <div><h3>Official paperwork</h3><p>Contract and receipt, payment by card or invoice, whichever suits you or your accountant.</p></div>
+        <div data-i18n="t76"><h3>Everything stays yours</h3><p>The address, the access, the materials. No fee for the fact that it simply keeps working.</p></div>
+        <div data-i18n="t77"><h3>The price doesn't grow along the way</h3><p>I name the sum in writing after we talk, before work starts, and it doesn't change.</p></div>
+        <div data-i18n="t78"><h3>I'll say if it's not worth it</h3><p>If a task won't pay off, or a ready-made service does it better, you'll hear that right away.</p></div>
+        <div data-i18n="t79"><h3>Official paperwork</h3><p>Contract and receipt, payment by card or invoice, whichever suits you or your accountant.</p></div>
       </div>
     </div>
   </section>
@@ -772,9 +895,9 @@
   <section id="catalog" class="rv rv-a">
     <div class="page">
       <div class="sec-head">
-        <span class="label">Full list</span>
-        <h2>Sixty tasks <em>I've already solved</em></h2>
-        <p>Eight groups, open yours. The list isn't complete: half of the tasks come in people's own words, and that's fine.</p>
+        <span data-i18n="t80" class="label">Full list</span>
+        <h2 data-i18n="t81">Sixty tasks <em>I've already solved</em></h2>
+        <p data-i18n="t82">Eight groups, open yours. The list isn't complete: half of the tasks come in people's own words, and that's fine.</p>
       </div>
 
       <ol class="groups">
@@ -783,20 +906,20 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-site"/></svg>
               <span>
-                <h3>A place online</h3>
-                <span class="hint">A site with prices and a contact form, a store with payments, moving from your old developer, and five more</span>
+                <h3 data-i18n="t83">A place online</h3>
+                <span data-i18n="t84" class="hint">A site with prices and a contact form, a store with payments, moving from your old developer, and five more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>A website: services, prices, photos, a contact form</li>
-              <li>A site you edit yourself from your phone <a href="https://horsesfarm.ru" target="_blank" rel="noopener">The horse farm works this way</a></li>
-              <li>A store with a cart and payments</li>
-              <li>A page for an event, a tour, enrollment, a course <a href="https://tanyabunina.ru" target="_blank" rel="noopener">For example, a course</a></li>
-              <li>Your own domain, say salon-vesna.com, and email on it</li>
-              <li>Google Maps and local directories: so people find you nearby</li>
-              <li>Moving your site from a previous developer</li>
-              <li>Fixing what you already have but works poorly</li>
+              <li data-i18n="t85">A website: services, prices, photos, a contact form</li>
+              <li data-i18n="t86">A site you edit yourself from your phone <a href="https://horsesfarm.ru" target="_blank" rel="noopener">The horse farm works this way</a></li>
+              <li data-i18n="t87">A store with a cart and payments</li>
+              <li data-i18n="t88">A page for an event, a tour, enrollment, a course <a href="https://tanyabunina.ru" target="_blank" rel="noopener">For example, a course</a></li>
+              <li data-i18n="t89">Your own domain, say salon-vesna.com, and email on it</li>
+              <li data-i18n="t90">Google Maps and local directories: so people find you nearby</li>
+              <li data-i18n="t91">Moving your site from a previous developer</li>
+              <li data-i18n="t92">Fixing what you already have but works poorly</li>
             </ul>
           </details>
         </li>
@@ -806,20 +929,20 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-clients"/></svg>
               <span>
-                <h3>Clients and bookings</h3>
-                <span class="hint">A bot that books appointments, online booking with a calendar, reminders for clients, and five more</span>
+                <h3 data-i18n="t93">Clients and bookings</h3>
+                <span data-i18n="t94" class="hint">A bot that books appointments, online booking with a calendar, reminders for clients, and five more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>A Telegram bot: takes a request and books a time slot</li>
-              <li>Online booking with a calendar and open slots</li>
-              <li>A reminder to the client before the visit</li>
-              <li>Requests land on your phone right away</li>
-              <li>A simple client list: who came, when, for what</li>
-              <li>Taking deposits and issuing receipts</li>
-              <li>Collecting reviews after a visit, without you lifting a finger</li>
-              <li>A mailing list for regulars: a promo, something new, "haven't seen you in a while"</li>
+              <li data-i18n="t95">A Telegram bot: takes a request and books a time slot</li>
+              <li data-i18n="t96">Online booking with a calendar and open slots</li>
+              <li data-i18n="t97">A reminder to the client before the visit</li>
+              <li data-i18n="t98">Requests land on your phone right away</li>
+              <li data-i18n="t99">A simple client list: who came, when, for what</li>
+              <li data-i18n="t100">Taking deposits and issuing receipts</li>
+              <li data-i18n="t101">Collecting reviews after a visit, without you lifting a finger</li>
+              <li data-i18n="t102">A mailing list for regulars: a promo, something new, "haven't seen you in a while"</li>
             </ul>
           </details>
         </li>
@@ -829,20 +952,20 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-self"/></svg>
               <span>
-                <h3>For yourself, not for business</h3>
-                <span class="hint">There doesn't have to be a business: digitizing an archive, a club bot, a smart home without subscriptions, and five more</span>
+                <h3 data-i18n="t103">For yourself, not for business</h3>
+                <span data-i18n="t104" class="hint">There doesn't have to be a business: digitizing an archive, a club bot, a smart home without subscriptions, and five more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>A small program built for your exact problem, one that doesn't exist off the shelf <a href="../../#apps" target="_blank" rel="noopener">Like my Mac app</a></li>
-              <li>A bot for a chat, a club, a community</li>
-              <li>Digitizing an archive: film, papers, recordings, albums</li>
-              <li>A memory site about a family, a trip, a project</li>
-              <li>Tracking a collection, a library, recipes, workouts</li>
-              <li>Smart home and household automation without subscriptions</li>
-              <li>A game or interactive thing you've been wanting to build</li>
-              <li>Your own AI at home: private, nothing sent outside</li>
+              <li><span data-i18n="t201">A small program built for your exact problem, one that doesn't exist off the shelf </span><a data-i18n="t202" href="../../#apps" target="_blank" rel="noopener">Like my Mac app</a></li>
+              <li data-i18n="t105">A bot for a chat, a club, a community</li>
+              <li data-i18n="t106">Digitizing an archive: film, papers, recordings, albums</li>
+              <li data-i18n="t107">A memory site about a family, a trip, a project</li>
+              <li data-i18n="t108">Tracking a collection, a library, recipes, workouts</li>
+              <li data-i18n="t109">Smart home and household automation without subscriptions</li>
+              <li data-i18n="t110">A game or interactive thing you've been wanting to build</li>
+              <li data-i18n="t111">Your own AI at home: private, nothing sent outside</li>
             </ul>
           </details>
         </li>
@@ -852,20 +975,20 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-routine"/></svg>
               <span>
-                <h3>Routine the machine can do</h3>
-                <span class="hint">Weekly reports, a contract and invoice from a template, competitor prices, and five more</span>
+                <h3 data-i18n="t112">Routine the machine can do</h3>
+                <span data-i18n="t113" class="hint">Weekly reports, a contract and invoice from a template, competitor prices, and five more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>Reports and exports you currently compile every week</li>
-              <li>Moving data between spreadsheets, your site and marketplaces, without copying by hand</li>
-              <li>Tracking competitor prices</li>
-              <li>A contract, invoice and delivery note from a template, in seconds</li>
-              <li>Tracking inventory, shifts, schedules</li>
-              <li>Leads from marketplaces, social media, WhatsApp and your site into one inbox</li>
-              <li>Reminders for staff and for yourself</li>
-              <li>Sorting email and documents without moving things by hand</li>
+              <li data-i18n="t114">Reports and exports you currently compile every week</li>
+              <li data-i18n="t115">Moving data between spreadsheets, your site and marketplaces, without copying by hand</li>
+              <li data-i18n="t116">Tracking competitor prices</li>
+              <li data-i18n="t117">A contract, invoice and delivery note from a template, in seconds</li>
+              <li data-i18n="t118">Tracking inventory, shifts, schedules</li>
+              <li data-i18n="t119">Leads from marketplaces, social media, WhatsApp and your site into one inbox</li>
+              <li data-i18n="t120">Reminders for staff and for yourself</li>
+              <li data-i18n="t121">Sorting email and documents without moving things by hand</li>
             </ul>
           </details>
         </li>
@@ -875,20 +998,20 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-ai"/></svg>
               <span>
-                <h3>AI assistants</h3>
-                <span class="hint">Answers clients using your price list, turns calls into text, searches your documents, and five more</span>
+                <h3 data-i18n="t122">AI assistants</h3>
+                <span data-i18n="t123" class="hint">Answers clients using your price list, turns calls into text, searches your documents, and five more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>Answers clients using your price list and rules</li>
-              <li>Writes product descriptions, posts and replies to reviews</li>
-              <li>Turns calls and voice messages into text and a short summary</li>
-              <li>Search through your documents: "where was that contract"</li>
-              <li>Sorts incoming requests by priority</li>
-              <li>Reads through reviews and shows what people complain about most</li>
-              <li>An assistant that lives on your own computer, no cloud</li>
-              <li>Translation and voiceover for your materials</li>
+              <li data-i18n="t124">Answers clients using your price list and rules</li>
+              <li data-i18n="t125">Writes product descriptions, posts and replies to reviews</li>
+              <li data-i18n="t126">Turns calls and voice messages into text and a short summary</li>
+              <li data-i18n="t127">Search through your documents: "where was that contract"</li>
+              <li data-i18n="t128">Sorts incoming requests by priority</li>
+              <li data-i18n="t129">Reads through reviews and shows what people complain about most</li>
+              <li data-i18n="t130">An assistant that lives on your own computer, no cloud</li>
+              <li data-i18n="t131">Translation and voiceover for your materials</li>
             </ul>
           </details>
         </li>
@@ -898,20 +1021,20 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-look"/></svg>
               <span>
-                <h3>How people see you</h3>
-                <span class="hint">A video made from your photos, profile design, a logo and colors, and five more</span>
+                <h3 data-i18n="t132">How people see you</h3>
+                <span data-i18n="t133" class="hint">A video made from your photos, profile design, a logo and colors, and five more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>A short video for social media made from your photos</li>
-              <li>Profile design: cover, avatar, header</li>
-              <li>Social media that runs itself: a post goes out every day. <a href="../../factory/" target="_blank" rel="noopener">See how it looks</a></li>
-              <li>A logo and brand colors, if you don't have them</li>
-              <li>A pitch deck and proposal</li>
-              <li>Editing product photos into one consistent look</li>
-              <li>Print: business cards, menus, price tags, signage</li>
-              <li>Screen recordings: how to use your product</li>
+              <li data-i18n="t134">A short video for social media made from your photos</li>
+              <li data-i18n="t135">Profile design: cover, avatar, header</li>
+              <li><span data-i18n="t203">Social media that runs itself: a post goes out every day. </span><a data-i18n="t204" href="../../factory/" target="_blank" rel="noopener">See how it looks</a></li>
+              <li data-i18n="t136">A logo and brand colors, if you don't have them</li>
+              <li data-i18n="t137">A pitch deck and proposal</li>
+              <li data-i18n="t138">Editing product photos into one consistent look</li>
+              <li data-i18n="t139">Print: business cards, menus, price tags, signage</li>
+              <li data-i18n="t140">Screen recordings: how to use your product</li>
             </ul>
           </details>
         </li>
@@ -921,18 +1044,18 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-numbers"/></svg>
               <span>
-                <h3>Numbers and decisions</h3>
-                <span class="hint">Revenue and leads on one screen, which ads paid off, how much to stock for the season, and three more</span>
+                <h3 data-i18n="t141">Numbers and decisions</h3>
+                <span data-i18n="t142" class="hint">Revenue and leads on one screen, which ads paid off, how much to stock for the season, and three more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>A simple dashboard: revenue, leads, workload</li>
-              <li>Which ads paid off and which didn't</li>
-              <li>How much to order for the season</li>
-              <li>Which clients keep coming back and who's gone quiet</li>
-              <li>Tracking mentions of you</li>
-              <li>Pulling data from different places into one picture</li>
+              <li data-i18n="t143">A simple dashboard: revenue, leads, workload</li>
+              <li data-i18n="t144">Which ads paid off and which didn't</li>
+              <li data-i18n="t145">How much to order for the season</li>
+              <li data-i18n="t146">Which clients keep coming back and who's gone quiet</li>
+              <li data-i18n="t147">Tracking mentions of you</li>
+              <li data-i18n="t148">Pulling data from different places into one picture</li>
             </ul>
           </details>
         </li>
@@ -942,18 +1065,18 @@
             <summary>
               <svg class="g-ico" aria-hidden="true"><use href="#i-order"/></svg>
               <span>
-                <h3>Order and peace of mind</h3>
-                <span class="hint">Backups, access registered in your name, a security check before launch, and three more</span>
+                <h3 data-i18n="t149">Order and peace of mind</h3>
+                <span data-i18n="t150" class="hint">Backups, access registered in your name, a security check before launch, and three more</span>
               </span>
               <span class="sign" aria-hidden="true">+</span>
             </summary>
             <ul class="items">
-              <li>Backups, so nothing disappears</li>
-              <li>Access registered to you, not to the contractor</li>
-              <li>A security check before launch</li>
-              <li>Speed: so the page loads right away</li>
-              <li>Sorting out "what do I even have" and what to do with it</li>
-              <li>A second opinion on another developer's work</li>
+              <li data-i18n="t151">Backups, so nothing disappears</li>
+              <li data-i18n="t152">Access registered to you, not to the contractor</li>
+              <li data-i18n="t153">A security check before launch</li>
+              <li data-i18n="t154">Speed: so the page loads right away</li>
+              <li data-i18n="t155">Sorting out "what do I even have" and what to do with it</li>
+              <li data-i18n="t156">A second opinion on another developer's work</li>
             </ul>
           </details>
         </li>
@@ -965,52 +1088,52 @@
     <div class="page faq-wrap">
       <div>
         <div class="sec-head">
-          <span class="label">Common questions</span>
-          <h2>What people ask <em>before we start</em></h2>
+          <span data-i18n="t157" class="label">Common questions</span>
+          <h2 data-i18n="t158">What people ask <em>before we start</em></h2>
         </div>
         <div class="faq">
           <details id="faq-price">
-            <summary>What does it cost?</summary>
-            <p>I name the sum in writing after we talk, before work starts, and it doesn't change. I don't publish exact prices in advance: the same task in words can take two days or a month. The ready-made items above show the price range.</p>
+            <summary data-i18n="t159">What does it cost?</summary>
+            <p data-i18n="t160">I name the sum in writing after we talk, before work starts, and it doesn't change. I don't publish exact prices in advance: the same task in words can take two days or a month. The ready-made items above show the price range.</p>
           </details>
           <details>
-            <summary>What will I have to pay later?</summary>
-            <p>You don't pay me anything just for the finished work running: I don't charge a subscription. There are direct costs left over: the domain and hosting, and if it's a bot or an AI assistant, a server and the fee for calls to the model. I'll calculate what that comes to per month and tell you before we start, and you pay those directly, not through me. Small fixes are free for a month after launch, bigger changes we price separately.</p>
+            <summary data-i18n="t161">What will I have to pay later?</summary>
+            <p data-i18n="t162">You don't pay me anything just for the finished work running: I don't charge a subscription. There are direct costs left over: the domain and hosting, and if it's a bot or an AI assistant, a server and the fee for calls to the model. I'll calculate what that comes to per month and tell you before we start, and you pay those directly, not through me. Small fixes are free for a month after launch, bigger changes we price separately.</p>
           </details>
           <details>
-            <summary>I don't understand tech at all.</summary>
-            <p>That's how it should be, that's my part of the job. All I need from you is a plain description of your business. I won't bring jargon into the conversation, and after launch I'll show you what to click.</p>
+            <summary data-i18n="t163">I don't understand tech at all.</summary>
+            <p data-i18n="t164">That's how it should be, that's my part of the job. All I need from you is a plain description of your business. I won't bring jargon into the conversation, and after launch I'll show you what to click.</p>
           </details>
           <details>
-            <summary>How long does it take?</summary>
-            <p>Simple things: a few days. A website: a week or two. Big automation projects: longer, but in stages, so you see progress instead of waiting in silence.</p>
+            <summary data-i18n="t165">How long does it take?</summary>
+            <p data-i18n="t166">Simple things: a few days. A website: a week or two. Big automation projects: longer, but in stages, so you see progress instead of waiting in silence.</p>
           </details>
           <details>
-            <summary>What if I don't like the result?</summary>
-            <p>You see the intermediate result before launch, and changes along the way are part of the job. You accept the work, not me: until you say yes, it doesn't go live.</p>
+            <summary data-i18n="t167">What if I don't like the result?</summary>
+            <p data-i18n="t168">You see the intermediate result before launch, and changes along the way are part of the job. You accept the work, not me: until you say yes, it doesn't go live.</p>
           </details>
           <details>
-            <summary>I have no photos and no texts.</summary>
-            <p>That's normal. I'll write the text after we talk, and you'll edit it. For photos, I'll tell you what to shoot on your phone: that's almost always enough.</p>
+            <summary data-i18n="t169">I have no photos and no texts.</summary>
+            <p data-i18n="t170">That's normal. I'll write the text after we talk, and you'll edit it. For photos, I'll tell you what to shoot on your phone: that's almost always enough.</p>
           </details>
           <details>
-            <summary>Who owns the result?</summary>
-            <p>You do. The domain and access are registered in your name, I hand over everything. I don't hold the work hostage and I don't charge a subscription just for it running.</p>
+            <summary data-i18n="t171">Who owns the result?</summary>
+            <p data-i18n="t172">You do. The domain and access are registered in your name, I hand over everything. I don't hold the work hostage and I don't charge a subscription just for it running.</p>
           </details>
           <details>
-            <summary>I'm in another country, does that matter?</summary>
-            <p>No. I work with any region, we talk in a messenger or by voice. Time zones are handled by writing.</p>
+            <summary data-i18n="t173">I'm in another country, does that matter?</summary>
+            <p data-i18n="t174">No. I work with any region, we talk in a messenger or by voice. Time zones are handled by writing.</p>
           </details>
           <details>
-            <summary>What about things you haven't done before?</summary>
-            <p>I take it if I can see how to do it well: an AI writes the rough draft, I set the task, check and answer for the result, so the output is that of a studio. If a task is beyond me or a ready-made service does it cheaper, I'll say so right away and point you to it.</p>
+            <summary data-i18n="t175">What about things you haven't done before?</summary>
+            <p data-i18n="t176">I take it if I can see how to do it well: an AI writes the rough draft, I set the task, check and answer for the result, so the output is that of a studio. If a task is beyond me or a ready-made service does it cheaper, I'll say so right away and point you to it.</p>
           </details>
         </div>
       </div>
       <aside class="faq-aside">
-        <span class="label">if your question isn't here</span>
-        <p>Ask directly, it's faster than searching. No scripts and no "a manager will contact you".</p>
-        <a href="https://t.me/Aleksandr_NFA" data-cta="faq-tg">Ask on Telegram</a>
+        <span data-i18n="t177" class="label">if your question isn't here</span>
+        <p data-i18n="t178">Ask directly, it's faster than searching. No scripts and no "a manager will contact you".</p>
+        <a data-i18n="t179" href="https://t.me/Aleksandr_NFA" data-cta="faq-tg">Ask on Telegram</a>
       </aside>
     </div>
   </section>
@@ -1018,30 +1141,30 @@
   <div class="page">
     <div class="final rv rv-c">
       <div class="final-main">
-        <h2>Describe the task, <em>tomorrow you'll know</em> whether it can be done and what it costs</h2>
-        <p>I'll tell you what makes sense in your case and what would be money down the drain. Even if you end up not working with me.</p>
+        <h2 data-i18n="t180">Describe the task, <em>tomorrow you'll know</em> whether it can be done and what it costs</h2>
+        <p data-i18n="t181">I'll tell you what makes sense in your case and what would be money down the drain. Even if you end up not working with me.</p>
         <div class="actions">
-          <a class="btn light" href="https://t.me/Aleksandr_NFA" data-cta="final-tg">Message on Telegram</a>
-          <a class="btn outline-light" href="mailto:sanexxx777@gmail.com" data-cta="final-mail">Send an email</a>
+          <a data-i18n="t182" class="btn light" href="https://t.me/Aleksandr_NFA" data-cta="final-tg">Message on Telegram</a>
+          <a data-i18n="t183" class="btn outline-light" href="mailto:sanexxx777@gmail.com" data-cta="final-mail">Send an email</a>
         </div>
         <form class="lead-form" id="leadform">
-          <p class="lead-form-label">or put the request together here</p>
+          <p data-i18n="t184" class="lead-form-label">or put the request together here</p>
           <div class="lead-fields">
             <div class="lead-form-row">
-              <input type="text" name="name" maxlength="80" placeholder="Name" aria-label="Name" autocomplete="name">
-              <input type="text" name="contact" maxlength="120" placeholder="Telegram, WhatsApp, phone or email" aria-label="Telegram, WhatsApp, phone or email" autocomplete="off">
+              <input data-i18n-attr="placeholder:t185;aria-label:t186" type="text" name="name" maxlength="80" placeholder="Name" aria-label="Name" autocomplete="name">
+              <input data-i18n-attr="placeholder:t187;aria-label:t188" type="text" name="contact" maxlength="120" placeholder="Telegram, WhatsApp, phone or email" aria-label="Telegram, WhatsApp, phone or email" autocomplete="off">
             </div>
-            <textarea name="message" rows="3" maxlength="400" placeholder="What eats your time" aria-label="What eats your time"></textarea>
-            <a class="btn light" id="lead-send" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener" data-cta="final-form">Send via Telegram</a>
-            <p class="lead-note">This form sends and stores nothing: the button opens Telegram with the text ready, and copies it to your clipboard.</p>
+            <textarea data-i18n-attr="placeholder:t189;aria-label:t190" name="message" rows="3" maxlength="400" placeholder="What eats your time" aria-label="What eats your time"></textarea>
+            <a data-i18n="t191" class="btn light" id="lead-send" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener" data-cta="final-form">Send via Telegram</a>
+            <p data-i18n="t192" class="lead-note">This form sends and stores nothing: the button opens Telegram with the text ready, and copies it to your clipboard.</p>
           </div>
           <div class="lead-status" role="status" aria-live="polite"></div>
         </form>
       </div>
       <ul class="final-side">
-        <li><b>What to write</b><span>In your own words: what you do and what bothers you. No brief needed.</span></li>
-        <li><b>What happens next</b><span>I'll ask a few questions and by the end of the next business day write back how it can be done, how long it takes and what it costs.</span></li>
-        <li><b>What it costs you</b><span>The conversation and the estimate cost nothing, the rest is your call.</span></li>
+        <li data-i18n="t193"><b>What to write</b><span>In your own words: what you do and what bothers you. No brief needed.</span></li>
+        <li data-i18n="t194"><b>What happens next</b><span>I'll ask a few questions and by the end of the next business day write back how it can be done, how long it takes and what it costs.</span></li>
+        <li data-i18n="t195"><b>What it costs you</b><span>The conversation and the estimate cost nothing, the rest is your call.</span></li>
       </ul>
     </div>
   </div>
@@ -1049,12 +1172,12 @@
 
 <footer>
   <div class="page foot-in">
-    <div>Aleksandr Shulgin. Working online with any country.</div>
+    <div data-i18n="t196">Aleksandr Shulgin. Working online with any country.</div>
     <div>
       <a href="https://t.me/Aleksandr_NFA">Telegram</a> ·
       <a href="mailto:sanexxx777@gmail.com">sanexxx777@gmail.com</a> ·
       <a href="https://shulgin.is-a.dev">shulgin.is-a.dev</a> ·
-      <a href="../privacy/">Data and privacy</a>
+      <a data-i18n="t205" href="../privacy/">Data and privacy</a>
     </div>
   </div>
 </footer>
@@ -1153,13 +1276,6 @@
 }
 </script>
 
-<script>
-document.querySelectorAll('a[data-setlang]').forEach(function (a) {
-  a.addEventListener('click', function () {
-    try { localStorage.setItem('lang', a.getAttribute('data-setlang')); } catch (e) {}
-  });
-});
-</script>
 
 <script>
 /* Visit counter: no cookies, no IP logging on the endpoint. Page, language, referrer, scroll depth, CTA clicks. */
@@ -1206,25 +1322,32 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
   var send = document.getElementById('lead-send');
   var status = form.querySelector('.lead-status');
   if (!send) return;
+  /* Form strings by page language: read at click time, not once at load,
+     so an in-place language switch immediately changes the "Name:"/"Contact:" labels and status. */
+  var STR = {
+    ru: { name: 'Имя: ', contact: 'Контакт: ', status: 'Открываю Telegram с готовым текстом. Он же скопирован в буфер.' },
+    en: { name: 'Name: ', contact: 'Contact: ', status: 'Opening Telegram with the text ready. It is copied to your clipboard too.' }
+  };
   function field(n) {
     var el = form.elements[n];
     return el && el.value ? el.value.trim() : '';
   }
-  function composed() {
+  function composed(s) {
     var parts = [];
     var msg = field('message');
     if (msg) parts.push(msg);
     var name = field('name');
-    if (name) parts.push('Name: ' + name);
+    if (name) parts.push(s.name + name);
     var contact = field('contact');
-    if (contact) parts.push('Contact: ' + contact);
+    if (contact) parts.push(s.contact + contact);
     return parts.join('\n');
   }
   send.addEventListener('click', function () {
-    var text = composed();
+    var s = STR[document.documentElement.lang === 'en' ? 'en' : 'ru'];
+    var text = composed(s);
     send.href = 'https://t.me/Aleksandr_NFA' + (text ? '?text=' + encodeURIComponent(text) : '');
     if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(function () {});
-    status.textContent = 'Opening Telegram with the text ready. It is copied to your clipboard too.';
+    status.textContent = s.status;
   });
   // Enter in the fields = click the button; in the textarea a line break stays a line break
   form.addEventListener('keydown', function (e) {
@@ -1261,31 +1384,42 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
 })();
 </script>
 <script>
-/* Personalization by utm_source: only the em in h1 and the first sentence of the lead change. */
+/* Personalization by utm_source: only the em in h1 and the first sentence of the lead change.
+   Kept in both languages — re-applied whenever the page language switches in place (window.__i18nApplyUtm). */
 (function () {
+  var MAP = {
+    avito: { ru: ['в сайт, который работает на вас', 'Сайт с записью и заявками, магазин, страница услуг, починка того, что уже есть.'], en: ['into a website that works for you', 'A website with booking and enquiries, a shop, a services page, or fixing what you already have.'] },
+    profi: { ru: ['в сайт, который работает на вас', 'Сайт с записью и заявками, магазин, страница услуг, починка того, что уже есть.'], en: ['into a website that works for you', 'A website with booking and enquiries, a shop, a services page, or fixing what you already have.'] },
+    kwork: { ru: ['в бота или автоматизацию', 'Бот для записи и заявок, отчёты и выгрузки без рук, помощник на ИИ по вашим правилам.'], en: ['into a bot or automation', 'A bot for bookings and enquiries, hands-free reports and exports, an AI assistant that follows your rules.'] },
+    telegram: { ru: ['в бота, систему или приложение', 'Боты, торговые и аналитические системы, приложения для Mac, помощники на ИИ.'], en: ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.'] },
+    tg: { ru: ['в бота, систему или приложение', 'Боты, торговые и аналитические системы, приложения для Mac, помощники на ИИ.'], en: ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.'] },
+    't.me': { ru: ['в бота, систему или приложение', 'Боты, торговые и аналитические системы, приложения для Mac, помощники на ИИ.'], en: ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.'] }
+  };
+  var src = '';
   try {
     var p = new URLSearchParams(location.search || '');
-    var src = (p.get('utm_source') || '').toLowerCase();
-    var map = {
-      avito: ['into a website that works for you', 'A website with booking and enquiries, a shop, a services page, or fixing what you already have.'],
-      profi: ['into a website that works for you', 'A website with booking and enquiries, a shop, a services page, or fixing what you already have.'],
-      kwork: ['into a bot or automation', 'A bot for bookings and enquiries, hands-free reports and exports, an AI assistant that follows your rules.'],
-      telegram: ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.'],
-      tg: ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.'],
-      't.me': ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.']
-    };
-    var v = map[src];
-    if (!v) return;
-    var em = document.getElementById('heroEm');
-    var lead1 = document.getElementById('lead1');
-    if (em) em.textContent = v[0];
-    if (lead1) lead1.textContent = v[1];
+    src = (p.get('utm_source') || '').toLowerCase();
   } catch (e) {}
+  function apply(lang) {
+    try {
+      var entry = MAP[src];
+      if (!entry) return;
+      var v = entry[lang === 'en' ? 'en' : 'ru'];
+      var em = document.getElementById('heroEm');
+      var lead1 = document.getElementById('lead1');
+      if (em) em.textContent = v[0];
+      if (lead1) lead1.textContent = v[1];
+    } catch (e) {}
+  }
+  window.__i18nApplyUtm = apply;
+  apply(document.documentElement.lang === 'en' ? 'en' : 'ru');
 })();
 </script>
 <script>
 /* Hero scene: an everyday sentence types out like in a messenger, the words scatter,
-   and a piece of interface assembles from them. Three phrases on a loop, ≤ 6 KB, no libraries. */
+   and a piece of interface assembles from them. Three phrases on a loop, ≤ 6 KB, no libraries.
+   Phrases are kept in both languages; switching the page language in place (window.__i18nSyncScene)
+   restarts the scene at the current frame in the new language -- the gen counter voids stale timers. */
 (function () {
   var scene = document.getElementById('scene');
   if (!scene) return;
@@ -1295,26 +1429,52 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
   var mobile = matchMedia('(max-width: 720px)').matches;
   var EASE = 'cubic-bezier(.23,1,.32,1)';
 
-  var SCENES = [
-    {
-      phrase: 'I want clients to book themselves and get a notification',
-      html: '<div class="ui-card"><span>Tue 2:00 pm</span><span class="ui-chip">Booked</span></div>' +
-            '<div class="ui-note">New booking: Anna, Tue 2:00 pm</div>' +
-            '<div class="ui-btn">Book</div>'
-    },
-    {
-      phrase: 'I want a sales report every morning without opening spreadsheets',
-      html: '<div class="ui-note">Yesterday: 14 orders, $2,140</div>' +
-            '<div class="ui-stat">↑ 12% vs last week</div>' +
-            '<div class="ui-tag">08:00 daily</div>'
-    },
-    {
-      phrase: 'I want to change prices on my site from my phone, no developer',
-      html: '<div class="ui-field"><span>Haircut</span><span class="ui-field-val">$40<i class="ui-caret"></i></span></div>' +
-            '<div class="ui-btn">Save</div>' +
-            '<div class="ui-badge">Published</div>'
-    }
-  ];
+  var SCENES_BY_LANG = {
+    ru: [
+        {
+          phrase: 'Хочу, чтобы клиенты записывались сами, а мне приходило уведомление',
+          html: '<div class="ui-card"><span>Вт 14:00</span><span class="ui-chip">Занято</span></div>' +
+                '<div class="ui-note">Новая запись: Анна, вт 14:00</div>' +
+                '<div class="ui-btn">Записаться</div>'
+        },
+        {
+          phrase: 'Хочу каждое утро получать отчёт по продажам, не открывая таблицы',
+          html: '<div class="ui-note">Отчёт за вчера: 14 заказов, 38 200 ₽</div>' +
+                '<div class="ui-stat">↑ 12% к прошлой неделе</div>' +
+                '<div class="ui-tag">08:00 ежедневно</div>'
+        },
+        {
+          phrase: 'Хочу менять цены на сайте с телефона, без программиста',
+          html: '<div class="ui-field"><span>Стрижка</span><span class="ui-field-val">1 500 ₽<i class="ui-caret"></i></span></div>' +
+                '<div class="ui-btn">Сохранить</div>' +
+                '<div class="ui-badge">Опубликовано</div>'
+        }
+    ],
+    en: [
+        {
+          phrase: 'I want clients to book themselves and get a notification',
+          html: '<div class="ui-card"><span>Tue 2:00 pm</span><span class="ui-chip">Booked</span></div>' +
+                '<div class="ui-note">New booking: Anna, Tue 2:00 pm</div>' +
+                '<div class="ui-btn">Book</div>'
+        },
+        {
+          phrase: 'I want a sales report every morning without opening spreadsheets',
+          html: '<div class="ui-note">Yesterday: 14 orders, $2,140</div>' +
+                '<div class="ui-stat">↑ 12% vs last week</div>' +
+                '<div class="ui-tag">08:00 daily</div>'
+        },
+        {
+          phrase: 'I want to change prices on my site from my phone, no developer',
+          html: '<div class="ui-field"><span>Haircut</span><span class="ui-field-val">$40<i class="ui-caret"></i></span></div>' +
+                '<div class="ui-btn">Save</div>' +
+                '<div class="ui-badge">Published</div>'
+        }
+    ]
+  };
+  var SCENES = SCENES_BY_LANG[document.documentElement.lang === 'en' ? 'en' : 'ru'];
+  var gen = 0;
+  var started = false;
+  var i = 0;
 
   function buildWords(text) {
     phraseEl.innerHTML = '';
@@ -1323,30 +1483,29 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
       var span = document.createElement('span');
       span.className = 'w';
       span.style.opacity = '0';
-      span.textContent = w + (idx < parts.length - 1 ? ' ' : '');
+      span.textContent = w + (idx < parts.length - 1 ? ' ' : '');
       phraseEl.appendChild(span);
       return span;
     });
   }
 
-  if (reduce) {
+  function renderStatic() {
     var words0 = buildWords(SCENES[0].phrase);
     words0.forEach(function (w) { w.style.opacity = '1'; });
     phraseEl.classList.add('done');
     uiEl.innerHTML = SCENES[0].html;
-    return;
   }
 
-  var i = 0;
-
-  function typeNext(words, idx, done) {
+  function typeNext(words, idx, done, myGen) {
+    if (myGen !== gen) return;
     if (idx >= words.length) { phraseEl.classList.add('done'); done(); return; }
     words[idx].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 90, fill: 'forwards' });
-    setTimeout(function () { typeNext(words, idx + 1, done); }, 90);
+    setTimeout(function () { typeNext(words, idx + 1, done, myGen); }, 90);
   }
 
-  function disperse(words, done) {
-    /* The phrase itself stays put like a "sent message" (fades, doesn't vanish):
+  function disperse(words, done, myGen) {
+    if (myGen !== gen) return;
+    /* the phrase itself stays put like a "sent message" (fades, doesn't vanish):
        only a temporary clone on top of it scatters. */
     var boxRect = scene.getBoundingClientRect();
     var rect = phraseEl.getBoundingClientRect();
@@ -1373,10 +1532,11 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
         ], { duration: 520, easing: 'ease-in', fill: 'forwards' });
       }, idx * 25);
     });
-    setTimeout(function () { clone.remove(); done(); }, 520 + words.length * 25);
+    setTimeout(function () { if (myGen !== gen) return; clone.remove(); done(); }, 520 + words.length * 25);
   }
 
-  function assemble(html, done) {
+  function assemble(html, done, myGen) {
+    if (myGen !== gen) return;
     uiEl.innerHTML = html;
     var blocks = uiEl.children;
     Array.prototype.forEach.call(blocks, function (b, idx) {
@@ -1384,50 +1544,79 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
       b.style.clipPath = 'inset(0 0 100% 0)';
       b.style.transform = 'translateY(.5rem)';
       setTimeout(function () {
+        if (myGen !== gen) return;
         b.animate([
           { clipPath: 'inset(0 0 100% 0)', transform: 'translateY(.5rem)', opacity: 0 },
           { clipPath: 'inset(0 0 0% 0)', transform: 'translateY(0)', opacity: 1 }
         ], { duration: 420, easing: EASE, fill: 'forwards' });
       }, 60 + idx * 75);
     });
-    setTimeout(done, 60 + blocks.length * 75 + 420);
+    setTimeout(function () { if (myGen === gen) done(); }, 60 + blocks.length * 75 + 420);
   }
 
-  function fadeOutUi(done) {
+  function fadeOutUi(done, myGen) {
+    if (myGen !== gen) return;
     var blocks = uiEl.children;
     if (!blocks.length) { done(); return; }
     Array.prototype.forEach.call(blocks, function (b) {
       b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' });
     });
-    setTimeout(function () { uiEl.innerHTML = ''; done(); }, 300);
+    setTimeout(function () { if (myGen !== gen) return; uiEl.innerHTML = ''; done(); }, 300);
   }
 
   function step() {
+    var myGen = gen;
     var sc = SCENES[i];
     var isLast = i === SCENES.length - 1;
     phraseEl.classList.remove('done');
     phraseEl.classList.remove('settled');
     var words = buildWords(sc.phrase);
     typeNext(words, 0, function () {
+      if (myGen !== gen) return;
       setTimeout(function () {
+        if (myGen !== gen) return;
         disperse(words, function () {
+          if (myGen !== gen) return;
           assemble(sc.html, function () {
+            if (myGen !== gen) return;
             setTimeout(function () {
+              if (myGen !== gen) return;
               if (mobile && isLast) return;
               fadeOutUi(function () {
+                if (myGen !== gen) return;
                 i = (i + 1) % SCENES.length;
-                setTimeout(step, 400);
-              });
+                setTimeout(function () { if (myGen === gen) step(); }, 400);
+              }, myGen);
             }, 5000);
-          });
-        });
+          }, myGen);
+        }, myGen);
       }, 900);
-    });
+    }, myGen);
+  }
+
+  function syncScene(lang) {
+    var newScenes = SCENES_BY_LANG[lang === 'en' ? 'en' : 'ru'];
+    if (newScenes === SCENES) return;
+    gen++;
+    SCENES = newScenes;
+    i = 0;
+    phraseEl.classList.remove('done');
+    phraseEl.classList.remove('settled');
+    phraseEl.innerHTML = '';
+    uiEl.innerHTML = '';
+    if (reduce) { renderStatic(); return; }
+    if (started) step();
+  }
+  window.__i18nSyncScene = syncScene;
+
+  if (reduce) {
+    renderStatic();
+    return;
   }
 
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) { io.disconnect(); step(); }
+      if (e.isIntersecting) { io.disconnect(); started = true; step(); }
     });
   }, { threshold: .3 });
   io.observe(scene);
