@@ -14,571 +14,439 @@
   } catch (e) {}
 })();
 </script>
-<title>Aleksandr Shulgin: digital work for a small business</title>
-<meta name="description" content="Websites, bots, routine automation, AI assistants, videos, anything you do by hand every day. I show you a mockup first and don't ask for money upfront.">
+<title>Aleksandr Shulgin, developer: websites, bots, automation, apps</title>
+<meta name="description" content="I turn a task described in plain words into working software: websites, bots, routine automation, AI assistants, apps. An estimate within one business day, the price is fixed before work starts.">
 <link rel="stylesheet" href="../../fonts/fonts.css">
 <link rel="canonical" href="https://shulgin.is-a.dev/store/prosto/en/">
 <link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/prosto/">
 <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/prosto/en/">
 <link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/prosto/">
 <link rel="alternate" type="text/markdown" href="../llms.txt">
-<meta property="og:title" content="Digital work for a small business">
-<meta property="og:description" content="Tell me what's eating your time. I'll make it stop.">
+<meta property="og:title" content="A task in plain words → working software">
+<meta property="og:description" content="Websites, bots, automation, AI assistants, apps. Describe your task in your own words and within one business day you'll know whether it can be done and what it costs.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shulgin.is-a.dev/store/prosto/en/">
 <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og-prosto-en.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#f6f1e6">
+<meta name="theme-color" content="#1c1915">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%237d4526'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' fill='%23f6f1e6' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
 <style>
   :root {
-    --paper: #f6f1e6;
-    --paper-light: #fdfaf3;
-    --paper-deep: #ece3d1;
-    --ink: #2a2621;
-    --soft: #635b4f;
-    --faint: #a2988a;
-    --line: rgba(42, 38, 33, .16);
-    --line-soft: rgba(42, 38, 33, .09);
-    --bronze: #a9743f;
+    --ink: #1c1915;
+    --paper: #f4efe4;
+    --paper-light: #fbf8f1;
+    --paper-deep: #e9e1d2;
+    --text: #2a2621;
+    --soft: #4a443c;
+    --faint: #6f655a;
+    --bronze: #b07a3c;
     --bronze-ink: #8a5526;
-    --bronze-deep: #7d4526;
+    --bronze-on-ink: #cf9a5c;
+    --bronze-wash: rgba(176, 122, 60, .14);
+    --on-ink: #f4efe4;
+    --on-ink-soft: rgba(244, 239, 228, .72);
+    --on-ink-line: rgba(244, 239, 228, .16);
+    --on-ink-wash: rgba(244, 239, 228, .06);
+    --line: rgba(28, 25, 21, .14);
+    --line-soft: rgba(28, 25, 21, .08);
+    --shadow: rgba(28, 25, 21, .16);
     --display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
     --body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --page: min(1240px, 100% - 3rem);
+    --page: min(1180px, 100% - 3rem);
     --ease: cubic-bezier(.23, 1, .32, 1);
-    --gutter: 0;
-    --edge: 0;
   }
 
   * { box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
+  [hidden] { display: none !important; }
 
   body {
     margin: 0;
-    color: var(--ink);
-    background:
-      radial-gradient(circle at 14% 4%, rgba(255, 255, 255, .85), transparent 30rem),
-      radial-gradient(circle at 88% 22%, rgba(169, 116, 63, .09), transparent 34rem),
-      radial-gradient(circle at 30% 92%, rgba(169, 116, 63, .06), transparent 30rem),
-      var(--paper);
+    background: var(--paper);
+    color: var(--text);
     font-family: var(--body);
-    font-size: 1.02rem;
-    line-height: 1.66;
+    font-size: 1.0625rem;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
 
-  /* Paper grain: gives the surface texture, without it the background looks like a flat fill. */
+  /* light paper grain: the page stays a sheet with an ink slab lying on it */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: 90;
     pointer-events: none;
-    opacity: .17;
+    opacity: .12;
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
   }
 
-  .page { width: var(--page); margin-inline: auto; }
+  .page { width: var(--page); margin-inline: auto; min-width: 0; }
 
-  h1, h2, h3 {
-    font-family: var(--display);
-    font-weight: 400;
-    line-height: 1.04;
-    letter-spacing: -.005em;
-    margin: 0;
+  h1, h2 { font-family: var(--display); font-weight: 600; color: var(--ink); margin: 0; letter-spacing: -.01em; }
+  h1 { font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: 1.02; }
+  h2 { font-size: clamp(2rem, 3.4vw, 3rem); line-height: 1.08; }
+  h3 { font-family: var(--body); font-weight: 600; font-size: 1.05rem; color: var(--ink); line-height: 1.35; margin: 0; }
+  em { font-style: italic; font-weight: 500; color: inherit; }
+  p { margin: 0 0 1.1rem; max-width: 58ch; }
+  a { color: var(--bronze-ink); text-decoration: underline; text-decoration-color: var(--bronze); text-underline-offset: .15em; }
+  a:hover { text-decoration-color: var(--bronze-ink); }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--bronze);
+    outline-offset: 2px;
   }
-  h1 { font-size: clamp(2.6rem, 5vw, 4.2rem); }
-  h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; }
-  h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
-  em { font-style: italic; color: var(--bronze-ink); }
-  p { margin: 0 0 1.1rem; }
-  a { color: var(--bronze-ink); }
+  .hero a:not(.btn), .final a:not(.btn) { color: var(--bronze-on-ink); text-decoration-color: var(--bronze-on-ink); }
 
   .label {
-    font-size: .74rem;
-    letter-spacing: .18em;
+    display: block;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: .75rem;
+    letter-spacing: .14em;
     text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 1rem;
+  }
+
+  /* content container */
+  section { padding: clamp(6.5rem, 9vw, 7.5rem) 0 clamp(2.5rem, 5vw, 4rem); }
+  .sec-head { max-width: 46rem; }
+  .sec-head p { color: var(--soft); margin-top: 1rem; max-width: 42ch; }
+  .note-line {
+    margin-top: clamp(1.6rem, 3vw, 2.2rem);
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
     color: var(--soft);
-    font-weight: 500;
+    max-width: 58ch;
+    font-size: .98rem;
   }
 
   /* header */
-  .top {
-    position: relative;
-    z-index: 2;
-    padding: 1.6rem 0;
-  }
+  .top { position: relative; z-index: 2; padding: 1.5rem 0; }
   .top-in { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
   .top-right { display: flex; align-items: center; gap: 1.4rem; }
-  .lang { font-size: .74rem; letter-spacing: .16em; }
+  .lang { font-size: .74rem; letter-spacing: .1em; }
   .lang span { color: var(--ink); font-weight: 600; }
-  .lang a { color: var(--soft); text-decoration: none; margin-right: .6rem; }
+  .lang a { color: var(--soft); text-decoration: none; margin-left: .6rem; }
   .lang a:hover { color: var(--bronze-ink); }
-  .brand { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; }
-  .brand b { font-family: var(--display); font-size: 1.5rem; font-weight: 400; letter-spacing: .01em; }
-  .brand span { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+  .brand { display: flex; align-items: baseline; gap: .9rem; flex-wrap: wrap; }
+  .brand b { font-family: var(--display); font-weight: 600; font-size: 1.4rem; letter-spacing: .005em; color: var(--ink); }
+  .brand span { font-family: var(--body); font-size: .82rem; color: var(--soft); }
 
-  /* buttons */
+  /* buttons: one bronze per screen, the rest ghost */
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: .6rem;
-    padding: .95rem 1.7rem;
-    background: var(--bronze-deep);
-    color: var(--paper-light);
-    text-decoration: none;
-    font-size: .8rem;
-    font-weight: 500;
-    letter-spacing: .14em;
+    gap: .5rem;
+    padding: .9rem 1.6rem;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    border: 1px solid var(--bronze-deep);
-    transition: background .35s var(--ease), color .35s var(--ease), transform .35s var(--ease);
+    text-decoration: none;
+    border: 1px solid transparent;
+    background: var(--bronze);
+    color: var(--paper-light);
+    border-color: var(--bronze);
+    transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
   }
-  .btn:hover { background: #6a3a1f; transform: translateY(-2px); }
   .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
-  .btn.ghost:hover { background: rgba(169, 116, 63, .08); border-color: var(--bronze); transform: translateY(-2px); }
-  .btn.light { background: var(--paper-light); color: var(--bronze-deep); border-color: var(--paper-light); }
-  .btn.light:hover { background: #fff; }
-  .btn.outline-light { background: transparent; color: var(--paper-light); border-color: rgba(253, 250, 243, .45); }
-  .btn.outline-light:hover { background: rgba(253, 250, 243, .12); }
-
-  /* hero */
-  .hero { padding: clamp(1.6rem, 4vw, 3.4rem) 0 clamp(2.4rem, 6vw, 4rem); position: relative; }
-  .hero-top {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
-    gap: clamp(1.8rem, 5vw, 4.5rem);
-    align-items: start;
+  .btn.ghost.on-ink { color: var(--on-ink); border-color: var(--on-ink-line); }
+  .btn.light { background: var(--paper-light); color: var(--bronze-ink); border-color: var(--paper-light); }
+  .btn.outline-light { background: transparent; color: var(--on-ink); border-color: var(--on-ink-line); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover { transform: translateY(-2px); }
+    .btn.ghost:hover { border-color: var(--bronze); }
+    .btn.ghost.on-ink:hover { border-color: var(--bronze-on-ink); }
+    .btn.light:hover { background: var(--paper); }
+    .btn.outline-light:hover { background: var(--on-ink-wash); }
   }
-  .hero h1 { max-width: 17ch; }
+
+  /* hero: full-width ink slab, 8/4 grid */
+  .hero { background: var(--ink); color: var(--on-ink); padding: clamp(2rem, 4vw, 2.8rem) 0; }
+  .hero-grid { display: grid; grid-template-columns: 8fr 4fr; gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+  .hero-grid > * { min-width: 0; }
+  .hero-text { max-width: none; }
+  .hero .label { color: var(--on-ink-soft); }
+  .hero h1 { color: var(--on-ink); }
   .hero .lead {
-    font-size: clamp(1.08rem, 1.9vw, 1.32rem);
-    color: var(--soft);
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--on-ink-soft);
     max-width: 42ch;
-    margin-top: clamp(1.2rem, 2.4vw, 2rem);
+    margin-top: 1.1rem;
   }
-  .hero .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: clamp(1.5rem, 2.6vw, 2.4rem); }
-  .hero .note { font-size: .85rem; color: var(--soft); margin: .8rem 0 0; }
+  .hero .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: 1.4rem; }
+  .hero .note { font-size: .85rem; color: var(--on-ink-soft); margin: 1rem 0 0; }
 
-  /* proof in the first screen: a working site, not a promise */
-  .proof { margin: 0; }
-  .proof a { position: relative; display: block; text-decoration: none; color: inherit; }
-  .proof img {
-    display: block;
-    width: 100%;
-    height: clamp(9rem, 22vw, 15rem);
-    object-fit: cover;
-    object-position: top center;
-    background: var(--paper-deep);
-    box-shadow: 0 16px 40px rgba(42, 38, 33, .14);
-    transition: transform .8s var(--ease);
-  }
-  .proof a:hover img { transform: translateY(-3px); }
-  .proof figcaption { margin-top: .8rem; font-size: .89rem; color: var(--soft); line-height: 1.5; }
-  .proof figcaption b { display: block; font-family: var(--display); font-size: 1.15rem; font-weight: 400; color: var(--ink); }
-  .proof .go { color: var(--bronze-ink); }
-
-  .hero .meta {
-    margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
-    padding-top: 1.3rem;
-    border-top: 1px solid var(--line-soft);
+  /* hero scene: words → interface */
+  .scene { display: flex; align-items: center; justify-content: center; }
+  .scene-box {
+    position: relative;
     display: flex;
-    gap: clamp(1.4rem, 3vw, 2.6rem);
-    flex-wrap: wrap;
-    max-width: 56rem;
+    flex-direction: column;
+    gap: 1.1rem;
+    width: 100%;
+    max-width: 25rem;
+    background: var(--on-ink-wash);
+    border: 1px solid var(--on-ink-line);
+    padding: 1.5rem;
+    box-shadow: 0 1.5rem 3rem var(--shadow), 0 0 4rem var(--on-ink-wash);
   }
-  .hero .meta div { max-width: 15rem; }
-  .hero .meta strong { display: block; font-family: var(--display); font-size: 1.35rem; font-weight: 400; }
-  .hero .meta span { font-size: .88rem; color: var(--soft); line-height: 1.5; display: block; margin-top: .15rem; }
-
-  /* stamp: a seal on "no upfront payment", the one promise-like item in the meta row */
-  .hero .meta .stamp span { display: inline-block; font-size: inherit; margin-top: 0; padding: .06em .4em; border: 1.5px solid var(--bronze); border-radius: 3px; transform: rotate(-2deg); color: var(--bronze-ink); }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero .meta .stamp span { animation: stampIn .5s cubic-bezier(.2, 1.4, .4, 1) .9s both; }
-    @keyframes stampIn { from { opacity: 0; transform: rotate(-2deg) scale(1.25); } to { opacity: 1; transform: rotate(-2deg) scale(1); } }
+  .scene-phrase {
+    font-family: var(--body);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--on-ink);
+    margin: 0;
+    max-width: 85%;
+    min-height: 1.6em;
+    align-self: flex-end;
+    background: var(--on-ink-line);
+    border-radius: 1rem 1rem .2rem 1rem;
+    padding: .75rem 1rem;
+    transition: opacity .4s var(--ease);
+  }
+  .scene-phrase.settled { opacity: .6; }
+  .scene-phrase .w { display: inline-block; }
+  .scene-phrase::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    background: var(--on-ink);
+    margin-left: .15rem;
+    vertical-align: -.1em;
+    animation: caretBlink 1s steps(1) infinite;
+  }
+  .scene-phrase.done::after { animation: none; opacity: 0; }
+  @keyframes caretBlink { 50% { opacity: 0; } }
+  .scene-ui { display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; }
+  .scene-ui > * { max-width: 100%; }
+  .ui-card, .ui-note, .ui-field, .ui-stat {
+    width: 100%;
+    background: var(--paper-light);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1rem;
+    padding: .8rem 1rem;
+    border-radius: .4rem;
+    box-shadow: 0 .6rem 1.4rem var(--shadow);
+  }
+  .ui-card { display: flex; justify-content: space-between; align-items: center; }
+  .ui-field { display: flex; justify-content: space-between; align-items: center; }
+  .ui-field-val { font-weight: 600; }
+  .ui-caret { display: inline-block; width: 1px; height: 1em; background: var(--ink); margin-left: .15rem; vertical-align: -.1em; animation: caretBlink 1s steps(1) infinite; }
+  .ui-chip { font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; color: var(--soft); background: var(--line); padding: .25rem .65rem; border-radius: 1rem; }
+  .ui-btn {
+    align-self: flex-start;
+    background: var(--bronze);
+    color: var(--paper-light);
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: .65rem 1.15rem;
+    border-radius: .3rem;
+  }
+  .ui-stat { color: var(--ink); font-weight: 600; box-shadow: none; width: auto; }
+  .ui-tag { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--on-ink-soft); }
+  .ui-badge { align-self: flex-start; background: var(--on-ink-line); color: var(--on-ink); font-weight: 600; font-size: .8rem; padding: .45rem .85rem; border-radius: .3rem; }
+  @media (prefers-reduced-motion: reduce) {
+    .scene-phrase::after, .ui-caret { display: none; }
   }
 
-  /* offers strip: what people usually come with, no cards or shadows, just a top line */
-  .offers { margin-top: clamp(1.6rem, 3vw, 2.2rem); }
-  .offers > .label { display: block; margin-bottom: 1rem; }
-  .offers ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1.6rem 1.4rem; }
-  .offers a { display: block; padding: 1rem 0 1.1rem; border-top: 1px solid var(--line); text-decoration: none; color: inherit; }
-  .offers .ico { display: block; width: 28px; height: 28px; color: var(--bronze); margin-bottom: .6rem; transition: transform .35s var(--ease); }
-  .offers strong { display: block; font-family: var(--display); font-size: 1.2rem; font-weight: 400; }
-  .offers a span { display: block; font-size: .86rem; color: var(--soft); margin-top: .3rem; }
-  .offers a:hover { border-top-color: var(--bronze); }
-  .offers a:hover .ico { transform: translateY(-2px); }
-
-
-  /* sections */
-  section { padding: clamp(3.2rem, 8vw, 6.5rem) 0 clamp(2.2rem, 5vw, 4rem); }
-  .rule { border-top: 1px solid var(--line-soft); }
-  .sec-head { margin-bottom: clamp(2rem, 4vw, 3.4rem); max-width: 46rem; }
-  .sec-head .label { display: block; margin-bottom: 1.1rem; }
-  .sec-head p { color: var(--soft); margin-top: 1.2rem; max-width: 42ch; }
-  /* two geometry modifiers: changing the heading layout reads as "a new chapter" */
-  .sec-head--indent { margin-left: clamp(0rem, 12vw, 11rem); }
-  .sec-head--wide { max-width: 64rem; }
-  .sec-head--wide h2 { max-width: none; }
-
-  /* guide decorative layer: margin, thread and tick marks along the text sections */
-  .sheet { position: relative; }
-  .sheet > section { position: relative; padding-left: var(--gutter); padding-right: var(--edge); }
-  .thread { position: absolute; left: 0; top: 3.5rem; bottom: 4.5rem; width: 1px; background: linear-gradient(180deg, transparent 0, var(--line) 2.5rem, var(--line) calc(100% - 3rem), transparent 100%); pointer-events: none; }
-  .sheet::before { content: ""; position: absolute; right: 0; top: 3.5rem; bottom: 4.5rem; width: 1px; background: var(--line-soft); pointer-events: none; }
-  .thread::before { content: ""; position: absolute; inset: 0; background: var(--bronze); opacity: .7; transform-origin: 50% 0; }
-  .thread::after { content: ""; position: absolute; left: -2px; bottom: -3px; width: 5px; height: 5px; border-right: 1px solid var(--bronze); border-bottom: 1px solid var(--bronze); transform: rotate(45deg); opacity: .85; }
-  .chain { width: 100%; max-width: 21rem; height: auto; display: block; justify-self: end; }
-  .chain-live { stroke-dasharray: 260; stroke-dashoffset: 0; }
-  .marked { position: relative; }
-  .faq-aside .label { display: block; margin-bottom: .8rem; }
-  .faq-aside p { font-size: .92rem; color: var(--soft); max-width: 30ch; }
-  .faq-aside a { color: var(--bronze-ink); font-size: .92rem; }
-
+  /* facts + offers: sit on the paper right under the slab */
+  .hero-after { padding: clamp(2.2rem, 5vw, 3.2rem) 0 clamp(4rem, 8vw, 7rem); }
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.4rem, 3vw, 2.2rem);
+    border-top: 1px solid var(--line);
+    padding-top: clamp(1.6rem, 3vw, 2.2rem);
+  }
+  .facts-grid > * { min-width: 0; }
   @media (min-width: 901px) {
-    :root { --gutter: clamp(3.4rem, 5.2vw, 5.2rem); --edge: clamp(1.2rem, 2.6vw, 2.6rem); }
-    .sheet > section > .sec-head > .label {
-      position: absolute;
-      left: .3rem;
-      top: calc(clamp(3.2rem, 8vw, 6.5rem) + 1.5rem);
-      margin: 0;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      transform-origin: center;
-      font-size: .68rem;
-      letter-spacing: .2em;
-      color: var(--soft);
-      white-space: nowrap;
-    }
-    .sheet > section::before {
-      content: "";
-      position: absolute;
-      left: -3px;
-      top: calc(clamp(3.2rem, 8vw, 6.5rem) - 3px);
-      width: 7px;
-      height: 7px;
-      background:
-        linear-gradient(var(--bronze), var(--bronze)) center/7px 1px no-repeat,
-        linear-gradient(var(--bronze), var(--bronze)) center/1px 7px no-repeat;
-      opacity: .8;
-      pointer-events: none;
-    }
-    .manifest { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-    .manifest-why { max-width: 46ch; }
-    .works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .maker { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
-    .maker-links { margin-top: .3rem; }
-    .marked::before { content: ""; position: absolute; left: -1.2rem; top: .28em; bottom: .28em; width: .5rem; border: 1px solid var(--bronze); border-right: 0; opacity: .8; }
-    .faq-wrap { display: grid; grid-template-columns: minmax(0, 52rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-    .faq-aside { position: sticky; top: 5.5rem; border-left: 1px solid var(--line); padding: .2rem 0 .2rem 1.4rem; }
-    .sheet > section[data-chapter]::after {
-      content: attr(data-chapter);
-      position: absolute;
-      right: var(--edge);
-      top: clamp(2.4rem, 6vw, 4.6rem);
-      font-family: var(--display);
-      font-size: clamp(5.5rem, 9vw, 8.5rem);
-      line-height: .78;
-      letter-spacing: -.02em;
-      color: var(--bronze);
-      opacity: .12;
-      pointer-events: none;
-      user-select: none;
-    }
+    .facts-grid > div + div { border-left: 1px solid var(--line); padding-left: clamp(1.4rem, 3vw, 2.2rem); }
+  }
+  .fact { display: flex; flex-direction: column; gap: .4rem; }
+  .fact strong, .fact-stamp-mark { font-family: var(--display); font-weight: 600; font-size: 1.3rem; color: var(--ink); }
+  .fact-sub { font-family: var(--body); font-size: .92rem; color: var(--soft); line-height: 1.5; }
+  .fact-stamp-mark {
+    display: inline-block;
+    align-self: flex-start;
+    border: 1.5px solid var(--bronze);
+    color: var(--bronze-ink);
+    padding: .1em .5em;
+    border-radius: .2rem;
+    transform: rotate(-2.5deg);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .fact-stamp-mark { opacity: 0; transform: rotate(-4deg) scale(1.12); }
+    .fact-stamp-mark.stamp-in { animation: stampIn .42s cubic-bezier(.2, 1.4, .4, 1) forwards; }
+    @keyframes stampIn { from { opacity: 0; transform: rotate(-4deg) scale(1.12); } to { opacity: 1; transform: rotate(-2.5deg) scale(1); } }
   }
 
-  @media (max-width: 900px) {
-    .thread, .sheet::before { display: none; }
-    .sec-head .label { display: flex; align-items: center; gap: .7rem; }
-    .sec-head .label::before { content: ""; flex: none; width: 1.4rem; height: 1px; background: var(--bronze); opacity: .7; }
-    .chain { max-width: 17rem; margin-top: 1.6rem; justify-self: start; }
-    .faq-aside { position: static; border-left: 0; border-top: 1px solid var(--line); padding: 1.4rem 0 0; margin-top: 1.6rem; }
+  .offers-strip { margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+  .offers-grid { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem 1.4rem; }
+  .offers-grid li { min-width: 0; }
+  .offers-grid a { display: block; padding: 1rem 0 1.1rem; border-top: 1px solid var(--line); text-decoration: none; color: inherit; transition: transform .3s var(--ease), border-color .3s var(--ease); }
+  .offers-grid .ico { display: block; width: 1.6rem; height: 1.6rem; color: var(--soft); margin-bottom: .6rem; }
+  .offers-grid strong { display: block; font-family: var(--body); font-weight: 600; font-size: 1rem; color: var(--ink); }
+  .offers-grid a span { display: block; font-family: var(--body); font-size: .86rem; color: var(--soft); margin-top: .3rem; }
+  .offer-other a { border-top-style: dashed; border-top-color: var(--bronze); }
+  @media (hover: hover) and (pointer: fine) {
+    .offers-grid a:hover { transform: translateY(-2px); border-top-color: var(--bronze); }
   }
 
-  /* manifesto: why one person can handle this */
-  .manifest { padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(1.6rem, 4vw, 2.6rem); border-top: 1px solid var(--line-soft); }
-  .manifest-line { font-family: var(--display); font-size: clamp(1.55rem, 3.2vw, 2.5rem); line-height: 1.22; max-width: 34ch; margin: 0; }
-  .manifest-why { color: var(--soft); font-size: .98rem; max-width: 62ch; margin: 1.2rem 0 0; }
+  /* work: proof, equal weight */
+  .works-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2rem); margin-top: clamp(2rem, 4vw, 3rem); }
+  .works-grid > * { min-width: 0; }
+  .work { display: block; text-decoration: none; color: inherit; transition: transform .3s var(--ease); }
+  .work .shot { overflow: hidden; background: var(--paper-deep); box-shadow: 0 1.1rem 2.6rem var(--shadow); }
+  .work img { display: block; width: 100%; height: 13rem; object-fit: cover; transition: transform .5s var(--ease); }
+  .work-kind { display: block; margin-top: 1rem; font-family: var(--body); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+  .work h3 { margin-top: .5rem; }
+  .work p { color: var(--soft); font-size: .95rem; margin: .5rem 0 0; max-width: 44ch; }
+  .work .go { display: inline-block; margin-top: .6rem; font-family: var(--body); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--bronze-ink); text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) {
+    .work:hover { transform: translateY(-2px); }
+    .work:hover .shot img { transform: scale(1.02); }
+  }
 
-  /* catalog: a map of eight groups, details on demand */
-  .groups { list-style: none; margin: 0; padding: 0; }
-  .group { border-top: 1px solid var(--line-soft); position: relative; }
+  /* ready-made, priced */
+  .ready-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); margin-top: clamp(2rem, 4vw, 3rem); }
+  .ready-grid > * { min-width: 0; }
+  .ready-card { display: block; text-decoration: none; color: inherit; border-top: 1px solid var(--line); padding: 1.6rem 0 1.8rem; transition: transform .3s var(--ease), border-color .3s var(--ease); }
+  .ready-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .ready-head h3 { font-size: 1.1rem; }
+  .price { font-family: var(--display); font-weight: 600; font-size: 1.7rem; color: var(--ink); white-space: nowrap; }
+  .ready-card p { color: var(--soft); font-size: .95rem; margin: .8rem 0 0; }
+  .ready-card .go { display: inline-block; margin-top: .8rem; font-family: var(--body); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--bronze-ink); text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) {
+    .ready-card:hover { transform: translateY(-2px); border-color: var(--bronze); }
+  }
+
+  /* how it works */
+  .steps { position: relative; list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: 0; }
+  .steps::before { content: ""; position: absolute; left: 1.7rem; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .step { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); gap: clamp(1rem, 3vw, 2rem); padding: 1.4rem 0; border-top: 1px solid var(--line-soft); align-items: start; }
+  .step:first-child { border-top: 1px solid var(--line); }
+  .step .n { font-family: var(--display); font-weight: 600; font-size: 2rem; color: var(--ink); line-height: 1; }
+  .step h3 { margin-bottom: .4rem; }
+  .step p { color: var(--soft); margin: 0; max-width: 56ch; }
+
+  /* who it's for / who it isn't */
+  .fit-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
+  .fit-grid > * { min-width: 0; }
+  .fit-col h3 { margin-bottom: 1rem; font-size: 1.2rem; }
+  .fit-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .9rem; }
+  .fit-col li { position: relative; padding-left: 1.2rem; color: var(--soft); font-size: .98rem; line-height: 1.5; max-width: none; }
+  .fit-col li::before { content: ""; position: absolute; left: 0; top: .6em; width: .5rem; height: 1px; background: var(--soft); }
+  .fit-col--yes li::before { background: var(--ink); }
+
+  /* rules */
+  .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: clamp(1.6rem, 4vw, 3rem); margin-top: clamp(2rem, 4vw, 3rem); }
+  .rules-grid > div { padding-top: 1.4rem; border-top: 1px solid var(--line); }
+  .rules-grid h3 { margin-bottom: .5rem; font-size: 1.1rem; }
+  .rules-grid p { color: var(--soft); margin: 0; font-size: .95rem; }
+
+  /* full list: one compact block */
+  .groups { list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: 0; }
+  .group { border-top: 1px solid var(--line-soft); }
   .group:first-child { border-top: 1px solid var(--line); }
-
   .group > details > summary {
     position: relative;
     list-style: none;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 4.2rem minmax(0, 1fr) 1.6rem;
-    gap: clamp(.8rem, 2vw, 1.6rem);
+    grid-template-columns: 3rem minmax(0, 1fr) 1.4rem;
+    gap: clamp(.8rem, 2vw, 1.4rem);
     align-items: baseline;
-    padding: clamp(1.5rem, 2.6vw, 2.2rem) 0;
-    transition: background .4s var(--ease);
+    padding: clamp(1.2rem, 2.2vw, 1.7rem) 0;
+    transition: transform .2s var(--ease);
   }
   .group > details > summary::-webkit-details-marker { display: none; }
-  .group > details > summary:hover { background: rgba(169, 116, 63, .045); }
-  /* group icon = what the section is about, the counter below it = how many items are inside */
-  .group .num {
-    display: block;
-    text-align: right;
+  @media (hover: hover) and (pointer: fine) {
+    .group > details > summary:hover { transform: translateX(3px); }
   }
-  .group .num .ico {
-    display: block;
-    margin-left: auto;
-    width: 32px;
-    height: 32px;
-    color: var(--bronze);
-    opacity: .75;
-    transition: opacity .4s var(--ease);
-  }
-  .group > details[open] .num .ico { opacity: 1; }
-  .group .num i {
-    display: block;
-    font-family: var(--body);
-    font-style: normal;
-    font-size: .58rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--soft);
-    margin-top: .35rem;
-    text-align: right;
-  }
-  .group > details > summary > span:nth-child(2) { max-width: 62ch; }
-  .group h3 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); }
-  .group .hint { display: block; color: var(--soft); font-size: .93rem; margin-top: .35rem; max-width: 52ch; }
-  .group .sign {
-    font-size: 1.35rem;
-    color: var(--bronze);
-    line-height: 1;
-    justify-self: end;
-    font-family: var(--body);
-    transition: transform .4s var(--ease);
-  }
+  .group .g-ico { display: block; width: 1.6rem; height: 1.6rem; color: var(--soft); }
+  .group h3 { font-family: var(--display); font-weight: 600; font-size: 1.3rem; color: var(--ink); }
+  .group .hint { display: block; color: var(--soft); font-size: .92rem; margin-top: .3rem; max-width: 52ch; }
+  .group .sign { font-size: 1.3rem; color: var(--bronze); line-height: 1; justify-self: end; font-family: var(--body); transition: transform .3s var(--ease); }
   .group > details[open] .sign { transform: rotate(45deg); }
-
-  .items {
-    list-style: none;
-    margin: 0 0 clamp(1.4rem, 2.6vw, 2.2rem);
-    padding: 0 0 0 clamp(0rem, 4.2vw, 4.2rem);
-    columns: 2;
-    column-gap: 3rem;
-  }
-  .items li {
-    break-inside: avoid;
-    padding: .62rem 0 .62rem 1.3rem;
-    border-top: 1px solid var(--line-soft);
-    font-size: .97rem;
-    position: relative;
-    color: var(--ink);
-  }
-  .items li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 1.28rem;
-    width: .45rem;
-    height: 1px;
-    background: var(--bronze);
-  }
+  .items { list-style: none; margin: 0 0 clamp(1.2rem, 2.4vw, 2rem); padding: 0 0 0 clamp(0rem, 4vw, 4rem); columns: 2; column-gap: 2.6rem; }
+  .items li { break-inside: avoid; padding: .55rem 0 .55rem 1.1rem; border-top: 1px solid var(--line-soft); font-size: .96rem; position: relative; color: var(--text); max-width: none; }
+  .items li::before { content: ""; position: absolute; left: 0; top: 1.2rem; width: .4rem; height: 1px; background: var(--bronze); }
   .items li:first-child { border-top: 0; }
 
-  /* live catalog: items cascade in on open, an edge line under the heading */
-  @media (prefers-reduced-motion: no-preference) {
-    .group details[open] .items li { animation: itemIn .34s var(--ease) both; }
-    .group details[open] .items li:nth-child(1) { animation-delay: .03s; }
-    .group details[open] .items li:nth-child(2) { animation-delay: .055s; }
-    .group details[open] .items li:nth-child(3) { animation-delay: .08s; }
-    .group details[open] .items li:nth-child(4) { animation-delay: .105s; }
-    .group details[open] .items li:nth-child(5) { animation-delay: .13s; }
-    .group details[open] .items li:nth-child(6) { animation-delay: .155s; }
-    .group details[open] .items li:nth-child(7) { animation-delay: .18s; }
-    .group details[open] .items li:nth-child(8) { animation-delay: .205s; }
-    @keyframes itemIn { from { opacity: 0; transform: translateY(.4rem); } to { opacity: 1; transform: none; } }
-    .group details[open] > summary::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%; background: var(--bronze); transform-origin: left; animation: lineDraw .4s var(--ease) both; }
-    @keyframes lineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  }
-
-  /* end of the catalog: a door for the task that isn't on the list */
-  .after-catalog {
-    margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
-    padding-top: clamp(1.4rem, 2.6vw, 2rem);
-    border-top: 1px solid var(--line);
-    color: var(--soft);
-    max-width: 56ch;
-  }
-  .after-catalog--biz { border-top: 0; padding-top: 0; margin-top: 1.1rem; }
-
-  /* how it works: numbers strung on a dashed thread instead of divider lines */
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; position: relative; }
-  .steps::before {
-    content: "";
-    position: absolute;
-    left: 1.2rem;
-    top: 2rem;
-    bottom: 2rem;
-    border-left: 1px dashed var(--bronze);
-    opacity: .5;
-    pointer-events: none;
-  }
-  .step {
-    display: grid;
-    grid-template-columns: 4.5rem minmax(0, 1fr);
-    gap: clamp(1rem, 3vw, 2.5rem);
-    padding: 1.5rem 0;
-    align-items: start;
-  }
-  .step .n {
-    font-family: var(--display);
-    font-size: 3.2rem;
-    color: var(--bronze);
-    line-height: .9;
-    display: inline-block;
-    width: 2.4rem;
-    text-align: center;
-    background: var(--paper);
-    position: relative;
-    z-index: 1;
-  }
-  .step h3 { font-size: clamp(1.6rem, 2.4vw, 2rem); margin-bottom: .5rem; }
-  .step p { color: var(--soft); margin: 0; max-width: 54ch; }
-  .step-cta { margin: clamp(1.4rem, 3vw, 2rem) 0 0; padding-top: 1.2rem; border-top: 1px solid var(--line); color: var(--soft); max-width: 56ch; }
-
-  /* principles */
-  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); column-gap: clamp(1.5rem, 4vw, 3.5rem); }
-  .rules div {
-    padding: 1.7rem 0 2rem;
-    border-top: 1px solid var(--line);
-  }
-  .rules h3 { font-size: clamp(1.4rem, 2vw, 1.7rem); margin-bottom: .5rem; }
-  .rules p { color: var(--soft); margin: 0; font-size: .95rem; }
-
-  /* work samples */
-  .works { display: grid; gap: clamp(1.2rem, 2.5vw, 2rem); }
-  .work { display: block; text-decoration: none; color: inherit; }
-  .work .shot {
-    position: relative;
-    overflow: hidden;
-    background: var(--paper-deep);
-    box-shadow: 0 18px 46px rgba(42, 38, 33, .13);
-  }
-  .work img {
-    display: block;
-    width: 100%;
-    height: 13rem;
-    object-fit: cover;
-    transition: transform .8s var(--ease), filter .8s var(--ease);
-    filter: saturate(.92);
-  }
-  .work:hover img { transform: scale(1.035); filter: saturate(1); }
-  .work h3 { font-size: 1.35rem; margin-top: 1.1rem; }
-  .work span { display: block; color: var(--soft); font-size: .93rem; margin-top: .35rem; }
-  .work .go { display: inline-block; margin-top: .7rem; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--bronze-ink); }
-  .work-kind { display: block; margin-top: 1rem; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
-  .work--client .work-kind { color: var(--bronze-ink); }
-  /* client cards are larger than demos: a real site's shot matters more than an example */
-  .work--client img { height: 17rem; }
-  .work--demo img { height: 11rem; filter: saturate(.8); }
-  .work--demo h3 { font-size: 1.2rem; }
-
-  /* ready-made, priced: three offers that need no discussion */
-  .ready-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); }
-  .ready-card { display: block; text-decoration: none; color: inherit; border-top: 1px solid var(--line); padding: 1.6rem 0 1.8rem; }
-  .ready-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-  .ready-head h3 { font-size: 1.25rem; }
-  .ready-head .price { font-family: var(--display); font-size: 2.1rem; color: var(--bronze-ink); white-space: nowrap; }
-  .ready-card p { color: var(--soft); font-size: .95rem; margin: .8rem 0 0; }
-  .ready-card .go { display: inline-block; margin-top: .9rem; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--bronze-ink); }
-
-  /* who's behind this: closing block of the ready-made section */
-  .maker { margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
-  .maker-text p { color: var(--soft); margin: .8rem 0 0; max-width: 56ch; }
-  .maker-links { display: flex; flex-direction: column; gap: .7rem; margin-top: 1.4rem; }
-  .maker-links a { display: inline-block; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--bronze-ink); text-decoration: none; }
-
   /* questions */
-  .faq { max-width: 52rem; }
-  .faq details { border-top: 1px solid var(--line-soft); padding: 1.15rem 0; }
+  .faq-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(2rem, 4vw, 3rem); }
+  .faq details { border-top: 1px solid var(--line-soft); padding: 1.1rem 0; }
   .faq details:first-of-type { border-top: 1px solid var(--line); }
-  .faq summary {
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1.5rem;
-    font-family: var(--display);
-    font-size: 1.32rem;
-  }
+  .faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 1.4rem; font-family: var(--display); font-weight: 600; font-size: 1.25rem; color: var(--ink); transition: transform .2s var(--ease); }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: "+"; color: var(--bronze); font-size: 1.2rem; font-family: var(--body); }
-  .faq details[open] summary::after { content: "–"; }
+  @media (hover: hover) and (pointer: fine) {
+    .faq summary:hover { transform: translateX(3px); }
+  }
+  .faq summary::after { content: "+"; color: var(--bronze); font-size: 1.15rem; font-family: var(--body); }
+  .faq details[open] summary::after { content: "\2013"; }
   .faq p { color: var(--soft); margin: .8rem 0 0; max-width: 60ch; }
+  .faq-aside { border-top: 1px solid var(--line); padding-top: 1.4rem; margin-top: .5rem; }
+  .faq-aside p { font-size: .92rem; color: var(--soft); max-width: 34ch; }
+  .faq-aside a { color: var(--bronze-ink); font-size: .92rem; }
+  @media (min-width: 901px) {
+    .faq-wrap { grid-template-columns: minmax(0, 50rem) minmax(0, 1fr); align-items: start; }
+    .faq-aside { position: sticky; top: 5.5rem; border-top: 0; border-left: 1px solid var(--line); padding: .2rem 0 .2rem 1.4rem; margin-top: 0; }
+  }
 
-  /* final */
+  /* final: ink ground again */
   .final {
-    background: #241f1a;
-    color: var(--paper-light);
+    background: var(--ink);
+    color: var(--on-ink);
     padding: clamp(2.4rem, 7vw, 5.5rem);
     margin-bottom: clamp(3rem, 7vw, 5rem);
-    position: relative;
-    overflow: hidden;
-  }
-  .final {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
     gap: clamp(2rem, 5vw, 4.5rem);
     align-items: center;
   }
-  .final-main { position: relative; z-index: 1; }
-  .final h2 { color: var(--paper-light); max-width: 16ch; }
-  .final-side { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; }
-  .final-side li { padding: 1.1rem 0; border-top: 1px solid rgba(253, 250, 243, .16); }
+  .final > * { min-width: 0; }
+  .final h2 { color: var(--on-ink); max-width: 16ch; }
+  .final-main p { color: var(--on-ink-soft); max-width: 44ch; margin-top: 1.3rem; }
+  .final .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: 2rem; }
+  .final-side { list-style: none; margin: 0; padding: 0; }
+  .final-side li { padding: 1.1rem 0; border-top: 1px solid var(--on-ink-line); }
   .final-side li:first-child { border-top: 0; }
-  .final-side b { display: block; font-family: var(--display); font-size: 1.3rem; font-weight: 400; color: var(--paper-light); }
-  .final-side span { display: block; font-size: .92rem; color: rgba(253, 250, 243, .66); margin-top: .2rem; }
-  .final em { color: #d3a06a; }
-  .final p { color: rgba(253, 250, 243, .72); max-width: 44ch; margin-top: 1.4rem; }
-  .final .actions { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: 2.2rem; }
-  .lead-form { margin-top: 2.2rem; max-width: 38rem; position: relative; z-index: 1; }
-  .lead-form-label { font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(253, 250, 243, .55); margin: 0 0 .9rem; }
+  .final-side b { display: block; font-family: var(--display); font-weight: 600; font-size: 1.25rem; color: var(--on-ink); }
+  .final-side span { display: block; font-size: .92rem; color: var(--on-ink-soft); margin-top: .2rem; max-width: none; }
+  .lead-form { margin-top: 2rem; max-width: 36rem; }
+  .lead-form-label { font-family: var(--body); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--on-ink-soft); margin: 0 0 .9rem; }
   .lead-form-row { display: flex; gap: .8rem; }
   .lead-form input[type="text"], .lead-form textarea {
     width: 100%;
-    background: rgba(253, 250, 243, .06);
-    border: 1px solid rgba(253, 250, 243, .25);
-    color: var(--paper-light);
+    background: var(--on-ink-wash);
+    border: 1px solid var(--on-ink-line);
+    color: var(--on-ink);
     font-family: var(--body);
     font-size: .85rem;
     padding: .75rem .9rem;
     margin-bottom: .8rem;
   }
-  .lead-form input::placeholder, .lead-form textarea::placeholder { color: rgba(253, 250, 243, .45); }
+  .lead-form input::placeholder, .lead-form textarea::placeholder { color: var(--on-ink-soft); }
   .lead-form input:focus, .lead-form textarea:focus { outline: none; border-color: var(--bronze); }
-  .lead-form input:focus-visible, .lead-form textarea:focus-visible { outline: 2px solid var(--bronze); outline-offset: 2px; }
-  .lead-form textarea { resize: vertical; min-height: 4.6rem; }
-  .lead-note { font-size: .78rem; line-height: 1.5; color: rgba(253, 250, 243, .55); margin: .9rem 0 0; max-width: 30rem; }
+  .lead-form textarea { resize: vertical; min-height: 4.4rem; }
+  .lead-note { font-size: .78rem; line-height: 1.5; color: var(--on-ink-soft); margin: .9rem 0 0; max-width: 30rem; }
   .lead-form button { font-family: inherit; cursor: pointer; }
-  .lead-status { margin-top: .9rem; font-size: .88rem; color: rgba(253, 250, 243, .8); min-height: 1.2em; }
-  @media (max-width: 560px) {
-    .lead-form-row { flex-direction: column; }
-  }
-  .final::after {
-    content: "";
-    position: absolute;
-    inset: auto -10% -60% auto;
-    width: 34rem;
-    height: 34rem;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(169, 116, 63, .28), transparent 62%);
-    pointer-events: none;
-  }
+  .lead-status { margin-top: .9rem; font-size: .88rem; color: var(--on-ink); min-height: 1.2em; }
 
   footer { padding: 0 0 3.5rem; color: var(--soft); font-size: .9rem; }
   footer a { color: var(--soft); }
@@ -586,109 +454,45 @@
 
   /* responsive */
   @media (max-width: 900px) {
-    .hero-top { grid-template-columns: 1fr; align-items: start; }
-    .items { columns: 1; }
-    .open { grid-template-columns: 1fr; }
+    .works-grid, .ready-grid, .fit-grid { grid-template-columns: 1fr; }
+    .rules-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .offers-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .final { grid-template-columns: 1fr; }
-    .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .hero .meta { gap: 1.6rem; }
-    .work--client img { height: 12rem; }
-    .work--demo img { height: 9rem; }
-    .offers ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .ready-grid { grid-template-columns: 1fr; }
+    .facts-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+  }
+  @media (max-width: 720px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .scene { margin-top: 2rem; }
+    .scene-box { max-width: none; padding: 1.2rem; }
+    .hero h1 { max-width: none; }
+    .hero .lead { max-width: none; }
   }
   @media (max-width: 560px) {
-    :root { --page: min(1240px, 100% - 2rem); }
-    .step { grid-template-columns: 2.6rem minmax(0, 1fr); gap: 1rem; }
-    .step .n { font-size: 2.1rem; width: 2rem; }
-    .rules { grid-template-columns: 1fr; }
-    .btn { padding: .85rem 1.3rem; }
-    /* on phone, the proof and the arguments must fit in the first screen: we compress the vertical space, without touching desktop */
-    h1 { font-size: 2.45rem; }
-    /* the header button on phone ate up screen space and duplicated the main action */
-    .top { padding: 1.1rem 0; }
+    :root { --page: min(1180px, 100% - 2rem); }
+    .offers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .rules-grid { grid-template-columns: 1fr; }
+    .items { columns: 1; }
+    .step { grid-template-columns: 2.4rem minmax(0, 1fr); gap: 1rem; }
+    .step .n { font-size: 1.6rem; }
+    .steps::before { left: 1.2rem; }
+    .lead-form-row { flex-direction: column; }
+    .group > details > summary { grid-template-columns: 2.4rem minmax(0, 1fr) 1.2rem; }
+    .btn { padding: .8rem 1.3rem; }
     .top .btn { display: none; }
-    .hero { padding-top: 1.2rem; }
-    .hero h1 { max-width: none; }
-    .hero .lead { margin-top: 1rem; }
-    /* fold invariant: the proof must start within the first screen, the note yields its place */
-    .hero .note { display: none; }
-    .hero .lead { font-size: 1.02rem; }
-    .hero .actions { margin-top: .9rem; }
-    .brand span { font-size: .68rem; letter-spacing: .08em; }
-    .proof img { height: 8rem; }
-    .proof figcaption { font-size: .84rem; margin-top: .6rem; }
-    .hero .meta { margin-top: 1.4rem; padding-top: 1rem; gap: .9rem 1.6rem; }
-    .hero .meta div { max-width: none; }
-    .hero .meta strong { font-size: 1.15rem; }
-    .hero .meta span { font-size: .84rem; }
-    .sec-head--indent { margin-left: 0; }
-    .group > details > summary { grid-template-columns: 3.4rem minmax(0, 1fr) 1.2rem; }
-    .offers ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .steps::before { left: 1rem; }
+    .brand span { display: none; }
   }
 
-  /* reveal on scroll */
+  /* reveal on scroll: each block gets its own entrance, no single uniform fade */
   @media (prefers-reduced-motion: no-preference) {
-    @supports ((animation-timeline: view()) and (animation-range: entry)) {
-      .reveal {
-        animation: rise linear both;
-        animation-timeline: view();
-        animation-range: entry 5% entry 55%;
-      }
-      @keyframes rise {
-        from { opacity: 0; transform: translateY(1.4rem); }
-        to { opacity: 1; transform: none; }
-      }
-      .thread::before { animation: threadDraw linear both; animation-timeline: view(); animation-range: entry 100% exit 0%; }
-      @keyframes threadDraw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-      .chain-live { animation: chainDraw .9s var(--ease) both; animation-timeline: view(); animation-range: entry 20% entry 70%; }
-      @keyframes chainDraw { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
-      .marked::before { animation: markIn .45s var(--ease) both; animation-timeline: view(); animation-range: entry 15% entry 60%; }
-      @keyframes markIn { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-    }
+    .rv { opacity: 0; transform: translateY(1.1rem); }
+    .rv.rv-in { opacity: 1; transform: none; }
+    .rv-a { transition: opacity .26s var(--ease), transform .26s var(--ease); }
+    .rv-b { transition: opacity .32s var(--ease) .05s, transform .32s var(--ease) .05s; }
+    .rv-c { transition: opacity .38s var(--ease) .1s, transform .38s var(--ease) .1s; transform: translateY(1.4rem); }
   }
 
   @media print {
-    .reveal, .items li { animation: none !important; opacity: 1 !important; transform: none !important; }
-    .sketch, .sketch-edge { display: none !important; }
-  }
-
-  /* scene "sketch becomes a website": a pencil wireframe over the proof, an edge line reveals the photo */
-  .sketch {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: var(--paper-deep);
-    pointer-events: none;
-  }
-  .sketch-tag {
-    position: absolute;
-    bottom: 6%;
-    left: 5%;
-    font-size: .62rem;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--soft);
-    font-weight: 500;
-  }
-  .sketch-block {
-    position: absolute;
-    border: 1px solid var(--faint);
-    background: transparent;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: sketchIn .4s var(--ease) both;
-  }
-  @keyframes sketchIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  .sketch-edge {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 2px;
-    background: var(--bronze);
-    box-shadow: 0 0 12px rgba(169, 116, 63, .5);
-    z-index: 2;
-    pointer-events: none;
+    .rv { opacity: 1 !important; transform: none !important; }
   }
 </style>
 </head>
@@ -698,11 +502,11 @@
   <div class="page top-in">
     <div class="brand">
       <b>Aleksandr Shulgin</b>
-      <span>Free mockup · pay on acceptance</span>
+      <span>Developer. Websites, bots, automation, apps</span>
     </div>
     <div class="top-right">
       <nav class="lang" aria-label="Page language"><a href="../" data-setlang="ru">RU</a><span>EN</span></nav>
-      <a class="btn ghost" href="https://t.me/Aleksandr_NFA">Message on Telegram</a>
+      <a class="btn ghost" href="https://t.me/Aleksandr_NFA" data-cta="header-tg">Message on Telegram</a>
     </div>
   </div>
 </header>
@@ -756,96 +560,227 @@
       <circle cx="15.5" cy="8.5" r="1.4"/>
     </symbol>
   </svg>
-  <div class="page">
 
-    <section class="hero">
-      <div class="hero-top">
-        <div>
-          <h1>I build websites, bots and assistants <em>for small businesses</em>.</h1>
-          <p class="lead">For a salon, an auto shop, a cafe, a store, a course, a solo tradesperson. Tell me in your own words what gets in the way, and I'll say whether it can be solved and how long it takes.</p>
-          <div class="actions">
-            <a class="btn" href="https://t.me/Aleksandr_NFA">Tell me about your task</a>
-            <a class="btn ghost" href="#catalog">What I can help with</a>
-          </div>
-          <p class="note">You don't need a ready brief: just describe it in your own words, and I answer personally. <a href="mailto:sanexxx777@gmail.com">Email works too</a></p>
+  <section class="hero">
+    <div class="page hero-grid">
+      <div class="hero-text">
+        <span class="label">Development for your task</span>
+        <h1><span id="heroLead1Wrap">I turn a task described in plain words </span><em id="heroEm">into working software</em>.</h1>
+        <p class="lead"><span id="lead1">A website, a bot, automation, an app, an AI assistant.</span> Describe what gets in your way or what you want, in your own words. Within one business day I'll tell you whether it can be done, how, and what it costs.</p>
+        <div class="actions">
+          <a class="btn" href="https://t.me/Aleksandr_NFA" data-cta="hero-tg">Get an estimate in a day</a>
+          <a class="btn ghost on-ink" href="#works" data-cta="hero-works">See the work</a>
         </div>
-        <figure class="proof">
-          <a href="https://horsesfarm.ru" target="_blank" rel="noopener">
-            <img src="../../assets/work-horsesfarm.webp" alt="Horse farm website in Serzhantovo" width="600" height="360" fetchpriority="high">
-            <figcaption>
-              <b>Horse farm in Serzhantovo</b>
-              The owner updates prices and photos herself, from her phone. <span class="go">Visit the site</span>
-            </figcaption>
-          </a>
-        </figure>
+        <p class="note">No brief needed. You talk to me, not to a manager. <a href="mailto:sanexxx777@gmail.com">Prefer email?</a></p>
       </div>
-      <div class="meta">
-        <div>
-          <strong>Mockup first</strong>
-          <span>I show you how yours will look. Free.</span>
-        </div>
-        <div>
-          <strong class="stamp"><span>No upfront payment</span></strong>
-          <span>You pay after you accept the work.</span>
-        </div>
-        <div>
-          <strong>A human answers</strong>
-          <span>You write on Telegram, you talk to me, not a manager.</span>
+      <div class="scene" aria-hidden="true">
+        <div class="scene-box" id="scene">
+          <p class="scene-phrase" id="scenePhrase"></p>
+          <div class="scene-ui" id="sceneUi"></div>
         </div>
       </div>
-      <nav class="offers" aria-label="What people usually come with">
-        <span class="label">What people usually come with</span>
-        <ul>
-          <li><a href="#g-site"><svg class="ico"><use href="#i-site"/></svg><strong>Site with admin panel</strong><span>You change prices and photos yourself</span></a></li>
-          <li><a href="#g-clients"><svg class="ico"><use href="#i-clients"/></svg><strong>Bookings and leads</strong><span>The bot books, you get a notification</span></a></li>
-          <li><a href="#g-ai"><svg class="ico"><use href="#i-ai"/></svg><strong>AI assistant</strong><span>Answers clients from your price list</span></a></li>
-          <li><a href="#g-routine"><svg class="ico"><use href="#i-routine"/></svg><strong>Routine on autopilot</strong><span>Reports, contracts, exports, hands-free</span></a></li>
-          <li><a href="#g-look"><svg class="ico"><use href="#i-look"/></svg><strong>Social media runs itself</strong><span>A post goes out every day</span></a></li>
-          <li><a href="#ready"><svg class="ico"><use href="#i-ready"/></svg><strong>Ready-made, priced</strong><span>An app and two audits, available today</span></a></li>
+    </div>
+  </section>
+
+  <div class="hero-after rv rv-b">
+    <div class="page">
+      <div class="facts-grid">
+        <div class="fact">
+          <span class="fact-stamp-mark" id="factStamp">Price fixed before we start</span>
+          <span class="fact-sub">A written quote before work begins. It doesn't change afterwards.</span>
+        </div>
+        <div class="fact">
+          <strong>Estimate in one day</strong>
+          <span class="fact-sub">Write today, tomorrow you know whether it can be done and for how much.</span>
+        </div>
+        <div class="fact">
+          <strong>A person answers</strong>
+          <span class="fact-sub">You talk to the one who does the work, not a manager.</span>
+        </div>
+      </div>
+      <nav class="offers-strip" aria-label="What people come with most often">
+        <span class="label">What people come with most often</span>
+        <ul class="offers-grid">
+          <li><a href="#g-site"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="6.5" cy="7" r=".6"/><circle cx="9" cy="7" r=".6"/></svg><strong>A website you edit yourself</strong><span>Change prices and photos from your phone, no developer needed</span></a></li>
+          <li><a href="#g-clients"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="7" y1="3" x2="7" y2="6"/><line x1="17" y1="3" x2="17" y2="6"/><path d="M8 14l2.5 2.5L16 11"/></svg><strong>Clients book themselves</strong><span>A bot or a booking page, you get a notification</span></a></li>
+          <li><a href="#g-ai"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z"/><path d="M13 6.5 14 9l2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1 1-2.5Z"/></svg><strong>An AI assistant answers for you</strong><span>By your price list and your rules, around the clock</span></a></li>
+          <li><a href="#g-routine"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 0 1-13.7 5.7L4 16"/><path d="M4 20v-4h4"/></svg><strong>Reports arrive on their own</strong><span>Exports, contracts, invoices from templates, hands-free</span></a></li>
+          <li><a href="#g-look"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.6"/></svg><strong>Social media runs itself</strong><span>A post goes out every day on your schedule</span></a></li>
+          <li><a href="#ready"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5 12.5 20a1.5 1.5 0 0 1-2.1 0L4 13.6a1.5 1.5 0 0 1 0-2.1L11.5 4H19a1 1 0 0 1 1 1v7.5Z"/><circle cx="15.5" cy="8.5" r="1.4"/></svg><strong>Ready-made with a price</strong><span>An app and an audit, available today</span></a></li>
+          <li class="offer-other"><a href="https://t.me/Aleksandr_NFA" data-cta="offers-other"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 4v-4H6a2 2 0 0 1-2-2v-8Z"/><path d="M12 8.2v3.3"/><circle cx="12" cy="14" r=".6"/></svg><strong>Something else</strong><span>Describe the task. Within a day I'll say whether it can be done and what it costs</span></a></li>
         </ul>
       </nav>
-    </section>
+    </div>
+  </div>
 
-    <div class="sheet">
-      <i class="thread" aria-hidden="true"></i>
-      <section class="manifest reveal">
-      <div class="manifest-text">
-        <p class="manifest-line marked">Almost anything you can explain in words can be turned into software. <em>A website, a bot, a video, a report, an assistant that replies for you.</em> If I can't take it on, I'll say so on day one, not a month in.</p>
-        <p class="manifest-why">Why one person can handle this: AI writes the rough drafts, I set the task, review everything and answer for the result. Studio-scale output, but you talk to the person who does the work: no managers, no retelling.</p>
+  <section id="works" class="rv rv-b">
+    <div class="page">
+      <div class="sec-head">
+        <span class="label">Done</span>
+        <h2>Live <em>and working</em></h2>
+        <p>Not screenshots for the album: everything is live at its own address. Two sites were built for clients, two were built as examples: the companies are invented, the sites are real.</p>
       </div>
-      <svg class="chain" viewBox="0 0 320 200" role="img" aria-label="There's no middleman between you and the work">
-        <title>There's no middleman between you and the work</title>
-        <text x="20" y="30" text-anchor="start" font-size="9" letter-spacing="1.3" fill="#635b4f" style="text-transform:uppercase;font-family:Inter,sans-serif">THE USUAL SETUP</text>
-        <line x1="25" y1="58" x2="285" y2="58" stroke="#635b4f" stroke-opacity=".6" stroke-dasharray="3 4"/>
-        <circle cx="20" cy="58" r="4.5" fill="#f6f1e6" stroke="#635b4f" stroke-width="1"/>
-        <circle cx="110" cy="58" r="4.5" fill="#f6f1e6" stroke="#635b4f" stroke-width="1"/>
-        <circle cx="200" cy="58" r="4.5" fill="#f6f1e6" stroke="#635b4f" stroke-width="1"/>
-        <circle cx="290" cy="58" r="4.5" fill="#f6f1e6" stroke="#635b4f" stroke-width="1"/>
-        <text x="20" y="78" text-anchor="middle" font-size="10" fill="#635b4f" font-family="Inter,sans-serif">you</text>
-        <text x="110" y="78" text-anchor="middle" font-size="10" fill="#635b4f" font-family="Inter,sans-serif">manager</text>
-        <text x="200" y="78" text-anchor="middle" font-size="10" fill="#635b4f" font-family="Inter,sans-serif">account</text>
-        <text x="290" y="78" text-anchor="middle" font-size="10" fill="#635b4f" font-family="Inter,sans-serif">developer</text>
-        <text x="20" y="122" font-size="9" letter-spacing="1.3" fill="#8a5526" style="text-transform:uppercase;font-family:Inter,sans-serif">HERE</text>
-        <line class="chain-live" x1="25" y1="150" x2="285" y2="150" stroke="#a9743f" stroke-width="1.4" stroke-linecap="round"/>
-        <circle cx="20" cy="150" r="4.5" fill="#f6f1e6" stroke="#a9743f"/>
-        <circle cx="290" cy="150" r="4.5" fill="#f6f1e6" stroke="#a9743f"/>
-        <text x="20" y="170" text-anchor="middle" font-size="10" fill="#635b4f" font-family="Inter,sans-serif">you</text>
-        <text x="290" y="170" text-anchor="middle" font-size="10" fill="#635b4f" font-family="Inter,sans-serif">me</text>
-      </svg>
-    </section>
+      <div class="works-grid">
+        <a class="work" href="https://horsesfarm.ru" target="_blank" rel="noopener">
+          <div class="shot"><img src="../../assets/work-horsesfarm.webp" alt="Horse farm website in Serzhantovo" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Client work</span>
+          <h3>Horse yard in Serzhantovo</h3>
+          <p>Events, animals, prices, directions. The owner edits texts and photos herself, from her phone, no developer required.</p>
+          <span class="go">Open the site</span>
+        </a>
+        <a class="work" href="https://tanyabunina.ru" target="_blank" rel="noopener">
+          <div class="shot"><img src="../../assets/work-tanyabunina.webp" alt="Website of Tatiana Bunina's online course" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Client work</span>
+          <h3>Tatiana Bunina's course</h3>
+          <p>A page for an author's online course: programme, pricing, sign-up via Telegram. Lives at its own address, the client runs it herself. Built for a client in Russia.</p>
+          <span class="go">Open the site</span>
+        </a>
+        <a class="work" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
+          <div class="shot"><img src="../../assets/work-kratno.webp" alt="Consulting website example" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Demo</span>
+          <h3>Kratno bureau</h3>
+          <p>What a services site looks like: clear structure, cases, an enquiry form. The company is invented, the site is real.</p>
+          <span class="go">View</span>
+        </a>
+        <a class="work" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
+          <div class="shot"><img src="../../assets/work-signal.webp" alt="Agency website example" loading="lazy" width="600" height="360"></div>
+          <span class="work-kind">Demo</span>
+          <h3>Signal studio</h3>
+          <p>For those who sell results: numbers, testimonials, a calculator right on the page. The company is invented, the site is real.</p>
+          <span class="go">View</span>
+        </a>
+      </div>
+      <p class="note-line">Beyond websites: trading systems running on real money, a Mac app in the store, research and analytics tasks. Technical details are in the <a href="https://shulgin.is-a.dev" target="_blank" rel="noopener">portfolio</a>.</p>
+    </div>
+  </section>
 
-    <section class="rule reveal" id="catalog">
-      <div class="sec-head sec-head--wide">
-        <span class="label">What you can hand off</span>
-        <h2>Eight answers to "can you do this?"</h2>
-        <p>Open whichever is closest to your case. This list isn't complete: half the requests come in their own words, and that's fine.</p>
+  <section id="ready" class="rv rv-a">
+    <div class="page">
+      <div class="sec-head">
+        <span class="label">Ready-made</span>
+        <h2>Available <em>today</em>, price known</h2>
+        <p>Two things that need no discussion: download or order, and it's yours. They also show the price range.</p>
+      </div>
+      <div class="ready-grid">
+        <a class="ready-card" href="../../#apps">
+          <div class="ready-head"><h3>Qwerty Switcher</h3><span class="price">$6 / mo</span></div>
+          <p>A Mac app that fixes text typed in the wrong keyboard layout, no cloud involved. 14 days free, no card needed.</p>
+          <span class="go">Download and try</span>
+        </a>
+        <a class="ready-card" href="../../case-audit/">
+          <div class="ready-head"><h3>Fixing an AI-built website</h3><span class="price">$119</span></div>
+          <p>The site was built with an AI tool and behaves oddly. I find what no automated scan sees, fix it and show before and after.</p>
+          <span class="go">See a sample report</span>
+        </a>
+      </div>
+      <p class="note-line">Everything else is made for you. I name the sum in writing after we talk, before work starts, and it doesn't change. <a href="#faq-price">More about pricing</a>.</p>
+    </div>
+  </section>
+
+  <section class="rv rv-c">
+    <div class="page">
+      <div class="sec-head">
+        <span class="label">How it works</span>
+        <h2>No jargon and no <em>ten-page briefs</em></h2>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="n">1</span>
+          <div>
+            <h3>A conversation and an estimate</h3>
+            <p>Fifteen minutes in chat or by voice. You tell me what you do and what gets in the way. I ask the questions, you don't need to know the tech. By the end of the next business day you have it in writing: what we do, how long it takes, what it costs.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="n">2</span>
+          <div>
+            <h3>I show you how it will look</h3>
+            <p>A few days later you get a mockup or a working piece: with your photos and texts, not an abstract example from the internet.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="n">3</span>
+          <div>
+            <h3>We refine together</h3>
+            <p>You say what to change. I change it. That's part of the job, not a "paid extra".</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="n">4</span>
+          <div>
+            <h3>Launch</h3>
+            <p>It opens at your address, works on phones, enquiries reach you. I show you how to use it all, in plain words.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="n">5</span>
+          <div>
+            <h3>I stay around</h3>
+            <p>Small fixes are included for a month after launch. After that, it's simple: you write, I answer.</p>
+          </div>
+        </li>
+      </ol>
+      <p class="note-line">Already know what you need? <a href="https://t.me/Aleksandr_NFA" data-cta="steps-tg">Write two lines</a>, within a day I'll answer how it can be done and what it costs.</p>
+    </div>
+  </section>
+
+  <section class="rv rv-a">
+    <div class="page">
+      <div class="sec-head">
+        <span class="label">Honest about fit</span>
+        <h2>Who it's for, <em>and who it isn't</em></h2>
+      </div>
+      <div class="fit-grid">
+        <div class="fit-col fit-col--yes">
+          <h3>Works well when</h3>
+          <ul>
+            <li>the task is described as a result: "I want clients to book themselves", not "I need a site on platform X"</li>
+            <li>you want one person responsible for everything, not a team with a manager</li>
+            <li>in the first days someone can answer my questions and send materials</li>
+            <li>any size of business: from a one-person practice to a company with departments</li>
+          </ul>
+        </div>
+        <div class="fit-col fit-col--no">
+          <h3>I don't take it when</h3>
+          <ul>
+            <li>"make it exactly like the competitor's"</li>
+            <li>it's needed by tomorrow morning, and it's two weeks of work</li>
+            <li>nobody can make decisions: edits come from three people and contradict each other</li>
+            <li>fake engagement, spam mailings, deceiving users</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rv rv-b">
+    <div class="page">
+      <div class="sec-head">
+        <span class="label">How I work</span>
+        <h2>Rules I don't bend</h2>
+      </div>
+      <div class="rules-grid">
+        <div><h3>Everything stays yours</h3><p>The address, the access, the materials. No fee for the fact that it simply keeps working.</p></div>
+        <div><h3>The price doesn't grow along the way</h3><p>I name the sum in writing after we talk, before work starts, and it doesn't change.</p></div>
+        <div><h3>I'll say if it's not worth it</h3><p>If a task won't pay off, or a ready-made service does it better, you'll hear that right away.</p></div>
+        <div><h3>Official paperwork</h3><p>Contract and receipt, payment by card or invoice, whichever suits you or your accountant.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalog" class="rv rv-a">
+    <div class="page">
+      <div class="sec-head">
+        <span class="label">Full list</span>
+        <h2>Sixty tasks <em>I've already solved</em></h2>
+        <p>Eight groups, open yours. The list isn't complete: half of the tasks come in people's own words, and that's fine.</p>
       </div>
 
       <ol class="groups">
         <li class="group" id="g-site">
-          <details open>
+          <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-site"/></svg><i>8 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-site"/></svg>
               <span>
                 <h3>A place online</h3>
                 <span class="hint">A site with prices and a contact form, a store with payments, moving from your old developer, and five more</span>
@@ -868,7 +803,7 @@
         <li class="group" id="g-clients">
           <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-clients"/></svg><i>8 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-clients"/></svg>
               <span>
                 <h3>Clients and bookings</h3>
                 <span class="hint">A bot that books appointments, online booking with a calendar, reminders for clients, and five more</span>
@@ -891,7 +826,7 @@
         <li class="group" id="g-self">
           <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-self"/></svg><i>8 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-self"/></svg>
               <span>
                 <h3>For yourself, not for business</h3>
                 <span class="hint">There doesn't have to be a business: digitizing an archive, a club bot, a smart home without subscriptions, and five more</span>
@@ -914,7 +849,7 @@
         <li class="group" id="g-routine">
           <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-routine"/></svg><i>8 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-routine"/></svg>
               <span>
                 <h3>Routine the machine can do</h3>
                 <span class="hint">Weekly reports, a contract and invoice from a template, competitor prices, and five more</span>
@@ -937,7 +872,7 @@
         <li class="group" id="g-ai">
           <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-ai"/></svg><i>8 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-ai"/></svg>
               <span>
                 <h3>AI assistants</h3>
                 <span class="hint">Answers clients using your price list, turns calls into text, searches your documents, and five more</span>
@@ -960,7 +895,7 @@
         <li class="group" id="g-look">
           <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-look"/></svg><i>8 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-look"/></svg>
               <span>
                 <h3>How people see you</h3>
                 <span class="hint">A video made from your photos, profile design, a logo and colors, and five more</span>
@@ -983,7 +918,7 @@
         <li class="group" id="g-numbers">
           <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-numbers"/></svg><i>6 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-numbers"/></svg>
               <span>
                 <h3>Numbers and decisions</h3>
                 <span class="hint">Revenue and leads on one screen, which ads paid off, how much to stock for the season, and three more</span>
@@ -1004,7 +939,7 @@
         <li class="group" id="g-order">
           <details>
             <summary>
-              <span class="num"><svg class="ico"><use href="#i-order"/></svg><i>6 items</i></span>
+              <svg class="g-ico" aria-hidden="true"><use href="#i-order"/></svg>
               <span>
                 <h3>Order and peace of mind</h3>
                 <span class="hint">Backups, access registered in your name, a security check before launch, and three more</span>
@@ -1022,245 +957,90 @@
           </details>
         </li>
       </ol>
+    </div>
+  </section>
 
-      <p class="after-catalog marked">Didn't find yours? That's usually how it goes. Describe in your own words what's eating your time, and I'll tell you if it's solvable. I take small jobs too: if it's a day of work, I'll say so, and it'll cost like a day, not like a project. <a href="https://t.me/Aleksandr_NFA">Message on Telegram</a> or <a href="mailto:sanexxx777@gmail.com">email me</a>.</p>
-      <p class="after-catalog after-catalog--biz">If you already have a site, a CRM and staff, I'm not pitching a rebuild. Usually what's needed is connecting what already works: leads from different places into one inbox, exports and reports, an AI assistant on top of your documents. Tell me where things break down by hand, and I'll take a look and tell you honestly if it's worth automating.</p>
-    </section>
-
-    <section class="rule reveal" data-chapter="II">
-      <div class="sec-head sec-head--indent">
-        <span class="label">How it works</span>
-        <h2>No jargon and no <em>ten-page briefs</em></h2>
-      </div>
-      <ol class="steps">
-        <li class="step">
-          <span class="n">1</span>
-          <div>
-            <h3>A conversation</h3>
-            <p>Fifteen minutes, by chat or voice. You tell me what you do and what's getting in the way. I ask the questions, you don't need to know anything technical.</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="n">2</span>
-          <div>
-            <h3>I show you how it'll look</h3>
-            <p>A few days later I send a mockup or a working piece: with your own photos and text, not some generic example off the internet.</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="n">3</span>
-          <div>
-            <h3>We refine it together</h3>
-            <p>You tell me what to change. I change it. That's part of the job, not an "extra service at an extra rate."</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="n">4</span>
-          <div>
-            <h3>I launch it</h3>
-            <p>It goes live at your own address, works on phones, and requests come straight to you. I show you how to use all of it, in plain language.</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="n">5</span>
-          <div>
-            <h3>I stick around</h3>
-            <p>Small fixes are free for a month after launch. After that, it's simple: you write, I answer.</p>
-          </div>
-        </li>
-      </ol>
-      <p class="step-cta marked">Already know what you need? <a href="https://t.me/Aleksandr_NFA">Write me a couple of lines</a>, and I'll tell you how it's solved and how long it'll take.</p>
-    </section>
-
-    <section class="rule reveal" data-chapter="III">
-      <div class="sec-head">
-        <span class="label">How I work</span>
-        <h2>Rules I don't bend on</h2>
-      </div>
-      <div class="rules">
-        <div>
-          <h3>Everything stays yours</h3>
-          <p>The domain, the access, the files. No charge just for the site being online.</p>
+  <section id="faq" class="rv rv-b">
+    <div class="page faq-wrap">
+      <div>
+        <div class="sec-head">
+          <span class="label">Common questions</span>
+          <h2>What people ask <em>before we start</em></h2>
         </div>
-        <div>
-          <h3>The price doesn't creep up</h3>
-          <p>I name the number after we talk, before any work starts, and don't change it after.</p>
+        <div class="faq">
+          <details id="faq-price">
+            <summary>What does it cost?</summary>
+            <p>I name the sum in writing after we talk, before work starts, and it doesn't change. I don't publish exact prices in advance: the same task in words can take two days or a month. The ready-made items above show the price range.</p>
+          </details>
+          <details>
+            <summary>What will I have to pay later?</summary>
+            <p>You don't pay me anything just for the finished work running: I don't charge a subscription. There are direct costs left over: the domain and hosting, and if it's a bot or an AI assistant, a server and the fee for calls to the model. I'll calculate what that comes to per month and tell you before we start, and you pay those directly, not through me. Small fixes are free for a month after launch, bigger changes we price separately.</p>
+          </details>
+          <details>
+            <summary>I don't understand tech at all.</summary>
+            <p>That's how it should be, that's my part of the job. All I need from you is a plain description of your business. I won't bring jargon into the conversation, and after launch I'll show you what to click.</p>
+          </details>
+          <details>
+            <summary>How long does it take?</summary>
+            <p>Simple things: a few days. A website: a week or two. Big automation projects: longer, but in stages, so you see progress instead of waiting in silence.</p>
+          </details>
+          <details>
+            <summary>What if I don't like the result?</summary>
+            <p>You see the intermediate result before launch, and changes along the way are part of the job. You accept the work, not me: until you say yes, it doesn't go live.</p>
+          </details>
+          <details>
+            <summary>I have no photos and no texts.</summary>
+            <p>That's normal. I'll write the text after we talk, and you'll edit it. For photos, I'll tell you what to shoot on your phone: that's almost always enough.</p>
+          </details>
+          <details>
+            <summary>Who owns the result?</summary>
+            <p>You do. The domain and access are registered in your name, I hand over everything. I don't hold the work hostage and I don't charge a subscription just for it running.</p>
+          </details>
+          <details>
+            <summary>I'm in another country, does that matter?</summary>
+            <p>No. I work with any region, we talk in a messenger or by voice. Time zones are handled by writing.</p>
+          </details>
+          <details>
+            <summary>What about things you haven't done before?</summary>
+            <p>I take it if I can see how to do it well: an AI writes the rough draft, I set the task, check and answer for the result, so the output is that of a studio. If a task is beyond me or a ready-made service does it cheaper, I'll say so right away and point you to it.</p>
+          </details>
         </div>
-        <div>
-          <h3>I'll say so if it's not worth it</h3>
-          <p>If a task won't pay off, or it's already solved for free, you'll hear that upfront.</p>
-        </div>
-        <div>
-          <h3>Everything official</h3>
-          <p>I'm a registered sole trader: contract and a tax receipt for every payment, card or invoice, whatever suits your bookkeeping.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="rule reveal" id="works" data-chapter="IV">
-      <div class="sec-head">
-        <span class="label">What I've built</span>
-        <h2>Live work, not just screenshots</h2>
-        <p>Everything opens and works. Two sites were built for clients, two were built as examples: the companies are made up, the sites are real.</p>
-      </div>
-      <div class="works">
-        <a class="work work--client" href="https://horsesfarm.ru" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-horsesfarm.webp" alt="Horse farm website in Serzhantovo" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Client project</span>
-          <h3>Horse farm in Serzhantovo</h3>
-          <span>Events, animals, prices, directions. The owner updates the text and photos herself, from her phone. Built for a client in Russia.</span>
-          <span class="go">Visit the site</span>
-        </a>
-        <a class="work work--client" href="https://tanyabunina.ru" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-tanyabunina.webp" alt="Website of Tatiana Bunina's online course" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Client project</span>
-          <h3>Tatiana Bunina's course</h3>
-          <span>Landing page for an online course: programme, plans, sign-up via Telegram. Live at its own address, run by the client herself.</span>
-          <span class="go">Visit the site</span>
-        </a>
-        <a class="work work--demo" href="https://shulgin.is-a.dev/kratno-landing-demo/" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-kratno.webp" alt="Consulting website example" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Demo</span>
-          <h3>Kratno Bureau</h3>
-          <span>What a services site looks like: clear structure, case studies, a contact form. The company is fictional, the site is real.</span>
-          <span class="go">View it</span>
-        </a>
-        <a class="work work--demo" href="https://shulgin.is-a.dev/signal-studio-landing-demo/" target="_blank" rel="noopener">
-          <div class="shot"><img src="../../assets/work-signal.webp" alt="Agency website example" loading="lazy" width="600" height="360"></div>
-          <span class="work-kind">Demo</span>
-          <h3>Signal Studio</h3>
-          <span>For people who sell results: numbers, testimonials, a calculator right on the page. The company is fictional, the site is real.</span>
-          <span class="go">View it</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="rule reveal" id="ready" data-chapter="V">
-      <div class="sec-head">
-        <span class="label">Ready-made</span>
-        <h2>Available <em>today</em>, price known</h2>
-        <p>Three things you don't need to discuss: download or order, and it's yours.</p>
-      </div>
-      <div class="ready-grid">
-        <a class="ready-card" href="../../#apps">
-          <div class="ready-head">
-            <h3>Qwerty Switcher</h3>
-            <span class="price">$6 / mo</span>
-          </div>
-          <p>A Mac app that fixes text typed in the wrong keyboard layout, no cloud involved. 14 days free, no card needed.</p>
-          <span class="go">Download and try</span>
-        </a>
-        <a class="ready-card" href="../../rkn-audit/">
-          <div class="ready-head">
-            <h3>Website audit for data-law fines</h3>
-            <span class="price">500 ₽</span>
-          </div>
-          <p>I check a Russian website against 16 points of the personal-data law: forms, consents, foreign services. A report with possible fine amounts within a day.</p>
-          <span class="go">Order the audit</span>
-        </a>
-        <a class="ready-card" href="../../case-audit/">
-          <div class="ready-head">
-            <h3>Fixing an AI-built website</h3>
-            <span class="price">$119</span>
-          </div>
-          <p>The site was built with an AI tool and behaves oddly. I find what no automated scan sees, fix it and show before and after.</p>
-          <span class="go">See a sample report</span>
-        </a>
-      </div>
-      <p class="after-catalog marked">Everything else is built for you. I name the price after our talk, before the work starts, and it doesn't change. <a href="#faq-price">More about pricing</a>.</p>
-      <div class="maker">
-        <div class="maker-text">
-          <span class="label">Who's behind this</span>
-          <p>Aleksandr Shulgin, developer. Besides websites and bots for small businesses I build trading systems, Mac apps and research tools. If you want the technical side, there's a detailed portfolio and a store of ready-made things.</p>
-        </div>
-        <div class="maker-links">
-          <a href="https://shulgin.is-a.dev" target="_blank" rel="noopener">Portfolio for technical readers</a>
-          <a href="../../">Store of ready-made things</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="rule reveal" data-chapter="VI">
-      <div class="sec-head sec-head--indent">
-        <span class="label">Frequently asked</span>
-        <h2>What people ask <em>before we start</em></h2>
-      </div>
-      <div class="faq-wrap">
-      <div class="faq">
-        <details id="faq-price">
-          <summary>How much does it cost?</summary>
-          <p>The estimate and the mockup are free: you know the number before work starts, and it doesn't change after. I won't post a price list here, honestly: the same task described in words can be two days of work or a month. It's easier the other way around: tell me what budget you want to stay within, and I'll tell you what actually fits in it.</p>
-        </details>
-        <details>
-          <summary>What will I have to pay later?</summary>
-          <p>You don't pay me anything just for the finished work running: I don't charge a subscription. There are direct costs left over: the domain and hosting, and if it's a bot or an AI assistant, a server and the fee for calls to the model. I'll calculate what that comes to per month and tell you before we start, and you pay those directly, not through me. Small fixes are free for a month after launch, bigger changes we price separately.</p>
-        </details>
-        <details>
-          <summary>I don't understand any of this technical stuff.</summary>
-          <p>That's how it should be, that's my part of the job. All I need from you is a plain description of your business. I won't bring jargon into the conversation, and after launch I'll show you what to click.</p>
-        </details>
-        <details>
-          <summary>How long does it take?</summary>
-          <p>Simple things: a few days. A website: a week or two. Big automation projects: longer, but in stages, so you see progress instead of waiting in silence.</p>
-        </details>
-        <details>
-          <summary>What if I don't like it?</summary>
-          <p>The mockup doesn't commit you to anything. If you don't like it, we part ways and you pay nothing.</p>
-        </details>
-        <details>
-          <summary>I don't have any photos or text.</summary>
-          <p>That's normal. I'll write the text after we talk, and you'll edit it. For photos, I'll tell you what to shoot on your phone: that's almost always enough.</p>
-        </details>
-        <details>
-          <summary>Who owns the finished work?</summary>
-          <p>You do. The domain and access are registered in your name, I hand over everything. I don't hold the work hostage and I don't charge a subscription just for it running.</p>
-        </details>
-        <details>
-          <summary>I'm somewhere else, does that get in the way?</summary>
-          <p>No. I work with any location, we talk by chat or voice. Time zone differences are solved by messaging.</p>
-        </details>
-        <details>
-          <summary>What about something you haven't done before?</summary>
-          <p>I take it on if I can see how to do it well. If a task is beyond me, or it's cheaper to solve with an off-the-shelf service, I'll say so right away and point you to where to look.</p>
-        </details>
       </div>
       <aside class="faq-aside">
         <span class="label">if your question isn't here</span>
-        <p>Just ask directly, it's faster than searching. I answer without scripts and without "a manager will get back to you."</p>
-        <a href="https://t.me/Aleksandr_NFA">Ask on Telegram</a>
+        <p>Ask directly, it's faster than searching. No scripts and no "a manager will contact you".</p>
+        <a href="https://t.me/Aleksandr_NFA" data-cta="faq-tg">Ask on Telegram</a>
       </aside>
-      </div>
-    </section>
     </div>
-  </div>
+  </section>
 
   <div class="page">
-    <div class="final reveal">
+    <div class="final rv rv-c">
       <div class="final-main">
-        <h2>Tell me what's <em>eating your time</em></h2>
-        <p>I'll tell you what's worth doing in your case, and what would just waste money. Even if you don't end up working with me.</p>
+        <h2>Describe the task, <em>tomorrow you'll know</em> whether it can be done and what it costs</h2>
+        <p>I'll tell you what makes sense in your case and what would be money down the drain. Even if you end up not working with me.</p>
         <div class="actions">
-          <a class="btn light" href="https://t.me/Aleksandr_NFA">Message on Telegram</a>
-          <a class="btn outline-light" href="mailto:sanexxx777@gmail.com">Send an email</a>
+          <a class="btn light" href="https://t.me/Aleksandr_NFA" data-cta="final-tg">Message on Telegram</a>
+          <a class="btn outline-light" href="mailto:sanexxx777@gmail.com" data-cta="final-mail">Send an email</a>
         </div>
         <form class="lead-form" id="leadform">
-          <p class="lead-form-label">Or draft your request here</p>
+          <p class="lead-form-label">or put the request together here</p>
           <div class="lead-fields">
             <div class="lead-form-row">
               <input type="text" name="name" maxlength="80" placeholder="Name" aria-label="Name" autocomplete="name">
               <input type="text" name="contact" maxlength="120" placeholder="Telegram, WhatsApp, phone or email" aria-label="Telegram, WhatsApp, phone or email" autocomplete="off">
             </div>
             <textarea name="message" rows="3" maxlength="400" placeholder="What eats your time" aria-label="What eats your time"></textarea>
-            <a class="btn light" id="lead-send" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Send via Telegram</a>
+            <a class="btn light" id="lead-send" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener" data-cta="final-form">Send via Telegram</a>
             <p class="lead-note">This form sends and stores nothing: the button opens Telegram with the text ready, and copies it to your clipboard.</p>
           </div>
           <div class="lead-status" role="status" aria-live="polite"></div>
         </form>
       </div>
       <ul class="final-side">
-        <li><b>What to write</b><span>In your own words: what you do and what's bothering you. You don't need a ready brief.</span></li>
-        <li><b>What happens next</b><span>I'll ask a few questions and tell you how it's solved and roughly how long it'll take.</span></li>
-        <li><b>What it costs you</b><span>Nothing. The conversation and the estimate are free, the rest is your call.</span></li>
+        <li><b>What to write</b><span>In your own words: what you do and what bothers you. No brief needed.</span></li>
+        <li><b>What happens next</b><span>I'll ask a few questions and by the end of the next business day write back how it can be done, how long it takes and what it costs.</span></li>
+        <li><b>What it costs you</b><span>The conversation and the estimate cost nothing, the rest is your call.</span></li>
       </ul>
     </div>
   </div>
@@ -1268,12 +1048,12 @@
 
 <footer>
   <div class="page foot-in">
-    <div>Aleksandr Shulgin. Working remotely, worldwide.</div>
+    <div>Aleksandr Shulgin. Working online with any country.</div>
     <div>
       <a href="https://t.me/Aleksandr_NFA">Telegram</a> ·
       <a href="mailto:sanexxx777@gmail.com">sanexxx777@gmail.com</a> ·
       <a href="https://shulgin.is-a.dev">shulgin.is-a.dev</a> ·
-      <a href="privacy/">Data and privacy</a>
+      <a href="../privacy/">Data and privacy</a>
     </div>
   </div>
 </footer>
@@ -1283,7 +1063,7 @@
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Aleksandr Shulgin",
-  "description": "Websites, bots, routine automation, AI-based assistants and video for small businesses and personal projects.",
+  "description": "Custom development: websites, bots, routine automation, AI-based assistants, Mac apps and trading systems.",
   "url": "https://shulgin.is-a.dev/store/prosto/en/",
   "areaServed": "Worldwide",
   "email": "sanexxx777@gmail.com",
@@ -1298,10 +1078,10 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much does it cost?",
+      "name": "What does it cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The estimate and the mockup are free: you know the number before work starts, and it doesn't change after. I won't post a price list here, honestly: the same task described in words can be two days of work or a month. It's easier the other way around: tell me what budget you want to stay within, and I'll tell you what actually fits in it."
+        "text": "I name the sum in writing after we talk, before work starts, and it doesn't change. I don't publish exact prices in advance: the same task in words can take two days or a month. The ready-made items above show the price range."
       }
     },
     {
@@ -1314,7 +1094,7 @@
     },
     {
       "@type": "Question",
-      "name": "I don't understand any of this technical stuff.",
+      "name": "I don't understand tech at all.",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "That's how it should be, that's my part of the job. All I need from you is a plain description of your business. I won't bring jargon into the conversation, and after launch I'll show you what to click."
@@ -1330,15 +1110,15 @@
     },
     {
       "@type": "Question",
-      "name": "What if I don't like it?",
+      "name": "What if I don't like the result?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The mockup doesn't commit you to anything. If you don't like it, we part ways and you pay nothing."
+        "text": "You see the intermediate result before launch, and changes along the way are part of the job. You accept the work, not me: until you say yes, it doesn't go live."
       }
     },
     {
       "@type": "Question",
-      "name": "I don't have any photos or text.",
+      "name": "I have no photos and no texts.",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "That's normal. I'll write the text after we talk, and you'll edit it. For photos, I'll tell you what to shoot on your phone: that's almost always enough."
@@ -1346,7 +1126,7 @@
     },
     {
       "@type": "Question",
-      "name": "Who owns the finished work?",
+      "name": "Who owns the result?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "You do. The domain and access are registered in your name, I hand over everything. I don't hold the work hostage and I don't charge a subscription just for it running."
@@ -1354,112 +1134,22 @@
     },
     {
       "@type": "Question",
-      "name": "I'm somewhere else, does that get in the way?",
+      "name": "I'm in another country, does that matter?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. I work with any location, we talk by chat or voice. Time zone differences are solved by messaging."
+        "text": "No. I work with any region, we talk in a messenger or by voice. Time zones are handled by writing."
       }
     },
     {
       "@type": "Question",
-      "name": "What about something you haven't done before?",
+      "name": "What about things you haven't done before?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "I take it on if I can see how to do it well. If a task is beyond me, or it's cheaper to solve with an off-the-shelf service, I'll say so right away and point you to where to look."
+        "text": "I take it if I can see how to do it well: an AI writes the rough draft, I set the task, check and answer for the result, so the output is that of a studio. If a task is beyond me or a ready-made service does it cheaper, I'll say so right away and point you to it."
       }
     }
   ]
 }
-</script>
-
-<script>
-(function () {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var proofLink = document.querySelector('.proof a');
-  if (!proofLink) return;
-
-  var isMobile = window.matchMedia('(max-width: 560px)').matches;
-  var blocks = isMobile
-    ? [[5, 5, 90, 8], [55, 20, 40, 34], [5, 38, 22, 9]]
-    : [
-        [5, 5, 90, 8], [5, 20, 44, 12], [55, 20, 40, 34], [5, 38, 22, 9],
-        [5, 62, 27, 20], [36.5, 62, 27, 20], [68, 62, 27, 20]
-      ];
-  var stagger = isMobile ? 60 : 80;
-  var revealDelay = isMobile ? 700 : 700;
-  var revealDuration = isMobile ? 800 : 1100;
-  var ease = getComputedStyle(document.documentElement).getPropertyValue('--ease').trim() || 'cubic-bezier(.23, 1, .32, 1)';
-
-  var sketch = document.createElement('div');
-  sketch.className = 'sketch';
-  sketch.setAttribute('aria-hidden', 'true');
-
-  var tag = document.createElement('div');
-  tag.className = 'sketch-tag';
-  tag.textContent = 'mockup first';
-  sketch.appendChild(tag);
-
-  blocks.forEach(function (b, i) {
-    var el = document.createElement('div');
-    el.className = 'sketch-block';
-    el.style.left = b[0] + '%';
-    el.style.top = b[1] + '%';
-    el.style.width = b[2] + '%';
-    el.style.height = b[3] + '%';
-    el.style.animationDelay = (i * stagger) + 'ms';
-    sketch.appendChild(el);
-  });
-
-  var edge = document.createElement('div');
-  edge.className = 'sketch-edge';
-
-  proofLink.appendChild(sketch);
-  proofLink.appendChild(edge);
-
-  // the scene covers only the photo, the caption below stays readable the whole time
-  var proofImg = proofLink.querySelector('img');
-  var imgH = proofImg ? proofImg.offsetHeight : 0;
-  if (imgH) {
-    sketch.style.bottom = 'auto';
-    sketch.style.height = imgH + 'px';
-  }
-
-  function cleanup() {
-    sketch.remove();
-    edge.remove();
-  }
-
-  function runReveal() {
-    setTimeout(function () {
-      var h = imgH || proofLink.offsetHeight;
-      // cleanup is scheduled BEFORE animate: if WAAPI throws, the overlay still goes away
-      setTimeout(cleanup, revealDuration + 100);
-      try {
-        sketch.animate(
-          [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(100% 0 0 0)' }],
-          { duration: revealDuration, easing: ease, fill: 'forwards' }
-        );
-        edge.animate(
-          [{ transform: 'translateY(0)' }, { transform: 'translateY(' + h + 'px)' }],
-          { duration: revealDuration, easing: 'linear', fill: 'forwards' }
-        );
-      } catch (e) {
-        cleanup();
-      }
-    }, revealDelay);
-  }
-
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting && !proofLink.dataset.played) {
-        proofLink.dataset.played = 'true';
-        observer.disconnect();
-        runReveal();
-      }
-    });
-  }, { threshold: .5 });
-  observer.observe(proofLink);
-})();
 </script>
 
 <script>
@@ -1471,12 +1161,12 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
 </script>
 
 <script>
-/* Visit counter: no cookies, no IP logging on the endpoint. Page, language, referrer, scroll depth. */
+/* Visit counter: no cookies, no IP logging on the endpoint. Page, language, referrer, scroll depth, CTA clicks. */
 (function () {
   try {
     if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
-    /* В хит уходят только utm-метки, а не весь query: в адресе может оказаться
-       номер заказа или почта, и такому в логе не место. */
+    /* The hit only sends utm tags, not the whole query string: the address could contain
+       an order number or an email, and that doesn't belong in the log. */
     function utmOnly() {
       try {
         var p = new URLSearchParams(location.search || '');
@@ -1499,6 +1189,11 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
     }, { passive: true });
     addEventListener('pagehide', function () {
       navigator.sendBeacon(E + '?e=depth&d=' + md + '&' + base);
+    });
+    document.querySelectorAll('[data-cta]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        try { navigator.sendBeacon(E + '?e=cta&d=' + encodeURIComponent(el.getAttribute('data-cta')) + '&' + base); } catch (e) {}
+      });
     });
   } catch (e) {}
 })();
@@ -1530,7 +1225,7 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
     if (text && navigator.clipboard) navigator.clipboard.writeText(text).catch(function () {});
     status.textContent = 'Opening Telegram with the text ready. It is copied to your clipboard too.';
   });
-  // Enter в полях = клик по кнопке; в textarea перенос строки остаётся переносом
+  // Enter in the fields = click the button; in the textarea a line break stays a line break
   form.addEventListener('keydown', function (e) {
     if (e.key !== 'Enter' || e.target.tagName === 'TEXTAREA') return;
     if (e.target.closest('a, button')) return;
@@ -1541,7 +1236,7 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
 })();
 </script>
 <script>
-/* Offer tiles lead to catalog groups: open the matching details and scroll to it. */
+/* Offer tiles and the catalog: clicking a #g-* link opens that group and scrolls to it. */
 (function () {
   function openGroup(id) {
     if (!id) return;
@@ -1551,7 +1246,7 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
     if (details) details.open = true;
     li.scrollIntoView();
   }
-  document.querySelectorAll('.offers a[href^="#g-"]').forEach(function (a) {
+  document.querySelectorAll('.offers-grid a[href^="#g-"]').forEach(function (a) {
     a.addEventListener('click', function () {
       openGroup(a.getAttribute('href').slice(1));
     });
@@ -1562,6 +1257,238 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
   }
   addEventListener('hashchange', fromHash);
   fromHash();
+})();
+</script>
+<script>
+/* Personalization by utm_source: only the em in h1 and the first sentence of the lead change. */
+(function () {
+  try {
+    var p = new URLSearchParams(location.search || '');
+    var src = (p.get('utm_source') || '').toLowerCase();
+    var map = {
+      avito: ['into a website that works for you', 'A website with booking and enquiries, a shop, a services page, or fixing what you already have.'],
+      profi: ['into a website that works for you', 'A website with booking and enquiries, a shop, a services page, or fixing what you already have.'],
+      kwork: ['into a bot or automation', 'A bot for bookings and enquiries, hands-free reports and exports, an AI assistant that follows your rules.'],
+      telegram: ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.'],
+      tg: ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.'],
+      't.me': ['into a bot, a system or an app', 'Bots, trading and analytics systems, Mac apps, AI assistants.']
+    };
+    var v = map[src];
+    if (!v) return;
+    var em = document.getElementById('heroEm');
+    var lead1 = document.getElementById('lead1');
+    if (em) em.textContent = v[0];
+    if (lead1) lead1.textContent = v[1];
+  } catch (e) {}
+})();
+</script>
+<script>
+/* Hero scene: an everyday sentence types out like in a messenger, the words scatter,
+   and a piece of interface assembles from them. Three phrases on a loop, ≤ 6 KB, no libraries. */
+(function () {
+  var scene = document.getElementById('scene');
+  if (!scene) return;
+  var phraseEl = document.getElementById('scenePhrase');
+  var uiEl = document.getElementById('sceneUi');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mobile = matchMedia('(max-width: 720px)').matches;
+  var EASE = 'cubic-bezier(.23,1,.32,1)';
+
+  var SCENES = [
+    {
+      phrase: 'I want clients to book themselves and get a notification',
+      html: '<div class="ui-card"><span>Tue 2:00 pm</span><span class="ui-chip">Booked</span></div>' +
+            '<div class="ui-note">New booking: Anna, Tue 2:00 pm</div>' +
+            '<div class="ui-btn">Book</div>'
+    },
+    {
+      phrase: 'I want a sales report every morning without opening spreadsheets',
+      html: '<div class="ui-note">Yesterday: 14 orders, $2,140</div>' +
+            '<div class="ui-stat">↑ 12% vs last week</div>' +
+            '<div class="ui-tag">08:00 daily</div>'
+    },
+    {
+      phrase: 'I want to change prices on my site from my phone, no developer',
+      html: '<div class="ui-field"><span>Haircut</span><span class="ui-field-val">$40<i class="ui-caret"></i></span></div>' +
+            '<div class="ui-btn">Save</div>' +
+            '<div class="ui-badge">Published</div>'
+    }
+  ];
+
+  function buildWords(text) {
+    phraseEl.innerHTML = '';
+    var parts = text.split(' ');
+    return parts.map(function (w, idx) {
+      var span = document.createElement('span');
+      span.className = 'w';
+      span.style.opacity = '0';
+      span.textContent = w + (idx < parts.length - 1 ? ' ' : '');
+      phraseEl.appendChild(span);
+      return span;
+    });
+  }
+
+  if (reduce) {
+    var words0 = buildWords(SCENES[0].phrase);
+    words0.forEach(function (w) { w.style.opacity = '1'; });
+    phraseEl.classList.add('done');
+    uiEl.innerHTML = SCENES[0].html;
+    return;
+  }
+
+  var i = 0;
+
+  function typeNext(words, idx, done) {
+    if (idx >= words.length) { phraseEl.classList.add('done'); done(); return; }
+    words[idx].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 90, fill: 'forwards' });
+    setTimeout(function () { typeNext(words, idx + 1, done); }, 90);
+  }
+
+  function disperse(words, done) {
+    /* The phrase itself stays put like a "sent message" (fades, doesn't vanish):
+       only a temporary clone on top of it scatters. */
+    var boxRect = scene.getBoundingClientRect();
+    var rect = phraseEl.getBoundingClientRect();
+    var clone = phraseEl.cloneNode(true);
+    clone.classList.remove('settled');
+    clone.removeAttribute('id');
+    clone.style.position = 'absolute';
+    clone.style.left = (rect.left - boxRect.left) + 'px';
+    clone.style.top = (rect.top - boxRect.top) + 'px';
+    clone.style.width = rect.width + 'px';
+    clone.style.margin = '0';
+    clone.style.pointerEvents = 'none';
+    scene.appendChild(clone);
+    phraseEl.classList.add('settled');
+    var cloneWords = clone.querySelectorAll('.w');
+    cloneWords.forEach(function (w, idx) {
+      setTimeout(function () {
+        var dx = (Math.random() * 2 - 1) * 60;
+        var dy = Math.random() * -50 - 10;
+        var rot = (Math.random() * 2 - 1) * 20;
+        w.animate([
+          { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+        ], { duration: 520, easing: 'ease-in', fill: 'forwards' });
+      }, idx * 25);
+    });
+    setTimeout(function () { clone.remove(); done(); }, 520 + words.length * 25);
+  }
+
+  function assemble(html, done) {
+    uiEl.innerHTML = html;
+    var blocks = uiEl.children;
+    Array.prototype.forEach.call(blocks, function (b, idx) {
+      b.style.opacity = '0';
+      b.style.clipPath = 'inset(0 0 100% 0)';
+      b.style.transform = 'translateY(.5rem)';
+      setTimeout(function () {
+        b.animate([
+          { clipPath: 'inset(0 0 100% 0)', transform: 'translateY(.5rem)', opacity: 0 },
+          { clipPath: 'inset(0 0 0% 0)', transform: 'translateY(0)', opacity: 1 }
+        ], { duration: 420, easing: EASE, fill: 'forwards' });
+      }, 60 + idx * 75);
+    });
+    setTimeout(done, 60 + blocks.length * 75 + 420);
+  }
+
+  function fadeOutUi(done) {
+    var blocks = uiEl.children;
+    if (!blocks.length) { done(); return; }
+    Array.prototype.forEach.call(blocks, function (b) {
+      b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' });
+    });
+    setTimeout(function () { uiEl.innerHTML = ''; done(); }, 300);
+  }
+
+  function step() {
+    var sc = SCENES[i];
+    var isLast = i === SCENES.length - 1;
+    phraseEl.classList.remove('done');
+    phraseEl.classList.remove('settled');
+    var words = buildWords(sc.phrase);
+    typeNext(words, 0, function () {
+      setTimeout(function () {
+        disperse(words, function () {
+          assemble(sc.html, function () {
+            setTimeout(function () {
+              if (mobile && isLast) return;
+              fadeOutUi(function () {
+                i = (i + 1) % SCENES.length;
+                setTimeout(step, 400);
+              });
+            }, 5000);
+          });
+        });
+      }, 900);
+    });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { io.disconnect(); step(); }
+    });
+  }, { threshold: .3 });
+  io.observe(scene);
+})();
+</script>
+<script>
+/* Micro-mechanics: a one-time stamp on the fact, and offer icons drawn with stroke-dasharray. */
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stamp = document.getElementById('factStamp');
+  if (stamp) {
+    if (reduce) {
+      stamp.style.opacity = '1';
+    } else {
+      var ioStamp = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { stamp.classList.add('stamp-in'); ioStamp.disconnect(); }
+        });
+      }, { threshold: .6 });
+      ioStamp.observe(stamp);
+    }
+  }
+  if (reduce) return;
+  var grid = document.querySelector('.offers-grid');
+  if (!grid) return;
+  var tiles = grid.querySelectorAll('li');
+  var ioIcons = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      ioIcons.disconnect();
+      tiles.forEach(function (li, idx) {
+        var shapes = li.querySelectorAll('.ico *');
+        shapes.forEach(function (sh) {
+          if (typeof sh.getTotalLength !== 'function') return;
+          var len = sh.getTotalLength();
+          sh.style.strokeDasharray = len;
+          sh.style.strokeDashoffset = len;
+          sh.style.transition = 'stroke-dashoffset .6s ' + 'cubic-bezier(.23,1,.32,1)';
+        });
+        setTimeout(function () {
+          shapes.forEach(function (sh) {
+            if (typeof sh.getTotalLength === 'function') sh.style.strokeDashoffset = 0;
+          });
+        }, 55 + idx * 80);
+      });
+    });
+  }, { threshold: .4 });
+  ioIcons.observe(grid);
+})();
+</script>
+<script>
+/* Reveal discipline: each block gets its own entrance, the observer unsubscribes once shown. */
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var els = document.querySelectorAll('.rv');
+  if (!els.length) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('rv-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: .15 });
+  els.forEach(function (el) { io.observe(el); });
 })();
 </script>
 </body>
