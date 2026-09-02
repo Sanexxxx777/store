@@ -131,7 +131,8 @@
   .top-right { display: flex; align-items: center; gap: 1.4rem; }
   .lang { font-size: .74rem; letter-spacing: .1em; }
   .lang span { color: var(--ink); font-weight: 600; }
-  .lang a { color: var(--soft); text-decoration: none; margin-left: .6rem; }
+  .lang a { color: var(--soft); text-decoration: none; }
+  .lang a + span, .lang span + a { margin-left: .6rem; }
   .lang a:hover { color: var(--bronze-ink); }
   .brand { display: flex; align-items: baseline; gap: .9rem; flex-wrap: wrap; }
   .brand b { font-family: var(--display); font-weight: 600; font-size: 1.4rem; letter-spacing: .005em; color: var(--ink); }
