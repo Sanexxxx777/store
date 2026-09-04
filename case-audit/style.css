@@ -192,3 +192,21 @@ footer a { color: var(--ink-dim); }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ---------- процесс: нумерованный конвейер ---------- */
+.pipeline { margin-top: 22px; padding-left: 0; list-style: none; counter-reset: step; border: 1px solid var(--line); }
+.pipeline li {
+  counter-increment: step;
+  display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline;
+  padding: 13px 16px; border-bottom: 1px solid var(--line-2); margin-top: 0;
+}
+.pipeline li:last-child { border-bottom: none; }
+.pipeline li::before {
+  content: "0" counter(step); position: static;
+  font-size: 11px; letter-spacing: 0.14em; color: var(--accent);
+}
+.pipeline b { color: var(--ink); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; flex: 0 0 130px; }
+.pipeline span { color: var(--ink-dim); font-size: 12.5px; flex: 1 1 240px; }
+.ladder b { flex-basis: 150px; }
+.ladder span a { color: var(--accent); text-decoration: none; white-space: nowrap; }
+.ladder span a:hover, .ladder span a:focus-visible { text-decoration: underline; }

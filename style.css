@@ -336,6 +336,9 @@ textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   letter-spacing: .06em;
   transition: color .2s var(--ease);
 }
+.routes-foot { margin-top: 22px; max-width: 72ch; color: var(--cream-dim); font-size: .9rem; }
+.routes-foot a { color: var(--red); }
+.routes-foot a:hover { text-decoration: underline; }
 
 /* Product */
 .product-feature {

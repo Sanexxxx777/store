@@ -19,6 +19,7 @@
 - Motion Polish Sprint: from $59. Audit and sharpen 5-8 key micro-interactions on an existing site.
 - Site Speed Sprint: from $49. Core Web Vitals diagnosis and top fixes, with a Lighthouse report before and after.
 - Vibe Code Rescue: from $119 (launch discount, was $199). Take a project built in Cursor, Lovable, Bolt or ChatGPT to production: security audit, error handling, real server deploy.
+- RKN Compliance Audit: 500 RUB. A 16-point check of a Russian website against the personal-data law (152-FZ): forms, consents, foreign services, policy. Report within a day with the fine range per finding. Ladder: free one-minute check of the home page at https://shulgin.is-a.dev/check/ → 500 RUB full audit at https://shulgin.is-a.dev/store/rkn-audit/ → fixes (small fixes from 3,000 RUB, full rescue from $119) → maintenance by agreement.
 - Telegram Bot Sprint: from $119. A turnkey bot with conversation logic, notifications, deploy and full code handover.
 - AI Chat Widget Sprint: from $89. A chat widget on Claude or GPT trained on your own materials, with a token cost estimate included.
 - Workflow Automation Sprint: from $89. Turn one repeated manual process into a testable pipeline, with optional payment and CRM integrations.
