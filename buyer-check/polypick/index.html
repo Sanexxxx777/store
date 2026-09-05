@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buyer's Check: Polypick | Shulgin Store</title>
+  <meta name="description" content="Independent technical review of Polypick before acquisition: revenue verification, security, infrastructure and red flags a buyer should see first.">
+  <link rel="canonical" href="https://shulgin.is-a.dev/store/buyer-check/polypick/">
+  <meta property="og:title" content="Buyer's Check: Polypick">
+  <meta property="og:description" content="Independent technical review of Polypick before acquisition: revenue verification, security, infrastructure and red flags a buyer should see first.">
+  <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='19'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../fonts/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav class="top">
+  <a href="/store/en/">← Store</a>
+  <span class="tag">report</span>
+</nav>
+
+<main>
+  <header class="hero wrap">
+    <div class="kicker">Buyer's Check · pre-acquisition technical review</div>
+    <h1>Polypick: what a buyer should know before wiring $22,700</h1>
+    <p class="lede">Polypick sells AI &quot;picks&quot; for Polymarket and Kalshi bets through Whop for $39 a month or $49 lifetime. Revenue is real and recent, and that is the whole story: 301 subscriptions in four months, already down a third month over month, on a landing page built from fabricated testimonials and a fake payout counter. The price says the seller knows.</p>
+  </header>
+
+  <section class="wrap">
+    <h2>Verdict</h2>
+    <table class="verdict">
+<tr><th>Revenue</th><td><span class="sev high">red</span></td><td class="reason">Four months old, revenue booked through Whop (not Stripe), last 30 days at 68 percent of stated MRR, and a $49 lifetime deal sold next to subscriptions. The MRR figure is not what a buyer normally means by MRR.</td></tr>
+<tr><th>Tech</th><td><span class="sev med">yellow</span></td><td class="reason">Tiny static site, loads fast, mobile clean. No pricing or contact page, apex and www both serve the site without a canonical redirect.</td></tr>
+<tr><th>Security</th><td><span class="sev med">yellow</span></td><td class="reason">Four security headers missing, DMARC policy set to none. Nothing exposed.</td></tr>
+<tr><th>Owner</th><td><span class="sev high">red</span></td><td class="reason">The homepage runs a live counter of &quot;$8.4M cashed out this month&quot; and pop-ups of named users &quot;winning $4,182, 31 min ago&quot;, with avatars fetched from randomuser.me. That is manufactured social proof, and whoever buys the site buys that liability.</td></tr>
+<tr><th>Price vs. market</th><td colspan="2" class="reason">Asking $22,700 is 0.16x the last 12 months of verified revenue, 9 percent of the TrustMRR median multiple. Nobody prices a working subscription business at two months of revenue unless they expect it to stop working.</td></tr>
+    </table>
+    <p class="note">84 checks run · 65 passed · 8 warnings · 2 failed · 9 could not be verified (listed below)</p>
+  </section>
+
+  <section class="wrap">
+    <h2>Listing facts</h2>
+    <dl class="facts">
+<div class="fact"><dt>MRR</dt><dd>$11,768</dd></div>
+<div class="fact"><dt>Revenue, last 30 days</dt><dd>$8,058</dd></div>
+<div class="fact"><dt>Revenue, all time</dt><dd>$38,743</dd></div>
+<div class="fact"><dt>Active subscriptions</dt><dd>301</dd></div>
+<div class="fact"><dt>Asking price</dt><dd>$22,700</dd></div>
+<div class="fact"><dt>Stated multiple</dt><dd>0.20×</dd></div>
+<div class="fact"><dt>Computed multiple vs. 1.8× median</dt><dd>0.16× (0.09× the median)</dd></div>
+<div class="fact"><dt>Founded</dt><dd>2026-05-01</dd></div>
+<div class="fact"><dt>Payment provider</dt><dd>Whop (API key)</dd></div>
+<div class="fact"><dt>Revenue last synced</dt><dd>7.4h ago (2026-09-04)</dd></div>
+<div class="fact"><dt>Domain Rating</dt><dd>1</dd></div>
+    </dl>
+  </section>
+
+  <section class="wrap">
+    <h2>Findings</h2>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-01</span>
+    <span class="name">Manufactured social proof on the landing page</span>
+    <span class="sev high">high</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> The hero shows a live counter &quot;$8,412,970 cashed out by Polypick traders this month&quot; and a rotating notification &quot;David L. from Austin won $4,182 on their bet, 31 min ago, verified by Proof&quot;. The five reviewer avatars next to &quot;4.9/5&quot; load from randomuser.me, a service that generates random fictional people for UI mockups. The &quot;Proof&quot; badge is a notification widget, not a verification of anything. <strong>Reproduce.</strong> Open polypick.app on a phone. Watch the payout notification change names. Open the browser network tab and filter by randomuser.me. <strong>Evidence.</strong> Mobile screenshot at 360 px, September 5, 2026: counter, notification card and avatar row visible above the fold. <img src="viewport-360.png" alt="Polypick homepage at 360 px: payout counter, &quot;won $4,182&quot; notification, five stock avatars" loading="lazy" decoding="async" class="inline-shot"> Third-party request map from the same load lists randomuser.me among the hosts the page calls. <strong>Meaning for the buyer.</strong> Every one of the 301 subscribers signed up on a page whose proof is invented. In the US this is the kind of claim the FTC acts on; on Whop it is a terms violation waiting for a report. A new owner either keeps the page and inherits the exposure, or removes the counters and finds out what conversion looks like without them.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-02</span>
+    <span class="name">&quot;MRR&quot; includes a $49 lifetime deal, and the last 30 days are already lower</span>
+    <span class="sev high">high</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> The checkout offers a monthly plan and a &quot;$49 one-time lifetime&quot; option with a 20 percent discount code. Whop reports both to TrustMRR. Stated MRR is $11,768 across 301 active subscriptions (average $39.10), while the last 30 days of revenue are $8,058, a 32 percent gap after only four months of history. <strong>Reproduce.</strong> Read the pricing block on the homepage. Open the TrustMRR card: provider Whop, MRR, revenue last 30 days, active subscriptions. <strong>Evidence.</strong> TrustMRR markdown card synced 2026-09-04 23:38 UTC: MRR $11,768, revenue 30d $8,058, all-time $38,743, 301 active subscriptions, provider &quot;Whop (API key)&quot;. Homepage pricing text: &quot;$49 one-time lifetime, cancel anytime, use code RICH20 for 20 percent off&quot;. <strong>Meaning for the buyer.</strong> Lifetime buyers never pay again but count as active. Monthly buyers of a &quot;beat the market&quot; tool leave as soon as they lose. Both effects push real recurring revenue below the headline number, and the 30-day figure is already showing it. Treat $8k as the current run rate and expect it to keep falling without a new acquisition channel.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-03</span>
+    <span class="name">Business is four months old on a domain registered four months ago</span>
+    <span class="sev med">medium</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> Domain polypick.app registered 2026-05-01. Founded date on the card matches. All-time revenue $38,743 was earned in roughly 17 weeks, which is a strong launch and no track record at all. <strong>Reproduce.</strong> RDAP lookup for polypick.app. TrustMRR card, founded date and all-time revenue. <strong>Evidence.</strong> RDAP: registered 2026-05-01, expires 2027-05-01. TrustMRR: age 4.2 months, all-time $38,743. <strong>Meaning for the buyer.</strong> There is no seasonality, no churn cohort older than one quarter, and no evidence the acquisition channel survives without the founder. Any multiple applied to this revenue is a bet on a four-month trend.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-04</span>
+    <span class="name">Promotional claims that regulators and platforms treat as gambling advertising</span>
+    <span class="sev med">medium</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> Headline &quot;The #1 AI tool to beat prediction markets&quot;, copy about &quot;spotting the winning side&quot;, payout counters. Prediction-market betting advice is regulated as gambling or investment advice in several jurisdictions, and Whop and payment processors restrict it. <strong>Reproduce.</strong> Read the homepage headline and hero copy. <strong>Evidence.</strong> Homepage text captured September 5, 2026. <strong>Meaning for the buyer.</strong> The processor (Whop) can close the account on a complaint. Ask whether Whop has ever flagged or held funds, and whether any chargebacks were filed as &quot;misleading&quot;.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-05</span>
+    <span class="name">Four security headers missing, DMARC policy none, no canonical host</span>
+    <span class="sev low">low</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> No Content-Security-Policy, X-Frame-Options, X-Content-Type-Options or Referrer-Policy. DMARC exists but with <code>p=none</code>, so spoofed mail from the domain is delivered. Both polypick.app and www.polypick.app return 200 with no redirect between them. <strong>Reproduce.</strong> <code>curl -sI https://polypick.app/</code>; <code>dig TXT _dmarc.polypick.app @1.1.1.1</code>; open both hosts. <strong>Evidence.</strong> Header, DNS and HTTP captures, September 5, 2026. <strong>Meaning for the buyer.</strong> An afternoon of fixes. Listed for completeness and because it confirms the site was assembled quickly.</p>
+  </div>
+</div>
+  </section>
+
+  <section class="wrap">
+    <h2>Red flags</h2>
+<ul><li>Fabricated testimonials and payout counter on the landing page (F-01). Legal and platform exposure transfers with the asset.</li><li>Lifetime deals counted inside &quot;MRR&quot;; 30-day revenue already 32 percent below it (F-02).</li><li>Four months of history, no cohort older than a quarter (F-03).</li><li>Gambling-adjacent advertising claims on a processor that can close the account (F-04).</li><li>Asking price of two months of revenue: the seller is pricing in the decline (verdict).</li><li>No pricing page, no contact page, no canonical host, no security headers (F-05).</li></ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Ask the seller</h2>
+<ol><li>Whop dashboard on a call: revenue by week since launch, split between monthly subscriptions and lifetime purchases, active subscriptions by plan, cancellations by week. <em>closed by:</em> live Whop dashboard.</li><li>How many of the 301 &quot;active subscriptions&quot; are lifetime purchases that will never bill again. <em>closed by:</em> Whop export by product.</li><li>Where did the 301 customers come from: paid ads, an affiliate, a Discord or Telegram community, the founder&#x27;s own audience. Show the last 90 days of traffic sources. <em>closed by:</em> analytics screenshot with source breakdown.</li><li>Has Whop or any payment provider ever flagged, paused or reviewed the account, and how many chargebacks or refund requests were filed since launch. <em>closed by:</em> Whop account status page and refund log.</li><li>The source of the &quot;$8.4M cashed out&quot; counter and the payout notifications: real data, estimated, or generated. <em>closed by:</em> the code path that renders them, on screen share.</li><li>Does any regulated jurisdiction account for a meaningful share of customers (US states with gambling advertising rules, UK, EU). <em>closed by:</em> Whop customer export by country.</li><li>What the &quot;AI&quot; is: own model, prompt over a third-party API, or rules. Which API key and account it runs on and what it costs per month. <em>closed by:</em> invoices and the code path.</li><li><code>git log --shortstat</code>: first commit, authors, commits in the last 30 days. <em>closed by:</em> screen share of the repository.</li><li>What is included: domain, Whop store, Discord or Telegram community if any, social accounts, the AI provider account. <em>closed by:</em> asset list in the term sheet.</li><li>Why sell a four-month-old product at two months of revenue. <em>closed by:</em> nothing, but compare the answer with the weekly revenue curve from question 1.</li></ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Checked and clean</h2>
+    <p>What was tested and came back clean, so the scope of the review is visible too.</p>
+    <div class="checks">
+<div class="check"><span class="what">Monthly recurring revenue (MRR)</span><span class="res">$11,768 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue, last 30 days</span><span class="res">$8,058 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue, all time</span><span class="res">$38,743 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Active subscriptions</span><span class="res">301 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue verification source</span><span class="res">Whop (API key) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue last synced</span><span class="res">7.4h ago (2026-09-04) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">ARPU vs. stated pricing</span><span class="res">ARPU $39.10 vs. listed $1-$39 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue consistency (30-day vs. MRR)</span><span class="res">0.68× (30-day revenue / MRR) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Company age</span><span class="res">4.2 months <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Asking multiple vs. 1.8× market median</span><span class="res">0.16× computed, 0.20× stated on the card, 0.09× the 1.8× market median <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Pricing model</span><span class="res">Subscription <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Console errors, homepage</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Failed network requests, homepage</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Mobile layout, 360px viewport</span><span class="res">360px document / 360px viewport <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Mobile layout, 414px viewport</span><span class="res">414px document / 414px viewport <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Terms of service page</span><span class="res">https://polypick.app/terms.html <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Privacy policy page</span><span class="res">https://polypick.app/privacy.html <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Signup / trial CTA</span><span class="res">‘Get started’ → https://polypick.app/#pricing <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">HTTP to HTTPS redirect</span><span class="res">https://polypick.app/ <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Broken internal links</span><span class="res">3 checked, 0 broken <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">HSTS header</span><span class="res">max-age=31536000; includeSubDomains <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CORS wildcard on homepage</span><span class="res">not set <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">TLS certificate</span><span class="res">Amazon, expires in 196d (Mar 20 23:59:59 2027 GMT) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .env file</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .git/HEAD</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .git/config</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .DS_Store</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed backup.zip</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed dump.sql</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /server-status</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed phpinfo.php</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">security.txt (disclosure policy)</span><span class="res">not found <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">robots.txt reachable</span><span class="res">reachable <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">sitemap.xml reachable</span><span class="res">reachable <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /swagger</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /openapi.json</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /api/docs</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /graphql endpoint</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /admin</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /debug</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /_next/ internals</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /storage/ directory</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /uploads/ directory</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Secrets in client-side JS</span><span class="res">0 found <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Public API keys in JS bundle</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Known CVEs in detected libraries</span><span class="res">1 version signature(s) detected (Express); not matched to a CVE database entry <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DNS A record</span><span class="res">13.249.8.107, 13.249.8.53, 13.249.8.103, 13.249.8.114 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DNS AAAA record</span><span class="res">2600:9000:2171:7c00:19:f37a:b80:93a1, 2600:9000:2171:4000:19:f37a:b80:93a1, 2600:9000:2171:c200:19:f37a:b80:93a1, 2600:9000:2171:f200:19:f37a:b80:93a1, 2600:9000:2171:8400:19:f37a:b80:93a1, 2600:9000:2171:5200:19:f37a:b80:93a1, 2600:9000:2171:c00:19:f37a:b80:93a1, 2600:9000:2171:4c00:19:f37a:b80:93a1 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DNS nameservers</span><span class="res">delilah.ns.cloudflare.com, seth.ns.cloudflare.com <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CNAME for www</span><span class="res">d12t6mqfsxrs4u.cloudfront.net <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Hosting / DNS provider</span><span class="res">Cloudflare <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">SPF record</span><span class="res">v=spf1 include:amazonses.com include:spf.forwardemail.net ~all <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Domain registration expiry</span><span class="res">expires in 238d (2027-05-01) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CDN / WAF</span><span class="res">CloudFront <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Third-party hosts loaded</span><span class="res">2 host(s) loaded, 1 identified by name <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Tech stack (as listed)</span><span class="res">JavaScript, TypeScript / MongoDB, Node.js, AWS, OpenAI, Express, Whop <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exotic / unusual stack flag</span><span class="res">common stack <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Domain Rating (SEO backlink strength)</span><span class="res">1 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Marketing channels listed</span><span class="res">Content marketing, SEO, Facebook, TikTok, YouTube, Instagram, Email marketing, Influencers, Affiliate, Partnerships <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Founder X (Twitter) followers</span><span class="res">0 followers <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Comparable listings (same category)</span><span class="res">5 comparable listing(s), MRR $10,000-$27,000 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">robots.txt content</span><span class="res">0 disallow rule(s), sitemap listed: yes <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">URLs in sitemap.xml</span><span class="res">3 URLs <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Founder personal brand reach</span><span class="res">0 X followers, channels: Content marketing, SEO, Facebook, TikTok, YouTube, Instagram, Email marketing, Influencers, Affiliate, Partnerships <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Done-for-you / concierge service markers</span><span class="res">none found <span class="sev ok">ok</span></span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Could not be verified</h2>
+    <p>Read-only, no login, no purchase attempted: some checks are structurally inconclusive from the outside. Listed honestly instead of silently dropped.</p>
+    <div class="checks">
+<div class="check"><span class="what">Cross-check vs. public API listing</span><span class="res">not present in the public bestDeals/recentlyListed lists (top 25 each) <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Pricing page weight &amp; LCP</span><span class="res">page did not load in time <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Console errors, pricing page</span><span class="res">page did not load <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Failed network requests, pricing page</span><span class="res">page did not load <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Public cloud storage buckets</span><span class="res">no cloud storage buckets referenced on the homepage <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">DKIM selector</span><span class="res">no common selector responded (12 checked); inconclusive, not proof of absence <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Blog / changelog activity</span><span class="res">no blog/changelog path responded <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Team size (as listed)</span><span class="res">not listed <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Solo founder</span><span class="res">not available <span class="sev skip">not verified</span></span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Method</h2>
+    <p>
+      This review is limited to what is observable from outside the product: the public marketing site,
+      DNS and TLS records, HTTP response headers, and the listing card published on TrustMRR. No code,
+      admin panel, database or paid API was accessed at any point, and no account was created or signed into.
+    </p>
+    <p>
+      Every network check in this report is a GET request; nothing was submitted, purchased or configured.
+      Revenue figures come from the provider connection TrustMRR displays on the listing (Whop (API key)),
+      not from a separate audit of the seller's account. This scan ran on September 5, 2026.
+    </p>
+  </section>
+
+  <section class="wrap">
+    <div class="cta">
+      <h2>Order a <span class="accent">Buyer's Check</span></h2>
+      <p>For a listing you are considering: independent technical review, $199, delivered in 48 hours.</p>
+      <a class="btn" href="mailto:sanexxx777@gmail.com?subject=Buyer%27s%20Check">Order a Buyer's Check →</a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  Buyer's Check · September 5, 2026 · <a href="/store/en/">store</a>
+</footer>
+
+</body>
+</html>

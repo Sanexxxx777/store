@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buyer's Check: Conductor | Shulgin Store</title>
+  <meta name="description" content="Independent technical review of Conductor before acquisition: revenue verification, security, infrastructure and red flags a buyer should see first.">
+  <link rel="canonical" href="https://shulgin.is-a.dev/store/buyer-check/conductor/">
+  <meta property="og:title" content="Buyer's Check: Conductor">
+  <meta property="og:description" content="Independent technical review of Conductor before acquisition: revenue verification, security, infrastructure and red flags a buyer should see first.">
+  <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='19'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../fonts/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav class="top">
+  <a href="/store/en/">← Store</a>
+  <span class="tag">report</span>
+</nav>
+
+<main>
+  <header class="hero wrap">
+    <div class="kicker">Buyer's Check · pre-acquisition technical review</div>
+    <h1>Conductor: what a buyer should know before wiring $1,250,000</h1>
+    <p class="lede">Conductor is a real, four-year-old API business with clean infrastructure and fresh verified revenue. The two questions that decide the price are not on the website: how much of the $38.6k MRR depends on customers running QuickBooks Desktop editions Intuit no longer sells, and what the $168 average subscription actually buys.</p>
+  </header>
+
+  <section class="wrap">
+    <h2>Verdict</h2>
+    <table class="verdict">
+<tr><th>Revenue</th><td><span class="sev med">yellow</span></td><td class="reason">49 months of Stripe-verified history and no pre-sale spike, but ARPU is 3.4x the only public price, so most MRR sits outside the listed plan.</td></tr>
+<tr><th>Tech</th><td><span class="sev ok">green</span></td><td class="reason">Site loads in 0.77 s from an EU server, mobile layout clean at 360 and 414 px, subscription model, no console errors.</td></tr>
+<tr><th>Security</th><td><span class="sev med">yellow</span></td><td class="reason">CSP, X-Frame-Options and Referrer-Policy are absent on the public site. Low impact for a marketing page, relevant if the dashboard shares the origin.</td></tr>
+<tr><th>Owner</th><td><span class="sev med">yellow</span></td><td class="reason">Team size and code ownership are not visible from outside. The product is an API wrapper around a vendor platform that Intuit is winding down, see F-01.</td></tr>
+<tr><th>Price vs. market</th><td colspan="2" class="reason">Asking $1,250,000 is 2.7x the last 12 months of verified revenue, 1.5x the TrustMRR median of 1.8x. Above median, but a 95 percent margin API business with four years of history usually trades above median.</td></tr>
+    </table>
+    <p class="note">84 checks run · 69 passed · 6 warnings · 0 failed · 9 could not be verified (listed below)</p>
+  </section>
+
+  <section class="wrap">
+    <h2>Listing facts</h2>
+    <dl class="facts">
+<div class="fact"><dt>MRR</dt><dd>$38,570</dd></div>
+<div class="fact"><dt>Revenue, last 30 days</dt><dd>$36,434</dd></div>
+<div class="fact"><dt>Revenue, all time</dt><dd>$425,529</dd></div>
+<div class="fact"><dt>Active subscriptions</dt><dd>229</dd></div>
+<div class="fact"><dt>Asking price</dt><dd>$1,250,000</dd></div>
+<div class="fact"><dt>Stated multiple</dt><dd>2.90×</dd></div>
+<div class="fact"><dt>Computed multiple vs. 1.8× median</dt><dd>2.70× (1.50× the median)</dd></div>
+<div class="fact"><dt>Founded</dt><dd>2022-07-31</dd></div>
+<div class="fact"><dt>Payment provider</dt><dd>Stripe (API key)</dd></div>
+<div class="fact"><dt>Revenue last synced</dt><dd>10.3h ago (2026-09-04)</dd></div>
+<div class="fact"><dt>Domain Rating</dt><dd>23</dd></div>
+    </dl>
+  </section>
+
+  <section class="wrap">
+    <h2>Findings</h2>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-01</span>
+    <span class="name">Platform risk: Intuit is sunsetting QuickBooks Desktop</span>
+    <span class="sev high">high</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> Conductor sells an API for QuickBooks Desktop and Enterprise. Intuit stopped selling new QuickBooks Desktop Pro Plus, Premier Plus and Mac Plus subscriptions to new US customers on September 30, 2024. QuickBooks Desktop 2024 is the last version; its support ends September 30, 2027. QuickBooks Desktop Enterprise is not being discontinued and is still sold. <strong>Reproduce.</strong> Read the Intuit help article &quot;US QuickBooks Desktop sold until July 2024 / new subscriptions&quot; and the Intuit &quot;QuickBooks Desktop to stop selling to new U.S. subscribers&quot; notice. Both are public. <strong>Evidence.</strong> Intuit support pages, checked September 5, 2026. The Conductor homepage headline reads &quot;The best QuickBooks Desktop &amp; Enterprise API on the planet&quot;. <strong>Meaning for the buyer.</strong> The addressable market for the non-Enterprise half of the product shrinks every year and has a hard support cliff in 2027. If most of the 229 subscriptions are Enterprise customers, the risk is contained. If they are Pro or Premier shops, churn is structural, not fixable by a new owner. This is the first question to settle with the seller, before price.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-02</span>
+    <span class="name">Average subscription is $168 while the only public price is $49</span>
+    <span class="sev med">medium</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> MRR $38,570 across 229 active subscriptions gives an average of $168.43 per subscription per month. The pricing page exposes a single self-serve tier at $49. Roughly 70 percent of MRR is therefore explained by something not on the price list: usage-based billing, enterprise contracts, or a few large accounts. <strong>Reproduce.</strong> Open the public TrustMRR card for conductor (MRR and active subscriptions are read from Stripe). Divide. Open conductor.is/#pricing and note the listed price. <strong>Evidence.</strong> TrustMRR markdown card, synced 2026-09-04 20:30 UTC: MRR 38,570, active subscriptions 229. Pricing section on conductor.is: one price, $49. <strong>Meaning for the buyer.</strong> Not a defect. It is a concentration question. If five accounts carry $25k of MRR, the business is five relationships, and each of them may be tied to the current founder. Ask for the top-5 share before anything else.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-03</span>
+    <span class="name">Security headers missing on the public site</span>
+    <span class="sev low">low</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> The response for <code>GET https://conductor.is/</code> carries no Content-Security-Policy, no X-Frame-Options (and no frame-ancestors directive), and no Referrer-Policy. HSTS and X-Content-Type-Options were not flagged. <strong>Reproduce.</strong> <code>curl -sI https://conductor.is/</code> and look for the three headers. <strong>Evidence.</strong> Response headers captured September 5, 2026, see the Method section. <strong>Meaning for the buyer.</strong> On a marketing site this is cosmetic. It becomes real if the customer dashboard is served from the same origin, because then the site can be framed and referrers leak to third parties. One hour of work for whoever hosts it, but it tells you nobody has run a security baseline on the public surface.</p>
+  </div>
+</div>
+  </section>
+
+  <section class="wrap">
+    <h2>Red flags</h2>
+<ul><li>Vendor platform in managed decline (F-01). Share of Enterprise vs Pro/Premier customers is unknown from outside.</li><li>70 percent of MRR unexplained by the public price list (F-02). Concentration unknown.</li><li>No security baseline on the public site (F-03). Minor alone, a hint about process.</li></ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Ask the seller</h2>
+<ol><li>Read-only Stripe access for 30 minutes on a call: monthly MRR for 24 months, churn by month, refunds. <em>closed by:</em> live Stripe dashboard, not a spreadsheet.</li><li>Share of MRR from customers on QuickBooks Desktop Enterprise versus Pro, Premier or Mac, and how many customers churned in the last 12 months citing migration off Desktop. <em>closed by:</em> Stripe customer export joined with the product&#x27;s own connection records.</li><li>Top 5 customers as a percentage of MRR, and whether any is on a custom contract with a termination clause. <em>closed by:</em> Stripe export plus the contracts.</li><li>What the $168 average subscription consists of: usage tiers, seats, enterprise plans. Show the price grid that is not on the website. <em>closed by:</em> internal pricing sheet and three anonymized invoices.</li><li>Dependency on Intuit: which Intuit developer program or SDK the product relies on (Web Connector, QBXML, QBFC), the terms, and whether Intuit can revoke or change access. <em>closed by:</em> the developer agreement and the connector code path.</li><li>Code and process: <code>git log --shortstat</code> for the first commit, number of authors, commits in the last 90 days; tests and CI; deployment procedure. <em>closed by:</em> screen share of the repository.</li><li>Twelve months of invoices for hosting, monitoring and any third-party APIs. <em>closed by:</em> the invoices.</li><li>Who writes the code today, and what support period after transfer is included. <em>closed by:</em> written commitment in the term sheet.</li><li>What is included: domain, GitHub organization, Stripe account, docs site, support inbox, trademarks. <em>closed by:</em> asset list in the term sheet.</li><li>Reason for selling now, in one paragraph. <em>closed by:</em> nothing, but compare it with the churn curve from question 1.</li></ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Checked and clean</h2>
+    <p>What was tested and came back clean, so the scope of the review is visible too.</p>
+    <div class="checks">
+<div class="check"><span class="what">Monthly recurring revenue (MRR)</span><span class="res">$38,570 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue, last 30 days</span><span class="res">$36,434 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue, all time</span><span class="res">$425,529 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Active subscriptions</span><span class="res">229 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue verification source</span><span class="res">Stripe (API key) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue last synced</span><span class="res">10.3h ago (2026-09-04) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue consistency (30-day vs. MRR)</span><span class="res">0.94× (30-day revenue / MRR) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Company age</span><span class="res">49.2 months <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Average MRR growth pace</span><span class="res">$784/month average since founding <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Asking multiple vs. 1.8× market median</span><span class="res">2.70× computed, 2.90× stated on the card, 1.50× the 1.8× market median <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Pricing model</span><span class="res">Subscription <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Console errors, homepage</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Failed network requests, homepage</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Console errors, pricing page</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Failed network requests, pricing page</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Mobile layout, 360px viewport</span><span class="res">360px document / 360px viewport <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Mobile layout, 414px viewport</span><span class="res">414px document / 414px viewport <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Pricing page reachable</span><span class="res">https://conductor.is/#pricing <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Terms of service page</span><span class="res">https://conductor.is/terms <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Privacy policy page</span><span class="res">https://conductor.is/privacy <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Contact channel</span><span class="res">mailto:support@conductor.is?subject=Conductor%20Support <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Signup / trial CTA</span><span class="res">‘Sign up  &gt;’ → https://dashboard.conductor.is/sign-up <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">HTTP to HTTPS redirect</span><span class="res">https://conductor.is/ <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">www/apex canonical host</span><span class="res">canonical host: apex (apex → 200, www → 308) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Broken internal links</span><span class="res">9 checked, 0 broken <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">HSTS header</span><span class="res">max-age=31536000 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">X-Content-Type-Options header</span><span class="res">nosniff <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CORS wildcard on homepage</span><span class="res">not set <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">TLS certificate</span><span class="res">Let&#x27;s Encrypt, expires in 34d (Oct  9 14:02:08 2026 GMT) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .env file</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .git/HEAD</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .git/config</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .DS_Store</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed backup.zip</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed dump.sql</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /server-status</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed phpinfo.php</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">security.txt (disclosure policy)</span><span class="res">not found <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">robots.txt reachable</span><span class="res">reachable <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">sitemap.xml reachable</span><span class="res">reachable <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /swagger</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /openapi.json</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /api/docs</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /graphql endpoint</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /admin</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /debug</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /_next/ internals</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /storage/ directory</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /uploads/ directory</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Public API keys in JS bundle</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Known CVEs in detected libraries</span><span class="res">1 version signature(s) detected (Framer 6ae8a13); not matched to a CVE database entry <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DNS AAAA record</span><span class="res">none (IPv4-only) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DNS nameservers</span><span class="res">ns1.vercel-dns.com, ns2.vercel-dns.com <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CNAME for www</span><span class="res">sites.framer.app <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Hosting / DNS provider</span><span class="res">Vercel, Framer <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">SPF record</span><span class="res">v=spf1 include:_spf.google.com -all <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DMARC policy</span><span class="res">policy=reject <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DKIM selector</span><span class="res">no common selector responded (12 checked); inconclusive, not proof of absence <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Third-party hosts loaded</span><span class="res">9 host(s) loaded, 2 identified by name <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Tech stack (as listed)</span><span class="res">Next.js, Tailwind CSS, React, TypeScript / Node.js, Prisma, Redis, Express, Stripe <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exotic / unusual stack flag</span><span class="res">common stack <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Domain Rating (SEO backlink strength)</span><span class="res">23 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Founder X (Twitter) followers</span><span class="res">1,017 followers <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Comparable listings (same category)</span><span class="res">5 comparable listing(s), MRR $39,000-$236,000 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">robots.txt content</span><span class="res">0 disallow rule(s), sitemap listed: yes <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">URLs in sitemap.xml</span><span class="res">29 URLs <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Blog / changelog activity</span><span class="res">last dated post: 2026-09-01 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Founder personal brand reach</span><span class="res">1,017 X followers <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Done-for-you / concierge service markers</span><span class="res">none found <span class="sev ok">ok</span></span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Could not be verified</h2>
+    <p>Read-only, no login, no purchase attempted: some checks are structurally inconclusive from the outside. Listed honestly instead of silently dropped.</p>
+    <div class="checks">
+<div class="check"><span class="what">Cross-check vs. public API listing</span><span class="res">not present in the public bestDeals/recentlyListed lists (top 25 each) <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Secrets in client-side JS</span><span class="res">0 found <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Public cloud storage buckets</span><span class="res">no cloud storage buckets referenced on the homepage <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">DNS A record</span><span class="res">none <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Domain registration expiry</span><span class="res">not available <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">CDN / WAF</span><span class="res">no recognizable CDN/WAF headers <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Marketing channels listed</span><span class="res">not listed on the card <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Team size (as listed)</span><span class="res">not listed <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Solo founder</span><span class="res">not available <span class="sev skip">not verified</span></span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Method</h2>
+    <p>
+      This review is limited to what is observable from outside the product: the public marketing site,
+      DNS and TLS records, HTTP response headers, and the listing card published on TrustMRR. No code,
+      admin panel, database or paid API was accessed at any point, and no account was created or signed into.
+    </p>
+    <p>
+      Every network check in this report is a GET request; nothing was submitted, purchased or configured.
+      Revenue figures come from the provider connection TrustMRR displays on the listing (Stripe (API key)),
+      not from a separate audit of the seller's account. This scan ran on September 5, 2026.
+    </p>
+  </section>
+
+  <section class="wrap">
+    <div class="cta">
+      <h2>Order a <span class="accent">Buyer's Check</span></h2>
+      <p>For a listing you are considering: independent technical review, $199, delivered in 48 hours.</p>
+      <a class="btn" href="mailto:sanexxx777@gmail.com?subject=Buyer%27s%20Check">Order a Buyer's Check →</a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  Buyer's Check · September 5, 2026 · <a href="/store/en/">store</a>
+</footer>
+
+</body>
+</html>

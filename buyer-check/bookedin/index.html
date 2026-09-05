@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buyer's Check: Bookedin | Shulgin Store</title>
+  <meta name="description" content="Independent technical review of Bookedin before acquisition: revenue verification, security, infrastructure and red flags a buyer should see first.">
+  <link rel="canonical" href="https://shulgin.is-a.dev/store/buyer-check/bookedin/">
+  <meta property="og:title" content="Buyer's Check: Bookedin">
+  <meta property="og:description" content="Independent technical review of Bookedin before acquisition: revenue verification, security, infrastructure and red flags a buyer should see first.">
+  <meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='19'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../fonts/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav class="top">
+  <a href="/store/en/">← Store</a>
+  <span class="tag">report</span>
+</nav>
+
+<main>
+  <header class="hero wrap">
+    <div class="kicker">Buyer's Check · pre-acquisition technical review</div>
+    <h1>Bookedin: what a buyer should know before wiring $1,000,000</h1>
+    <p class="lede">bookedin.ai has three years of Stripe history and 100 active subscriptions, so the business is real. But revenue is falling right now, the asking price assumes the opposite, and a visible share of the offer is hands-on service, not software. Do not negotiate from $1M. Negotiate from the churn curve.</p>
+  </header>
+
+  <section class="wrap">
+    <h2>Verdict</h2>
+    <table class="verdict">
+<tr><th>Revenue</th><td><span class="sev high">red</span></td><td class="reason">Last 30 days of verified revenue ($5,757) are 44 percent of stated MRR ($13,080). Either subscriptions are churning now or MRR is inflated by annual plans booked earlier.</td></tr>
+<tr><th>Tech</th><td><span class="sev med">yellow</span></td><td class="reason">Mobile layout is clean and the site loads, but there is no standalone pricing or contact page, and third-party tracking scripts fail with 403 in the console.</td></tr>
+<tr><th>Security</th><td><span class="sev med">yellow</span></td><td class="reason">Four security headers missing, no DMARC record. Nothing exposed, but nothing hardened either.</td></tr>
+<tr><th>Owner</th><td><span class="sev high">red</span></td><td class="reason">The site sells &quot;done-for-you&quot; setup and consulting next to the software. Part of the revenue is a service that leaves with the founder.</td></tr>
+<tr><th>Price vs. market</th><td colspan="2" class="reason">Asking $1,000,000 is 6.4x the last 12 months of verified revenue (3.5x the TrustMRR median of 1.8x). The card states 14.5x because the seller computes against the last 30 days. Either way, this is priced for growth the numbers do not show.</td></tr>
+    </table>
+    <p class="note">84 checks run · 54 passed · 11 warnings · 3 failed · 16 could not be verified (listed below)</p>
+  </section>
+
+  <section class="wrap">
+    <h2>Listing facts</h2>
+    <dl class="facts">
+<div class="fact"><dt>MRR</dt><dd>$13,080</dd></div>
+<div class="fact"><dt>Revenue, last 30 days</dt><dd>$5,757</dd></div>
+<div class="fact"><dt>Revenue, all time</dt><dd>$305,570</dd></div>
+<div class="fact"><dt>Active subscriptions</dt><dd>100</dd></div>
+<div class="fact"><dt>Asking price</dt><dd>$1,000,000</dd></div>
+<div class="fact"><dt>Stated multiple</dt><dd>14.50×</dd></div>
+<div class="fact"><dt>Computed multiple vs. 1.8× median</dt><dd>6.37× (3.54× the median)</dd></div>
+<div class="fact"><dt>Founded</dt><dd>2023-06-22</dd></div>
+<div class="fact"><dt>Payment provider</dt><dd>Stripe (API key)</dd></div>
+<div class="fact"><dt>Revenue last synced</dt><dd>10.1h ago (2026-09-04)</dd></div>
+<div class="fact"><dt>Domain Rating</dt><dd>20</dd></div>
+    </dl>
+  </section>
+
+  <section class="wrap">
+    <h2>Findings</h2>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-01</span>
+    <span class="name">Revenue is falling: last 30 days are 44 percent of MRR</span>
+    <span class="sev high">high</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> Stripe-verified revenue for the last 30 days is $5,757. Stated MRR is $13,080. A healthy subscription business shows the two within 10 to 20 percent of each other. A 56 percent gap means one of two things: customers are cancelling faster than the MRR figure has caught up, or MRR is propped up by annual subscriptions that were paid months ago and count as recurring today. <strong>Reproduce.</strong> Open the public TrustMRR card for bookedin. Compare &quot;Last 30 days&quot; revenue with MRR. Both come from the connected Stripe key, synced 2026-09-04 20:46 UTC. <strong>Evidence.</strong> TrustMRR markdown card: revenue last 30 days $5,757, MRR $13,080, all-time $305,570, 100 active subscriptions. Ratio 0.44. <strong>Meaning for the buyer.</strong> The asking price is built on $13k MRR. The cash actually arriving is $5.8k a month. At the current run rate, the multiple you are really paying is closer to 14x annual cash, which is what the seller&#x27;s own card shows (14.5x). Ask for month-by-month Stripe before any number is discussed.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-02</span>
+    <span class="name">&quot;Done-for-you&quot; and consulting are part of the offer</span>
+    <span class="sev high">high</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> The public site advertises done-for-you setup and consulting alongside the product. Revenue from those lines is labor sold by the current owner, not software. It does not transfer with a repository. <strong>Reproduce.</strong> Read the homepage copy on bookedin.ai; search for &quot;done-for-you&quot; and &quot;consulting&quot;. <strong>Evidence.</strong> Text of the homepage and pricing section, captured September 5, 2026: both markers present. <strong>Meaning for the buyer.</strong> You need the split: how much of the $13k MRR (and of the $305k lifetime) came from software subscriptions versus setup, onboarding or consulting invoices. If a third of revenue is service, the software business is worth a third less, and the seller&#x27;s time is the actual product.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-03</span>
+    <span class="name">Domain registered 18 months ago, expires in 161 days</span>
+    <span class="sev med">medium</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> bookedin.ai was registered on 2025-02-14 and expires 2027-02-14. The product itself reports 38 months of revenue history. The current domain is younger than the business, which usually means a rebrand or a domain change. <strong>Reproduce.</strong> RDAP lookup for bookedin.ai (rdap.org). <strong>Evidence.</strong> RDAP record: registered 2025-02-14, expiration 2027-02-14, 161 days left at the time of the check. <strong>Meaning for the buyer.</strong> Two questions: what was the previous domain and does it still redirect (SEO equity, customer bookmarks, transactional email), and who controls the registrar account. Renew the domain for several years as a closing condition.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-04</span>
+    <span class="name">No DMARC record, four security headers missing</span>
+    <span class="sev med">medium</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> The domain publishes SPF but no <code>_dmarc</code> TXT record. The homepage response has no Content-Security-Policy, X-Frame-Options, X-Content-Type-Options or Referrer-Policy. <strong>Reproduce.</strong> <code>dig TXT _dmarc.bookedin.ai @1.1.1.1</code> returns nothing. <code>curl -sI https://bookedin.ai/</code> shows none of the four headers. <strong>Evidence.</strong> DNS and header captures, September 5, 2026. <strong>Meaning for the buyer.</strong> Without DMARC, transactional emails (booking confirmations, receipts) are more likely to land in spam, and the domain can be spoofed in phishing to the product&#x27;s own customers. The headers are a one-hour fix. Together they say the public surface has never had a security pass.</p>
+  </div>
+</div>
+<div class="finding">
+  <div class="finding-head">
+    <span class="id">F-05</span>
+    <span class="name">No standalone pricing or contact page; tracking scripts fail</span>
+    <span class="sev low">low</span>
+  </div>
+  <div class="finding-body">
+<p><strong>What.</strong> <code>/pricing</code> and <code>/plans</code> return 404; <code>/contact</code> and <code>/support</code> return 404. Prices exist only inside the homepage. The console shows three failed requests (HTTP 403) to a third-party funnel tracker. <strong>Reproduce.</strong> Open the four URLs. Load the homepage with the browser console open. <strong>Evidence.</strong> HTTP status captures and console log, September 5, 2026. <strong>Meaning for the buyer.</strong> Cosmetic on its own. Combined with F-04 it points at a marketing site that is maintained lightly. Budget for a cleanup after transfer.</p>
+  </div>
+</div>
+  </section>
+
+  <section class="wrap">
+    <h2>Red flags</h2>
+<ul><li>Revenue falling 56 percent against stated MRR (F-01). Not visible on the listing card at a glance, visible in the Stripe numbers.</li><li>Service revenue mixed with software revenue (F-02). Transferability unknown.</li><li>Asking price 3.5x the market median on annual revenue, 14.5x on current cash (verdict, F-01).</li><li>Domain younger than the business and expiring in 161 days (F-03).</li><li>No DMARC, no security headers (F-04).</li></ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Ask the seller</h2>
+<ol><li>Read-only Stripe access on a call: MRR by month for 36 months, cancellations by month for the last 6, share of annual versus monthly plans. <em>closed by:</em> live Stripe dashboard.</li><li>Revenue split for the last 12 months: software subscriptions versus setup, consulting and any one-time services. <em>closed by:</em> Stripe product-level export plus invoices for services.</li><li>Why the last 30 days are $5.8k against $13k MRR: cancellations, annual renewals timing, or a pricing change. <em>closed by:</em> the Stripe export from question 1, not a verbal answer.</li><li>Previous domain and whether it redirects; who holds the registrar account; will you renew for 3 years before closing. <em>closed by:</em> registrar screenshot and a redirect test.</li><li>Top 5 customers as a share of MRR and whether any of them bought consulting. <em>closed by:</em> Stripe customer export.</li><li>Code and process: <code>git log --shortstat</code>, authors, commits in the last 90 days, tests, CI, deployment steps. <em>closed by:</em> screen share of the repository.</li><li>Twelve months of invoices for hosting, third-party services and any AI or scheduling APIs the product depends on. <em>closed by:</em> the invoices.</li><li>Who does the done-for-you work today and will they stay for a transition period. <em>closed by:</em> named person and a written support commitment.</li><li>What is included: domain, GitHub, Stripe, email sending domain, tracking accounts, trademarks. <em>closed by:</em> asset list in the term sheet.</li><li>Reason for selling now. <em>closed by:</em> compare with the cancellation curve from question 1.</li></ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Checked and clean</h2>
+    <p>What was tested and came back clean, so the scope of the review is visible too.</p>
+    <div class="checks">
+<div class="check"><span class="what">Monthly recurring revenue (MRR)</span><span class="res">$13,080 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue, last 30 days</span><span class="res">$5,757 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue, all time</span><span class="res">$305,570 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Active subscriptions</span><span class="res">100 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue verification source</span><span class="res">Stripe (API key) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Revenue last synced</span><span class="res">10.1h ago (2026-09-04) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">ARPU vs. stated pricing</span><span class="res">ARPU $130.80 vs. listed $75-$291 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Company age</span><span class="res">38.5 months <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Average MRR growth pace</span><span class="res">$340/month average since founding <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Pricing model</span><span class="res">Subscription <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Mobile layout, 360px viewport</span><span class="res">360px document / 360px viewport <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Mobile layout, 414px viewport</span><span class="res">414px document / 414px viewport <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Terms of service page</span><span class="res">https://bookedin.ai/terms <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Privacy policy page</span><span class="res">https://bookedin.ai/privacy <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Signup / trial CTA</span><span class="res">‘Get Started’ → https://dashboard.converti.ai/register <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">HTTP to HTTPS redirect</span><span class="res">https://bookedin.ai/ <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Broken internal links</span><span class="res">3 checked, 0 broken <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">HSTS header</span><span class="res">max-age=63072000 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CORS wildcard on homepage</span><span class="res">not set <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">TLS certificate</span><span class="res">Let&#x27;s Encrypt, expires in 42d (Oct 17 23:09:48 2026 GMT) <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .env file</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .git/HEAD</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .git/config</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed .DS_Store</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed backup.zip</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed dump.sql</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /server-status</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed phpinfo.php</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">security.txt (disclosure policy)</span><span class="res">not found <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">robots.txt reachable</span><span class="res">not found <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">sitemap.xml reachable</span><span class="res">not found <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /swagger</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /openapi.json</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /api/docs</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /graphql endpoint</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /admin</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /debug</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /_next/ internals</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /storage/ directory</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exposed /uploads/ directory</span><span class="res">not exposed <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Public API keys in JS bundle</span><span class="res">0 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Known CVEs in detected libraries</span><span class="res">1 version signature(s) detected (Express); not matched to a CVE database entry <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DNS A record</span><span class="res">216.150.1.1 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">DNS nameservers</span><span class="res">athena.ns.cloudflare.com, greg.ns.cloudflare.com <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CNAME for www</span><span class="res">5a24297e9df5f04a.vercel-dns-016.com <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Hosting / DNS provider</span><span class="res">Vercel, Cloudflare <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">SPF record</span><span class="res">v=spf1 include:dc-aa8e722993._spfm.bookedin.ai ~all <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">CDN / WAF</span><span class="res">Vercel Edge <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Tech stack (as listed)</span><span class="res">Stripe <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Exotic / unusual stack flag</span><span class="res">common stack <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Domain Rating (SEO backlink strength)</span><span class="res">20 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Founder X (Twitter) followers</span><span class="res">2,261 followers <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Comparable listings (same category)</span><span class="res">5 comparable listing(s), MRR $128,000-$864,000 <span class="sev ok">ok</span></span></div>
+<div class="check"><span class="what">Founder personal brand reach</span><span class="res">2,261 X followers <span class="sev ok">ok</span></span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Could not be verified</h2>
+    <p>Read-only, no login, no purchase attempted: some checks are structurally inconclusive from the outside. Listed honestly instead of silently dropped.</p>
+    <div class="checks">
+<div class="check"><span class="what">Cross-check vs. public API listing</span><span class="res">not present in the public bestDeals/recentlyListed lists (top 25 each) <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Pricing page weight &amp; LCP</span><span class="res">page did not load in time <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Console errors, pricing page</span><span class="res">page did not load <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Failed network requests, pricing page</span><span class="res">page did not load <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">www/apex canonical host</span><span class="res">canonical host: unclear (apex → 301, www → 301) <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Secrets in client-side JS</span><span class="res">0 found <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Public cloud storage buckets</span><span class="res">no cloud storage buckets referenced on the homepage <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">DNS AAAA record</span><span class="res">none (IPv4-only) <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">DKIM selector</span><span class="res">no common selector responded (12 checked); inconclusive, not proof of absence <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Third-party hosts loaded</span><span class="res">no external hosts detected <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Marketing channels listed</span><span class="res">not listed on the card <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">robots.txt content</span><span class="res">not reachable <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">URLs in sitemap.xml</span><span class="res">not available <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Blog / changelog activity</span><span class="res">no blog/changelog path responded <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Team size (as listed)</span><span class="res">not listed <span class="sev skip">not verified</span></span></div>
+<div class="check"><span class="what">Solo founder</span><span class="res">not available <span class="sev skip">not verified</span></span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Method</h2>
+    <p>
+      This review is limited to what is observable from outside the product: the public marketing site,
+      DNS and TLS records, HTTP response headers, and the listing card published on TrustMRR. No code,
+      admin panel, database or paid API was accessed at any point, and no account was created or signed into.
+    </p>
+    <p>
+      Every network check in this report is a GET request; nothing was submitted, purchased or configured.
+      Revenue figures come from the provider connection TrustMRR displays on the listing (Stripe (API key)),
+      not from a separate audit of the seller's account. This scan ran on September 5, 2026.
+    </p>
+  </section>
+
+  <section class="wrap">
+    <div class="cta">
+      <h2>Order a <span class="accent">Buyer's Check</span></h2>
+      <p>For a listing you are considering: independent technical review, $199, delivered in 48 hours.</p>
+      <a class="btn" href="mailto:sanexxx777@gmail.com?subject=Buyer%27s%20Check">Order a Buyer's Check →</a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  Buyer's Check · September 5, 2026 · <a href="/store/en/">store</a>
+</footer>
+
+</body>
+</html>
