@@ -5,7 +5,7 @@
 ## Products
 
 - [Living Mascot](https://shulgin.is-a.dev/store/mascot/): A living canvas engine with a flexible theme, recolorable for any brand through a single color config. Reacts to the pointer and clicks, expresses 10 emotions, falls asleep when idle. Canvas 2D, zero runtime dependencies, ESM and plain script builds. $19, personal license, 6.9 KB gzip. Live demo at the link above.
-- [Qwerty Switcher](https://shulgin.is-a.dev/store/#apps): v0.10.0 macOS 13+ keyboard-layout auto-switcher for Russian/English. Free — no subscription, keys or network calls: download the DMG and use it. Fixes the wrong layout as you type (from the fourth letter), converts a selection or the last word with Double Shift, learns from your corrections, pauses itself in games.
+- [Qwerty Switcher](https://shulgin.is-a.dev/store/#apps): v0.11.0 macOS 13+ keyboard-layout auto-switcher for Russian/English. Free — no subscription or keys; offline unless you opt in to update checks (one JSON fetch a day from this site, nothing sent): download the DMG and use it. Fixes the wrong layout as you type (from the fourth letter), converts a selection or the last word with Double Shift, learns from your corrections, pauses itself in games.
 
 ## Services
 
@@ -40,6 +40,7 @@
 - [PM2 Cockpit](https://github.com/Sanexxxx777/pm2-cockpit): A Telegram control panel for PM2 processes with confirmations, an allowlist and real state verification. MIT.
 - [Erdos OpenEvolve](https://github.com/Sanexxxx777/erdos-openevolve): An evolutionary LLM pipeline that reproduced a SOTA result on an Erdos problem, with an independent verify.py.
 - [Transaction Guardian](https://github.com/Sanexxxx777/transaction-guardian): A security bot for crypto wallets: transaction monitoring and alerts. MIT.
+- [Qwerty Switcher (source)](https://github.com/Sanexxxx777/QwertySwitcher): the macOS layout auto-switcher itself, Swift + CGEventTap, no third-party dependencies, 872 automated checks, opt-in Ed25519-signed updates.
 - [Curated Claude Code](https://github.com/Sanexxxx777/curated-claude-code): A methodology for AI-augmented development: conventions, verification discipline, working patterns.
 - MEXC PHP Client: A zero-dependency cURL client, pending a release review before the repository is opened.
 
