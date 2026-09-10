@@ -175,6 +175,31 @@
   }
 })();
 
+/* Мобильная шапка (<=620px, см. style.css): бургер раскрывает .nav столбиком.
+   <button> сам обрабатывает Enter/Space, здесь только клик, Esc и синхронизация
+   aria-expanded с реальным состоянием. */
+(function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('site-nav');
+  if (!toggle || !nav) return;
+
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    nav.classList.toggle('is-open', open);
+  }
+  toggle.addEventListener('click', function () {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  nav.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { setOpen(false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || toggle.getAttribute('aria-expanded') !== 'true') return;
+    setOpen(false);
+    toggle.focus();
+  });
+})();
+
 /* Ролики. Превью крутится без звука, но только пока карточка в кадре: четыре
    видео, стартующие разом, съедают мобильный трафик и рисуют пустые прямоугольники,
    пока грузятся. Нажатие открывает ролик крупно и со звуком в нативном <dialog>.

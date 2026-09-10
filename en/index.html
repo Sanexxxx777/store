@@ -16,6 +16,12 @@
 </script>
 <title>Product Lab - Aleksandr Shulgin</title>
 <meta name="description" content="Mac apps, ready-made code and fixed-scope web, AI and automation work: Qwerty Switcher, Living Mascot and product sprints.">
+<!-- preload: fonts used above the fold (Inter default body, JetBrains Mono header/buttons,
+     Big Shoulders Display headings latin) - without preload the later font-display:swap
+     shifted the whole hero-grid (CLS fix, see AUDIT 10.09.2026) -->
+<link rel="preload" href="../fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/jetbrains-mono-latin-400_600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/big-shoulders-display-latin-100_900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0c'/%3E%3Ctext x='32' y='46' font-family='Arial,sans-serif' font-size='38' fill='%23ee4e4e' text-anchor='middle'%3E%E2%98%85%3C/text%3E%3C/svg%3E">
@@ -24,7 +30,7 @@
 <link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/">
 <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/">
 <link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/">
-<noscript><style>.hero-stage, .dm-strip { display: none; }</style></noscript>
+<noscript><style>.hero-stage { display: none; }</style></noscript>
 <meta property="og:title" content="Product Lab - Aleksandr Shulgin">
 <meta property="og:type" content="website">
 <meta property="og:description" content="Any task as a clear order: price before start, code in 2-4 days.">
@@ -57,8 +63,9 @@
 
 <header class="head">
   <div class="wrap">
-    <a class="logo" href="index.html">PRODUCT LAB<i>.</i></a>
-    <nav class="nav" aria-label="Primary navigation">
+    <a class="logo" href="index.html">SHULGIN.IS-A<i>.</i></a>
+    <span class="logo-tag">/ STORE</span>
+    <nav class="nav" id="site-nav" aria-label="Primary navigation">
       <a href="#offers">Tasks</a>
       <a href="#products">Product</a>
       <a href="#apps">Mac</a>
@@ -68,6 +75,9 @@
     </nav>
     <a class="lang-switch" href="../index.html" aria-label="Русская версия" data-setlang="ru">RU</a>
     <a class="cta-mini" href="#" data-modal-open>Discuss</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
   </div>
 </header>
 
@@ -82,7 +92,7 @@
           <a class="btn" href="#offers">Pick a task</a>
           <a class="btn btn-ghost" href="#" data-modal-open data-item="Custom task">Your own task →</a>
         </div>
-        <canvas class="dm-strip" data-dots="$19–119 · 2–4 DAYS" data-align="left" width="10" height="10" aria-hidden="true"></canvas>
+        <p class="hero-price">$19-119 · 2-4 days</p>
         <div class="hero-proof" aria-label="Terms of work">
           <span>fixed scope</span>
           <span>you keep the code</span>
@@ -560,7 +570,7 @@
 <footer class="foot">
   <div class="wrap cols">
     <div class="about-col">
-      <a class="logo" href="index.html">PRODUCT LAB<i>.</i></a>
+      <a class="logo" href="index.html">SHULGIN.IS-A<i>.</i></a>
       <p>Ready-made code and short sprints with a concrete outcome. Aleksandr Shulgin.</p>
     </div>
     <div>
