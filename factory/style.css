@@ -50,7 +50,7 @@ body {
 }
 
 /* ---------- титул ---------- */
-header.hero { padding: clamp(46px, 11vw, 88px) 0 clamp(30px, 7vw, 54px); }
+header.hero { padding-block: clamp(46px, 11vw, 88px) clamp(30px, 7vw, 54px); }
 .kicker {
   font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--ink-faint); margin-bottom: 16px;

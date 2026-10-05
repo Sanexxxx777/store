@@ -77,7 +77,7 @@
 ## Готовое с ценой
 
 - Qwerty Switcher: 6 $ / мес. https://shulgin.is-a.dev/store/#apps
-- Аудит сайта на штрафы РКН: 500 ₽. https://shulgin.is-a.dev/store/rkn-audit/
+- Технический разбор сайта по 152-ФЗ (RKN Compliance Audit): 500 ₽. https://shulgin.is-a.dev/store/rkn-audit/
 - Спасение сайта после ИИ-конструктора: 119 $. https://shulgin.is-a.dev/store/case-audit/
 
 ## Контакты
