@@ -723,6 +723,14 @@ document.querySelectorAll('a[data-setlang]').forEach(function (a) {
     addEventListener('pagehide', function () {
       navigator.sendBeacon(E + '?e=depth&d=' + md + '&' + base);
     });
+    /* Клик по DMG = скачивание, d = версия из имени файла. Ловит обычный клик;
+       «Сохранить ссылку как…» и средний щелчок не видит — потолок метода. */
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('a[href$=".dmg"]');
+      if (!a) return;
+      var v = (a.getAttribute('href').match(/-([\d.]+)\.dmg$/) || [])[1] || '';
+      navigator.sendBeacon(E + '?e=dl&d=' + encodeURIComponent(v) + '&' + base);
+    }, true);
   } catch (e) {}
 })();
 </script>
