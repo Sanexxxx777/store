@@ -2,3 +2,5 @@ outputs/
 handoff/
 .DS_Store
 AGENTS.md
+CLAUDE.md
+docs/agents/
