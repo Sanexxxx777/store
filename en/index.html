@@ -10,7 +10,7 @@
     var here = 'en';
     var saved = localStorage.getItem('lang');
     var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
-    if (want !== here) location.replace('../');
+    if (want !== here) location.replace('../' + location.search + location.hash);
   } catch (e) {}
 })();
 </script>
