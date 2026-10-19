@@ -47,6 +47,8 @@
     margin: 2.1rem 0 .6rem;
   }
   p { margin: 0 0 1rem; color: var(--ink); }
+  ul { margin: 0 0 1rem; padding-left: 1.2rem; }
+  li { margin-bottom: .3rem; }
   a { color: var(--bronze-ink); }
   .back {
     display: inline-block;
@@ -65,21 +67,33 @@
   <a class="back" href="../">← back to services</a>
   <h1>Data and privacy</h1>
 
-  <p>Short version: shulgin.is-a.dev/store/prosto/ collects nothing and sends nothing anywhere. No form posted to a server, no cookies, no Google Analytics or similar trackers.</p>
+  <p>Short version: the form on the page sends nothing to a server, no cookies are set, and there are no third-party trackers such as Google Analytics. There is a simple visit counter without an IP address, described below.</p>
 
-  <h2>The form on the page</h2>
-  <p>The fields (name, contact, task text) work entirely inside your browser: the button turns what you typed into a message and opens Telegram with the draft ready (it is copied to your clipboard as well). Whether to send it is your call. Until you press send inside Telegram, nothing reaches me.</p>
+  <h2>What data the form takes</h2>
+  <p>The form has three fields:</p>
+  <ul>
+    <li>name (up to 80 characters);</li>
+    <li>contact: Telegram, WhatsApp, phone or email (up to 120 characters);</li>
+    <li>task text (up to 400 characters).</li>
+  </ul>
+  <p>The fields work entirely inside your browser. The page does not send them to a server and does not store them. The button turns what you typed into a message, copies it to your clipboard and opens Telegram with the draft ready. Whether to send it is your call. Until you press send inside Telegram, this data does not reach me.</p>
+
+  <h2>What happens to the data after you send it</h2>
+  <p>If you send the message, it stays in the Telegram conversation. I use the name, contact and text only to reply and discuss your task. No newsletters, no sharing with third parties, no selling of data.</p>
 
   <h2>Visit counter</h2>
-  <p>The site counts page views: page path, browser language, referrer and scroll depth. No IP address is recorded, no cookie is set, no visitor id is assigned. It is traffic statistics, not tracking of a person.</p>
+  <p>The site counts page views: page path, browser language, referrer, scroll depth and which buttons were clicked. No IP address is recorded, no cookie is set, no visitor id is assigned. It is traffic statistics, not tracking of a person.</p>
 
   <h2>If you contacted me yourself</h2>
-  <p>A chat in Telegram, WhatsApp or email is an ordinary conversation between two people: what you wrote stays there, and it is used only to reply and discuss your task. No newsletters, no sharing with third parties, no selling of data.</p>
+  <p>A chat in Telegram, WhatsApp or email is an ordinary conversation between two people: what you wrote stays there, and it is used only to reply and discuss your task.</p>
+
+  <h2>Withdrawing consent and deletion</h2>
+  <p>You can withdraw consent to processing at any time and ask for the conversation to be deleted: through the same channel you wrote in, or at sanexxx777@gmail.com. Processing stops as soon as you ask, personal data in the conversation is deleted within 30 days, and I confirm by reply.</p>
 
   <h2>Who is responsible for this data</h2>
-  <p>Aleksandr Shulgin, self-employed. To have our conversation with your data deleted, write to sanexxx777@gmail.com and I will delete it on first request.</p>
+  <p>Aleksandr Shulgin, self-employed. Email: sanexxx777@gmail.com, Telegram: @Aleksandr_NFA.</p>
 
-  <p class="date">Last updated: August 19, 2026.</p>
+  <p class="date">Last updated: October 19, 2026.</p>
 </main>
 </body>
 </html>

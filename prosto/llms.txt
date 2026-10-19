@@ -1,71 +1,12 @@
 # Александр Шульгин: Prosto (задача словами → работающая программа)
 
-> Услуги для нетехнических заказчиков: сайты, боты, автоматизация рутины, помощники на ИИ. Без терминов, цена известна до старта и не меняется, оценка за один рабочий день. Основная версия на русском, ниже краткое резюме на английском.
+> Услуги для нетехнических заказчиков: сайты, боты, автоматизация рутины, помощники на ИИ. Без терминов, цена известна до старта и фиксируется для согласованного объёма, оценка за один рабочий день. Основная версия на русском, ниже краткое резюме на английском.
 
 ## Кто делает
 
-Александр Шульгин, самозанятый разработчик. Работает один, но с поддержкой ИИ: черновую работу пишет искусственный интеллект, Александр ставит задачу, проверяет и отвечает за результат. Разговариваете вы с тем, кто делает, без менеджеров и пересказов.
+Александр Шульгин, самозанятый разработчик. Использует ИИ в разработке; постановка задачи, проверка и ответственность за результат остаются на нём. Разговариваете вы с тем, кто делает, без менеджеров и пересказов.
 
 Суперспособность: «Почти всё, что можно объяснить словами, можно превратить в программу.»
-
-## Восемь групп услуг
-
-### Место в интернете
-- Сайт: услуги, цены, фотографии, форма заявки
-- Сайт, который вы правите сами с телефона
-- Магазин с корзиной и приёмом оплаты
-
-### Клиенты и заявки
-- Бот в Telegram: принимает заявку и записывает на время
-- Онлайн-запись с календарём и свободными окнами
-- Напоминание клиенту накануне визита
-
-### Для себя, а не для дела
-- Небольшая программа под вашу задачу, которой нигде нет
-- Бот для чата, клуба, сообщества по интересам
-- Оцифровать архив: плёнки, бумаги, записи, альбомы
-
-### Рутина, которую делает машина
-- Отчёты и выгрузки, которые вы сводите каждую неделю
-- Договор, счёт и акт по шаблону, за секунду
-- Заявки с Авито, ВКонтакте, WhatsApp и сайта приходят в одно окно
-
-### Помощники на искусственном интеллекте
-- Отвечает клиентам по вашему прайсу и правилам
-- Переводит звонки и голосовые в текст и краткую выжимку
-- Поиск по вашим документам: «где был тот договор»
-
-### Как вас видят
-- Короткий ролик для соцсетей из ваших фотографий
-- Соцсети, которые ведутся сами: каждый день выходит пост
-- Логотип и фирменные цвета, если их нет
-
-### Цифры и решения
-- Простой экран: выручка, заявки, загрузка
-- Какая реклама окупилась, а какая нет
-- Сведение данных из разных мест в одну картину
-
-### Порядок и спокойствие
-- Резервные копии, чтобы ничего не исчезло
-- Доступы, оформленные на вас, а не на подрядчика
-- Проверка сайта на дыры до запуска
-
-Список неполный: половина задач приходит своими словами.
-
-## Условия
-
-- Цена известна до старта: сумму называю письменно после разговора, до начала работы, и потом не меняю.
-- Оценка занимает один рабочий день.
-- Оформление официальное: договор и чек самозанятого на каждую оплату.
-- Месяц после запуска мелкие правки входят в цену.
-
-## Как это происходит
-
-1. Разговор: пятнадцать минут в переписке или голосом.
-2. Показываю, как будет: макет или работающий кусочек на ваших материалах.
-3. Правим вместе: это часть работы, а не отдельная услуга.
-4. Запускаю: работает по вашему адресу, заявки приходят вам.
-5. Остаюсь рядом: месяц мелких правок входит в цену, дальше по-человечески.
 
 ## Из сделанного
 
@@ -74,26 +15,67 @@
 - [Бюро «Кратно»](https://shulgin.is-a.dev/kratno-landing-demo/): демонстрационный сайт услуг, компания придумана, сайт настоящий.
 - [Студия «Сигнал»](https://shulgin.is-a.dev/signal-studio-landing-demo/): демонстрационный сайт агентства, компания придумана, сайт настоящий.
 
+## Примеры задач
+
+### Место в интернете
+- Сайт: услуги, цены, фотографии, форма заявки
+- Сайт, который вы правите сами с телефона
+- Страница мероприятия, тура, набора, курса
+
+### Клиенты и заявки
+- Бот в Telegram: принимает заявку и записывает на время
+- Онлайн-запись с календарём и свободными окнами
+- Напоминание клиенту накануне визита
+
+### Рутина, которую делает машина
+- Отчёты и выгрузки, которые вы сводите каждую неделю
+- Перенос данных между таблицами, сайтом и площадками, без ручного копирования
+- Заявки с Авито, ВКонтакте, WhatsApp и сайта приходят в одно окно
+
+### Помощники на искусственном интеллекте
+- Отвечает клиентам по вашему прайсу и правилам
+- Переводит звонки и голосовые в текст и краткую выжимку
+- Поиск по вашим документам: «где был тот договор»
+
+Нужного нет? Опишите свою задачу словами.
+
+## Условия
+
+- Цена известна до старта: сумму называю письменно после разговора, до начала работы. Цена фиксируется для согласованного объёма; новые задачи оцениваем отдельно до начала работы.
+- Оценка к концу следующего рабочего дня.
+- Оформление официальное: договор и чек самозанятого на каждую оплату.
+- Месяц после запуска мелкие правки входят в цену: тексты, фотографии, цены и контакты. Новый раздел или функция оцениваются отдельно.
+- Доступы, домен и код остаются у вас.
+
+## Как это происходит
+
+1. Разговор: пятнадцать минут в переписке или голосом.
+2. Показываю, как будет: макет или работающий кусочек на ваших материалах.
+3. Правим вместе: это часть работы, а не отдельная услуга.
+4. Запускаю: работает по вашему адресу, заявки приходят вам.
+5. Остаюсь рядом: месяц мелких правок входит в цену.
+
 ## Готовое с ценой
 
-- Qwerty Switcher: 6 $ / мес. https://shulgin.is-a.dev/store/#apps
-- Технический разбор сайта по 152-ФЗ (RKN Compliance Audit): 500 ₽. https://shulgin.is-a.dev/store/rkn-audit/
-- Спасение сайта после ИИ-конструктора: 119 $. https://shulgin.is-a.dev/store/case-audit/
+- Qwerty Switcher: бесплатно, без подписки. https://shulgin.is-a.dev/store/#apps
+- Технический разбор сайта по 152-ФЗ: 500 ₽, первый шаг бесплатно (https://shulgin.is-a.dev/check/). https://shulgin.is-a.dev/store/rkn-audit/
+- Довести до продакшна проект из ИИ-конструктора: от 119 $. https://shulgin.is-a.dev/hire/#packages
 
 ## Контакты
 
 - Telegram: [t.me/Aleksandr_NFA](https://t.me/Aleksandr_NFA)
 - Email: sanexxx777@gmail.com
 - Страница: [shulgin.is-a.dev/store/prosto/](https://shulgin.is-a.dev/store/prosto/) (RU), [en/](https://shulgin.is-a.dev/store/prosto/en/) (EN)
+- Разработка под задачу для команд и стартапов: https://shulgin.is-a.dev/hire/
 
 ## English summary
 
-Aleksandr Shulgin is a solo, AI-augmented developer: AI drafts the rough work, he sets the task, reviews it and answers for the result. Superpower: "Almost anything you can explain in words can be turned into software." He turns a task described in plain words into working software: websites, bots, routine automation, AI assistants, apps, explained without jargon.
+Aleksandr Shulgin is a solo developer who uses AI in development; he sets the task, checks the result and answers for it. Superpower: "Almost anything you can explain in words can be turned into software." He turns a task described in plain words into working software: websites, bots, routine automation, AI assistants, explained without jargon.
 
-Terms: an estimate within one business day, the price is fixed before work starts and doesn't change, a contract and tax receipt for every payment, a month of minor fixes included after launch. Process: a conversation, a mockup, revisions together, launch, ongoing small fixes. Works remotely, with any country.
+Terms: an estimate by the end of the next business day; the price is fixed for the agreed scope, and new tasks are estimated separately before work starts; a contract and tax receipt for every payment; a month of minor fixes after launch (texts, photos, prices, contacts; a new section or feature is estimated separately). You keep the access, the domain and the code.
 
-Case: horsesfarm.ru and tanyabunina.ru (real client sites), plus two demo sites (Kratno Bureau, Signal Studio, fictional companies, real builds).
+Work: horsesfarm.ru and tanyabunina.ru (real client sites), plus two demo sites (Kratno Bureau, Signal Studio: fictional companies, real builds).
 
-Ready-made, priced: Qwerty Switcher ($6/mo, 14 days free) and an AI-website rescue audit ($119), both available today at https://shulgin.is-a.dev/store/prosto/en/#ready.
+Ready-made: Qwerty Switcher (free macOS layout switcher, no subscription) at https://shulgin.is-a.dev/store/#apps. Custom development for teams and startups: https://shulgin.is-a.dev/hire/
 
 Contact: Telegram t.me/Aleksandr_NFA, email sanexxx777@gmail.com. Page: https://shulgin.is-a.dev/store/prosto/en/
