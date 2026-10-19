@@ -7,6 +7,8 @@
 (function () {
   try {
     if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    /* старые якоря услуг: язык не переключаем, их разбирает скрипт в начале body */
+    if (/^#(offers|services|reels|films)$/.test(location.hash)) return;
     var here = 'ru';
     var saved = localStorage.getItem('lang');
     var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
@@ -14,8 +16,8 @@
   } catch (e) {}
 })();
 </script>
-<title>Продуктовая лаборатория — Александр Шульгин</title>
-<meta name="description" content="Приложения для Mac, готовый код и задачи из веба, ИИ и автоматизации по фиксированной цене: Qwerty Switcher, Living Mascot и продуктовые спринты.">
+<title>Готовые инструменты и исходники · Александр Шульгин</title>
+<meta name="description" content="Qwerty Switcher для Mac бесплатно и Living Mascot за $19: исходники живого персонажа. Разработка под вашу задачу на отдельной странице.">
 <!-- preload: критичные для above-the-fold текста шрифты (Inter=основной, JetBrains Mono=шапка/кнопки,
      Oswald=RU-заголовки h1-h3, у Big Shoulders Display нет кириллицы) - без preload их
      позднее font-display:swap сдвигал hero-grid целиком (CLS-фикс, см. AUDIT 10.09.2026) -->
@@ -34,31 +36,63 @@
 <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/">
 <link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/">
 <noscript><style>.hero-stage { display: none; }</style></noscript>
-<meta property="og:title" content="Продуктовая лаборатория — Александр Шульгин">
+<meta property="og:title" content="Готовые инструменты и исходники · Александр Шульгин">
 <meta property="og:type" content="website">
-<meta property="og:description" content="Любая задача — понятный заказ: цена до старта, код за 2–4 дня.">
-<meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+<meta property="og:description" content="Qwerty Switcher для Mac бесплатно. Living Mascot: исходники живого персонажа за $19.">
+<meta property="og:url" content="https://shulgin.is-a.dev/store/">
+<meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og-store.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shulgin.is-a.dev/store/assets/og-store.jpg">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Продуктовая лаборатория — Александр Шульгин",
-  "url": "https://shulgin.is-a.dev/store/",
-  "description": "Контент-завод и контур для ИИ-агента под ключ, бесплатный Qwerty Switcher, готовый код Living Mascot и продуктовые спринты с фиксированным объёмом работ.",
-  "email": "sanexxx777@gmail.com",
-  "sameAs": ["https://shulgin.is-a.dev", "https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"],
-  "priceRange": "$19-$290+",
-  "makesOffer": [
-    { "@type": "Offer", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "Product", "name": "Living Mascot", "url": "https://shulgin.is-a.dev/store/mascot/" } },
-    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "itemOffered": { "@type": "SoftwareApplication", "name": "Qwerty Switcher", "operatingSystem": "macOS", "applicationCategory": "UtilitiesApplication", "url": "https://shulgin.is-a.dev/store/#apps" } },
-    { "@type": "Offer", "price": "250", "priceCurrency": "USD", "itemOffered": { "@type": "Service", "name": "Content Factory", "url": "https://shulgin.is-a.dev/store/factory/" } },
-    { "@type": "Offer", "price": "290", "priceCurrency": "USD", "itemOffered": { "@type": "Service", "name": "Agent Harness", "url": "https://shulgin.is-a.dev/store/agents/" } }
-  ],
-  "founder": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev" }
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "Готовые инструменты и исходники · Александр Шульгин",
+      "url": "https://shulgin.is-a.dev/store/",
+      "inLanguage": "ru",
+      "author": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev", "sameAs": ["https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"] }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Qwerty Switcher",
+      "operatingSystem": "macOS 13+",
+      "applicationCategory": "UtilitiesApplication",
+      "softwareVersion": "0.11.9",
+      "url": "https://shulgin.is-a.dev/store/#apps",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "Product",
+      "name": "Living Mascot",
+      "description": "Исходники живого canvas-персонажа: перекрашивается под бренд, следит за курсором, 10 эмоций. Canvas 2D, без зависимостей.",
+      "url": "https://shulgin.is-a.dev/store/mascot/",
+      "image": "https://shulgin.is-a.dev/store/mascot/og.jpg",
+      "offers": { "@type": "Offer", "price": "19", "priceCurrency": "USD" }
+    }
+  ]
 }
 </script>
 </head>
 <body>
+<script>
+/* Старые якоря каталога услуг: каталог переехал на /hire/, ролики на /video/.
+   Ставим первым в body, чтобы переход случился до отрисовки. Язык выбираем тем же правилом, что и редирект RU/EN. */
+(function () {
+  var h = location.hash;
+  if (!/^#(offers|services|reels|films)$/.test(h)) return;
+  var want = 'ru';
+  try {
+    var saved = localStorage.getItem('lang');
+    want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+  } catch (e) {}
+  if (want !== 'ru' && want !== 'en') want = 'en';
+  location.replace(h === '#films' ? '/video/' : '/hire/?lang=' + want + '#packages');
+})();
+</script>
 
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
@@ -71,11 +105,10 @@
     <a class="logo" href="index.html">SHULGIN.IS-A<i>.</i></a>
     <span class="logo-tag">/ МАГАЗИН</span>
     <nav class="nav" id="site-nav" aria-label="Основная навигация">
-      <a href="#offers">Задачи</a>
-      <a href="#products">Продукт</a>
       <a href="#apps">Mac</a>
-      <a href="#services">Спринты</a>
+      <a href="#products">Продукт</a>
       <a href="#faq">Вопросы</a>
+      <a href="/hire/?lang=ru" data-cta="store-nav-hire">Разработка</a>
       <a href="prosto/" class="back">Проще о том же</a>
       <a href="https://shulgin.is-a.dev" class="back">Портфолио</a>
     </nav>
@@ -91,196 +124,25 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-text">
-        <span class="hero-kicker"><span class="star">★</span> product lab · code + delivery</span>
-        <h1>Ваша задача.<br><span class="accent">Цена до старта.</span><br>Код за 2–4 дня.</h1>
-        <p class="hero-sub">Любая задача из веба, ИИ и автоматизации превращается в понятный заказ: рамки, срок и точная цена письменно до старта, результат проверяется по критерию приёмки, код и права остаются у вас.</p>
+        <span class="hero-kicker"><span class="star">★</span> готовые продукты</span>
+        <h1>Готовые инструменты <span class="accent">и исходники</span></h1>
+        <p class="hero-sub">Qwerty Switcher для Mac бесплатно. Living Mascot: исходники живого персонажа за $19. Разработку под вашу задачу веду на отдельной странице.</p>
         <div class="hero-cta">
-          <a class="btn" href="#offers">Выбрать задачу</a>
-          <a class="btn btn-ghost" href="#" data-modal-open data-item="Своя задача">Своя задача →</a>
+          <a class="btn" data-cta="store-hero-download" href="#apps">Скачать Qwerty Switcher</a>
+          <a class="btn btn-ghost" data-cta="store-hero-mascot" href="#products">Living Mascot</a>
         </div>
-        <p class="hero-price">от $19 · цена и срок до старта</p>
-        <div class="hero-proof" aria-label="Условия работы">
-          <span>фиксированный объём</span>
-          <span>код остаётся у вас</span>
-          <span>живое демо до покупки</span>
-          <span>RU / EN</span>
-        </div>
+        <p class="hero-quiet"><a data-cta="store-hero-hire" href="/hire/?lang=ru">Нужна разработка под задачу →</a></p>
       </div>
       <div class="hero-stage">
         <canvas id="hero-mascot" width="960" height="640" aria-hidden="true"></canvas>
-        <a class="hero-stage-cap" href="#products">3D-осьминог, пример работы «под заказ». Готовый 2D-движок продаётся ниже ↓</a>
       </div>
-    </div>
-  </section>
-
-  <section class="routes routes--reels" id="reels">
-    <div class="wrap">
-      <div class="routes-intro">
-        <div>
-          <span class="kicker"><span class="star">★</span> из роликов</span>
-          <h2>Из роликов: пример и условия заказа</h2>
-        </div>
-      </div>
-      <div class="route-grid">
-        <a class="route rise" href="factory/" data-spot>
-          <span class="route-no">01</span>
-          <div>
-            <h3>Контент-завод</h3>
-            <p>Как устроен мой контент-завод: темы, тексты, проверки и публикации.</p>
-            <span class="route-go">Смотреть →</span>
-          </div>
-        </a>
-        <a class="route rise" href="/video/" data-spot>
-          <span class="route-no">02</span>
-          <div>
-            <h3>Ролики интерфейса</h3>
-            <p>Экраны продукта в движении: примеры, длительность и цена.</p>
-            <span class="route-go">Смотреть →</span>
-          </div>
-        </a>
-        <a class="route rise" href="prosto/" data-spot>
-          <span class="route-no">03</span>
-          <div>
-            <h3>Сайты и доработки</h3>
-            <p>Работы для заказчиков; новый сайт или конкретная доработка.</p>
-            <span class="route-go">Смотреть →</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="routes" id="offers">
-    <div class="wrap">
-      <div class="routes-intro">
-        <div>
-          <span class="kicker"><span class="star">★</span> вход по задаче</span>
-          <h2>Что нужно сделать?</h2>
-        </div>
-        <p>Девять частых задач-входов, за ними одиннадцать спринтов с фиксированными рамками и ценой «от».</p>
-      </div>
-      <div class="route-grid">
-        <a class="route rise" href="#mascot-sprint" data-spot>
-          <span class="route-no">01</span>
-          <div>
-            <h3>Оживить интерфейс</h3>
-            <p>Интерактивный персонаж для hero, onboarding или состояния ожидания. Реагирует на действия, а не просто двигается.</p>
-            <span class="route-go">Interactive Mascot · от $49 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#landing-sprint" data-spot>
-          <span class="route-no">02</span>
-          <div>
-            <h3>Запустить страницу</h3>
-            <p>Текст, структура, визуальный язык, адаптив и деплой. Страница, которую можно отправлять клиентам.</p>
-            <span class="route-go">Landing Page · от $79 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#rescue-sprint" data-spot>
-          <span class="route-no">03</span>
-          <div>
-            <h3>Доделать за ИИ</h3>
-            <p>Проект из Cursor, Lovable или Bolt довожу до продакшна: аудит, безопасность, нормальный деплой.</p>
-            <span class="route-go">Vibe Code Rescue · от $119 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#ai-widget-sprint" data-spot>
-          <span class="route-no">04</span>
-          <div>
-            <h3>Подключить ИИ</h3>
-            <p>Чат-виджет на Claude или GPT по вашим материалам, или видимость сайта для ИИ-поиска.</p>
-            <span class="route-go">AI Widget · Visibility · от $69 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#automation-sprint" data-spot>
-          <span class="route-no">05</span>
-          <div>
-            <h3>Убрать рутину</h3>
-            <p>Один повторяемый процесс превращается в проверяемый pipeline: данные, LLM, результат в Telegram.</p>
-            <span class="route-go">Automation · от $89 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#vps-sprint" data-spot>
-          <span class="route-no">06</span>
-          <div>
-            <h3>Закрыть риски VPS</h3>
-            <p>SSH, firewall, сервисы, секреты и бэкапы, с командами проверки, а не обещанием «всё безопасно».</p>
-            <span class="route-go">VPS Safety · от $49 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="agents/" data-spot>
-          <span class="route-no">07</span>
-          <div>
-            <h3>Приручить ИИ-агента</h3>
-            <p>Агент уже пишет вам код, но забывает контекст и ломает лишнее. Ставлю контур: правила, память, гейты на необратимое, проверяемая сдача.</p>
-            <span class="route-go">Agent Harness · от $290 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="factory/" data-spot>
-          <span class="route-no">08</span>
-          <div>
-            <h3>Вести соцсети без рук</h3>
-            <p>Персональный контент-завод: одна тема утром, посты на 5 площадках вечером. Мой работает каждый день, поставлю такой же вам.</p>
-            <span class="route-go">Content Factory · от $250 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="rkn-audit/" data-spot>
-          <span class="route-no">09</span>
-          <div>
-            <h3>Технический разбор по 152-ФЗ</h3>
-            <p>Разбор по 16 пунктам 152-ФЗ: формы, согласия, сторонние сервисы, лицензии. Отчёт со статусом по каждому пункту и ориентиром по КоАП за один день. Не юридическое заключение. Первый шаг бесплатный: проверка главной за минуту.</p>
-            <span class="route-go">RKN Compliance Audit · 500 ₽ · первый шаг бесплатно →</span>
-          </div>
-        </a>
-      </div>
-      <p class="routes-foot">Не знаете, с чего начать? <a href="/check/">Бесплатная проверка сайта за минуту</a>: какие технические признаки на главной стоит проверить, без регистрации. Дальше по лестнице: полный разбор по 16 пунктам за 500&nbsp;₽ → исправления от $119 → сопровождение.</p>
-    </div>
-  </section>
-
-  <section class="blk" id="products">
-    <div class="wrap">
-      <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="01" width="10" height="10" aria-hidden="true"></canvas>
-        <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> готовый код</span>
-          <h2>Забрать и встроить</h2>
-        </div>
-        <p class="blk-sub">Единственный self-service продукт витрины: исходники и сборка, подключаете сами, моё участие не обязательно.</p>
-      </div>
-
-      <article class="product-feature rise">
-        <div class="product-main">
-          <span class="product-status">flagship · self-service</span>
-          <h3>Living Mascot</h3>
-          <p>Живой canvas-движок: перекрашивается под любой бренд через один конфиг цветов, следит за курсором, реагирует на клики, выражает 10 эмоций и засыпает без движения. Canvas 2D, без зависимостей, 6.9 КБ gzip.</p>
-          <div class="card-actions">
-            <a class="btn btn-sm" href="mascot/" target="_blank" rel="noopener">Открыть живое демо</a>
-            <a class="btn btn-sm btn-ghost" href="#" data-modal-open data-item="Living Mascot: покупка">Запросить в переписке</a>
-          </div>
-          <div class="card-price"><span class="sr-only">$19</span><noscript><strong>$19</strong></noscript><canvas class="dm-price" data-dots="$19" width="10" height="10" aria-hidden="true"></canvas><span>стартовая цена · в комплекте ZIP: исходники, обе сборки (ESM + script), демо и лицензия, отправляю после оплаты в переписке</span></div>
-        </div>
-        <aside class="product-proof" aria-label="Ограничения и возможности Living Mascot">
-          <div class="proof-block">
-            <span>Подходит</span>
-            <strong>Характерный персонаж без тяжёлого 3D-стека. Цвета и реакции связываются с вашим UI.</strong>
-          </div>
-          <div class="proof-block">
-            <span>Не подменяет</span>
-            <strong>Rive, Lottie или анимацию готовой иллюстрации. Для этого есть спринт ниже.</strong>
-          </div>
-          <div class="proof-block">
-            <span>Проверено</span>
-            <strong>Desktop, mobile, light/dark, reduced motion, прогнано в браузере, не на словах.</strong>
-          </div>
-        </aside>
-      </article>
     </div>
   </section>
 
   <section class="blk apps-blk" id="apps">
     <div class="wrap">
       <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="02" width="10" height="10" aria-hidden="true"></canvas>
+        <canvas class="watermark-dots" data-dots="01" width="10" height="10" aria-hidden="true"></canvas>
         <div class="blk-title">
           <span class="kicker"><span class="star">★</span> приложение для Mac</span>
           <h2>Инструмент без лишнего облака</h2>
@@ -310,7 +172,7 @@
           <div class="app-card__foot">
             <span class="app-price app-price--free">Бесплатно <small>без подписки и ключей</small></span>
             <div class="card-actions">
-              <a class="btn btn-sm" href="downloads/QwertySwitcher-0.11.9.dmg" download>Скачать для macOS</a>
+              <a class="btn btn-sm" data-cta="store-download-dmg" href="downloads/QwertySwitcher-0.11.9.dmg" download>Скачать для macOS</a>
             </div>
           </div>
           <p class="app-card__fine">Сборка подписана самоподписанным сертификатом, поэтому первый запуск macOS встречает предупреждением. macOS 15 и новее: закройте его, откройте Системные настройки → Конфиденциальность и безопасность и внизу нажмите «Открыть всё равно». macOS 13–14: правый клик по приложению → Открыть. Дальше запуск обычный, обновления ставятся без повторных разрешений.</p>
@@ -320,262 +182,58 @@
     </div>
   </section>
 
-  <section class="blk" id="services">
+  <section class="blk" id="products">
     <div class="wrap">
       <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="03" width="10" height="10" aria-hidden="true"></canvas>
+        <canvas class="watermark-dots" data-dots="02" width="10" height="10" aria-hidden="true"></canvas>
         <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> работа под задачу</span>
-          <h2>Продуктовые спринты</h2>
+          <span class="kicker"><span class="star">★</span> готовый код</span>
+          <h2>Забрать и встроить</h2>
         </div>
-        <p class="blk-sub">У каждого спринта есть границы: один конкретный результат, проверяю и передаю. Точная цена называется после фиксации рамок, дальше не меняется.</p>
+        <p class="blk-sub">Готовый пакет исходников, отправляю вручную после оплаты.</p>
       </div>
 
-      <div class="sprint-grid">
-        <div class="srv-group"><span class="kicker">живой веб</span></div>
-
-        <article class="sprint rise sprint--hot" id="mascot-sprint" data-spot>
-          <span class="service-label">web interaction</span>
-          <h3>Interactive Mascot</h3>
-          <p>Оживляю персонажа или собираю code-native образ: 4–6 состояний, реакции на интерфейс, mobile, reduced-motion.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><s class="price-old">$89</s> <strong>от $49</strong> <em class="sale">−45%</em> · один сценарий · 2–4 дня</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Interactive Mascot Sprint">Обсудить →</button>
+      <article class="product-feature product-feature--visual rise">
+        <a class="product-visual" href="mascot/" target="_blank" rel="noopener" data-cta="store-mascot-demo" aria-label="Открыть живое демо Living Mascot">
+          <img src="assets/mascot-demo.jpg" width="840" height="420" alt="Живое демо Living Mascot: коралловый персонаж на тёмной сцене" loading="lazy" decoding="async">
+        </a>
+        <div class="product-main">
+          <span class="product-status">flagship · готовый пакет</span>
+          <h3>Living Mascot</h3>
+          <p>Живой canvas-движок: перекрашивается под любой бренд через один конфиг цветов, следит за курсором, реагирует на клики, выражает 10 эмоций и засыпает без движения. Canvas 2D, без зависимостей, 6.9 КБ gzip.</p>
+          <div class="card-actions">
+            <a class="btn btn-sm" data-cta="store-mascot-demo-btn" href="mascot/" target="_blank" rel="noopener">Открыть живое демо</a>
+            <a class="btn btn-sm btn-ghost" data-cta="store-mascot-buy" href="#" data-modal-open data-item="Living Mascot: покупка">Запросить в переписке</a>
           </div>
-        </article>
-
-        <article class="sprint rise" id="landing-sprint" data-spot>
-          <span class="service-label">copy + design + build</span>
-          <h3>Landing Page</h3>
-          <p>Оффер, структура, визуальный язык, адаптив, деплой. Демо: <a class="sprint-link" href="https://shulgin.is-a.dev/kratno-landing-demo" target="_blank" rel="noopener">Kratno ↗</a> <a class="sprint-link" href="https://shulgin.is-a.dev/signal-studio-landing-demo" target="_blank" rel="noopener">Signal Studio ↗</a></p>
-          <div class="sprint-foot">
-            <span class="srv-price"><s class="price-old">$129</s> <strong>от $79</strong> · одна страница · 2–4 дня</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Landing Page Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise sprint--wide" id="case-sprint" data-spot>
-          <span class="service-label">storyfield · новинка</span>
-          <h3>Сайт-кейс из частиц</h3>
-          <p>История вашего продукта в пяти главах: сцена из 24&nbsp;000 частиц пересобирается по мере скролла, 60 fps на телефоне. Живое демо: <a class="sprint-link" href="case-demo/">открыть ↗</a></p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $119</strong> · одна история · 4–6 дней</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Particle Case Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="motion-sprint" data-spot>
-          <span class="service-label">micro-interactions</span>
-          <h3>Motion Polish</h3>
-          <p>Доводка 5–8 микровзаимодействий на вашем сайте: hover, scroll-reveal, переходы. До/после фиксируется видео.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $59</strong> · 5–8 деталей</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Motion Polish Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="promo-video-sprint" data-spot>
-          <span class="service-label">html → mp4</span>
-          <h3>Promo Video</h3>
-          <p>Промо-ролик 30–60 секунд из ваших материалов: кинетические титры, анимированные цифры, кадры продукта, музыка. Собирается кодом, поэтому пересобрать с новыми цифрами — одна команда, а не новый заказ.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $89</strong> · 16:9 и 9:16</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Promo Video Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="speed-sprint" data-spot>
-          <span class="service-label">core web vitals</span>
-          <h3>Site Speed</h3>
-          <p>Диагностика Core Web Vitals и топ-фиксы: изображения, шрифты, блокирующий JS. Отчёт Lighthouse до и после.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $49</strong> · отчёт цифрами</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Site Speed Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <div class="sprint-fill sprint-fill--cta">
-          <p>Не нашли свою задачу?</p>
-          <button class="srv-action" type="button" data-modal-open data-item="Своя задача">Опишите её →</button>
+          <div class="card-price"><span class="sr-only">$19</span><noscript><strong>$19</strong></noscript><canvas class="dm-price" data-dots="$19" width="10" height="10" aria-hidden="true"></canvas><span>стартовая цена · в комплекте ZIP: исходники, обе сборки (ESM + script), демо и лицензия, отправляю после оплаты в переписке</span></div>
         </div>
-
-        <div class="sprint-fill" aria-hidden="true"></div>
-
-        <div class="srv-group"><span class="kicker">ИИ и автоматизация</span></div>
-
-        <article class="sprint rise sprint--hot" id="rescue-sprint" data-spot>
-          <span class="service-label">ai code · спрос растёт</span>
-          <h3>Vibe Code Rescue</h3>
-          <p>Проект из Cursor, Lovable или Bolt доводится до продакшна: секреты, авторизация, ошибки, деплой на нормальный сервер. Образец отчёта: <a class="sprint-link" href="case-audit/">открыть ↗</a> Первый шаг бесплатный: <a class="sprint-link" href="/check/">проверка сайта ↗</a>.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><s class="price-old">$199</s> <strong>от $119</strong> <em class="sale">−40%</em> · аудит + фиксы</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Vibe Code Rescue">Обсудить →</button>
+        <aside class="product-proof" aria-label="Ограничения и возможности Living Mascot">
+          <div class="proof-block">
+            <span>Подходит</span>
+            <strong>Характерный персонаж без тяжёлого 3D-стека. Цвета и реакции связываются с вашим UI.</strong>
           </div>
-        </article>
-
-        <article class="sprint rise" id="tgbot-sprint" data-spot>
-          <span class="service-label">telegram · turnkey</span>
-          <h3>Telegram Bot</h3>
-          <p>Бот под ключ: логика диалога, уведомления, деплой. Без ежемесячного конструктора, код принадлежит вам.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $119</strong> · деплой включён</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Telegram Bot Sprint">Обсудить →</button>
+          <div class="proof-block">
+            <span>Не подменяет</span>
+            <strong>Rive, Lottie или анимацию готовой иллюстрации.</strong>
           </div>
-        </article>
-
-        <article class="sprint rise" id="ai-widget-sprint" data-spot>
-          <span class="service-label">claude / gpt</span>
-          <h3>AI Chat Widget</h3>
-          <p>Чат-виджет по вашим материалам: отвечает по делу, сложное передаёт человеку. С оценкой стоимости токенов в месяц.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $89</strong> · база знаний</span>
-            <button class="srv-action" type="button" data-modal-open data-item="AI Chat Widget Sprint">Обсудить →</button>
+          <div class="proof-block">
+            <span>Проверено</span>
+            <strong>Desktop, mobile, light/dark, reduced motion, прогнано в браузере, не на словах.</strong>
           </div>
-        </article>
-
-        <article class="sprint rise" id="automation-sprint" data-spot>
-          <span class="service-label">data + llm</span>
-          <h3>Workflow Automation</h3>
-          <p>Один ручной процесс → проверяемый pipeline: данные, очистка, LLM, результат в Telegram, отчёт или таблицу.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $89</strong> · один workflow</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Workflow Automation Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="ai-visibility-sprint" data-spot>
-          <span class="service-label">geo / aeo</span>
-          <h3>AI Visibility</h3>
-          <p>llms.txt, JSON-LD, машинный слой и проверка, как сайт видят ChatGPT и Perplexity. Честно: готовность, не гарантия цитирования.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $69</strong> · разовая настройка</span>
-            <button class="srv-action" type="button" data-modal-open data-item="AI Visibility Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <div class="srv-group"><span class="kicker">данные и инфраструктура</span></div>
-
-        <article class="sprint rise" id="scraping-sprint" data-spot>
-          <span class="service-label">scraping · pipelines</span>
-          <h3>Data Scraping</h3>
-          <p>Сбор данных по расписанию: скрипт, CSV, таблица или база, алерты при изменениях. Только публичные источники.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $79</strong> · код + выгрузка</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Data Scraping Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="dashboard-sprint" data-spot>
-          <span class="service-label">analytics · live</span>
-          <h3>Dashboard</h3>
-          <p>Живая панель метрик из ваших источников: 1–2 подключения, 4–6 виджетов, автообновление, доступ по ссылке.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $119</strong> · 1–2 источника</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Dashboard Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="vps-sprint" data-spot>
-          <span class="service-label">audit + fix + verify</span>
-          <h3>VPS Safety</h3>
-          <p>SSH, firewall, binding, секреты, бэкапы. Исправления идут с командами, которые доказывают, что конфигурация изменилась.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>от $49</strong> · один VPS</span>
-            <button class="srv-action" type="button" data-modal-open data-item="VPS Safety Sprint">Обсудить →</button>
-          </div>
-        </article>
-
-        <div class="sprint-fill sprint-fill--sm" aria-hidden="true"></div>
-      </div>
-
-      <aside class="addon-strip rise">
-        <div>
-          <span class="service-label">signature motion · под заказ</span>
-          <h3>Phosphor Engine</h3>
-          <p>ASCII+CRT/WebGL-обработка для технического или экспериментального сайта. Сцену, тему и производительность собираю под проект.</p>
-        </div>
-        <div class="addon-action">
-          <span class="srv-price"><strong>от $59</strong> · одна сцена</span>
-          <a class="btn btn-ghost btn-sm" href="#" data-modal-open data-item="Phosphor Engine: интеграция">Обсудить</a>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-
-  <section class="blk films-blk" id="films">
-    <div class="wrap">
-      <div class="blk-head">
-        <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> короткие ролики</span>
-          <h2>Посмотреть, а не читать</h2>
-        </div>
-        <p class="blk-sub">Четыре ролика. Каждый собран кодом: HTML, CSS и остановленный таймлайн рендерятся покадрово в видео — тем же движком, который можно заказать под свой продукт. Превью идут без звука; нажмите на любое — откроется крупно и со звуком.</p>
-      </div>
-
-      <div class="film-grid">
-        <figure class="film-card film-card--wide">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/qwerty.mp4" data-film-title="Qwerty Switcher — промо">
-            <video src="https://shulgin.is-a.dev/films/qwerty.mp4" poster="https://shulgin.is-a.dev/films/qwerty.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">32 с · со звуком</span>
-          </button>
-          <figcaption><strong>Qwerty Switcher</strong><span>промо бесплатного приложения выше: движок коррекции разбирает слово по словарю, частотности и соседним буквам, поэтому чинит и то, чего в словаре нет — <a href="#apps">скачать бесплатно</a></span></figcaption>
-        </figure>
-        <figure class="film-card">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/kadr.mp4" data-film-title="Kadr — движок роликов">
-            <video src="https://shulgin.is-a.dev/films/kadr.mp4" poster="https://shulgin.is-a.dev/films/kadr.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">34 с · со звуком</span>
-          </button>
-          <figcaption><strong>Kadr — движок</strong><span>тот, которым собраны все ролики на этой странице · <a href="#promo-video-sprint">заказать ролик</a></span></figcaption>
-        </figure>
-        <figure class="film-card">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/web-turnkey.mp4" data-film-title="Сайт под ключ">
-            <video src="https://shulgin.is-a.dev/films/web-turnkey.mp4" poster="https://shulgin.is-a.dev/films/web-turnkey.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">13 с · со звуком</span>
-          </button>
-          <figcaption><strong>Сайт под ключ</strong><span>что входит в заказ и что остаётся у вас</span></figcaption>
-        </figure>
-        <figure class="film-card">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/serzhantovo.mp4" data-film-title="Конный двор «Сержантово»">
-            <video src="https://shulgin.is-a.dev/films/serzhantovo.mp4" poster="https://shulgin.is-a.dev/films/serzhantovo.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">17 с · со звуком</span>
-          </button>
-          <figcaption><strong>Конный двор «Сержантово»</strong><span>клиентская работа: место и сайт для него</span></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="lab-strip" id="open-lab">
-    <div class="wrap">
-      <div class="lab-strip-head">
-        <span class="kicker"><span class="star">★</span> open lab</span>
-        <p>Открытый код, можно проверить подход до заказа:</p>
-      </div>
-      <div class="lab-chips">
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/agent-graph-inspector" target="_blank" rel="noopener">Agent Graph Inspector ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/server-hardening-playbook" target="_blank" rel="noopener">Hardening Playbook ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/pm2-cockpit" target="_blank" rel="noopener">PM2 Cockpit ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/erdos-openevolve" target="_blank" rel="noopener">Erdos OpenEvolve ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/transaction-guardian" target="_blank" rel="noopener">Transaction Guardian ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/curated-claude-code" target="_blank" rel="noopener">Curated Claude Code ↗</a>
-        <span class="lab-chip lab-chip--pending">MEXC PHP Client · после аудита</span>
-      </div>
+        </aside>
+      </article>
     </div>
   </section>
 
   <section class="maker-strip" id="maker">
     <div class="wrap maker-inner">
       <div>
-        <span class="kicker"><span class="star">★</span> кто делает работу</span>
         <h3>Александр Шульгин</h3>
-        <p>Разработчик полного цикла: живые canvas/WebGL-движки, production-пайплайны, Linux-инфраструктура. От идеи до продакшна в одни руки, без менеджеров и передачи по цепочке. Код открыт, портфолио живое: каждое слово здесь проверяется одним кликом.</p>
+        <p>Разработчик полного цикла: живые canvas/WebGL-движки, production-пайплайны, Linux-инфраструктура.</p>
       </div>
       <div class="maker-links">
-        <a class="lab-chip" href="https://shulgin.is-a.dev" target="_blank" rel="noopener">Портфолио ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="lab-chip" href="https://www.linkedin.com/in/shulgin-dev" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="lab-chip" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Telegram ↗</a>
+        <a class="lab-chip" data-cta="store-maker-portfolio" href="https://shulgin.is-a.dev" target="_blank" rel="noopener">Портфолио ↗</a>
+        <a class="lab-chip" data-cta="store-maker-hire" href="/hire/?lang=ru">Разработка под задачу →</a>
       </div>
     </div>
   </section>
@@ -583,38 +241,42 @@
   <section class="blk" id="faq">
     <div class="wrap">
       <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="04" width="10" height="10" aria-hidden="true"></canvas>
+        <canvas class="watermark-dots" data-dots="03" width="10" height="10" aria-hidden="true"></canvas>
         <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> процесс и условия</span>
-          <h2>Как проходит работа</h2>
+          <span class="kicker"><span class="star">★</span> вопросы</span>
+          <h2>Про продукты</h2>
         </div>
-        <p class="blk-sub">Четыре шага без сюрпризов и ответы на то, о чём спрашивают до заявки.</p>
       </div>
-      <ol class="steps">
-        <li><strong>Обсуждаем задачу.</strong> Telegram или почта: коротко описываете, что нужно получить.</li>
-        <li><strong>Фиксируем рамки.</strong> Вход, выход и критерий приёмки письменно, до кода. Тогда же называю срок и точную цену.</li>
-        <li><strong>Спринт.</strong> Обычно 2–4 дня. Промежуточный показ, если работа дольше двух дней.</li>
-        <li><strong>Приёмка и передача.</strong> Проверяем результат по зафиксированному критерию, передаю код и инструкцию.</li>
-      </ol>
       <div class="faq-list">
         <details class="faq-item" data-spot>
-          <summary>Что значит «от $X» — какая будет точная цена?</summary>
-          <p>«От» — это цена минимального объёма спринта. Точная цифра называется после фиксации рамок на шаге 2 и дальше не меняется. Растёт задача, сначала пересматриваем рамки, не счёт.</p>
+          <summary>Как скачать Qwerty Switcher и почему macOS предупреждает при первом запуске?</summary>
+          <p>Кнопка «Скачать для macOS» в карточке приложения отдаёт DMG. Сборка подписана самоподписанным сертификатом, поэтому первый запуск macOS встречает предупреждением. macOS 15 и новее: закройте его, откройте Системные настройки → Конфиденциальность и безопасность и внизу нажмите «Открыть всё равно». macOS 13–14: правый клик по приложению → Открыть. Дальше запуск обычный.</p>
         </details>
         <details class="faq-item" data-spot>
-          <summary>Как устроена оплата?</summary>
-          <p>Обсуждается в переписке: карта, крипта или перевод. Обычно часть до старта, остаток по приёмке. Аванс беру только после того, как рамки и критерий приёмки зафиксированы письменно: вы платите за понятный обеим сторонам результат. На спринтах до $100 возможна оплата целиком по приёмке, без аванса. Платёжных кнопок на сайте пока нет намеренно.</p>
+          <summary>Какая лицензия у Living Mascot?</summary>
+          <p>Личная лицензия, её текст лежит в ZIP. Сайты заказчиков и несколько проектов: напишите, обсудим условия.</p>
         </details>
         <details class="faq-item" data-spot>
-          <summary>Что, если результат не подойдёт?</summary>
-          <p>Критерий приёмки фиксируется до старта: «подойдёт/не подойдёт» проверяется по нему, а не по ощущениям. Не дотянул до критерия, дорабатываю в рамках спринта без доплаты.</p>
+          <summary>Как оплатить и получить Living Mascot?</summary>
+          <p>Оплата обсуждается в переписке: карта, крипта или перевод. Платёжных кнопок на сайте пока нет намеренно. После оплаты отправляю ZIP вручную в той же переписке: исходники, сборки ESM и script, демо и лицензия.</p>
         </details>
         <details class="faq-item" data-spot>
-          <summary>Кому принадлежит код?</summary>
-          <p>Вам. Передаю исходники и права на использование; для Living Mascot действует лицензия из комплекта.</p>
+          <summary>Как приходят обновления Qwerty Switcher?</summary>
+          <p>Только если вы сами включите их в настройках: проверка и автоустановка. Тогда раз в сутки приложение запрашивает один файл с этого сайта и ничего о вас не отправляет. Права доступа при обновлении сохраняются.</p>
         </details>
       </div>
-      <p class="proof-line">Production-системы, живые движки и исследования, на которых строится эта работа, собраны <a href="https://shulgin.is-a.dev">в основном портфолио ↗</a></p>
+    </div>
+  </section>
+
+  <section class="more-pages" aria-label="Другие страницы">
+    <div class="wrap">
+      <span class="kicker"><span class="star">★</span> другие страницы</span>
+      <div class="more-grid">
+        <a class="more-link" data-cta="store-more-hire" href="/hire/?lang=ru">Разработка под задачу <span aria-hidden="true">→</span></a>
+        <a class="more-link" data-cta="store-more-video" href="/video/">Ролики интерфейса <span aria-hidden="true">→</span></a>
+        <a class="more-link" data-cta="store-more-prosto" href="prosto/">Сайт или бот для небольшого дела <span aria-hidden="true">→</span></a>
+        <a class="more-link" data-cta="store-more-check" href="/check/">Бесплатная проверка сайта <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 </main>
@@ -623,14 +285,13 @@
   <div class="wrap cols">
     <div class="about-col">
       <a class="logo" href="index.html">SHULGIN.IS-A<i>.</i></a>
-      <p>Готовый код и короткие спринты под конкретный результат. Александр Шульгин.</p>
+      <p>Готовые инструменты и исходники. Александр Шульгин.</p>
     </div>
     <div>
       <h4>Меню</h4>
-      <a href="#offers">Задачи</a>
       <a href="#apps">Приложения для Mac</a>
-      <a href="#services">Спринты</a>
       <a href="#products">Living Mascot</a>
+      <a href="/hire/?lang=ru">Разработка под задачу</a>
       <a href="https://shulgin.is-a.dev">Портфолио</a>
     </div>
     <div>
@@ -639,7 +300,7 @@
       <a href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Telegram @Aleksandr_NFA</a>
     </div>
   </div>
-  <div class="wrap legal">Цены на сайте являются ориентиром и не публичной офертой: точная стоимость и рамки работы фиксируются письменно до старта. Сайт не собирает и не хранит персональные данные: форма заявки готовит сообщение локально в вашем браузере.</div>
+  <div class="wrap legal">Цены на сайте не являются публичной офертой: условия покупки обсуждаются в переписке. Сайт не собирает и не хранит персональные данные: форма заявки готовит сообщение локально в вашем браузере.</div>
   <div class="wrap base">
     <div>© 2026 Александр Шульгин</div>
     <div>Работаю удалённо</div>
@@ -654,12 +315,12 @@
     <p class="sub" id="lm-sub">Расскажите, что нужно получить, отвечу в Telegram или почте.</p>
     <form data-lead-form novalidate>
       <label for="lm-item">Что интересует</label>
-      <input id="lm-item" type="text" name="item" placeholder="Living Mascot / спринт / другое">
+      <input id="lm-item" type="text" name="item" placeholder="Living Mascot / другое">
       <label for="lm-contact">Telegram или email, куда ответить</label>
       <input id="lm-contact" type="text" name="contact" required aria-describedby="lm-error" placeholder="@ник или почта">
       <p class="form-error" id="lm-error" role="alert"></p>
       <label for="lm-message">Сообщение</label>
-      <textarea id="lm-message" name="msg" placeholder="Коротко: задача, текущий контекст, сроки"></textarea>
+      <textarea id="lm-message" name="msg" placeholder="Коротко: что нужно, текущий контекст, сроки"></textarea>
       <a class="send send-tg" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Написать в Telegram</a>
       <a class="send send-alt" id="lm-send" href="mailto:sanexxx777@gmail.com">Открыть письмо</a>
       <p class="fine">Telegram быстрее: чат откроется с готовым текстом (он же скопирован в буфер). Письмо уйдёт через почтовый клиент. Оплату обсудим в переписке: карта, крипта или перевод. Данные нигде не сохраняются.</p>
@@ -667,22 +328,21 @@
   </div>
 </div>
 
-  <dialog id="film-lightbox" class="film-lightbox" closedby="any" aria-label="Просмотр ролика">
-    <button class="film-lightbox__close" type="button" data-film-close aria-label="Закрыть">&times;</button>
-    <video controls playsinline preload="none"></video>
-    <p class="film-lightbox__cap"></p>
-  </dialog>
-
 <script src="app.js"></script>
 <script src="assets/effects.js"></script>
 <script src="assets/dotmatrix.js"></script>
 <script type="module">
-  import { createOctopus3D } from './assets/octopus3d.js';
+  import { createLivingMascot } from './mascot/mascot.esm.js';
   var canvas = document.getElementById('hero-mascot');
   try {
-    if (canvas) createOctopus3D(canvas);
+    if (canvas) createLivingMascot(canvas, {
+      zoom: 1.15,
+      colors: function () {
+        return { a: '#ee4e4e', b: '#c23f3f', ink: '#ede4d3', eye: 'rgba(22, 9, 11, 0.88)', heart: '#ff8fb3', anger: '#ff453a' };
+      }
+    });
   } catch (e) {
-    if (canvas) canvas.style.display = 'none'; // нет WebGL - прячем сцену, страница живёт дальше
+    if (canvas) canvas.style.display = 'none'; // нет canvas 2D - прячем сцену, страница живёт дальше
   }
 </script>
 <script>

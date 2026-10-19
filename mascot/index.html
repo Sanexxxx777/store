@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Living Mascot — живое демо · Магазин</title>
 <meta name="description" content="Живое демо Living Mascot: canvas-персонаж, который перекрашивается под цвета вашего сайта. Товар для покупки на shulgin.is-a.dev/store.">
+<meta property="og:title" content="Living Mascot: живой персонаж для вашего сайта">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Демо и исходники живого canvas-персонажа за $19: перекрашивается под бренд, реагирует на курсор, 10 эмоций.">
+<meta property="og:url" content="https://shulgin.is-a.dev/store/mascot/">
+<meta property="og:image" content="https://shulgin.is-a.dev/store/mascot/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shulgin.is-a.dev/store/mascot/og.jpg">
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23ee4e4e'/%3E%3C/svg%3E">
 <style>
@@ -60,7 +69,7 @@
     margin-bottom: 10px;
   }
   .stage canvas { width: min(560px, 92%); aspect-ratio: 3/2; }
-  .hint { font-family: "JetBrains Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-dim); text-align: center; margin-bottom: 30px; }
+  .hint { font-family: "JetBrains Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-dim); text-align: center; margin-bottom: 24px; }
   .sect { margin: 26px 0; }
   .sect > .kicker { display: block; margin-bottom: 10px; }
   .row { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -86,12 +95,13 @@
   pre .c { opacity: .5; }
   .note { font-size: .82rem; color: var(--ink-dim); max-width: 64ch; margin-top: 10px; }
   .buy-strip {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 20px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 20px 24px;
     border: 1px solid var(--line); background: var(--panel);
-    padding: 18px 20px; margin: 34px 0 50px;
+    padding: 20px 22px; margin: 6px 0 34px;
   }
-  .dm-price { width: 96px; height: 46px; flex-shrink: 0; }
-  .buy-strip p { flex: 1; min-width: 220px; font-size: .86rem; color: var(--ink-dim); }
+  .buy-info { flex: 1; min-width: min(100%, 260px); }
+  .buy-info p { font-size: .86rem; color: var(--ink-dim); margin-top: 6px; }
+  .buy-info .buy-lic { margin: 0; font-family: "JetBrains Mono", monospace; font-size: 15px; font-weight: 600; color: var(--ink); }
   .buy {
     font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 13px;
     padding: 12px 20px; background: var(--a); color: #fff;
@@ -107,7 +117,7 @@
   <div class="wrap">
     <a class="logo" href="../index.html">← МАГАЗИН</a>
     <span class="logo" aria-hidden="true">/ LIVING MASCOT</span>
-    <a class="buy-mini" href="../index.html#products">Запросить в переписке</a>
+    <a class="buy-mini" data-cta="mascot-buy-head" href="../index.html#products">Запросить в переписке</a>
   </div>
 </header>
 
@@ -118,6 +128,28 @@
 
   <div class="stage"><canvas id="mascot" width="960" height="640"></canvas></div>
   <p class="hint">кликните по персонажу · подразните его пятью кликами · оставьте в покое на 50 секунд</p>
+
+  <div class="buy-strip">
+    <div class="buy-info">
+      <p class="buy-lic">$19 · личная лицензия</p>
+      <p>В ZIP: исходники, сборки ESM и script, это демо и лицензия. Отправляю вручную после оплаты в переписке.</p>
+      <p>Сайты заказчиков и несколько проектов: напишите, обсудим условия.</p>
+      <p>Демо показывает движок в работе. В ZIP то, что нужно для встраивания: готовые сборки, контракт colors(), API emote() и лицензия.</p>
+    </div>
+    <a class="buy" data-cta="mascot-buy" href="../index.html#products">Запросить в переписке →</a>
+  </div>
+
+  <div class="sect">
+    <span class="kicker">подключение: минимальный пример</span>
+    <pre><span class="c">&lt;!-- ESM: --&gt;</span>
+import { createLivingMascot } from './mascot.esm.js';
+const m = createLivingMascot(canvas, { colors: () =&gt; ({ a: '#7fb3ff', b: '#5a86d6' }) });
+
+<span class="c">&lt;!-- или обычным скриптом: --&gt;</span>
+&lt;script src="mascot.min.js"&gt;&lt;/script&gt;
+window.LivingMascot(canvas, { colors: ... });</pre>
+    <p class="note">Canvas 2D, ноль зависимостей, 6.9 КБ gzip. Проверено: desktop, mobile, light/dark, reduced-motion.</p>
+  </div>
 
   <div class="sect">
     <span class="kicker">эмоции: вызываются и из вашего кода: mascot.emote('wink')</span>
@@ -155,26 +187,8 @@
     <p class="note">Эти пикеры дергают тот же API, которым ваш сайт свяжет персонажа со своей палитрой. Ничего пересобирать не нужно.</p>
   </div>
 
-  <div class="sect">
-    <span class="kicker">подключение: целиком</span>
-    <pre><span class="c">&lt;!-- ESM: --&gt;</span>
-import { createLivingMascot } from './mascot.esm.js';
-const m = createLivingMascot(canvas, { colors: () =&gt; ({ a: '#7fb3ff', b: '#5a86d6' }) });
-
-<span class="c">&lt;!-- или обычным скриптом: --&gt;</span>
-&lt;script src="mascot.min.js"&gt;&lt;/script&gt;
-window.LivingMascot(canvas, { colors: ... });</pre>
-    <p class="note">Canvas 2D, ноль зависимостей, 6.9 КБ gzip. Проверено: desktop, mobile, light/dark, reduced-motion.</p>
-  </div>
-
-  <div class="buy-strip">
-    <canvas class="dm-price" data-dots="$19" data-color="#ee4e4e" width="10" height="10" aria-hidden="true"></canvas>
-    <p>Стартовая цена, личная лицензия. В ZIP: исходники, обе сборки (ESM + script), это демо и лицензия, отправляю после оплаты в переписке.</p>
-    <a class="buy" href="../index.html#products">Запросить в переписке →</a>
-  </div>
 </main>
 
-<script src="../assets/dotmatrix.js"></script>
 <script type="module">
   import { createLivingMascot } from './mascot.esm.js';
 

@@ -1,38 +1,26 @@
-# Product Lab — Aleksandr Shulgin
+# Product Lab - Aleksandr Shulgin
 
-> A product storefront offering the Living Mascot canvas engine as a self-service download, two turnkey services (a personal content factory that publishes to five social platforms daily, and an agent harness that makes coding agents remember context and stop breaking things silently), plus fixed-scope sprints (interactive mascots, landing pages, particle case-study sites, promo videos rendered from code, motion polish, site speed, AI-assisted project rescue, Telegram bots, AI chat widgets, workflow automation, AI search visibility, data scraping, dashboards and VPS security). Every sprint has a defined input, output and acceptance check before the price is quoted.
+> A storefront of two ready-made products: Qwerty Switcher (a free macOS keyboard-layout auto-switcher) and Living Mascot (source code of a living canvas character, $19). Custom development, sprints and prices live on a separate page: https://shulgin.is-a.dev/hire/
 
 ## Products
 
 - [Living Mascot](https://shulgin.is-a.dev/store/mascot/): A living canvas engine with a flexible theme, recolorable for any brand through a single color config. Reacts to the pointer and clicks, expresses 10 emotions, falls asleep when idle. Canvas 2D, zero runtime dependencies, ESM and plain script builds. $19, personal license, 6.9 KB gzip. Live demo at the link above.
-- [Qwerty Switcher](https://shulgin.is-a.dev/store/#apps): v0.11.9 macOS 13+ keyboard-layout auto-switcher for Russian/English. Free — no subscription or keys; offline unless you opt in to update checks (one JSON fetch a day from this site, nothing sent): download the DMG and use it. Fixes the wrong layout as you type (from the fourth letter), converts a selection or the last word with Double Shift, learns from your corrections, pauses itself in games.
+- [Qwerty Switcher](https://shulgin.is-a.dev/store/#apps): v0.11.9 macOS 13+ keyboard-layout auto-switcher for Russian/English. Free - no subscription or keys; offline unless you opt in to update checks (one JSON fetch a day from this site, nothing sent): download the DMG and use it. Fixes the wrong layout as you type (from the fourth letter), converts a selection or the last word with Double Shift, learns from your corrections, pauses itself in games.
 
-## Services
+## Other pages
+
+- Custom development (task catalogue and prices): https://shulgin.is-a.dev/hire/
+- Interface videos: https://shulgin.is-a.dev/video/
+- A website or bot for a small business, in plain language: https://shulgin.is-a.dev/store/prosto/ (English: https://shulgin.is-a.dev/store/prosto/en/, machine-readable summary: https://shulgin.is-a.dev/store/prosto/llms.txt)
+- Free one-minute website check: https://shulgin.is-a.dev/check/
+
+## Service pages (still online, no longer listed on the storefront)
 
 - [Content Factory](https://shulgin.is-a.dev/store/factory/): from $250 setup, from $75/mo support (or run it on your own API keys). A turnkey personal content factory: one topic each morning becomes platform-specific posts for X, LinkedIn, Threads, Bluesky and VK, with generated covers, a built-in critic that rejects weak drafts before publishing, per-platform best-time scheduling and a content strategy that rotates value, warm-up and offer posts. The author's own factory has been running daily since May 2026 with 100+ posts published on autopilot. Demo video and live screenshots on the page. English version: https://shulgin.is-a.dev/store/factory/en/
 - [Agent Harness](https://shulgin.is-a.dev/store/agents/): from $290 per project, from $120 for an audit of an existing setup (the audit price counts toward the harness). Setup around coding agents such as Claude Code, Cursor and Codex: project rules the model actually reads, memory of findings across sessions, gates on irreversible actions (deploy, deletion, money, publishing), verifiable handoff instead of the word "done", your repeatable operations captured as agent procedures, and task routing between heavy and cheap models. All harness files stay in your repository as plain text under git, with no lock-in or subscription.
-- Promo Video Sprint: from $89. A 30-60 second promo rendered from code rather than edited by hand: kinetic type, animated figures, product footage, music. Rebuilding with new numbers is one command, not a new order. 16:9 and 9:16.
-
-- Interactive Mascot Sprint: from $49 (launch discount, was $89). Animate an existing character or build a simple code-native one for a hero, onboarding, login or status flow.
-- Landing Page Sprint: from $79 (launch discount, was $129). A complete page: offer, structure, visual language, responsive build and deploy.
 - Particle Case Sprint: from $119. A cinematic scroll-driven case-study site: a story in five chapters rendered by a 24,000-particle WebGL scene, 60 fps on phones, zero dependencies. Live demo: https://shulgin.is-a.dev/store/case-demo/
-- Motion Polish Sprint: from $59. Audit and sharpen 5-8 key micro-interactions on an existing site.
-- Site Speed Sprint: from $49. Core Web Vitals diagnosis and top fixes, with a Lighthouse report before and after.
-- Vibe Code Rescue: from $119 (launch discount, was $199). Take a project built in Cursor, Lovable, Bolt or ChatGPT to production: security audit, error handling, real server deploy.
 - Buyer's Check: $199, 48 hours. Pre-acquisition technical review of a micro-SaaS listing (TrustMRR, Acquire.com, Microns) done from the outside: 84 checks on the public surface plus a hand-written verdict on revenue quality, tech risk, security surface and owner dependency, asking price vs the market median, findings with reproduction steps, ten questions for the seller with the artifact that closes each. Three public sample reports at https://shulgin.is-a.dev/store/buyer-check/
 - RKN Compliance Audit: 500 RUB. A 16-point technical review of a Russian website against the personal-data law (152-FZ): forms, consents, foreign services, policy. Report within a day with a status per point and a reference fine range from the code of administrative offences. Not a legal opinion. Ladder: free one-minute check of the home page at https://shulgin.is-a.dev/check/ → 500 RUB full audit at https://shulgin.is-a.dev/store/rkn-audit/ → fixes (small fixes from 3,000 RUB, full rescue from $119) → maintenance by agreement.
-- Telegram Bot Sprint: from $119. A turnkey bot with conversation logic, notifications, deploy and full code handover.
-- AI Chat Widget Sprint: from $89. A chat widget on Claude or GPT trained on your own materials, with a token cost estimate included.
-- Workflow Automation Sprint: from $89. Turn one repeated manual process into a testable pipeline, with optional payment and CRM integrations.
-- AI Visibility Sprint: from $69. Technical readiness for AI search: llms.txt, JSON-LD, metadata, a machine-readable layer.
-- Data Scraping Sprint: from $79. Scheduled data collection from legal, public sources, with code handed over.
-- Dashboard Sprint: from $119. A live metrics panel with 1-2 data connections and 4-6 widgets, no monthly BI license.
-- VPS Safety Sprint: from $49. Audit of public surface, SSH, firewall, secrets and backups, with verification commands for every fix.
-
-## For Non-Technical Clients
-
-- [Prosto (RU)](https://shulgin.is-a.dev/store/prosto/): A plain-language services page for non-technical clients: websites, bots, automation and AI assistants explained without jargon. Russian, the primary version. Machine-readable summary: https://shulgin.is-a.dev/store/prosto/llms.txt
-- [Prosto (EN)](https://shulgin.is-a.dev/store/prosto/en/): English mirror of the same plain-language services page.
 
 ## Open Source
 
@@ -42,10 +30,8 @@
 - [Transaction Guardian](https://github.com/Sanexxxx777/transaction-guardian): A security bot for crypto wallets: transaction monitoring and alerts. MIT.
 - [Qwerty Switcher (source)](https://github.com/Sanexxxx777/QwertySwitcher): the macOS layout auto-switcher itself, Swift + CGEventTap, no third-party dependencies, 1603 automated checks, opt-in Ed25519-signed updates.
 - [Curated Claude Code](https://github.com/Sanexxxx777/curated-claude-code): A methodology for AI-augmented development: conventions, verification discipline, working patterns.
-- MEXC PHP Client: A zero-dependency cURL client, pending a release review before the repository is opened.
 
-- Custom task: any other web, AI or automation job can be requested through the contact form; scope and price are quoted before work starts.
-- Payment: card, crypto or transfer, discussed in chat. For sprints up to $100 paying in full on acceptance is an option.
+- Payment for Living Mascot: card, crypto or transfer, discussed in chat; the ZIP is sent manually after payment.
 
 ## Contact
 

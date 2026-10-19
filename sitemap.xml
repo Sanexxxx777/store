@@ -3,17 +3,21 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://shulgin.is-a.dev/store/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/"/>
   </url>
   <url>
     <loc>https://shulgin.is-a.dev/store/en/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/"/>
+  </url>
+  <url>
+    <loc>https://shulgin.is-a.dev/store/mascot/</loc>
+    <lastmod>2026-10-19</lastmod>
   </url>
   <url>
     <loc>https://shulgin.is-a.dev/store/prosto/</loc>

@@ -7,6 +7,8 @@
 (function () {
   try {
     if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    /* old service anchors: do not switch language here, the script at the top of the body handles them */
+    if (/^#(offers|services|reels|films)$/.test(location.hash)) return;
     var here = 'en';
     var saved = localStorage.getItem('lang');
     var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
@@ -14,8 +16,8 @@
   } catch (e) {}
 })();
 </script>
-<title>Product Lab - Aleksandr Shulgin</title>
-<meta name="description" content="Mac apps, ready-made code and fixed-scope web, AI and automation work: Qwerty Switcher, Living Mascot and product sprints.">
+<title>Ready-made tools and source code - Aleksandr Shulgin</title>
+<meta name="description" content="Qwerty Switcher for Mac, free, and Living Mascot, source code of a living character for $19. Custom development lives on a separate page.">
 <!-- preload: fonts used above the fold (Inter default body, JetBrains Mono header/buttons,
      Big Shoulders Display headings latin) - without preload the later font-display:swap
      shifted the whole hero-grid (CLS fix, see AUDIT 10.09.2026) -->
@@ -31,29 +33,63 @@
 <link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/">
 <link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/">
 <noscript><style>.hero-stage { display: none; }</style></noscript>
-<meta property="og:title" content="Product Lab - Aleksandr Shulgin">
+<meta property="og:title" content="Ready-made tools and source code - Aleksandr Shulgin">
 <meta property="og:type" content="website">
-<meta property="og:description" content="Any task as a clear order: price before start, code in 2-4 days.">
-<meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og.png">
+<meta property="og:description" content="Qwerty Switcher for Mac, free. Living Mascot: source code of a living character for $19.">
+<meta property="og:url" content="https://shulgin.is-a.dev/store/en/">
+<meta property="og:image" content="https://shulgin.is-a.dev/store/assets/og-store.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shulgin.is-a.dev/store/assets/og-store.jpg">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Product Lab - Aleksandr Shulgin",
-  "url": "https://shulgin.is-a.dev/store/en/",
-  "description": "the free Qwerty Switcher, the ready-made Living Mascot engine and 13 fixed-scope product sprints.",
-  "email": "sanexxx777@gmail.com",
-  "sameAs": ["https://shulgin.is-a.dev", "https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"],
-  "priceRange": "$6-$119+",
-  "makesOffer": [
-    { "@type": "Offer", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "Product", "name": "Living Mascot", "url": "https://shulgin.is-a.dev/store/mascot/" } },
-    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "itemOffered": { "@type": "SoftwareApplication", "name": "Qwerty Switcher", "operatingSystem": "macOS", "applicationCategory": "UtilitiesApplication", "url": "https://shulgin.is-a.dev/store/en/#apps" } }
-  ],
-  "founder": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev" }
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "Ready-made tools and source code - Aleksandr Shulgin",
+      "url": "https://shulgin.is-a.dev/store/en/",
+      "inLanguage": "en",
+      "author": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev", "sameAs": ["https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"] }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Qwerty Switcher",
+      "operatingSystem": "macOS 13+",
+      "applicationCategory": "UtilitiesApplication",
+      "softwareVersion": "0.11.9",
+      "url": "https://shulgin.is-a.dev/store/en/#apps",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "Product",
+      "name": "Living Mascot",
+      "description": "Source code of a living canvas character: recolors for any brand, follows the cursor, 10 emotions. Canvas 2D, zero dependencies.",
+      "url": "https://shulgin.is-a.dev/store/mascot/",
+      "image": "https://shulgin.is-a.dev/store/mascot/og.jpg",
+      "offers": { "@type": "Offer", "price": "19", "priceCurrency": "USD" }
+    }
+  ]
 }
 </script>
 </head>
 <body>
+<script>
+/* Old service anchors: the catalogue moved to /hire/, the films to /video/.
+   First thing in body so the jump happens before paint. Language follows the same rule as the RU/EN redirect. */
+(function () {
+  var h = location.hash;
+  if (!/^#(offers|services|reels|films)$/.test(h)) return;
+  var want = 'en';
+  try {
+    var saved = localStorage.getItem('lang');
+    want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+  } catch (e) {}
+  if (want !== 'ru' && want !== 'en') want = 'en';
+  location.replace(h === '#films' ? '/video/' : '/hire/?lang=' + want + '#packages');
+})();
+</script>
 
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
@@ -66,11 +102,10 @@
     <a class="logo" href="index.html">SHULGIN.IS-A<i>.</i></a>
     <span class="logo-tag">/ STORE</span>
     <nav class="nav" id="site-nav" aria-label="Primary navigation">
-      <a href="#offers">Tasks</a>
-      <a href="#products">Product</a>
       <a href="#apps">Mac</a>
-      <a href="#services">Sprints</a>
+      <a href="#products">Product</a>
       <a href="#faq">FAQ</a>
+      <a href="/hire/?lang=en" data-cta="store-nav-hire">Development</a>
       <a href="https://shulgin.is-a.dev" class="back">Portfolio</a>
     </nav>
     <a class="lang-switch" href="../index.html" aria-label="Русская версия" data-setlang="ru">RU</a>
@@ -85,187 +120,25 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-text">
-        <span class="hero-kicker"><span class="star">★</span> product lab · code + delivery</span>
-        <h1>Your task.<br><span class="accent">Price before start.</span><br>Code in 2–4 days.</h1>
-        <p class="hero-sub">Any web, AI or automation job becomes a clear order: scope, timeline and exact price are fixed in writing before the start, the result is checked against an acceptance criterion, and you keep the code and the rights.</p>
+        <span class="hero-kicker"><span class="star">★</span> ready-made products</span>
+        <h1>Ready-made tools <span class="accent">and source code</span></h1>
+        <p class="hero-sub">Qwerty Switcher for Mac, free. Living Mascot: source code of a living character for $19. Custom development lives on a separate page.</p>
         <div class="hero-cta">
-          <a class="btn" href="#offers">Pick a task</a>
-          <a class="btn btn-ghost" href="#" data-modal-open data-item="Custom task">Your own task →</a>
+          <a class="btn" data-cta="store-hero-download" href="#apps">Download Qwerty Switcher</a>
+          <a class="btn btn-ghost" data-cta="store-hero-mascot" href="#products">Living Mascot</a>
         </div>
-        <p class="hero-price">from $19 · price and timeline agreed before start</p>
-        <div class="hero-proof" aria-label="Terms of work">
-          <span>fixed scope</span>
-          <span>you keep the code</span>
-          <span>live demo before purchase</span>
-          <span>RU / EN</span>
-        </div>
+        <p class="hero-quiet"><a data-cta="store-hero-hire" href="/hire/?lang=en">Need custom development →</a></p>
       </div>
       <div class="hero-stage">
         <canvas id="hero-mascot" width="960" height="640" aria-hidden="true"></canvas>
-        <a class="hero-stage-cap" href="#products">The 3D octopus is a custom-work sample. The ready-made 2D engine is for sale below ↓</a>
       </div>
-    </div>
-  </section>
-
-  <section class="routes routes--reels" id="reels">
-    <div class="wrap">
-      <div class="routes-intro">
-        <div>
-          <span class="kicker"><span class="star">★</span> from the videos</span>
-          <h2>From the videos: example and how to order</h2>
-        </div>
-      </div>
-      <div class="route-grid">
-        <a class="route rise" href="../factory/en/" data-spot>
-          <span class="route-no">01</span>
-          <div>
-            <h3>Content Factory</h3>
-            <p>How my content factory works: topics, drafts, checks and publishing.</p>
-            <span class="route-go">See more →</span>
-          </div>
-        </a>
-        <a class="route rise" href="/video/" data-spot>
-          <span class="route-no">02</span>
-          <div>
-            <h3>Interface videos</h3>
-            <p>Product screens in motion: examples, length and price.</p>
-            <span class="route-go">See more →</span>
-          </div>
-        </a>
-        <a class="route rise" href="../prosto/en/" data-spot>
-          <span class="route-no">03</span>
-          <div>
-            <h3>Websites and fixes</h3>
-            <p>Work done for clients: a new site or one specific fix.</p>
-            <span class="route-go">See more →</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="routes" id="offers">
-    <div class="wrap">
-      <div class="routes-intro">
-        <div>
-          <span class="kicker"><span class="star">★</span> start with the job</span>
-          <h2>What needs to be done?</h2>
-        </div>
-        <p>Eight common entry points, and behind them, eleven sprints with fixed scope and a starting price.</p>
-      </div>
-      <div class="route-grid">
-        <a class="route rise" href="#mascot-sprint" data-spot>
-          <span class="route-no">01</span>
-          <div>
-            <h3>Make the interface feel alive</h3>
-            <p>An interactive character for a hero, onboarding or a waiting state. It reacts to actions, not just moves.</p>
-            <span class="route-go">Interactive Mascot · from $49 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#landing-sprint" data-spot>
-          <span class="route-no">02</span>
-          <div>
-            <h3>Launch the page</h3>
-            <p>Copy, structure, visual language, responsive layout and deploy: a page you can send to clients.</p>
-            <span class="route-go">Landing Page · from $79 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#rescue-sprint" data-spot>
-          <span class="route-no">03</span>
-          <div>
-            <h3>Finish what AI started</h3>
-            <p>A project from Cursor, Lovable or Bolt taken to production: audit, security, a proper deploy.</p>
-            <span class="route-go">Vibe Code Rescue · from $119 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#ai-widget-sprint" data-spot>
-          <span class="route-no">04</span>
-          <div>
-            <h3>Connect AI</h3>
-            <p>A chat widget on Claude or GPT trained on your materials, or AI-search visibility for your site.</p>
-            <span class="route-go">AI Widget · Visibility · from $69 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#automation-sprint" data-spot>
-          <span class="route-no">05</span>
-          <div>
-            <h3>Remove the routine</h3>
-            <p>One repeated process becomes a testable pipeline: data, LLM, a result delivered to Telegram.</p>
-            <span class="route-go">Automation · from $89 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="#vps-sprint" data-spot>
-          <span class="route-no">06</span>
-          <div>
-            <h3>Close the VPS risks</h3>
-            <p>SSH, firewall, services, secrets and backups, with verification commands instead of a promise that everything is secure.</p>
-            <span class="route-go">VPS Safety · from $49 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="../agents/" data-spot>
-          <span class="route-no">07</span>
-          <div>
-            <h3>Tame your coding agent</h3>
-            <p>The agent already writes your code, but forgets context and breaks things nobody asked it to touch. I set up the harness: project rules, memory, gates on irreversible actions, verifiable handoff.</p>
-            <span class="route-go">Agent Harness · from $290 →</span>
-          </div>
-        </a>
-        <a class="route rise" href="../factory/en/" data-spot>
-          <span class="route-no">08</span>
-          <div>
-            <h3>Run social media hands-off</h3>
-            <p>A personal content factory: one topic in the morning, posts on 5 platforms by evening. Mine runs every day, I'll set up the same one for you.</p>
-            <span class="route-go">Content Factory · from $250 →</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="blk" id="products">
-    <div class="wrap">
-      <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="01" width="10" height="10" aria-hidden="true"></canvas>
-        <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> ready-made code</span>
-          <h2>Take it and embed it</h2>
-        </div>
-        <p class="blk-sub">The only self-service product in the store: source and build, you integrate it yourself, my involvement isn't required.</p>
-      </div>
-
-      <article class="product-feature rise">
-        <div class="product-main">
-          <span class="product-status">flagship · self-service</span>
-          <h3>Living Mascot</h3>
-          <p>A living canvas engine: recolors for any brand through a single color config, follows the cursor, reacts to clicks, expresses 10 emotions and falls asleep when idle. Canvas 2D, zero dependencies, 6.9 KB gzip.</p>
-          <div class="card-actions">
-            <a class="btn btn-sm" href="../mascot/" target="_blank" rel="noopener">Open the live demo</a>
-            <a class="btn btn-sm btn-ghost" href="#" data-modal-open data-item="Living Mascot: purchase">Request in chat</a>
-          </div>
-          <div class="card-price"><span class="sr-only">$19</span><noscript><strong>$19</strong></noscript><canvas class="dm-price" data-dots="$19" width="10" height="10" aria-hidden="true"></canvas><span>launch price · ZIP package: source, both builds (ESM + plain script), demo and license, sent after payment in chat</span></div>
-        </div>
-        <aside class="product-proof" aria-label="Living Mascot capabilities and limits">
-          <div class="proof-block">
-            <span>Good fit</span>
-            <strong>A distinctive character without a heavy 3D stack, colors and reactions connect to your UI.</strong>
-          </div>
-          <div class="proof-block">
-            <span>Not a replacement for</span>
-            <strong>Rive, Lottie or animating a ready-made illustration, there is a sprint below for that.</strong>
-          </div>
-          <div class="proof-block">
-            <span>Verified</span>
-            <strong>Desktop, mobile, light/dark, reduced motion, tested in a real browser, not just claimed.</strong>
-          </div>
-        </aside>
-      </article>
     </div>
   </section>
 
   <section class="blk apps-blk" id="apps">
     <div class="wrap">
       <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="02" width="10" height="10" aria-hidden="true"></canvas>
+        <canvas class="watermark-dots" data-dots="01" width="10" height="10" aria-hidden="true"></canvas>
         <div class="blk-title">
           <span class="kicker"><span class="star">★</span> Mac app</span>
           <h2>One tool, without unnecessary cloud</h2>
@@ -282,9 +155,9 @@
               <h3>Qwerty Switcher</h3>
             </div>
           </div>
-          <p>Automatically fixes the wrong Russian or English keyboard layout and converts selected text or the last typed word. Input is processed locally and never leaves the Mac. The app stays offline unless you turn on update checks: then, once a day, it fetches a single file from this site and sends nothing about you. <strong>It does not decide by dictionary lookup alone:</strong> every word is weighed against the dictionary, word frequency, neighbouring letters and the language of the surrounding text — so words no dictionary knows still get fixed, while Latin commands in a terminal are left alone.</p>
+          <p>Automatically fixes the wrong Russian or English keyboard layout and converts selected text or the last typed word. Input is processed locally and never leaves the Mac. The app stays offline unless you turn on update checks: then, once a day, it fetches a single file from this site and sends nothing about you. <strong>It does not decide by dictionary lookup alone:</strong> every word is weighed against the dictionary, word frequency, neighbouring letters and the language of the surrounding text, so words no dictionary knows still get fixed, while Latin commands in a terminal are left alone.</p>
           <ul class="app-facts">
-            <li>Instant correction while you type — from the fourth letter, before the space</li>
+            <li>Instant correction while you type: from the fourth letter, before the space</li>
             <li>Typing with both Shift keys no longer accidentally disables auto-switching</li>
             <li>Learns from your fixes: a word you correct twice gets fixed automatically</li>
             <li>Game mode: detects games and keeps its hands off your keys while you play</li>
@@ -295,272 +168,68 @@
           <div class="app-card__foot">
             <span class="app-price app-price--free">Free <small>no subscription, no keys</small></span>
             <div class="card-actions">
-              <a class="btn btn-sm" href="../downloads/QwertySwitcher-0.11.9.dmg" download>Download for macOS</a>
+              <a class="btn btn-sm" data-cta="store-download-dmg" href="../downloads/QwertySwitcher-0.11.9.dmg" download>Download for macOS</a>
             </div>
           </div>
-          <p class="app-card__fine">The build is signed with a self-signed certificate, so the first launch shows a macOS warning. macOS 15 and later: dismiss it, open System Settings → Privacy &amp; Security and click “Open Anyway” at the bottom. macOS 13–14: right-click the app → Open. After that it launches normally, and updates install without asking for permissions again.</p>
+          <p class="app-card__fine">The build is signed with a self-signed certificate, so the first launch shows a macOS warning. macOS 15 and later: dismiss it, open System Settings → Privacy &amp; Security and click “Open Anyway” at the bottom. macOS 13 to 14: right-click the app → Open. After that it launches normally, and updates install without asking for permissions again.</p>
         </article>
       </div>
-      <p class="apps-note">Download it, launch it, use it. Liked it — the author’s portfolio and Telegram are linked right inside the app.</p>
+      <p class="apps-note">Download it, launch it, use it. If you like it, the author’s portfolio and Telegram are linked right inside the app.</p>
     </div>
   </section>
 
-  <section class="blk" id="services">
+  <section class="blk" id="products">
     <div class="wrap">
       <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="03" width="10" height="10" aria-hidden="true"></canvas>
+        <canvas class="watermark-dots" data-dots="02" width="10" height="10" aria-hidden="true"></canvas>
         <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> custom delivery</span>
-          <h2>Product sprints</h2>
+          <span class="kicker"><span class="star">★</span> ready-made code</span>
+          <h2>Take it and embed it</h2>
         </div>
-        <p class="blk-sub">Every sprint has boundaries: one concrete outcome, I verify it and hand it over. The exact price is set once the scope is fixed, and it does not change after that.</p>
+        <p class="blk-sub">Ready-made source package, delivered manually after payment.</p>
       </div>
 
-      <div class="sprint-grid">
-        <div class="srv-group"><span class="kicker">live web</span></div>
-
-        <article class="sprint rise sprint--hot" id="mascot-sprint" data-spot>
-          <span class="service-label">web interaction</span>
-          <h3>Interactive Mascot</h3>
-          <p>I animate a character or build a code-native one: 4–6 states, interface reactions, mobile, reduced motion.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><s class="price-old">$89</s> <strong>from $49</strong> <em class="sale">−45%</em> · one flow · 2–4 days</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Interactive Mascot Sprint">Discuss →</button>
+      <article class="product-feature product-feature--visual rise">
+        <a class="product-visual" href="../mascot/" target="_blank" rel="noopener" data-cta="store-mascot-demo" aria-label="Open the Living Mascot live demo">
+          <img src="../assets/mascot-demo.jpg" width="840" height="420" alt="Living Mascot live demo: a coral character on a dark stage" loading="lazy" decoding="async">
+        </a>
+        <div class="product-main">
+          <span class="product-status">flagship · source package</span>
+          <h3>Living Mascot</h3>
+          <p>A living canvas engine: recolors for any brand through a single color config, follows the cursor, reacts to clicks, expresses 10 emotions and falls asleep when idle. Canvas 2D, zero dependencies, 6.9 KB gzip.</p>
+          <div class="card-actions">
+            <a class="btn btn-sm" data-cta="store-mascot-demo-btn" href="../mascot/" target="_blank" rel="noopener">Open the live demo</a>
+            <a class="btn btn-sm btn-ghost" data-cta="store-mascot-buy" href="#" data-modal-open data-item="Living Mascot: purchase">Request in chat</a>
           </div>
-        </article>
-
-        <article class="sprint rise" id="landing-sprint" data-spot>
-          <span class="service-label">copy + design + build</span>
-          <h3>Landing Page</h3>
-          <p>Offer, structure, visual language, responsive layout, deploy. Demo: <a class="sprint-link" href="https://shulgin.is-a.dev/kratno-landing-demo" target="_blank" rel="noopener">Kratno ↗</a> <a class="sprint-link" href="https://shulgin.is-a.dev/signal-studio-landing-demo" target="_blank" rel="noopener">Signal Studio ↗</a></p>
-          <div class="sprint-foot">
-            <span class="srv-price"><s class="price-old">$129</s> <strong>from $79</strong> · one page · 2–4 days</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Landing Page Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise sprint--wide" id="case-sprint" data-spot>
-          <span class="service-label">storyfield · new</span>
-          <h3>Particle Case Study</h3>
-          <p>Your product story in five chapters: a 24,000-particle scene reassembles as the visitor scrolls, at 60 fps on a phone. Live demo: <a class="sprint-link" href="../case-demo/en/">open ↗</a></p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $119</strong> · one story · 4-6 days</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Particle Case Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="motion-sprint" data-spot>
-          <span class="service-label">micro-interactions</span>
-          <h3>Motion Polish</h3>
-          <p>Polish for 5–8 micro-interactions on your site: hover, scroll reveals, transitions. Before/after is captured on video.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $59</strong> · 5–8 details</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Motion Polish Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="promo-video-sprint" data-spot>
-          <span class="service-label">html → mp4</span>
-          <h3>Promo Video</h3>
-          <p>A 30-60 second promo built from your materials: kinetic titles, animated numbers, product shots, music. It's assembled by code, so re-rendering it with new numbers is one command, not a new order.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $89</strong> · 16:9 and 9:16</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Promo Video Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="speed-sprint" data-spot>
-          <span class="service-label">core web vitals</span>
-          <h3>Site Speed</h3>
-          <p>Core Web Vitals diagnosis and top fixes: images, fonts, blocking JS. Lighthouse report before and after.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $49</strong> · report in numbers</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Site Speed Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <div class="sprint-fill sprint-fill--cta">
-          <p>Didn't find your task?</p>
-          <button class="srv-action" type="button" data-modal-open data-item="Custom task">Describe it →</button>
+          <div class="card-price"><span class="sr-only">$19</span><noscript><strong>$19</strong></noscript><canvas class="dm-price" data-dots="$19" width="10" height="10" aria-hidden="true"></canvas><span>launch price · ZIP package: source, both builds (ESM + plain script), demo and license, sent after payment in chat</span></div>
         </div>
-
-        <div class="sprint-fill" aria-hidden="true"></div>
-
-        <div class="srv-group"><span class="kicker">AI and automation</span></div>
-
-        <article class="sprint rise sprint--hot" id="rescue-sprint" data-spot>
-          <span class="service-label">ai code · growing demand</span>
-          <h3>Vibe Code Rescue</h3>
-          <p>A project from Cursor, Lovable or Bolt taken to production: secrets, auth, errors, deploy to a real server. Sample report: <a class="sprint-link" href="../case-audit/en/">open ↗</a>. Buying a SaaS instead of fixing one? <a class="sprint-link" href="../buyer-check/">Buyer's Check, $199 ↗</a></p>
-          <div class="sprint-foot">
-            <span class="srv-price"><s class="price-old">$199</s> <strong>from $119</strong> <em class="sale">−40%</em> · audit + fixes</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Vibe Code Rescue">Discuss →</button>
+        <aside class="product-proof" aria-label="Living Mascot capabilities and limits">
+          <div class="proof-block">
+            <span>Good fit</span>
+            <strong>A distinctive character without a heavy 3D stack, colors and reactions connect to your UI.</strong>
           </div>
-        </article>
-
-        <article class="sprint rise" id="tgbot-sprint" data-spot>
-          <span class="service-label">telegram · turnkey</span>
-          <h3>Telegram Bot</h3>
-          <p>A turnkey bot: conversation logic, notifications, deploy. No monthly builder subscription, the code is yours.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $119</strong> · deployment included</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Telegram Bot Sprint">Discuss →</button>
+          <div class="proof-block">
+            <span>Not a replacement for</span>
+            <strong>Rive, Lottie or animating a ready-made illustration.</strong>
           </div>
-        </article>
-
-        <article class="sprint rise" id="ai-widget-sprint" data-spot>
-          <span class="service-label">claude / gpt</span>
-          <h3>AI Chat Widget</h3>
-          <p>A chat widget trained on your materials: answers on point, hands off hard questions to a human. With a monthly token cost estimate.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $89</strong> · knowledge base</span>
-            <button class="srv-action" type="button" data-modal-open data-item="AI Chat Widget Sprint">Discuss →</button>
+          <div class="proof-block">
+            <span>Verified</span>
+            <strong>Desktop, mobile, light/dark, reduced motion, tested in a real browser, not just claimed.</strong>
           </div>
-        </article>
-
-        <article class="sprint rise" id="automation-sprint" data-spot>
-          <span class="service-label">data + llm</span>
-          <h3>Workflow Automation</h3>
-          <p>One manual process becomes a testable pipeline: data, cleanup, an LLM, a result in Telegram, a report or a spreadsheet.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $89</strong> · one workflow</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Workflow Automation Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="ai-visibility-sprint" data-spot>
-          <span class="service-label">geo / aeo</span>
-          <h3>AI Visibility</h3>
-          <p>llms.txt, JSON-LD, a machine-readable layer, and a check of how ChatGPT and Perplexity actually see the site. Honestly: readiness, not a guarantee of citation.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $69</strong> · one-time setup</span>
-            <button class="srv-action" type="button" data-modal-open data-item="AI Visibility Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <div class="srv-group"><span class="kicker">data and infrastructure</span></div>
-
-        <article class="sprint rise" id="scraping-sprint" data-spot>
-          <span class="service-label">scraping · pipelines</span>
-          <h3>Data Scraping</h3>
-          <p>Scheduled data collection: a script, CSV, a spreadsheet or database, alerts on changes. Public sources only.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $79</strong> · code + export</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Data Scraping Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="dashboard-sprint" data-spot>
-          <span class="service-label">analytics · live</span>
-          <h3>Dashboard</h3>
-          <p>A live metrics panel from your sources: 1–2 connections, 4–6 widgets, auto-refresh, access by link.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $119</strong> · 1–2 data sources</span>
-            <button class="srv-action" type="button" data-modal-open data-item="Dashboard Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <article class="sprint rise" id="vps-sprint" data-spot>
-          <span class="service-label">audit + fix + verify</span>
-          <h3>VPS Safety</h3>
-          <p>SSH, firewall, binding, secrets, backups. Fixes come with commands that prove the configuration actually changed.</p>
-          <div class="sprint-foot">
-            <span class="srv-price"><strong>from $49</strong> · one VPS</span>
-            <button class="srv-action" type="button" data-modal-open data-item="VPS Safety Sprint">Discuss →</button>
-          </div>
-        </article>
-
-        <div class="sprint-fill sprint-fill--sm" aria-hidden="true"></div>
-      </div>
-
-      <aside class="addon-strip rise">
-        <div>
-          <span class="service-label">signature motion · on request</span>
-          <h3>Phosphor Engine</h3>
-          <p>ASCII+CRT/WebGL treatment for a technical or experimental site. I build the scene, theme and performance for the project.</p>
-        </div>
-        <div class="addon-action">
-          <span class="srv-price"><strong>from $59</strong> · one scene</span>
-          <a class="btn btn-ghost btn-sm" href="#" data-modal-open data-item="Phosphor Engine: integration">Discuss</a>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-
-  <section class="blk films-blk" id="films">
-    <div class="wrap">
-      <div class="blk-head">
-        <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> short films</span>
-          <h2>Watch instead of reading</h2>
-        </div>
-        <p class="blk-sub">Four films. Each one is rendered from code: HTML, CSS and a paused timeline captured frame by frame, by the same engine you can commission for your own product. Previews run silently; click any of them to open it large, with sound.</p>
-      </div>
-
-      <div class="film-grid">
-        <figure class="film-card film-card--wide">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/qwerty-en.mp4" data-film-title="Qwerty Switcher promo">
-            <video src="https://shulgin.is-a.dev/films/qwerty-en.mp4" poster="https://shulgin.is-a.dev/films/qwerty-en.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">32s · with sound</span>
-          </button>
-          <figcaption><strong>Qwerty Switcher</strong><span>promo for the free app above: the correction engine weighs the dictionary, word frequency and neighbouring letters, so it fixes words that are not in any dictionary — <a href="#apps">download for free</a></span></figcaption>
-        </figure>
-        <figure class="film-card">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/kadr.mp4" data-film-title="Kadr — the film engine">
-            <video src="https://shulgin.is-a.dev/films/kadr.mp4" poster="https://shulgin.is-a.dev/films/kadr.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">34s · with sound</span>
-          </button>
-          <figcaption><strong>Kadr — the engine</strong><span>the one that rendered every film on this page · <a href="#promo-video-sprint">order a film</a></span></figcaption>
-        </figure>
-        <figure class="film-card">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/web-turnkey.mp4" data-film-title="A website, end to end">
-            <video src="https://shulgin.is-a.dev/films/web-turnkey.mp4" poster="https://shulgin.is-a.dev/films/web-turnkey.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">13s · with sound</span>
-          </button>
-          <figcaption><strong>A website, end to end</strong><span>what an order includes and what you keep</span></figcaption>
-        </figure>
-        <figure class="film-card">
-          <button class="film-stage" type="button" data-film="https://shulgin.is-a.dev/films/serzhantovo.mp4" data-film-title="Serzhantovo Horse Yard">
-            <video src="https://shulgin.is-a.dev/films/serzhantovo.mp4" poster="https://shulgin.is-a.dev/films/serzhantovo.jpg" muted loop playsinline preload="none"></video>
-            <span class="film-badge">17s · with sound</span>
-          </button>
-          <figcaption><strong>Serzhantovo Horse Yard</strong><span>client work: the place and the site built for it</span></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="lab-strip" id="open-lab">
-    <div class="wrap">
-      <div class="lab-strip-head">
-        <span class="kicker"><span class="star">★</span> open lab</span>
-        <p>Open source, check the approach before ordering:</p>
-      </div>
-      <div class="lab-chips">
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/agent-graph-inspector" target="_blank" rel="noopener">Agent Graph Inspector ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/server-hardening-playbook" target="_blank" rel="noopener">Hardening Playbook ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/pm2-cockpit" target="_blank" rel="noopener">PM2 Cockpit ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/erdos-openevolve" target="_blank" rel="noopener">Erdos OpenEvolve ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/transaction-guardian" target="_blank" rel="noopener">Transaction Guardian ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777/curated-claude-code" target="_blank" rel="noopener">Curated Claude Code ↗</a>
-        <span class="lab-chip lab-chip--pending">MEXC PHP Client · after audit</span>
-      </div>
+        </aside>
+      </article>
     </div>
   </section>
 
   <section class="maker-strip" id="maker">
     <div class="wrap maker-inner">
       <div>
-        <span class="kicker"><span class="star">★</span> who does the work</span>
         <h3>Aleksandr Shulgin</h3>
-        <p>Full-cycle developer: living canvas/WebGL engines, production pipelines, Linux infrastructure. From idea to production in one pair of hands, no managers and no hand-offs down a chain. The code is open and the portfolio is live: every word here is one click away from proof.</p>
+        <p>Full-cycle developer: living canvas/WebGL engines, production pipelines, Linux infrastructure.</p>
       </div>
       <div class="maker-links">
-        <a class="lab-chip" href="https://shulgin.is-a.dev" target="_blank" rel="noopener">Portfolio ↗</a>
-        <a class="lab-chip" href="https://github.com/Sanexxxx777" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="lab-chip" href="https://www.linkedin.com/in/shulgin-dev" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="lab-chip" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Telegram ↗</a>
+        <a class="lab-chip" data-cta="store-maker-portfolio" href="https://shulgin.is-a.dev" target="_blank" rel="noopener">Portfolio ↗</a>
+        <a class="lab-chip" data-cta="store-maker-hire" href="/hire/?lang=en">Custom development →</a>
       </div>
     </div>
   </section>
@@ -568,38 +237,41 @@
   <section class="blk" id="faq">
     <div class="wrap">
       <div class="blk-head">
-        <canvas class="watermark-dots" data-dots="04" width="10" height="10" aria-hidden="true"></canvas>
+        <canvas class="watermark-dots" data-dots="03" width="10" height="10" aria-hidden="true"></canvas>
         <div class="blk-title">
-          <span class="kicker"><span class="star">★</span> process and terms</span>
-          <h2>How the work runs</h2>
+          <span class="kicker"><span class="star">★</span> questions</span>
+          <h2>About the products</h2>
         </div>
-        <p class="blk-sub">Four steps, no surprises. Below are answers to what people usually ask before reaching out.</p>
       </div>
-      <ol class="steps">
-        <li><strong>We discuss the job.</strong> Telegram or email, you briefly describe what you need.</li>
-        <li><strong>We fix the scope.</strong> Input, output and acceptance check in writing, before any code. At this point I quote the timeline and exact price.</li>
-        <li><strong>The sprint.</strong> Usually 2–4 days. A progress check-in if the work runs longer than two days.</li>
-        <li><strong>Acceptance and handover.</strong> We check the result against the fixed criterion, and I hand over the code and setup instructions.</li>
-      </ol>
       <div class="faq-list">
         <details class="faq-item" data-spot>
-          <summary>What does "from $X" mean, what is the exact price?</summary>
-          <p>"From" is the price of the sprint's minimum scope. The exact number is quoted once the scope is fixed at step 2, and it does not change after that. If the job grows, we revisit the scope first, not the invoice.</p>
+          <summary>How do I download Qwerty Switcher, and why does macOS warn me on first launch?</summary>
+          <p>The “Download for macOS” button in the app card gives you the DMG. The build is signed with a self-signed certificate, so the first launch shows a macOS warning. macOS 15 and later: dismiss it, open System Settings → Privacy &amp; Security and click “Open Anyway” at the bottom. macOS 13 to 14: right-click the app → Open. After that it launches normally.</p>
         </details>
         <details class="faq-item" data-spot>
-          <summary>How does payment work?</summary>
-          <p>Discussed in chat: card, crypto or transfer. Usually part upfront, the rest on acceptance. The upfront part is due only after the scope and acceptance check are fixed in writing: you pay for an outcome both sides understand. For sprints up to $100, paying in full on acceptance is an option, with no upfront part at all. There are no payment buttons on the site yet, on purpose.</p>
+          <summary>What license does Living Mascot have?</summary>
+          <p>A personal license, its text is in the ZIP. Client sites and several projects: write to me and we will agree on terms.</p>
         </details>
         <details class="faq-item" data-spot>
-          <summary>What if the result does not fit?</summary>
-          <p>The acceptance check is fixed before the start; fit or no fit is checked against it, not against a feeling. If it falls short of the criterion, I finish the work within the sprint at no extra charge.</p>
+          <summary>How do I pay for Living Mascot and get it?</summary>
+          <p>Payment is discussed in chat: card, crypto or transfer. There are no payment buttons on the site yet, on purpose. After payment I send the ZIP manually in the same chat: source, ESM and plain script builds, the demo and the license.</p>
         </details>
         <details class="faq-item" data-spot>
-          <summary>Who owns the code?</summary>
-          <p>You do. I hand over the source and usage rights; Living Mascot ships under the license included in the package.</p>
+          <summary>How do Qwerty Switcher updates work?</summary>
+          <p>Only if you turn them on yourself in settings: checks and auto-install. Then, once a day, the app fetches a single file from this site and sends nothing about you. Permissions survive an update.</p>
         </details>
       </div>
-      <p class="proof-line">Production systems, live engines and research behind this work live <a href="https://shulgin.is-a.dev">in the main portfolio ↗</a></p>
+    </div>
+  </section>
+
+  <section class="more-pages" aria-label="Other pages">
+    <div class="wrap">
+      <span class="kicker"><span class="star">★</span> other pages</span>
+      <div class="more-grid more-grid--3">
+        <a class="more-link" data-cta="store-more-hire" href="/hire/?lang=en">Custom development <span aria-hidden="true">→</span></a>
+        <a class="more-link" data-cta="store-more-video" href="/video/">Interface videos <span aria-hidden="true">→</span></a>
+        <a class="more-link" data-cta="store-more-prosto" href="../prosto/en/">A website or bot for a small business <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 </main>
@@ -608,14 +280,13 @@
   <div class="wrap cols">
     <div class="about-col">
       <a class="logo" href="index.html">SHULGIN.IS-A<i>.</i></a>
-      <p>Ready-made code and short sprints with a concrete outcome. Aleksandr Shulgin.</p>
+      <p>Ready-made tools and source code. Aleksandr Shulgin.</p>
     </div>
     <div>
       <h4>Menu</h4>
-      <a href="#offers">Tasks</a>
       <a href="#apps">Mac apps</a>
-      <a href="#services">Sprints</a>
       <a href="#products">Living Mascot</a>
+      <a href="/hire/?lang=en">Custom development</a>
       <a href="https://shulgin.is-a.dev">Portfolio</a>
     </div>
     <div>
@@ -624,7 +295,7 @@
       <a href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Telegram @Aleksandr_NFA</a>
     </div>
   </div>
-  <div class="wrap legal">Prices on this site are indicative and do not constitute a public offer: the exact cost and scope are fixed in writing before work starts. The site does not collect or store personal data; the contact form composes the message locally in your browser.</div>
+  <div class="wrap legal">Prices on this site do not constitute a public offer: purchase terms are discussed in chat. The site does not collect or store personal data; the contact form composes the message locally in your browser.</div>
   <div class="wrap base">
     <div>© 2026 Aleksandr Shulgin</div>
     <div>Working remotely</div>
@@ -639,12 +310,12 @@
     <p class="sub" id="lm-sub">Tell me what needs to be delivered: I will reply on Telegram or email.</p>
     <form data-lead-form novalidate>
       <label for="lm-item">What you are interested in</label>
-      <input id="lm-item" type="text" name="item" placeholder="Living Mascot / a sprint / something else">
+      <input id="lm-item" type="text" name="item" placeholder="Living Mascot / something else">
       <label for="lm-contact">Telegram or email: where to reply</label>
       <input id="lm-contact" type="text" name="contact" required aria-describedby="lm-error" placeholder="@handle or email">
       <p class="form-error" id="lm-error" role="alert"></p>
       <label for="lm-message">Message</label>
-      <textarea id="lm-message" name="msg" placeholder="Briefly: the job, current context and timeline"></textarea>
+      <textarea id="lm-message" name="msg" placeholder="Briefly: what you need, current context and timeline"></textarea>
       <a class="send send-tg" href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Message on Telegram</a>
       <a class="send send-alt" id="lm-send" href="mailto:sanexxx777@gmail.com">Open the email</a>
       <p class="fine">Telegram is faster: the chat opens with your text pre-filled (it is also copied to the clipboard). Email opens in your mail client. Payment is discussed in chat: card, crypto or transfer. Nothing is stored anywhere.</p>
@@ -652,22 +323,21 @@
   </div>
 </div>
 
-  <dialog id="film-lightbox" class="film-lightbox" closedby="any" aria-label="Film viewer">
-    <button class="film-lightbox__close" type="button" data-film-close aria-label="Close">&times;</button>
-    <video controls playsinline preload="none"></video>
-    <p class="film-lightbox__cap"></p>
-  </dialog>
-
 <script src="../app.js"></script>
 <script src="../assets/effects.js"></script>
 <script src="../assets/dotmatrix.js"></script>
 <script type="module">
-  import { createOctopus3D } from '../assets/octopus3d.js';
+  import { createLivingMascot } from '../mascot/mascot.esm.js';
   var canvas = document.getElementById('hero-mascot');
   try {
-    if (canvas) createOctopus3D(canvas);
+    if (canvas) createLivingMascot(canvas, {
+      zoom: 1.15,
+      colors: function () {
+        return { a: '#ee4e4e', b: '#c23f3f', ink: '#ede4d3', eye: 'rgba(22, 9, 11, 0.88)', heart: '#ff8fb3', anger: '#ff453a' };
+      }
+    });
   } catch (e) {
-    if (canvas) canvas.style.display = 'none'; // no WebGL - hide the scene, page keeps working
+    if (canvas) canvas.style.display = 'none'; // no canvas 2D - hide the scene, page keeps working
   }
 </script>
 <script>
