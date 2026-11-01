@@ -16,6 +16,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/"/>
   </url>
   <url>
+    <loc>https://shulgin.is-a.dev/store/qwerty/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/qwerty/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/qwerty/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/qwerty/"/>
+  </url>
+  <url>
+    <loc>https://shulgin.is-a.dev/store/en/qwerty/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/qwerty/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/qwerty/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/qwerty/"/>
+  </url>
+  <url>
     <loc>https://shulgin.is-a.dev/store/mascot/</loc>
     <lastmod>2026-10-19</lastmod>
   </url>

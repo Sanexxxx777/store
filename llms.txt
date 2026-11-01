@@ -5,7 +5,7 @@
 ## Products
 
 - [Living Mascot](https://shulgin.is-a.dev/store/mascot/): A living canvas engine with a flexible theme, recolorable for any brand through a single color config. Reacts to the pointer and clicks, expresses 10 emotions, falls asleep when idle. Canvas 2D, zero runtime dependencies, ESM and plain script builds. $19, personal license, 6.9 KB gzip. Live demo at the link above.
-- [Qwerty Switcher](https://shulgin.is-a.dev/store/#apps): v0.11.9 macOS 13+ keyboard-layout auto-switcher for Russian/English. Free - no subscription or keys; offline unless you opt in to update checks (one JSON fetch a day from this site, nothing sent): download the DMG and use it. Fixes the wrong layout as you type (from the fourth letter), converts a selection or the last word with Double Shift, learns from your corrections, pauses itself in games.
+- [Qwerty Switcher](https://shulgin.is-a.dev/store/qwerty/): v0.11.9 macOS 13+ keyboard-layout auto-switcher for Russian/English. Free - no subscription or keys; offline unless you opt in to update checks (one JSON fetch a day from this site, nothing sent): download the DMG and use it. Fixes the wrong layout as you type (from the fourth letter), converts a selection or the last word with Double Shift, learns from your corrections, pauses itself in games.
 
 ## Other pages
 

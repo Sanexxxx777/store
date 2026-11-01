@@ -36,6 +36,14 @@
   }
 
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isEn = document.documentElement.lang === 'en';
+
+  /* Выбор языка в шапке запоминается так же, как на витрине: ключ lang в localStorage. */
+  document.querySelectorAll('a[data-setlang]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      try { localStorage.setItem('lang', a.getAttribute('data-setlang')); } catch (e) {}
+    });
+  });
   var STOP = {};
 
   /* Экран одной сцены. Текст держим в трёх узлах (до отметки, отметка, после), чтобы
@@ -274,7 +282,9 @@
     field.hidden = false;
     toggle.hidden = true;
     convBtn.hidden = false;
-    cap.textContent = 'Наберите слово не в той раскладке и дважды нажмите Shift. Здесь работает только ручной перевод, угадывать слово по словарю умеет само приложение.';
+    cap.textContent = isEn
+      ? 'Type a word in the wrong layout and press Shift twice. Only manual conversion works here; guessing the word from the dictionary is what the app itself does.'
+      : 'Наберите слово не в той раскладке и дважды нажмите Shift. Здесь работает только ручной перевод, угадывать слово по словарю умеет само приложение.';
     field.focus();
   });
 

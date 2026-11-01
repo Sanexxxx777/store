@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    var here = 'ru';
+    var saved = localStorage.getItem('lang');
+    var want = saved || (((navigator.language || '').toLowerCase().indexOf('ru') === 0) ? 'ru' : 'en');
+    if (want !== here) location.replace('../en/qwerty/' + location.search + location.hash);
+  } catch (e) {}
+})();
+</script>
 <title>Qwerty Switcher для Mac: раскладка исправляется сама</title>
 <meta name="description" content="Бесплатное приложение для macOS: переводит слово, набранное не в той раскладке, ещё до пробела. Работает без интернета, исходный код открыт.">
 <link rel="preload" href="../fonts/oswald-cyrillic-200_700.woff2" as="font" type="font/woff2" crossorigin>
@@ -13,6 +24,9 @@
 <link rel="stylesheet" href="qwerty.css">
 <link rel="icon" type="image/png" href="icon-256.png">
 <link rel="canonical" href="https://shulgin.is-a.dev/store/qwerty/">
+<link rel="alternate" hreflang="ru" href="https://shulgin.is-a.dev/store/qwerty/">
+<link rel="alternate" hreflang="en" href="https://shulgin.is-a.dev/store/en/qwerty/">
+<link rel="alternate" hreflang="x-default" href="https://shulgin.is-a.dev/store/qwerty/">
 <meta property="og:title" content="Qwerty Switcher для Mac: раскладка исправляется сама">
 <meta property="og:type" content="website">
 <meta property="og:description" content="Бесплатное приложение для macOS. Переводит слово, набранное не в той раскладке, ещё до пробела.">
@@ -57,6 +71,7 @@
       <a href="#install">Установка</a>
       <a href="#faq">Вопросы</a>
     </nav>
+    <a class="lang-switch" href="../en/qwerty/" aria-label="English version" data-setlang="en">EN</a>
     <a class="cta-mini" data-cta="qwerty-nav-dmg" href="../downloads/QwertySwitcher-0.11.9.dmg" download>Скачать</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
       <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
