@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qwerty Switcher для Mac: раскладка исправляется сама</title>
+<meta name="description" content="Бесплатное приложение для macOS: переводит слово, набранное не в той раскладке, ещё до пробела. Работает без интернета, исходный код открыт.">
+<link rel="preload" href="../fonts/oswald-cyrillic-200_700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/inter-cyrillic-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/jetbrains-mono-latin-400_600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="qwerty.css">
+<link rel="icon" type="image/png" href="icon-256.png">
+<link rel="canonical" href="https://shulgin.is-a.dev/store/qwerty/">
+<meta property="og:title" content="Qwerty Switcher для Mac: раскладка исправляется сама">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Бесплатное приложение для macOS. Переводит слово, набранное не в той раскладке, ещё до пробела.">
+<meta property="og:url" content="https://shulgin.is-a.dev/store/qwerty/">
+<meta property="og:image" content="https://shulgin.is-a.dev/store/qwerty/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shulgin.is-a.dev/store/qwerty/og.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Qwerty Switcher",
+  "description": "Переводит слово, набранное не в той раскладке, ещё до пробела. Русская и английская раскладки, работает без интернета.",
+  "operatingSystem": "macOS 13+",
+  "applicationCategory": "UtilitiesApplication",
+  "softwareVersion": "0.11.9",
+  "url": "https://shulgin.is-a.dev/store/qwerty/",
+  "downloadUrl": "https://shulgin.is-a.dev/store/downloads/QwertySwitcher-0.11.9.dmg",
+  "image": "https://shulgin.is-a.dev/store/qwerty/icon-256.png",
+  "isAccessibleForFree": true,
+  "license": "https://github.com/Sanexxxx777/QwertySwitcher/blob/main/LICENSE",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "Aleksandr Shulgin", "url": "https://shulgin.is-a.dev", "sameAs": ["https://github.com/Sanexxxx777", "https://t.me/Aleksandr_NFA"] }
+}
+</script>
+</head>
+<body class="q-page">
+
+<div class="dotgrid" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="logo" href="../">SHULGIN.IS-A<i>.</i></a>
+    <a class="logo-tag" href="../">/ МАГАЗИН</a>
+    <nav class="nav" id="site-nav" aria-label="Разделы страницы">
+      <a href="#how">Как работает</a>
+      <a href="#keys">Клавиши</a>
+      <a href="#privacy">Приватность</a>
+      <a href="#install">Установка</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="cta-mini" data-cta="qwerty-nav-dmg" href="../downloads/QwertySwitcher-0.11.9.dmg" download>Скачать</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
+      <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="q-hero">
+    <div class="wrap">
+      <img class="q-icon" src="icon-256.png" width="128" height="128" alt="Иконка Qwerty Switcher">
+      <span class="kicker">приложение для Mac</span>
+      <h1>Не та раскладка? Уже исправлено</h1>
+      <p class="q-lead">Qwerty Switcher сам переводит слово, набранное не в той раскладке.</p>
+      <div class="q-actions">
+        <a class="btn q-btn-lg" data-cta="qwerty-hero-dmg" href="../downloads/QwertySwitcher-0.11.9.dmg" download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          Скачать для macOS
+        </a>
+        <a class="btn btn-ghost q-btn-lg" data-cta="qwerty-hero-github" href="https://github.com/Sanexxxx777/QwertySwitcher" target="_blank" rel="noopener">Исходный код</a>
+      </div>
+      <ul class="q-meta">
+        <li>Бесплатно</li>
+        <li>macOS 13 и новее</li>
+        <li>Intel и Apple Silicon</li>
+        <li>DMG 5 МБ</li>
+      </ul>
+    </div>
+
+    <div class="wrap q-stage">
+      <div class="mac" id="hero-scene" data-scene="hero">
+        <div class="mac-bar">
+          <span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="mac-title">Новое сообщение</span>
+          <span class="mac-layout" aria-hidden="true">RU</span>
+        </div>
+        <div class="mac-body">
+          <p class="sr-only">Пример: начало слова «ghbd», набранное в английской раскладке, превращается в «прив», и фраза продолжается по-русски: «привет, как дела?»</p>
+          <p class="typed" aria-hidden="true"><span class="t"><span class="fx">прив</span>ет, как дела?</span><span class="caret" aria-hidden="true"></span></p>
+          <label class="sr-only" for="try-field">Поле для пробы: наберите слово и дважды нажмите Shift</label>
+          <textarea class="try" id="try-field" rows="2" spellcheck="false" autocomplete="off" autocapitalize="off" hidden placeholder="Наберите ghbdtn и дважды нажмите Shift"></textarea>
+        </div>
+      </div>
+
+      <div class="kb" aria-hidden="true">
+        <div class="kb-row"><span class="k" data-k="q"><b>Q</b><i>Й</i></span><span class="k" data-k="w"><b>W</b><i>Ц</i></span><span class="k" data-k="e"><b>E</b><i>У</i></span><span class="k" data-k="r"><b>R</b><i>К</i></span><span class="k" data-k="t"><b>T</b><i>Е</i></span><span class="k" data-k="y"><b>Y</b><i>Н</i></span><span class="k" data-k="u"><b>U</b><i>Г</i></span><span class="k" data-k="i"><b>I</b><i>Ш</i></span><span class="k" data-k="o"><b>O</b><i>Щ</i></span><span class="k" data-k="p"><b>P</b><i>З</i></span><span class="k" data-k="["><b>[</b><i>Х</i></span><span class="k" data-k="]"><b>]</b><i>Ъ</i></span></div>
+        <div class="kb-row"><span class="k" data-k="a"><b>A</b><i>Ф</i></span><span class="k" data-k="s"><b>S</b><i>Ы</i></span><span class="k" data-k="d"><b>D</b><i>В</i></span><span class="k" data-k="f"><b>F</b><i>А</i></span><span class="k" data-k="g"><b>G</b><i>П</i></span><span class="k" data-k="h"><b>H</b><i>Р</i></span><span class="k" data-k="j"><b>J</b><i>О</i></span><span class="k" data-k="k"><b>K</b><i>Л</i></span><span class="k" data-k="l"><b>L</b><i>Д</i></span><span class="k" data-k=";"><b>;</b><i>Ж</i></span><span class="k" data-k="'"><b>'</b><i>Э</i></span></div>
+        <div class="kb-row"><span class="k k-mod" data-k="shiftl">⇧</span><span class="k" data-k="z"><b>Z</b><i>Я</i></span><span class="k" data-k="x"><b>X</b><i>Ч</i></span><span class="k" data-k="c"><b>C</b><i>С</i></span><span class="k" data-k="v"><b>V</b><i>М</i></span><span class="k" data-k="b"><b>B</b><i>И</i></span><span class="k" data-k="n"><b>N</b><i>Т</i></span><span class="k" data-k="m"><b>M</b><i>Ь</i></span><span class="k" data-k=","><b>,</b><i>Б</i></span><span class="k" data-k="."><b>.</b><i>Ю</i></span><span class="k k-mod" data-k="shiftr">⇧</span></div>
+        <div class="kb-row"><span class="k k-space" data-k=" "></span></div>
+      </div>
+
+      <div class="q-try">
+        <p class="q-try-cap" id="try-cap">Одна клавиша, две буквы. Приложение понимает, какую из них вы имели в виду.</p>
+        <div class="q-try-actions">
+          <button class="btn btn-ghost btn-sm" type="button" id="try-toggle" hidden>Попробовать самому</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="try-convert" hidden>Перевести слово</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="q-sec" id="how">
+    <div class="wrap fs">
+      <div class="fs-pin">
+        <span class="kicker">как это работает</span>
+        <h2>Пять случаев из обычного дня</h2>
+        <ol class="fs-index">
+          <li data-for="cap-instant">На ходу</li>
+          <li data-for="cap-select">Двойной Shift</li>
+          <li data-for="cap-term">Терминал</li>
+          <li data-for="cap-learn">Учится</li>
+          <li data-for="cap-game">Игры</li>
+        </ol>
+        <p class="fs-note">Слово взвешивается по словарю на 697 тысяч слов, частоте и соседним буквам. Поэтому чинятся и слова, которых в словаре нет.</p>
+      </div>
+
+      <div class="fs-caps">
+        <article class="cap" id="cap-instant">
+          <div class="mac mac-sm" data-scene="instant" aria-hidden="true">
+            <div class="mac-bar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mac-title">Заметки</span><span class="mac-layout" aria-hidden="true">RU</span></div>
+            <div class="mac-body"><p class="typed"><span class="t"><span class="fx">завт</span>ра в 10</span><span class="caret" aria-hidden="true"></span></p></div>
+          </div>
+          <h3>Исправляет на ходу</h3>
+          <p>С четвёртой буквы, ещё до пробела. Дальше вы печатаете уже в нужной раскладке.</p>
+        </article>
+
+        <article class="cap" id="cap-select">
+          <div class="mac mac-sm" data-scene="select" aria-hidden="true">
+            <div class="mac-bar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mac-title">Почта</span><span class="mac-layout" aria-hidden="true">RU</span></div>
+            <div class="mac-body"><p class="typed"><span class="t"><span class="fx">Ваша заявка принята</span></span><span class="caret" aria-hidden="true"></span></p><span class="ds" aria-hidden="true"><kbd>⇧</kbd><kbd>⇧</kbd></span></div>
+          </div>
+          <h3>Двойной Shift</h3>
+          <p>Выделите текст и дважды нажмите Shift: весь фрагмент перейдёт в другую раскладку. Без выделения переведётся последнее слово.</p>
+        </article>
+
+        <article class="cap" id="cap-term">
+          <div class="mac mac-sm mac-term" data-scene="term" aria-hidden="true">
+            <div class="mac-bar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mac-title">Терминал</span><span class="mac-layout" aria-hidden="true">EN</span></div>
+            <div class="mac-body"><p class="typed"><span class="t">~ % git status
+~ % npm run dev</span><span class="caret" aria-hidden="true"></span></p><span class="tag" aria-hidden="true">без изменений</span></div>
+          </div>
+          <h3>Не трогает команды</h3>
+          <p>Латинские команды в терминале остаются как есть: приложение смотрит на язык соседнего текста.</p>
+        </article>
+
+        <article class="cap" id="cap-learn">
+          <div class="mac mac-sm" data-scene="learn" aria-hidden="true">
+            <div class="mac-bar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mac-title">Telegram</span><span class="mac-layout" aria-hidden="true">RU</span></div>
+            <div class="mac-body"><p class="typed"><span class="t">вайбкод
+вайбкод
+<span class="fx">вайбкод</span> </span><span class="caret" aria-hidden="true"></span></p><span class="tag" aria-hidden="true">третий раз само</span></div>
+          </div>
+          <h3>Учится на ваших правках</h3>
+          <p>Дважды поправили слово вручную, дальше оно исправляется само. Словарь правок хранится только на вашем Mac.</p>
+        </article>
+
+        <article class="cap" id="cap-game">
+          <div class="mac mac-sm mac-game" data-scene="game" aria-hidden="true">
+            <div class="mac-bar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mac-title">Игра</span><span class="mac-layout" aria-hidden="true">EN</span></div>
+            <div class="mac-body">
+              <div class="wasd" aria-hidden="true"><kbd data-k="w">W</kbd><kbd data-k="a">A</kbd><kbd data-k="s">S</kbd><kbd data-k="d">D</kbd></div>
+              <span class="tag tag-on" aria-hidden="true">игровой режим</span>
+            </div>
+          </div>
+          <h3>Не мешает играть</h3>
+          <p>Распознаёт игру и не трогает клавиши. Когда вы снова пишете текст, режим снимается сам.</p>
+        </article>
+
+        <a class="btn fs-cta" data-cta="qwerty-how-dmg" href="../downloads/QwertySwitcher-0.11.9.dmg" download>Скачать для macOS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="q-sec" id="keys">
+    <div class="wrap">
+      <span class="kicker">клавиши</span>
+      <h2>Всё управление на клавиатуре</h2>
+      <dl class="keys">
+        <div><dt><kbd>⇧</kbd></dt><dd>Сменить раскладку</dd></div>
+        <div><dt><kbd>⇧</kbd><kbd>⇧</kbd></dt><dd>Перевести последнее слово или выделение</dd></div>
+        <div><dt><kbd>левый ⇧</kbd><kbd>правый ⇧</kbd></dt><dd>Включить или выключить автоисправление</dd></div>
+        <div><dt><kbd>⌘</kbd><kbd>⌥</kbd><kbd>Z</kbd></dt><dd>Отменить последнее исправление</dd></div>
+        <div><dt><kbd>⌘</kbd><kbd>⌥</kbd><kbd>⇧</kbd><kbd>V</kbd></dt><dd>Вставить без форматирования</dd></div>
+        <div><dt><kbd>Caps Lock</kbd></dt><dd>Сменить раскладку</dd></div>
+      </dl>
+      <p class="keys-note">Для отдельных приложений автоисправление можно выключить, а целиком поставить на паузу на 15, 60 или 120 минут.</p>
+    </div>
+  </section>
+
+  <section class="q-sec" id="privacy">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">приватность</span>
+        <h2>Ваш текст остаётся на Mac</h2>
+        <ul class="plain">
+          <li>Каждое слово разбирается на месте. Ни аналитики, ни записи нажатий.</li>
+          <li>В сеть ходит только с вашего разрешения: раз в сутки проверяет обновления и ничего о вас не отправляет.</li>
+          <li>Подробный журнал выключен. Отчёт для отправки сам вырезает коды клавиш.</li>
+        </ul>
+      </div>
+      <figure class="proof">
+        <div class="mac mac-sm mac-term">
+          <div class="mac-bar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="mac-title">Терминал</span></div>
+          <div class="mac-body"><pre><code>~ % lsof -a -i -p $(pgrep -x QwertySwitcher)
+~ % </code></pre></div>
+        </div>
+        <figcaption>Проверьте сами: при выключенных обновлениях сетевых соединений нет. Код открыт на GitHub, лицензия MIT.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="q-sec" id="install">
+    <div class="wrap">
+      <span class="kicker">установка</span>
+      <h2>Три шага до первого исправления</h2>
+      <ol class="steps-q">
+        <li>
+          <h3>Перетащите в «Программы»</h3>
+          <p>Откройте DMG и перенесите Qwerty Switcher в папку «Программы».</p>
+        </li>
+        <li>
+          <h3>Откройте в первый раз</h3>
+          <p>Сборка подписана самоподписанным сертификатом, и macOS предупредит. На macOS 15 и новее: Системные настройки, Конфиденциальность и безопасность, «Открыть всё равно». На 13 и 14: правый клик, «Открыть».</p>
+        </li>
+        <li>
+          <h3>Дайте доступ к клавиатуре</h3>
+          <p>Приложение само откроет нужный раздел настроек. Без этого разрешения оно не видит нажатий. Перезапускать ничего не нужно.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="q-sec" id="faq">
+    <div class="wrap">
+      <span class="kicker">вопросы</span>
+      <h2>Коротко о главном</h2>
+      <div class="faq-list">
+        <details class="faq-item" name="faq">
+          <summary>Работает в Telegram, Slack и VS Code?</summary>
+          <p>Да. Исправление печатается по одному символу, поэтому доходит и до приложений на Electron, где пачки нажатий теряются. В терминалах латинские команды не трогаются.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Какие языки понимает?</summary>
+          <p>Русскую и английскую раскладки: словарь на 697 тысяч слов, частоты слов и сочетания букв для обоих языков.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Как приходят обновления?</summary>
+          <p>Включите проверку и автоустановку в настройках. Раз в сутки приложение запросит один файл с этого сайта, и права доступа после обновления сохранятся. Если ставить новую версию из DMG поверх старой, macOS попросит разрешения заново.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Почему бесплатно и где исходники?</summary>
+          <p>Без подписки, ключей и пробного периода. Исходный код открыт на <a href="https://github.com/Sanexxxx777/QwertySwitcher" target="_blank" rel="noopener">GitHub</a> под лицензией MIT.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Что делать, если исправило не то?</summary>
+          <p>Нажмите <kbd>⌘</kbd><kbd>⌥</kbd><kbd>Z</kbd>, и слово вернётся как было. Дважды поправленное вручную слово приложение запомнит.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="q-end">
+    <div class="wrap">
+      <img src="icon-256.png" width="96" height="96" alt="" loading="lazy" decoding="async">
+      <h2>Скачать Qwerty Switcher</h2>
+      <a class="btn q-btn-lg" data-cta="qwerty-end-dmg" href="../downloads/QwertySwitcher-0.11.9.dmg" download>Скачать для macOS</a>
+      <p class="q-ver">Версия 0.11.9 от 19 октября 2026, для macOS 13 и новее.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap cols">
+    <div class="about-col">
+      <a class="logo" href="../">SHULGIN.IS-A<i>.</i></a>
+      <p>Qwerty Switcher делает Александр Шульгин.</p>
+    </div>
+    <div>
+      <h4>Ещё</h4>
+      <a href="../">Магазин</a>
+      <a href="../mascot/">Living Mascot</a>
+      <a href="https://shulgin.is-a.dev">Портфолио</a>
+    </div>
+    <div>
+      <h4>Связь</h4>
+      <a href="https://t.me/Aleksandr_NFA" target="_blank" rel="noopener">Telegram @Aleksandr_NFA</a>
+      <a href="mailto:sanexxx777@gmail.com">sanexxx777@gmail.com</a>
+    </div>
+  </div>
+  <div class="wrap base"><span>© 2026 Александр Шульгин</span><span>MIT</span></div>
+</footer>
+
+<script src="../app.js"></script>
+<script src="qwerty.js"></script>
+<script>
+/* Счётчик визитов: без кук и без IP (endpoint адреса не логирует). Страница, язык, источник, глубина скролла. */
+(function () {
+  try {
+    if (/bot|crawl|spider|preview|lighthouse/i.test(navigator.userAgent)) return;
+    function utmOnly() {
+      try {
+        var p = new URLSearchParams(location.search || '');
+        return ['utm_source', 'utm_medium', 'utm_campaign']
+          .map(function (k) { var v = p.get(k); return v ? k + '=' + v : ''; })
+          .filter(Boolean).join('&');
+      } catch (e) { return ''; }
+    }
+    var E = 'https://backend-test.45-82-95-142.nip.io:8443/hit';
+    var base = 'p=' + encodeURIComponent(location.pathname) +
+               '&l=' + encodeURIComponent(navigator.language || '') +
+               '&q=' + encodeURIComponent(utmOnly()) +
+               '&r=' + encodeURIComponent(document.referrer || '');
+    navigator.sendBeacon(E + '?' + base);
+    var md = 0;
+    addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - innerHeight;
+      var d = h > 0 ? Math.round(scrollY / h * 100) : 100;
+      if (d > md) md = d;
+    }, { passive: true });
+    addEventListener('pagehide', function () {
+      navigator.sendBeacon(E + '?e=depth&d=' + md + '&' + base);
+    });
+    /* Клик по DMG = скачивание, d = версия из имени файла. */
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('a[href$=".dmg"]');
+      if (!a) return;
+      var v = (a.getAttribute('href').match(/-([\d.]+)\.dmg$/) || [])[1] || '';
+      navigator.sendBeacon(E + '?e=dl&d=' + encodeURIComponent(v) + '&' + base);
+    }, true);
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
