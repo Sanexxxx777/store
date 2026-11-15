@@ -1032,3 +1032,15 @@ a.lab-chip:hover { color: var(--cream); border-color: var(--red); }
   .more-grid--3 .more-link:last-child { border-bottom: 0; }
 }
 html[lang="en"] .app-facts li::before { content: "-"; }
+
+/* touch screens: 44px targets for the small buttons and chips */
+@media (pointer: coarse) {
+  .btn-sm { min-height: 44px; }
+  .lang-switch,
+  .cta-mini,
+  .lab-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

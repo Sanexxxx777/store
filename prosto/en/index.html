@@ -529,6 +529,11 @@
   @media print {
     .rv { opacity: 1 !important; transform: none !important; }
   }
+@media (pointer: coarse) {
+  .lang a { padding: 1rem .5rem; margin-inline: -.5rem; }
+  .faq summary, .group > details > summary { padding-block: .55rem; }
+  .lead-form input[type="text"], .lead-form textarea { min-height: 44px; }
+}
 </style>
 </head>
 <body>
